@@ -57,7 +57,8 @@ SOURCES       = ../KeyBoardManager/combo.cpp \
 		../widgets/gamemapcanvas.cpp \
 		../main.cpp \
 		../mainwindow.cpp \
-		../mapviewpage.cpp moc_mainwindow.cpp \
+		../mapviewpage.cpp qrc_assets.cpp \
+		moc_mainwindow.cpp \
 		moc_mapviewpage.cpp
 OBJECTS       = combo.o \
 		keyboardmanager.o \
@@ -65,15 +66,11 @@ OBJECTS       = combo.o \
 		main.o \
 		mainwindow.o \
 		mapviewpage.o \
+		qrc_assets.o \
 		moc_mainwindow.o \
 		moc_mapviewpage.o
-DIST          = ../../../Desktop/Screenshot \
-		../2020-11-12 \
-		../at \
-		../3.20.26 \
-		../PM.png \
-		../../../Desktop/test_map.png \
-		../assets/test \
+DIST          = ../assets/test_map.png \
+		../assets/test_map.txt \
 		../../../../Qt/5.15.1/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.15.1/clang_64/mkspecs/qdevice.pri \
 		../../../../Qt/5.15.1/clang_64/mkspecs/features/device_config.prf \
@@ -462,6 +459,7 @@ Makefile: ../comp2012h_operation_h.pro ../../../Qt/5.15.1/clang_64/mkspecs/featu
 		../../../Qt/5.15.1/clang_64/mkspecs/features/yacc.prf \
 		../../../Qt/5.15.1/clang_64/mkspecs/features/lex.prf \
 		../comp2012h_operation_h.pro \
+		../assets.qrc \
 		../../../Qt/5.15.1/clang_64/lib/QtWidgets.framework/Resources/QtWidgets.prl \
 		../../../Qt/5.15.1/clang_64/lib/QtGui.framework/Resources/QtGui.prl \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Resources/QtCore.prl
@@ -644,6 +642,7 @@ Makefile: ../comp2012h_operation_h.pro ../../../Qt/5.15.1/clang_64/mkspecs/featu
 ../../../Qt/5.15.1/clang_64/mkspecs/features/yacc.prf:
 ../../../Qt/5.15.1/clang_64/mkspecs/features/lex.prf:
 ../comp2012h_operation_h.pro:
+../assets.qrc:
 ../../../Qt/5.15.1/clang_64/lib/QtWidgets.framework/Resources/QtWidgets.prl:
 ../../../Qt/5.15.1/clang_64/lib/QtGui.framework/Resources/QtGui.prl:
 ../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Resources/QtCore.prl:
@@ -676,6 +675,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../assets.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/5.15.1/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../KeyBoardManager/combo.h ../KeyBoardManager/keyboardmanager.h ../KeyBoardManager/KeyState.h ../widgets/gamemapcanvas.h ../mainwindow.h ../mapviewpage.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../KeyBoardManager/combo.cpp ../KeyBoardManager/keyboardmanager.cpp ../widgets/gamemapcanvas.cpp ../main.cpp ../mainwindow.cpp ../mapviewpage.cpp $(DISTDIR)/
@@ -706,8 +706,15 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_assets.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_assets.cpp
+qrc_assets.cpp: ../assets.qrc \
+		../../../Qt/5.15.1/clang_64/bin/rcc \
+		../assets/test_map.txt \
+		../assets/test_map.png
+	/Users/dannylau/Qt/5.15.1/clang_64/bin/rcc -name assets ../assets.qrc -o qrc_assets.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -771,7 +778,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -856,6 +863,9 @@ mapviewpage.o: ../mapviewpage.cpp ../mapviewpage.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qdebug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mapviewpage.o ../mapviewpage.cpp
+
+qrc_assets.o: qrc_assets.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_assets.o qrc_assets.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

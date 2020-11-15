@@ -34,6 +34,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    ../../Desktop/Screenshot 2020-11-12 at 3.20.26 PM.png \
-    ../../Desktop/test_map.png \
-    ../../Program/comp2012h_operation_h/assets/test
+    ../../Program/comp2012h_operation_h/assets/test_map.png \
+    ../../Program/comp2012h_operation_h/assets/test_map.txt
+
+RESOURCES += \
+    ../../Program/comp2012h_operation_h/assets.qrc

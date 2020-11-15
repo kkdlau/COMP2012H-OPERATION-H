@@ -20,7 +20,7 @@ MapViewPage::MapViewPage(QWidget *parent) :
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setScene(scene);
 
-    QPixmap* pixmap = new QPixmap("/Users/dannylau/Program/comp2012h_operation_h/assets/test_map.png");
+    QPixmap* pixmap = new QPixmap(":test_map.png");
     cout << "width: " << pixmap->size().width() << endl;
     scene->addPixmap(*pixmap);
 
