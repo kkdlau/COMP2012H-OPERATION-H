@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ../../Program/comp2012h_operation_h/KeyBoardManager/combo.cpp \
     ../../Program/comp2012h_operation_h/KeyBoardManager/keyboardmanager.cpp \
     ../../Program/comp2012h_operation_h/widgets/gamemapcanvas.cpp \
     main.cpp \
@@ -16,7 +17,9 @@ SOURCES += \
     mapviewpage.cpp
 
 HEADERS += \
+    ../../Program/comp2012h_operation_h/KeyBoardManager/combo.h \
     ../../Program/comp2012h_operation_h/KeyBoardManager/keyboardmanager.h \
+     ../../Program/comp2012h_operation_h/KeyBoardManager/KeyState.h \
     ../../Program/comp2012h_operation_h/widgets/gamemapcanvas.h \
     mainwindow.h \
     mapviewpage.h

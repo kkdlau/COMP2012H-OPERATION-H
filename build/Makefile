@@ -52,13 +52,15 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../KeyBoardManager/keyboardmanager.cpp \
+SOURCES       = ../KeyBoardManager/combo.cpp \
+		../KeyBoardManager/keyboardmanager.cpp \
 		../widgets/gamemapcanvas.cpp \
 		../main.cpp \
 		../mainwindow.cpp \
 		../mapviewpage.cpp moc_mainwindow.cpp \
 		moc_mapviewpage.cpp
-OBJECTS       = keyboardmanager.o \
+OBJECTS       = combo.o \
+		keyboardmanager.o \
 		gamemapcanvas.o \
 		main.o \
 		mainwindow.o \
@@ -249,10 +251,13 @@ DIST          = ../../../Desktop/Screenshot \
 		../../../../Qt/5.15.1/clang_64/mkspecs/features/exceptions.prf \
 		../../../../Qt/5.15.1/clang_64/mkspecs/features/yacc.prf \
 		../../../../Qt/5.15.1/clang_64/mkspecs/features/lex.prf \
-		../../comp2012h_operation_h.pro ../KeyBoardManager/keyboardmanager.h \
+		../../comp2012h_operation_h.pro ../KeyBoardManager/combo.h \
+		../KeyBoardManager/keyboardmanager.h \
+		../KeyBoardManager/KeyState.h \
 		../widgets/gamemapcanvas.h \
 		../mainwindow.h \
-		../mapviewpage.h ../KeyBoardManager/keyboardmanager.cpp \
+		../mapviewpage.h ../KeyBoardManager/combo.cpp \
+		../KeyBoardManager/keyboardmanager.cpp \
 		../widgets/gamemapcanvas.cpp \
 		../main.cpp \
 		../mainwindow.cpp \
@@ -672,8 +677,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/5.15.1/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../KeyBoardManager/keyboardmanager.h ../widgets/gamemapcanvas.h ../mainwindow.h ../mapviewpage.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../KeyBoardManager/keyboardmanager.cpp ../widgets/gamemapcanvas.cpp ../main.cpp ../mainwindow.cpp ../mapviewpage.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../KeyBoardManager/combo.h ../KeyBoardManager/keyboardmanager.h ../KeyBoardManager/KeyState.h ../widgets/gamemapcanvas.h ../mainwindow.h ../mapviewpage.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../KeyBoardManager/combo.cpp ../KeyBoardManager/keyboardmanager.cpp ../widgets/gamemapcanvas.cpp ../main.cpp ../mainwindow.cpp ../mapviewpage.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../mainwindow.ui ../mapviewpage.ui $(DISTDIR)/
 
 
@@ -738,6 +743,7 @@ moc_mapviewpage.cpp: ../mapviewpage.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qhash.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QVector \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qvector.h \
+		../KeyBoardManager/KeyState.h \
 		moc_predefs.h \
 		../../../Qt/5.15.1/clang_64/bin/moc
 	/Users/dannylau/Qt/5.15.1/clang_64/bin/moc $(DEFINES) --include /Users/dannylau/Program/comp2012h_operation_h/build/moc_predefs.h -I/Users/dannylau/Qt/5.15.1/clang_64/mkspecs/macx-clang -I/Users/dannylau/Program/comp2012h_operation_h -I/Users/dannylau/Qt/5.15.1/clang_64/lib/QtWidgets.framework/Headers -I/Users/dannylau/Qt/5.15.1/clang_64/lib/QtGui.framework/Headers -I/Users/dannylau/Qt/5.15.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -F/Users/dannylau/Qt/5.15.1/clang_64/lib ../mapviewpage.h -o moc_mapviewpage.cpp
@@ -769,6 +775,12 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
+combo.o: ../KeyBoardManager/combo.cpp ../KeyBoardManager/combo.h \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../KeyBoardManager/KeyState.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o combo.o ../KeyBoardManager/combo.cpp
+
 keyboardmanager.o: ../KeyBoardManager/keyboardmanager.cpp ../KeyBoardManager/keyboardmanager.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QString \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qstring.h \
@@ -776,6 +788,7 @@ keyboardmanager.o: ../KeyBoardManager/keyboardmanager.cpp ../KeyBoardManager/key
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qhash.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QVector \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qvector.h \
+		../KeyBoardManager/KeyState.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qdebug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o keyboardmanager.o ../KeyBoardManager/keyboardmanager.cpp
@@ -814,7 +827,8 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QHash \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qhash.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QVector \
-		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qvector.h
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qvector.h \
+		../KeyBoardManager/KeyState.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../mainwindow.cpp
 
 mapviewpage.o: ../mapviewpage.cpp ../mapviewpage.h \
@@ -836,6 +850,7 @@ mapviewpage.o: ../mapviewpage.cpp ../mapviewpage.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qhash.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QVector \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qvector.h \
+		../KeyBoardManager/KeyState.h \
 		ui_mapviewpage.h \
 		../widgets/gamemapcanvas.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QDebug \

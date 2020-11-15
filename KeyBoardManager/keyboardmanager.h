@@ -4,24 +4,41 @@
 #include <QHash>
 #include <QVector>
 #include <functional>
-
-enum class KeyState {
-    RELEASE,
-    PRESSED,
-    PRESSING
-};
+#include "KeyState.h"
 
 class KeyboardManager
 {
 private:
+
+    /**
+     * Hash map for storing function pointer corresponding to combo string.
+     */
     QHash<const QString, std::function<void(void)>> actionList;
+
+    /**
+     * Hash map for storing key state, only keys used by combo are saved in this map.
+     */
     QHash<char, KeyState> keyState;
+
+    /**
+     * Vector for storing registered combo.
+     */
     QVector<QString> comboList;
 
+    /**
+     * initialize a key's state.
+     *
+     * @param key {const char}: key id in char
+     */
     void keyInitialize(const char key);
 
-    void iterateAvailable();
 
+    /**
+     * check if all combo keys are pressed.
+     *
+     * @param combo {const QString&}: constant reference of combo string
+     * @return {bool}: is all combo keys pressed or not
+     */
     bool isAllKeysPressed(const QString& combo);
 
 public:
