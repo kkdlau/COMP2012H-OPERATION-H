@@ -33,9 +33,5 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    ../../Program/comp2012h_operation_h/assets/test_map.png \
-    ../../Program/comp2012h_operation_h/assets/test_map.txt
-
 RESOURCES += \
     ../../Program/comp2012h_operation_h/assets.qrc
