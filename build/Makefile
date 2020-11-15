@@ -53,11 +53,13 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../KeyBoardManager/keyboardmanager.cpp \
+		../widgets/gamemapcanvas.cpp \
 		../main.cpp \
 		../mainwindow.cpp \
 		../mapviewpage.cpp moc_mainwindow.cpp \
 		moc_mapviewpage.cpp
 OBJECTS       = keyboardmanager.o \
+		gamemapcanvas.o \
 		main.o \
 		mainwindow.o \
 		mapviewpage.o \
@@ -248,8 +250,10 @@ DIST          = ../../../Desktop/Screenshot \
 		../../../../Qt/5.15.1/clang_64/mkspecs/features/yacc.prf \
 		../../../../Qt/5.15.1/clang_64/mkspecs/features/lex.prf \
 		../../comp2012h_operation_h.pro ../KeyBoardManager/keyboardmanager.h \
+		../widgets/gamemapcanvas.h \
 		../mainwindow.h \
 		../mapviewpage.h ../KeyBoardManager/keyboardmanager.cpp \
+		../widgets/gamemapcanvas.cpp \
 		../main.cpp \
 		../mainwindow.cpp \
 		../mapviewpage.cpp
@@ -668,8 +672,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/5.15.1/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../KeyBoardManager/keyboardmanager.h ../mainwindow.h ../mapviewpage.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../KeyBoardManager/keyboardmanager.cpp ../main.cpp ../mainwindow.cpp ../mapviewpage.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../KeyBoardManager/keyboardmanager.h ../widgets/gamemapcanvas.h ../mainwindow.h ../mapviewpage.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../KeyBoardManager/keyboardmanager.cpp ../widgets/gamemapcanvas.cpp ../main.cpp ../mainwindow.cpp ../mapviewpage.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../mainwindow.ui ../mapviewpage.ui $(DISTDIR)/
 
 
@@ -776,6 +780,11 @@ keyboardmanager.o: ../KeyBoardManager/keyboardmanager.cpp ../KeyBoardManager/key
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qdebug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o keyboardmanager.o ../KeyBoardManager/keyboardmanager.cpp
 
+gamemapcanvas.o: ../widgets/gamemapcanvas.cpp ../widgets/gamemapcanvas.h \
+		../../../Qt/5.15.1/clang_64/lib/QtWidgets.framework/Headers/QGraphicsView \
+		../../../Qt/5.15.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsview.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gamemapcanvas.o ../widgets/gamemapcanvas.cpp
+
 main.o: ../main.cpp ../mainwindow.h \
 		../../../Qt/5.15.1/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../Qt/5.15.1/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -828,6 +837,7 @@ mapviewpage.o: ../mapviewpage.cpp ../mapviewpage.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QVector \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qvector.h \
 		ui_mapviewpage.h \
+		../widgets/gamemapcanvas.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qdebug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mapviewpage.o ../mapviewpage.cpp

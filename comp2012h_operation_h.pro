@@ -10,12 +10,14 @@ CONFIG += c++11
 
 SOURCES += \
     ../../Program/comp2012h_operation_h/KeyBoardManager/keyboardmanager.cpp \
+    ../../Program/comp2012h_operation_h/widgets/gamemapcanvas.cpp \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp
 
 HEADERS += \
     ../../Program/comp2012h_operation_h/KeyBoardManager/keyboardmanager.h \
+    ../../Program/comp2012h_operation_h/widgets/gamemapcanvas.h \
     mainwindow.h \
     mapviewpage.h
 

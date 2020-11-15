@@ -13,18 +13,18 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
-#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QWidget>
+#include "widgets/gamemapcanvas.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_MapViewPage
 {
 public:
-    QWidget *widget;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
-    QGraphicsView *graphicsView;
+    GameMapCanvas *graphicsView;
     QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *MapViewPage)
@@ -33,18 +33,18 @@ public:
             MapViewPage->setObjectName(QString::fromUtf8("MapViewPage"));
         MapViewPage->resize(622, 422);
         MapViewPage->setToolTipDuration(0);
-        widget = new QWidget(MapViewPage);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(10, 10, 601, 401));
-        horizontalLayout = new QHBoxLayout(widget);
+        layoutWidget = new QWidget(MapViewPage);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 10, 601, 401));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        graphicsView = new QGraphicsView(widget);
+        graphicsView = new GameMapCanvas(layoutWidget);
         graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
 
         horizontalLayout->addWidget(graphicsView);
 
-        buttonBox = new QDialogButtonBox(widget);
+        buttonBox = new QDialogButtonBox(layoutWidget);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
         buttonBox->setOrientation(Qt::Vertical);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);

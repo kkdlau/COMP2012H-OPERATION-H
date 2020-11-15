@@ -16,7 +16,7 @@
   <property name="toolTipDuration">
    <number>0</number>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -27,7 +27,7 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QGraphicsView" name="graphicsView"/>
+     <widget class="GameMapCanvas" name="graphicsView"/>
     </item>
     <item>
      <widget class="QDialogButtonBox" name="buttonBox">
@@ -42,6 +42,13 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GameMapCanvas</class>
+   <extends>QGraphicsView</extends>
+   <header>gamemapcanvas.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
