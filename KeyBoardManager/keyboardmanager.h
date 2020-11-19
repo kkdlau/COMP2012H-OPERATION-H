@@ -1,19 +1,17 @@
 #ifndef KEYBOARDMANAGER_H
 #define KEYBOARDMANAGER_H
+#include <QObject>
 #include <QString>
 #include <QHash>
 #include <QVector>
 #include <functional>
+#include <QKeyEvent>
 #include "KeyState.h"
 
-class KeyboardManager
+class KeyboardManager: public QObject
 {
+    Q_OBJECT
 private:
-
-    /**
-     * Hash map for storing function pointer corresponding to combo string.
-     */
-    QHash<const QString, std::function<void(void)>> actionList;
 
     /**
      * Hash map for storing key state, only keys used by combo are saved in this map.
@@ -42,15 +40,20 @@ private:
     bool isAllKeysPressed(const QString& combo);
 
 public:
-    KeyboardManager();
+    KeyboardManager(QObject *parent);
 
-    void addCombo(QString combo, std::function<void(void)> process);
+    KeyboardManager& addListeningCombo(QString combo);
 
     void deleteCombo(QString action);
 
-    void pressKey(const char key);
+public slots:
+    void pressKey(QKeyEvent* k);
 
-    void releaseKey(const char key);
+    void releaseKey(QKeyEvent* k);
+
+signals:
+    void comboPressed(const QString& combo);
+
 };
 
 #endif // KEYBOARDMANAGER_H

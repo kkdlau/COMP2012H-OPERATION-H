@@ -58,6 +58,7 @@ SOURCES       = ../KeyBoardManager/combo.cpp \
 		../main.cpp \
 		../mainwindow.cpp \
 		../mapviewpage.cpp qrc_assets.cpp \
+		moc_keyboardmanager.cpp \
 		moc_mainwindow.cpp \
 		moc_mapviewpage.cpp
 OBJECTS       = combo.o \
@@ -67,11 +68,10 @@ OBJECTS       = combo.o \
 		mainwindow.o \
 		mapviewpage.o \
 		qrc_assets.o \
+		moc_keyboardmanager.o \
 		moc_mainwindow.o \
 		moc_mapviewpage.o
-DIST          = ../assets/test_map.png \
-		../assets/test_map.txt \
-		../../../../Qt/5.15.1/clang_64/mkspecs/features/spec_pre.prf \
+DIST          = ../../../../Qt/5.15.1/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.15.1/clang_64/mkspecs/qdevice.pri \
 		../../../../Qt/5.15.1/clang_64/mkspecs/features/device_config.prf \
 		../../../../Qt/5.15.1/clang_64/mkspecs/common/unix.conf \
@@ -721,9 +721,25 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../Qt/5.15.1/clang_64/mkspecs/features/data/dummy.cpp
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.13 -Wall -Wextra -dM -E -o moc_predefs.h ../../../Qt/5.15.1/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_mapviewpage.cpp
+compiler_moc_header_make_all: moc_keyboardmanager.cpp moc_mainwindow.cpp moc_mapviewpage.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_mapviewpage.cpp
+	-$(DEL_FILE) moc_keyboardmanager.cpp moc_mainwindow.cpp moc_mapviewpage.cpp
+moc_keyboardmanager.cpp: ../KeyBoardManager/keyboardmanager.h \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QHash \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qhash.h \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QVector \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qvector.h \
+		../../../Qt/5.15.1/clang_64/lib/QtGui.framework/Headers/QKeyEvent \
+		../../../Qt/5.15.1/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../KeyBoardManager/KeyState.h \
+		moc_predefs.h \
+		../../../Qt/5.15.1/clang_64/bin/moc
+	/Users/dannylau/Qt/5.15.1/clang_64/bin/moc $(DEFINES) --include /Users/dannylau/Program/comp2012h_operation_h/build/moc_predefs.h -I/Users/dannylau/Qt/5.15.1/clang_64/mkspecs/macx-clang -I/Users/dannylau/Program/comp2012h_operation_h -I/Users/dannylau/Qt/5.15.1/clang_64/lib/QtWidgets.framework/Headers -I/Users/dannylau/Qt/5.15.1/clang_64/lib/QtGui.framework/Headers -I/Users/dannylau/Qt/5.15.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -F/Users/dannylau/Qt/5.15.1/clang_64/lib ../KeyBoardManager/keyboardmanager.h -o moc_keyboardmanager.cpp
+
 moc_mainwindow.cpp: ../mainwindow.h \
 		../../../Qt/5.15.1/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../Qt/5.15.1/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -744,6 +760,8 @@ moc_mapviewpage.cpp: ../mapviewpage.h \
 		../../../Qt/5.15.1/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt/5.15.1/clang_64/lib/QtGui.framework/Headers/QKeyEvent \
 		../KeyBoardManager/keyboardmanager.h \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QString \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QHash \
@@ -789,12 +807,16 @@ combo.o: ../KeyBoardManager/combo.cpp ../KeyBoardManager/combo.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o combo.o ../KeyBoardManager/combo.cpp
 
 keyboardmanager.o: ../KeyBoardManager/keyboardmanager.cpp ../KeyBoardManager/keyboardmanager.h \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QString \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QHash \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qhash.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QVector \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qvector.h \
+		../../../Qt/5.15.1/clang_64/lib/QtGui.framework/Headers/QKeyEvent \
+		../../../Qt/5.15.1/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../KeyBoardManager/KeyState.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qdebug.h
@@ -829,6 +851,8 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../../../Qt/5.15.1/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt/5.15.1/clang_64/lib/QtGui.framework/Headers/QKeyEvent \
 		../KeyBoardManager/keyboardmanager.h \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QString \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QHash \
@@ -851,6 +875,8 @@ mapviewpage.o: ../mapviewpage.cpp ../mapviewpage.h \
 		../../../Qt/5.15.1/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt/5.15.1/clang_64/lib/QtGui.framework/Headers/QKeyEvent \
 		../KeyBoardManager/keyboardmanager.h \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QString \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QHash \
@@ -866,6 +892,9 @@ mapviewpage.o: ../mapviewpage.cpp ../mapviewpage.h \
 
 qrc_assets.o: qrc_assets.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_assets.o qrc_assets.cpp
+
+moc_keyboardmanager.o: moc_keyboardmanager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_keyboardmanager.o moc_keyboardmanager.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

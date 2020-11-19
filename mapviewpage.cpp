@@ -12,7 +12,7 @@ void test() {
 MapViewPage::MapViewPage(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MapViewPage),
-    kbManager()
+    kbManager(this)
 {
     ui->setupUi(this);
     scene = new QGraphicsScene(this);
@@ -24,35 +24,31 @@ MapViewPage::MapViewPage(QWidget *parent) :
     cout << "width: " << pixmap->size().width() << endl;
     scene->addPixmap(*pixmap);
 
-    this->kbManager.addCombo("A", [&]() {
+    connect(this, &MapViewPage::keyPressEvent, &kbManager, &KeyboardManager::pressKey);
+    connect(this, &MapViewPage::keyReleaseEvent, &kbManager, &KeyboardManager::releaseKey);
+    connect(&kbManager, &KeyboardManager::comboPressed, this, &MapViewPage::comboHandler);
+
+    this->kbManager.addListeningCombo("A")
+            .addListeningCombo("S")
+            .addListeningCombo("D")
+            .addListeningCombo("W");
+}
+
+void MapViewPage::comboHandler(const QString& combo) {
+    qDebug() << "combo detect: " << combo;
+    if (combo == "A") {
         ui->graphicsView->scroll(10, 0);
-    });
-
-    this->kbManager.addCombo("S", [&]() {
+    } else if (combo == "S") {
         ui->graphicsView->scroll(0, -10);
-    });
-
-    this->kbManager.addCombo("D", [&]() {
+    } else if (combo == "D") {
         ui->graphicsView->scroll(-10, 0);
-    });
-
-    this->kbManager.addCombo("W", [&]() {
+    } else if (combo == "W") {
         ui->graphicsView->scroll(0, 10);
-    });
+    }
 }
 
 void MapViewPage::mouseMoveEvent(QMouseEvent* e) {
     qDebug() << e->x() << ", " << e->y() << "\n";
-}
-
-
-void MapViewPage::keyPressEvent(QKeyEvent* k) {
-    qDebug() << k->key() << "\n";
-    kbManager.pressKey(k->key());
-}
-
-void MapViewPage::keyReleaseEvent(QKeyEvent* k) {
-    kbManager.releaseKey(k->key());
 }
 
 MapViewPage::~MapViewPage()

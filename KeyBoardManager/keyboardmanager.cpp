@@ -1,6 +1,7 @@
 #include "keyboardmanager.h"
- #include <QDebug>
-KeyboardManager::KeyboardManager() {
+#include <QDebug>
+
+KeyboardManager::KeyboardManager(QObject *parent): QObject{parent} {
 
 }
 
@@ -12,14 +13,15 @@ void KeyboardManager::keyInitialize(const char key) {
     keyState[key] = KeyState::RELEASE;
 }
 
-void KeyboardManager::addCombo(QString combo, std::function<void(void)> process) {
+KeyboardManager& KeyboardManager::addListeningCombo(QString combo) {
     comboList.push_back(combo);
-    actionList[combo.toUtf8().constData()] = process; //Add the combo to the listener list.
 
     for(int i = 0; combo[i] != '\0'; ++i) { // for each combo character
         if (combo[i] == '+') continue;
         keyInitialize(combo[i].unicode());
     }
+
+    return *this;
 
 }
 
@@ -36,7 +38,8 @@ bool KeyboardManager::isAllKeysPressed(const QString& combo) {
 }
 
 
-void KeyboardManager::pressKey(const char key) {
+void KeyboardManager::pressKey(QKeyEvent* k) {
+    const char key = k->key();
     qDebug() << "key pressed: " << key << "\n";
     keyState[key] = KeyState::PRESSED;
 
@@ -45,11 +48,12 @@ void KeyboardManager::pressKey(const char key) {
     for (ptr = comboList.begin(); ptr != comboList.end(); ptr++) {
         qDebug() << "Checking combo - " << *ptr << "\n";
         if (isAllKeysPressed(*ptr)) {
-            actionList[*ptr]();
+            emit comboPressed(*ptr);
         }
     }
 }
 
-void KeyboardManager::releaseKey(const char key) {
-     keyState[key] = KeyState::RELEASE;
+void KeyboardManager::releaseKey(QKeyEvent* k) {
+    const char key = k->key();
+    keyState[key] = KeyState::RELEASE;
 }

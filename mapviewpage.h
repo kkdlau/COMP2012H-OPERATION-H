@@ -29,11 +29,14 @@ private:
     QGraphicsTextItem *text;
     KeyboardManager kbManager;
 
-protected:
+    void comboHandler(const QString&);
+
+public:
     void mouseMoveEvent(QMouseEvent*) override;
     void onMouseEvent(const QString& eName, const QPoint& p);
-    void keyPressEvent(QKeyEvent*) override;
-    void keyReleaseEvent(QKeyEvent*) override;
+signals:
+    void keyPressEvent(QKeyEvent*) ;
+    void keyReleaseEvent(QKeyEvent*) ;
 };
 
 #endif // MAPVIEWPAGE_H
