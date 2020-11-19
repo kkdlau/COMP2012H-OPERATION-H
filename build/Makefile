@@ -887,7 +887,9 @@ mapviewpage.o: ../mapviewpage.cpp ../mapviewpage.h \
 		ui_mapviewpage.h \
 		../widgets/gamemapcanvas.h \
 		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QDebug \
-		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qdebug.h
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/QPoint \
+		../../../Qt/5.15.1/clang_64/lib/QtCore.framework/Headers/qpoint.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mapviewpage.o ../mapviewpage.cpp
 
 qrc_assets.o: qrc_assets.cpp 

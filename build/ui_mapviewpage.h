@@ -24,7 +24,7 @@ class Ui_MapViewPage
 public:
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
-    GameMapCanvas *graphicsView;
+    GameMapCanvas *gameMap;
     QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *MapViewPage)
@@ -39,10 +39,10 @@ public:
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        graphicsView = new GameMapCanvas(layoutWidget);
-        graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
+        gameMap = new GameMapCanvas(layoutWidget);
+        gameMap->setObjectName(QString::fromUtf8("gameMap"));
 
-        horizontalLayout->addWidget(graphicsView);
+        horizontalLayout->addWidget(gameMap);
 
         buttonBox = new QDialogButtonBox(layoutWidget);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));

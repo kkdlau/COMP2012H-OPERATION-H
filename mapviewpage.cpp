@@ -1,6 +1,7 @@
 #include "mapviewpage.h"
 #include "ui_mapviewpage.h"
 #include <QDebug>
+#include <QPoint>
 #include <iostream>
 
 using namespace std;
@@ -16,13 +17,20 @@ MapViewPage::MapViewPage(QWidget *parent) :
 {
     ui->setupUi(this);
     scene = new QGraphicsScene(this);
-    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->graphicsView->setScene(scene);
+//    ui->gameMap->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//    ui->gameMap->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->gameMap->setScene(scene);
 
     QPixmap* pixmap = new QPixmap(":test_map.png");
     cout << "width: " << pixmap->size().width() << endl;
     scene->addPixmap(*pixmap);
+
+    QBrush greenBrush(Qt::green);
+    QBrush blueBrush(Qt::blue);
+    QPen outlinePen(Qt::black);
+    outlinePen.setWidth(2);
+
+    rectangle = scene->addRect(0, 0, 32, 32, outlinePen, blueBrush);
 
     connect(this, &MapViewPage::keyPressEvent, &kbManager, &KeyboardManager::pressKey);
     connect(this, &MapViewPage::keyReleaseEvent, &kbManager, &KeyboardManager::releaseKey);
@@ -37,14 +45,16 @@ MapViewPage::MapViewPage(QWidget *parent) :
 void MapViewPage::comboHandler(const QString& combo) {
     qDebug() << "combo detect: " << combo;
     if (combo == "A") {
-        ui->graphicsView->scroll(10, 0);
+        rectangle->setPos(rectangle->pos() + QPoint(-10, 0));
     } else if (combo == "S") {
-        ui->graphicsView->scroll(0, -10);
+        rectangle->setPos(rectangle->pos() + QPoint(0, 10));
     } else if (combo == "D") {
-        ui->graphicsView->scroll(-10, 0);
+        rectangle->setPos(rectangle->pos() + QPoint(10, 0));
     } else if (combo == "W") {
-        ui->graphicsView->scroll(0, 10);
+        rectangle->setPos(rectangle->pos() + QPoint(0, -10));
     }
+    scene->setSceneRect(QRectF(0, 0, 320, 320));
+    qDebug() << rectangle->pos();
 }
 
 void MapViewPage::mouseMoveEvent(QMouseEvent* e) {

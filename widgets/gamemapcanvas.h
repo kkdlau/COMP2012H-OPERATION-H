@@ -7,6 +7,8 @@ class GameMapCanvas: public QGraphicsView {
 
 public:
    GameMapCanvas(QWidget * widget);
+
+   void scrollContentsBy(int, int) override;
 };
 
 

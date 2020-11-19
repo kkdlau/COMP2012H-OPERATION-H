@@ -24,9 +24,7 @@ public:
 private:
     Ui::MapViewPage *ui;
     QGraphicsScene *scene;
-    QGraphicsEllipseItem *ellipse;
     QGraphicsRectItem *rectangle;
-    QGraphicsTextItem *text;
     KeyboardManager kbManager;
 
     void comboHandler(const QString&);
