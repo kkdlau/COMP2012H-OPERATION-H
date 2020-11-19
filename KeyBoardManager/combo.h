@@ -2,20 +2,22 @@
 #define COMBO_H
 
 #include <QString>
+
 #include "KeyState.h"
 
 class Combo {
-    private:
-        QString str;
-        KeyState triggerState;
-    public:
-        Combo(QString&& strRepresention, KeyState triggerState);
+   private:
+	QString str;
+	KeyState triggerState;
 
-        QString toString();
+   public:
+	Combo(QString&& strRepresention, KeyState triggerState);
 
-        QString getComboStr();
+	QString toString();
 
-        KeyState getTriggerState();
+	QString getComboStr();
+
+	KeyState getTriggerState();
 };
 
-#endif // COMBO_H
+#endif	// COMBO_H
