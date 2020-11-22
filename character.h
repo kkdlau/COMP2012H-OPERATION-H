@@ -7,20 +7,22 @@
 class Character : public QGraphicsItem
 {
 public:
-    Character(QString, int);
+    Character(QString, int, int);
     Character(const QStringList);
 
     static Character* createThirdParty();
     ~Character();
     QString get_name() const;
+    int get_attack() const;
     int get_health() const;
-    bool is_alive() const;
-    void set_name(QString name);
-    void set_health(int health);
+    void set_name();
+    void set_attack();
+    void set_health();
 
 private:
-    QString characterName;
-    int characterHealth;
+    QString playerName;
+    int attack;
+    int health;
 };
 
 #endif // CHARACTER_H
