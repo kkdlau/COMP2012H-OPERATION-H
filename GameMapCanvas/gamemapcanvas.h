@@ -4,10 +4,13 @@
 #include <QMouseEvent>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
+#include <QString>
+#include "./map.h"
 
 class GameMapCanvas : public QGraphicsView {
    public:
-	GameMapCanvas(QWidget* widget);
+    GameMapCanvas(QWidget* widget);
+    Map* map;
 
     QGraphicsPixmapItem *character;
     QGraphicsScene *scene;
