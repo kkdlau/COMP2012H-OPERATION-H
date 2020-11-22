@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file alias="test_map.txt">assets/test_map.txt</file>
         <file alias="test_map.png">assets/test_map.png</file>
+        <file alias="map.txt">assets/map.txt</file>
     </qresource>
 </RCC>

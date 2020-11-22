@@ -9,7 +9,7 @@ FileParser::FileParser()
 
 FileParser::FileParser(const QString path) //constructor that instantly produce the text
 {
-    read_file_data(QCoreApplication::applicationDirPath() + path);
+    read_file_data(":" + path);
 }
 
 FileParser::~FileParser()
@@ -21,6 +21,7 @@ void FileParser::read_file_data(const QString path)
 {
     QFile file(QCoreApplication::applicationDirPath() + path);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+    if(!file_data->empty()){file_data->clear();}
     QTextStream in(&file);
        while (!in.atEnd()) {
            QString line = in.readLine();

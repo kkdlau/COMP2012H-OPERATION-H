@@ -17,7 +17,7 @@ SOURCES += \
     $$PWD/widgets/gamemapcanvas.cpp \
     main.cpp \
     mainwindow.cpp \
-    mapviewpage.cpp
+    mapviewpage.cpp \
 
 HEADERS += \
     $$PWD/KeyBoardManager/combo.h \
@@ -25,7 +25,7 @@ HEADERS += \
     $$PWD/KeyBoardManager/KeyState.h \
     $$PWD/widgets/gamemapcanvas.h \
     mainwindow.h \
-    mapviewpage.h
+    mapviewpage.h \
 
 FORMS += \
     mainwindow.ui \

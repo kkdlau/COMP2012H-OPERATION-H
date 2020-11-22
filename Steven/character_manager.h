@@ -36,12 +36,12 @@ public:
     /**
      * @brief Prevent ability to create another instance via copy constructor
      */
-    character_manager(character_manager*) = delete;
+    character_manager(character_manager&) = delete;
     /**
      * @brief prevent ability to create another instance via memberwise assignment
      * @return
      */
-    character* operator=(character_manager*) = delete;
+    character* operator=(const character_manager*) = delete;
     /**
      * @brief check if character is in the database
      * @return bool

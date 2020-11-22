@@ -34,3 +34,8 @@ int Map::get_row() const
 {
     return row;
 }
+
+int Map::get_index(int numRow, int numCol) const
+{
+    return numRow * col + numCol;
+}
