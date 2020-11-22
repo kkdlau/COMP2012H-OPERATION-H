@@ -12,7 +12,8 @@ CONFIG += c++11
 INCLUDEPATH += GameMapCanvas/
 
 SOURCES += \
-    ../../Program/comp2012h_operation_h/GameMapCanvas/gridinfo.cpp \
+    GameMapCanvas/gridinfo.cpp \
+    FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
     Weapons/meleeweapon.cpp \
@@ -23,12 +24,14 @@ SOURCES += \
     GameMapCanvas/map.cpp \
     Weapons/shield.cpp \
     character.cpp \
+    charactermanager.cpp \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
 
 HEADERS += \
-    ../../Program/comp2012h_operation_h/GameMapCanvas/gridinfo.h \
+    GameMapCanvas/gridinfo.h \
+    FileParser/fileparser.h \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
     KeyBoardManager/KeyState.h \
@@ -40,6 +43,7 @@ HEADERS += \
     GameMapCanvas/map.h \
     Weapons/shield.h \
     character.h \
+    charactermanager.h \
     mainwindow.h \
     mapviewpage.h \
 

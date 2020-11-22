@@ -29,7 +29,7 @@ void FileParser::read_file_data(const QString fileName)
 }
 bool FileParser::if_contains_data() const
 {
-    return file_data.size();
+    return !file_data.isEmpty();
 }
 
 QStringList FileParser::get_file_data() const //returns a copy
