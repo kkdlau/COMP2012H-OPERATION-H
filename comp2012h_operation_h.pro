@@ -9,27 +9,37 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # For promoted widgets
-INCLUDEPATH += $$PWD/GameMapCanvas/
+INCLUDEPATH += GameMapCanvas/
 
 SOURCES += \
-    $$PWD/KeyBoardManager/combo.cpp \
-    $$PWD/KeyBoardManager/keyboardmanager.cpp \
-    $$PWD/GameMapCanvas/gamemapcanvas.cpp \
-    ../../Program/comp2012h_operation_h/GameMapCanvas/map.cpp \
+    KeyBoardManager/combo.cpp \
+    KeyBoardManager/keyboardmanager.cpp \
+    GameMapCanvas/gamemapcanvas.cpp \
+    GameMapCanvas/map.cpp \
+    Weapons/meleeweapon.cpp \
+    Weapons/weapon.cpp \
+    CharacterManager/character_manager.cpp \
+    Parser/FileParser.cpp \
+    Weapons/shield.cpp \
     character.cpp \
     main.cpp \
     mainwindow.cpp \
-    mapviewpage.cpp
+    mapviewpage.cpp \
 
 HEADERS += \
-    $$PWD/KeyBoardManager/combo.h \
-    $$PWD/KeyBoardManager/keyboardmanager.h \
-    $$PWD/KeyBoardManager/KeyState.h \
-    $$PWD/GameMapCanvas/gamemapcanvas.h \
-    ../../Program/comp2012h_operation_h/GameMapCanvas/map.h \
+    KeyBoardManager/combo.h \
+    KeyBoardManager/keyboardmanager.h \
+    KeyBoardManager/KeyState.h \
+    Weapons/meleeweapon.h \
+    GameMapCanvas/gamemapcanvas.h \
+    GameMapCanvas/map.h \
+    Weapons/weapon.h \
+    CharacterManager/character_manager.h \
+    Parser/FileParser.h \
+    Weapons/shield.h \
     character.h \
     mainwindow.h \
-    mapviewpage.h
+    mapviewpage.h \
 
 FORMS += \
     mainwindow.ui \
@@ -41,4 +51,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    $$PWD/assets.qrc
+    assets.qrc

@@ -27,12 +27,12 @@ public:
      * @param character_name
      * @return character*\/ nullptr if character does not exist
      */
-    character* get_character(QString character_name) const;
+    Character* get_character(QString character_name) const;
     /**
      * @brief operator [] to simplify get_character function
      * @return character*
      */
-    character* operator[](QString)const;
+    Character* operator[](QString)const;
     /**
      * @brief Prevent ability to create another instance via copy constructor
      */
@@ -41,7 +41,7 @@ public:
      * @brief prevent ability to create another instance via memberwise assignment
      * @return
      */
-    character* operator=(const character_manager*) = delete;
+    Character* operator=(const character_manager*) = delete;
     /**
      * @brief check if character is in the database
      * @return bool
@@ -50,7 +50,7 @@ public:
     /**
      * @brief add *character to the database
      */
-    void add_character(character*);
+    void add_character(Character*);
     /**
      * @brief delete specified character name in database
      */
@@ -72,7 +72,7 @@ private:
    /**
     * @brief Hashmap to save the characters.
     */
-   QHash<QString, character*> database;
+   QHash<QString, Character*> database;
 };
 
 #endif // CHARACTER_MANAGER_H
