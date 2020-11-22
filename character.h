@@ -13,15 +13,12 @@ public:
     static Character* createThirdParty();
     ~Character();
     QString get_name() const;
-    int get_attack() const;
     int get_health() const;
     void set_name();
-    void set_attack();
     void set_health();
 
 private:
     QString playerName;
-    int attack;
     int health;
 };
 
