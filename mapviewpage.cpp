@@ -18,7 +18,7 @@ MapViewPage::MapViewPage(QWidget* parent)
 	ui->gameMap->character =
 		new QGraphicsPixmapItem(QPixmap(":character_test"));
 	//    ui->gameMap->character->setTransformOriginPoint(QPointF(16,16));
-	ui->gameMap->character->setOffset(QPointF(-16, -16));
+    ui->gameMap->character->setOffset(QPointF(-Map::GRID_SIZE_W / 2, -Map::GRID_SIZE_H / 2));
 	ui->gameMap->scene->addItem(ui->gameMap->character);
 
 	connect(this, &MapViewPage::keyPressEvent, &kbManager,

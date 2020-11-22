@@ -15,7 +15,9 @@ class Map : public QGraphicsScene {
 	QPointF cursorPos;
 
    public:
-	Map(QObject* parent, QString resourceName);
+    static const unsigned short GRID_SIZE_W;
+    static const unsigned short GRID_SIZE_H;
+    Map(QObject* parent, QString resourceName, QString mapConfigFilePath);
 
 	void mouseMoveEvent(QGraphicsSceneMouseEvent* e) override;
 
