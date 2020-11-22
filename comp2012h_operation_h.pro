@@ -17,11 +17,15 @@ SOURCES += \
     $$PWD/widgets/gamemapcanvas.cpp \
     $$PWD/Weapons/meleeweapon.cpp \
     $$PWD/Weapons/weapon.cpp \
+    CharacterManager/character_manager.cpp \
+    MapGenerator/map.cpp \
+    MapGenerator/mapgenerator.cpp \
+    Parser/FileParser.cpp \
     Weapons/shield.cpp \
     character.cpp \
     main.cpp \
     mainwindow.cpp \
-    mapviewpage.cpp
+    mapviewpage.cpp \
 
 HEADERS += \
     $$PWD/KeyBoardManager/combo.h \
@@ -30,10 +34,14 @@ HEADERS += \
     $$PWD/widgets/gamemapcanvas.h \
     $$PWD/Weapons/meleeweapon.h \
     $$PWD/Weapons/weapon.h \
+    CharacterManager/character_manager.h \
+    MapGenerator/map.h \
+    MapGenerator/mapgenerator.h \
+    Parser/FileParser.h \
     Weapons/shield.h \
     character.h \
     mainwindow.h \
-    mapviewpage.h
+    mapviewpage.h \
 
 FORMS += \
     mainwindow.ui \
