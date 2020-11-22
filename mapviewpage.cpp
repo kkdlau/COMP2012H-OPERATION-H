@@ -13,17 +13,10 @@ using namespace std;
 MapViewPage::MapViewPage(QWidget* parent)
 	: QDialog(parent), ui(new Ui::MapViewPage), kbManager(this) {
 	ui->setupUi(this);
-    ui->gameMap->scene = new QGraphicsScene(this);
-    ui->gameMap->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->gameMap->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->gameMap->setScene(ui->gameMap->scene);
 
     ui->gameMap->character = new QGraphicsPixmapItem(QPixmap(":character_test"));
-    ui->gameMap->character->setTransformOriginPoint(QPointF(16,16));
-
-	QPixmap* pixmap = new QPixmap(":test_map.png");
-
-    ui->gameMap->scene->addPixmap(*pixmap);
+//    ui->gameMap->character->setTransformOriginPoint(QPointF(16,16));
+    ui->gameMap->character->setOffset(QPointF(-16,-16));
     ui->gameMap->scene->addItem(ui->gameMap->character);
 
 	connect(this, &MapViewPage::keyPressEvent, &kbManager,
@@ -53,7 +46,7 @@ void MapViewPage::comboHandler(const QString& combo) {
 }
 
 void MapViewPage::mouseMoveEvent(QMouseEvent* e) {
-	qDebug() << e->x() << ", " << e->y() << "\n";
+//	qDebug() << e->x() << ", " << e->y() << "\n";
 }
 
 MapViewPage::~MapViewPage() { delete ui; }

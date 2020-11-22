@@ -9,14 +9,13 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # For promoted widgets
-INCLUDEPATH += $$PWD/widgets/
+INCLUDEPATH += $$PWD/GameMapCanvas/
 
 SOURCES += \
     $$PWD/KeyBoardManager/combo.cpp \
     $$PWD/KeyBoardManager/keyboardmanager.cpp \
-    $$PWD/widgets/gamemapcanvas.cpp \
-#    Weapons/weapon.cpp \
-#    Weapons/meleeweapon.cpp \
+    $$PWD/GameMapCanvas/gamemapcanvas.cpp \
+    ../../Program/comp2012h_operation_h/GameMapCanvas/map.cpp \
     character.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -26,9 +25,8 @@ HEADERS += \
     $$PWD/KeyBoardManager/combo.h \
     $$PWD/KeyBoardManager/keyboardmanager.h \
     $$PWD/KeyBoardManager/KeyState.h \
-    $$PWD/widgets/gamemapcanvas.h \
-#    Weapons/weapon.h \
-#    Weapons/meleeweapon.h \
+    $$PWD/GameMapCanvas/gamemapcanvas.h \
+    ../../Program/comp2012h_operation_h/GameMapCanvas/map.h \
     character.h \
     mainwindow.h \
     mapviewpage.h
