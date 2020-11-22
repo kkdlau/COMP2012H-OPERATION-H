@@ -1,5 +1,9 @@
 #include "character.h"
 
+Character::Character(){
+
+}
+
 Character::Character(QString name, int health) : characterName(name), characterHealth(health)
 {
 
@@ -32,4 +36,10 @@ void Character::set_health(int health) {
 
 bool Character::is_alive() const{
     return characterHealth > 0;
+}
+
+void Character::shoot() {
+//    if (curWeapon.getWeaponType()) {
+//        return;
+//    }
 }
