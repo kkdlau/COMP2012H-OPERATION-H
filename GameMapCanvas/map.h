@@ -1,25 +1,26 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <QObject>
-#include <QWidget>
 #include <QGraphicsScene>
-#include <QString>
-#include <QPointF>
 #include <QGraphicsSceneMouseEvent>
+#include <QObject>
+#include <QPointF>
+#include <QString>
+#include <QWidget>
 
-class Map: public QGraphicsScene {
-private:
-    QString mapName;
-    QPixmap* mapImg;
-    QPointF cursorPos;
-public:
-    Map(QObject *parent, QString resourceName);
+class Map : public QGraphicsScene {
+   private:
+	QString mapName;
+	QPixmap* mapImg;
+	QPointF cursorPos;
 
-    void mouseMoveEvent(QGraphicsSceneMouseEvent* e) override;
+   public:
+	Map(QObject* parent, QString resourceName);
 
-    const QPointF& get_cursor_on_map() const;
-    ~Map();
+	void mouseMoveEvent(QGraphicsSceneMouseEvent* e) override;
+
+	const QPointF& get_cursor_on_map() const;
+	~Map();
 };
 
-#endif // MAP_H
+#endif	// MAP_H
