@@ -33,3 +33,4 @@
 
 # extension of .pro
 *.pro.user
+*.autosave
