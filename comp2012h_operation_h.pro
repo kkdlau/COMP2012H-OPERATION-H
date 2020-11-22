@@ -12,27 +12,33 @@ CONFIG += c++11
 INCLUDEPATH += GameMapCanvas/
 
 SOURCES += \
-    KeyBoardManager/combo.cpp \
-    KeyBoardManager/keyboardmanager.cpp \
-    GameMapCanvas/gamemapcanvas.cpp \
-    GameMapCanvas/map.cpp \
-    Weapons/meleeweapon.cpp \
-    Weapons/weapon.cpp \
-    Weapons/shield.cpp \
+    $$PWD/KeyBoardManager/combo.cpp \
+    $$PWD/KeyBoardManager/keyboardmanager.cpp \
+    $$PWD/widgets/gamemapcanvas.cpp \
+    $$PWD/Weapons/meleeweapon.cpp \
+    $$PWD/Weapons/weapon.cpp \
+    $$PWD/Weapons/handgun.cpp \
+    $$PWD/Weapons/rangedweapon.cpp \
+    $$PWD/GameMapCanvas/gamemapcanvas.cpp \
+    $$PWD/GameMapCanvas/map.cpp \
+    $$PWD/Weapons/shield.cpp \
     character.cpp \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
 
 HEADERS += \
-    KeyBoardManager/combo.h \
-    KeyBoardManager/keyboardmanager.h \
-    KeyBoardManager/KeyState.h \
-    Weapons/meleeweapon.h \
-    GameMapCanvas/gamemapcanvas.h \
-    GameMapCanvas/map.h \
-    Weapons/weapon.h \
-    Weapons/shield.h \
+    $$PWD/KeyBoardManager/combo.h \
+    $$PWD/KeyBoardManager/keyboardmanager.h \
+    $$PWD/KeyBoardManager/KeyState.h \
+    $$PWD/widgets/gamemapcanvas.h \
+    $$PWD/Weapons/meleeweapon.h \
+    $$PWD/Weapons/weapon.h \
+    $$PWD/Weapons/handgun.h \
+    $$PWD/Weapons/rangedweapon.h \
+    $$PWD/GameMapCanvas/gamemapcanvas.h \
+    $$PWD/GameMapCanvas/map.h \
+    $$PWD/Weapons/shield.h \
     character.h \
     mainwindow.h \
     mapviewpage.h \

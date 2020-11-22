@@ -12,14 +12,12 @@ public:
     static const int WEIGHT{1};
     static const int PUSHBACK_DISTANCE{10};
 
-    Shield(char id, Character* owner);
+    Shield(char id);
     virtual ~Shield();
 
     bool is_broken() const;
 
-    virtual void action_attack_uncharged() const override;
-    virtual void action_attack_charged_lv1() const override;
-    virtual void action_attack_charged_lv2() const override;
+    virtual void action_attack() const override;
     void action_defend(const int damage_received);
 
 private:

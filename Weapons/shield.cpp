@@ -1,21 +1,15 @@
 #include "shield.h"
 
 // public
-Shield::Shield(char id, Character* owner) : MeleeWeapon(id, WEAPON_TYPE, ATTACK, AR, WEIGHT, owner){}
+Shield::Shield(char id) : MeleeWeapon(id, WEAPON_TYPE, ATTACK, AR, WEIGHT){}
 Shield::~Shield() = default;
 
 bool Shield::is_broken() const {
     return (strength == 0);
 }
 
-void Shield::action_attack_uncharged() const{
+void Shield::action_attack() const{
     return;
-}
-void Shield::action_attack_charged_lv1() const{
-    action_attack_uncharged();
-}
-void Shield::action_attack_charged_lv2() const{
-    action_attack_uncharged();
 }
 
 void Shield::action_defend(const int damage_received) {
