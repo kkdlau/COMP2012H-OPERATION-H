@@ -22,12 +22,13 @@ public:
     int get_weight() const;
     int get_max_quantity() const;
 
+    Character* get_owner() const;
     UseState get_use_state() const;
     FocusState get_focus_state() const;
     ReadyState get_ready_state() const;
 
 protected:
-    Weapon(char id, WeaponCategory weapon_category, WeaponType weapon_type, int attack, int attack_range, int weight, int max_quantity);
+    Weapon(char id, WeaponCategory weapon_category, WeaponType weapon_type, int attack, int attack_range, int weight, int max_quantity, Character* owner);
 
     virtual void action_attack() const = 0;
 
@@ -39,6 +40,7 @@ protected:
     const int weight;
     const int max_quantity;
 
+    Character* owner{nullptr};
     UseState use_state{UseState::NOT_HELD};
     FocusState focus_state{FocusState::NOT_FOCUS};
     ReadyState ready_state{ReadyState::READY};
