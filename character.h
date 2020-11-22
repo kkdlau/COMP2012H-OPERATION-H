@@ -2,17 +2,23 @@
 #define CHARACTER_H
 #include "qstring.h"
 #include "qstringlist.h"
+#include "qgraphicsitem.h"
 
-class character
+class Character : public QGraphicsItem
 {
 public:
-    character(QString, int, int);
-    character(const QStringList);
+    Character(QString, int, int);
+    Character(const QStringList);
 
-    static character* createThirdParty();
-    ~character();
+    static Character* createThirdParty();
+    ~Character();
     QString get_name() const;
     int get_attack() const;
+    int get_health() const;
+    void set_name();
+    void set_attack();
+    void set_health();
+
 private:
     QString playerName;
     int attack;

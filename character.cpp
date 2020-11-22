@@ -1,23 +1,28 @@
 #include "character.h"
 
-character::character(QString name, int attack, int health) : playerName(name), attack(attack), health(health)
+Character::Character(QString name, int attack, int health) : playerName(name), attack(attack), health(health)
 {
 
 }
 
-character::character(const QStringList data)
+Character::Character(const QStringList data)
 {
 
 }
 
-character::~character(){};
+Character::~Character(){};
 
-QString character::get_name() const
+QString Character::get_name() const
 {
     return playerName;
 }
 
-int character::get_attack() const
+int Character::get_attack() const
 {
     return attack;
+}
+
+int Character::get_health() const
+{
+    return health;
 }
