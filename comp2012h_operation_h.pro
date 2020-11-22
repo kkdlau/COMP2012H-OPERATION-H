@@ -15,12 +15,9 @@ SOURCES += \
     $$PWD/KeyBoardManager/combo.cpp \
     $$PWD/KeyBoardManager/keyboardmanager.cpp \
     $$PWD/widgets/gamemapcanvas.cpp \
-<<<<<<< HEAD
-=======
-    Weapons/weapon.cpp \
-    Weapons/meleeweapon.cpp \
+#    Weapons/weapon.cpp \
+#    Weapons/meleeweapon.cpp \
     character.cpp \
->>>>>>> parent of 7d7b6cd... Revert "Merge branch 'main' of https://github.com/kkdlau/COMP2012H-OPERATION-H into main"
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp
@@ -30,12 +27,9 @@ HEADERS += \
     $$PWD/KeyBoardManager/keyboardmanager.h \
     $$PWD/KeyBoardManager/KeyState.h \
     $$PWD/widgets/gamemapcanvas.h \
-<<<<<<< HEAD
-=======
-    Weapons/weapon.h \
-    Weapons/meleeweapon.h \
+#    Weapons/weapon.h \
+#    Weapons/meleeweapon.h \
     character.h \
->>>>>>> parent of 7d7b6cd... Revert "Merge branch 'main' of https://github.com/kkdlau/COMP2012H-OPERATION-H into main"
     mainwindow.h \
     mapviewpage.h
 
