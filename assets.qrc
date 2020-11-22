@@ -4,7 +4,6 @@
         <file alias="test_map.png">assets/test_map.png</file>
         <file alias="map.txt">assets/map.txt</file>
         <file alias="character_test">assets/character.png</file>
-        <file alias="shield.png">assets/r-hamilton-shield-3-top-removebg-preview.png</file>
-        <file alias="gun.png">assets/gun.png</file>
+
     </qresource>
 </RCC>
