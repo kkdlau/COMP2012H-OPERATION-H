@@ -1,6 +1,6 @@
 #include "character.h"
 
-Character::Character(QString name, int attack, int health) : playerName(name), attack(attack), health(health)
+Character::Character(QString name, int health) : characterName(name), characterHealth(health)
 {
 
 }
@@ -30,6 +30,6 @@ void Character::set_health(int health) {
     characterHealth = health;
 }
 
-bool Character::is_alive(){
+bool Character::is_alive() const{
     return characterHealth > 0;
 }
