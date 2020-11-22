@@ -15,7 +15,6 @@ public:
     HandGun(char id);
     virtual ~HandGun();
 
-    void action_attack();
 };
 
 #endif // HANDGUN_H
