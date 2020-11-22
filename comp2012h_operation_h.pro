@@ -15,8 +15,9 @@ SOURCES += \
     $$PWD/KeyBoardManager/combo.cpp \
     $$PWD/KeyBoardManager/keyboardmanager.cpp \
     $$PWD/widgets/gamemapcanvas.cpp \
-#    Weapons/weapon.cpp \
-#    Weapons/meleeweapon.cpp \
+    $$PWD/Weapons/meleeweapon.cpp \
+    $$PWD/Weapons/weapon.cpp \
+    Weapons/shield.cpp \
     character.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -27,8 +28,9 @@ HEADERS += \
     $$PWD/KeyBoardManager/keyboardmanager.h \
     $$PWD/KeyBoardManager/KeyState.h \
     $$PWD/widgets/gamemapcanvas.h \
-#    Weapons/weapon.h \
-#    Weapons/meleeweapon.h \
+    $$PWD/Weapons/meleeweapon.h \
+    $$PWD/Weapons/weapon.h \
+    Weapons/shield.h \
     character.h \
     mainwindow.h \
     mapviewpage.h
