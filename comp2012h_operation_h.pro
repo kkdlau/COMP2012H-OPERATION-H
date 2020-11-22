@@ -18,8 +18,6 @@ SOURCES += \
     GameMapCanvas/map.cpp \
     Weapons/meleeweapon.cpp \
     Weapons/weapon.cpp \
-    CharacterManager/character_manager.cpp \
-    Parser/FileParser.cpp \
     Weapons/shield.cpp \
     character.cpp \
     main.cpp \
@@ -34,8 +32,6 @@ HEADERS += \
     GameMapCanvas/gamemapcanvas.h \
     GameMapCanvas/map.h \
     Weapons/weapon.h \
-    CharacterManager/character_manager.h \
-    Parser/FileParser.h \
     Weapons/shield.h \
     character.h \
     mainwindow.h \

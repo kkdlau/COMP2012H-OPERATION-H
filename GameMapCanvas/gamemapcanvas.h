@@ -5,7 +5,7 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QString>
-#include "map.h"
+#include "./map.h"
 
 class GameMapCanvas : public QGraphicsView {
    public:
