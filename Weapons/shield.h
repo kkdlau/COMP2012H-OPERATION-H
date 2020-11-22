@@ -15,10 +15,16 @@ public:
     Shield(char id, Character* owner);
     virtual ~Shield();
 
-    virtual void action_attack() const override;
+    bool is_broken() const;
+
+    virtual void action_attack_uncharged() const override;
+    virtual void action_attack_charged_lv1() const override;
+    virtual void action_attack_charged_lv2() const override;
+    void action_defend(const int damage_received);
 
 private:
     int strength{100};
+    void push_back(Character* target);
     void restore_health();
 };
 
