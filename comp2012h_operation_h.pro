@@ -17,6 +17,8 @@ SOURCES += \
     $$PWD/widgets/gamemapcanvas.cpp \
     $$PWD/Weapons/meleeweapon.cpp \
     $$PWD/Weapons/weapon.cpp \
+    Weapons/handgun.cpp \
+    Weapons/rangedweapon.cpp \
     Weapons/shield.cpp \
     character.cpp \
     main.cpp \
@@ -30,6 +32,8 @@ HEADERS += \
     $$PWD/widgets/gamemapcanvas.h \
     $$PWD/Weapons/meleeweapon.h \
     $$PWD/Weapons/weapon.h \
+    Weapons/handgun.h \
+    Weapons/rangedweapon.h \
     Weapons/shield.h \
     character.h \
     mainwindow.h \
