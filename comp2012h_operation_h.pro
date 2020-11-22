@@ -9,7 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # For promoted widgets
-INCLUDEPATH += $$PWD/widgets/
+INCLUDEPATH += GameMapCanvas/
 
 SOURCES += \
     $$PWD/KeyBoardManager/combo.cpp \
@@ -17,9 +17,11 @@ SOURCES += \
     $$PWD/widgets/gamemapcanvas.cpp \
     $$PWD/Weapons/meleeweapon.cpp \
     $$PWD/Weapons/weapon.cpp \
-    Weapons/handgun.cpp \
-    Weapons/rangedweapon.cpp \
-    Weapons/shield.cpp \
+    $$PWD/Weapons/handgun.cpp \
+    $$PWD/Weapons/rangedweapon.cpp \
+    $$PWD/GameMapCanvas/gamemapcanvas.cpp \
+    $$PWD/GameMapCanvas/map.cpp \
+    $$PWD/Weapons/shield.cpp \
     character.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -32,9 +34,11 @@ HEADERS += \
     $$PWD/widgets/gamemapcanvas.h \
     $$PWD/Weapons/meleeweapon.h \
     $$PWD/Weapons/weapon.h \
-    Weapons/handgun.h \
-    Weapons/rangedweapon.h \
-    Weapons/shield.h \
+    $$PWD/Weapons/handgun.h \
+    $$PWD/Weapons/rangedweapon.h \
+    $$PWD/GameMapCanvas/gamemapcanvas.h \
+    $$PWD/GameMapCanvas/map.h \
+    $$PWD/Weapons/shield.h \
     character.h \
     mainwindow.h \
     mapviewpage.h \
@@ -49,4 +53,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    $$PWD/assets.qrc
+    assets.qrc

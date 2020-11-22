@@ -12,7 +12,7 @@ public:
     static const int WEIGHT{1};
     static const int PUSHBACK_DISTANCE{10};
 
-    Shield(char id, Character* owner);
+    Shield(char id);
     virtual ~Shield();
 
     bool is_broken() const;
