@@ -1,11 +1,12 @@
 #include "mapviewpage.h"
 
 #include <QDebug>
-#include <QPoint>
-#include <iostream>
-#include <QTimeLine>
-#include <QPointF>
 #include <QGraphicsItemAnimation>
+#include <QPoint>
+#include <QPointF>
+#include <QTimeLine>
+#include <iostream>
+
 #include "ui_mapviewpage.h"
 
 using namespace std;
@@ -14,10 +15,11 @@ MapViewPage::MapViewPage(QWidget* parent)
 	: QDialog(parent), ui(new Ui::MapViewPage), kbManager(this) {
 	ui->setupUi(this);
 
-    ui->gameMap->character = new QGraphicsPixmapItem(QPixmap(":character_test"));
-//    ui->gameMap->character->setTransformOriginPoint(QPointF(16,16));
-    ui->gameMap->character->setOffset(QPointF(-16,-16));
-    ui->gameMap->scene->addItem(ui->gameMap->character);
+	ui->gameMap->character =
+		new QGraphicsPixmapItem(QPixmap(":character_test"));
+	//    ui->gameMap->character->setTransformOriginPoint(QPointF(16,16));
+	ui->gameMap->character->setOffset(QPointF(-16, -16));
+	ui->gameMap->scene->addItem(ui->gameMap->character);
 
 	connect(this, &MapViewPage::keyPressEvent, &kbManager,
 			&KeyboardManager::pressKey);
@@ -35,18 +37,18 @@ MapViewPage::MapViewPage(QWidget* parent)
 void MapViewPage::comboHandler(const QString& combo) {
 	qDebug() << "combo detect: " << combo;
 	if (combo == "A") {
-        ui->gameMap->character->moveBy(-10, 0);
+		ui->gameMap->character->moveBy(-10, 0);
 	} else if (combo == "S") {
-        ui->gameMap->character->moveBy(0, 10);
+		ui->gameMap->character->moveBy(0, 10);
 	} else if (combo == "D") {
-        ui->gameMap->character->moveBy(10, 0);
+		ui->gameMap->character->moveBy(10, 0);
 	} else if (combo == "W") {
-        ui->gameMap->character->moveBy(0, -10);
+		ui->gameMap->character->moveBy(0, -10);
 	}
 }
 
 void MapViewPage::mouseMoveEvent(QMouseEvent* e) {
-//	qDebug() << e->x() << ", " << e->y() << "\n";
+	//	qDebug() << e->x() << ", " << e->y() << "\n";
 }
 
 MapViewPage::~MapViewPage() { delete ui; }
