@@ -34,6 +34,11 @@ public:
      */
     Character* operator[](QString)const;
     /**
+     * @brief get_all_characters return a constant list of all character
+     * @return const QList<Character*>
+     */
+    const QList<Character*> get_all_characters()const;
+    /**
      * @brief Prevent ability to create another instance via copy constructor
      */
     character_manager(character_manager*) = delete;
