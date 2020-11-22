@@ -12,7 +12,7 @@ public:
     static const int WEIGHT{1};
     static const int MAX_AMMO{12};
 
-    HandGun(char id, Character* owner);
+    HandGun(char id);
     virtual ~HandGun();
 
 };

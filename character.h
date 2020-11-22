@@ -20,6 +20,7 @@ public:
     void set_name(QString name);
     void set_health(int health);
     void shoot();
+    Character operator=(const Character& input);
 
 private:
     QString characterName;

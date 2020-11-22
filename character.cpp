@@ -14,7 +14,12 @@ Character::Character(const QStringList data)
 
 }
 
+//Character operator=(const Character& input) {
+
+//}
+
 Character::~Character(){};
+
 
 QString Character::get_name() const
 {

@@ -14,7 +14,6 @@ INCLUDEPATH += GameMapCanvas/
 SOURCES += \
     $$PWD/KeyBoardManager/combo.cpp \
     $$PWD/KeyBoardManager/keyboardmanager.cpp \
-    $$PWD/widgets/gamemapcanvas.cpp \
     $$PWD/Weapons/meleeweapon.cpp \
     $$PWD/Weapons/weapon.cpp \
     $$PWD/Weapons/handgun.cpp \
@@ -31,7 +30,6 @@ HEADERS += \
     $$PWD/KeyBoardManager/combo.h \
     $$PWD/KeyBoardManager/keyboardmanager.h \
     $$PWD/KeyBoardManager/KeyState.h \
-    $$PWD/widgets/gamemapcanvas.h \
     $$PWD/Weapons/meleeweapon.h \
     $$PWD/Weapons/weapon.h \
     $$PWD/Weapons/handgun.h \

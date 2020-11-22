@@ -14,7 +14,7 @@ public:
     int get_ammo() const;
 
 protected:
-    RangedWeapon(char id, WeaponType weapon_type, int attack, int attack_range, int weight, Character* owner);
+    RangedWeapon(char id, WeaponType weapon_type, int attack, int attack_range, int weight);
 
     virtual void action_attack();
     virtual void action_reload();
