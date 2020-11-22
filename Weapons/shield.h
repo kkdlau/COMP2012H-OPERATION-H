@@ -17,9 +17,7 @@ public:
 
     bool is_broken() const;
 
-    virtual void action_attack_uncharged() const override;
-    virtual void action_attack_charged_lv1() const override;
-    virtual void action_attack_charged_lv2() const override;
+    virtual void action_attack() const override;
     void action_defend(const int damage_received);
 
 private:

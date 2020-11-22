@@ -8,14 +8,8 @@ bool Shield::is_broken() const {
     return (strength == 0);
 }
 
-void Shield::action_attack_uncharged() const{
+void Shield::action_attack() const{
     return;
-}
-void Shield::action_attack_charged_lv1() const{
-    action_attack_uncharged();
-}
-void Shield::action_attack_charged_lv2() const{
-    action_attack_uncharged();
 }
 
 void Shield::action_defend(const int damage_received) {

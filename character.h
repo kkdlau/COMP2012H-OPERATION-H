@@ -4,7 +4,7 @@
 #include "qstringlist.h"
 #include "qgraphicsitem.h"
 
-class Character : public QGraphicsItemGroup
+class Character : public QGraphicsItem
 {
 public:
     Character(QString, int);
