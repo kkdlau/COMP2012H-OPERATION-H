@@ -27,6 +27,16 @@ Character* character_manager::get_character(QString character_name) const
     return database.contains(character_name)? database[character_name] : nullptr;
 }
 
+Character* character_manager::operator[](QString character_name) const
+{
+    return get_character(character_name);
+}
+
+const QList<Character*> character_manager::get_all_characters() const
+{
+    return database.values();
+}
+
 bool character_manager::is_character_exist(QString name)
 {
     return database.contains(name);
