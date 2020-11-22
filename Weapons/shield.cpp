@@ -1,7 +1,7 @@
 #include "shield.h"
 
 // public
-Shield::Shield(char id, Character* owner) : MeleeWeapon(id, WEAPON_TYPE, ATTACK, AR, WEIGHT, owner){}
+Shield::Shield(char id) : MeleeWeapon(id, WEAPON_TYPE, ATTACK, AR, WEIGHT){}
 Shield::~Shield() = default;
 
 bool Shield::is_broken() const {

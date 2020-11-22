@@ -15,7 +15,7 @@ public:
     ChargeState get_charge_state() const;
 
 protected:
-    MeleeWeapon(char id, WeaponType weapon_type, int attack, int attack_range, int weight, Character* owner);
+    MeleeWeapon(char id, WeaponType weapon_type, int attack, int attack_range, int weight);
 
     virtual void action_attack_uncharged() const = 0;
     virtual void action_attack_charged_lv1() const = 0;
