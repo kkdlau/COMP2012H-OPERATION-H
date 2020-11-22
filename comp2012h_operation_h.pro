@@ -15,6 +15,7 @@ SOURCES += \
     $$PWD/KeyBoardManager/combo.cpp \
     $$PWD/KeyBoardManager/keyboardmanager.cpp \
     $$PWD/widgets/gamemapcanvas.cpp \
+    character.cpp \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp
@@ -24,6 +25,7 @@ HEADERS += \
     $$PWD/KeyBoardManager/keyboardmanager.h \
     $$PWD/KeyBoardManager/KeyState.h \
     $$PWD/widgets/gamemapcanvas.h \
+    character.h \
     mainwindow.h \
     mapviewpage.h
 
