@@ -7,6 +7,7 @@
 #include <QGraphicsItem>
 #include <QMouseEvent>
 #include <QKeyEvent>
+#include <QGraphicsPixmapItem>
 #include "KeyBoardManager/keyboardmanager.h"
 
 namespace Ui {
@@ -25,6 +26,7 @@ private:
     Ui::MapViewPage *ui;
     QGraphicsScene *scene;
     QGraphicsRectItem *rectangle;
+    QGraphicsPixmapItem *character;
     KeyboardManager kbManager;
 
     void comboHandler(const QString&);
