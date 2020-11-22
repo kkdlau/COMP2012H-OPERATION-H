@@ -3,34 +3,28 @@
 #include <QDebug>
 #include <QPoint>
 #include <iostream>
-
+#include <QTimeLine>
+#include <QPointF>
+#include <QGraphicsItemAnimation>
 #include "ui_mapviewpage.h"
 
 using namespace std;
 
-void test() {
-	qDebug() << "A and S are pressed"
-			 << "\n";
-}
-
 MapViewPage::MapViewPage(QWidget* parent)
 	: QDialog(parent), ui(new Ui::MapViewPage), kbManager(this) {
 	ui->setupUi(this);
-	scene = new QGraphicsScene(this);
-	//    ui->gameMap->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	//    ui->gameMap->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	ui->gameMap->setScene(scene);
+    ui->gameMap->scene = new QGraphicsScene(this);
+    ui->gameMap->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->gameMap->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->gameMap->setScene(ui->gameMap->scene);
+
+    ui->gameMap->character = new QGraphicsPixmapItem(QPixmap(":character_test"));
+    ui->gameMap->character->setTransformOriginPoint(QPointF(16,16));
 
 	QPixmap* pixmap = new QPixmap(":test_map.png");
-	cout << "width: " << pixmap->size().width() << endl;
-	scene->addPixmap(*pixmap);
 
-	QBrush greenBrush(Qt::green);
-	QBrush blueBrush(Qt::blue);
-	QPen outlinePen(Qt::black);
-	outlinePen.setWidth(2);
-
-	rectangle = scene->addRect(0, 0, 32, 32, outlinePen, blueBrush);
+    ui->gameMap->scene->addPixmap(*pixmap);
+    ui->gameMap->scene->addItem(ui->gameMap->character);
 
 	connect(this, &MapViewPage::keyPressEvent, &kbManager,
 			&KeyboardManager::pressKey);
@@ -48,16 +42,14 @@ MapViewPage::MapViewPage(QWidget* parent)
 void MapViewPage::comboHandler(const QString& combo) {
 	qDebug() << "combo detect: " << combo;
 	if (combo == "A") {
-		rectangle->setPos(rectangle->pos() + QPoint(-10, 0));
+        ui->gameMap->character->moveBy(-10, 0);
 	} else if (combo == "S") {
-		rectangle->setPos(rectangle->pos() + QPoint(0, 10));
+        ui->gameMap->character->moveBy(0, 10);
 	} else if (combo == "D") {
-		rectangle->setPos(rectangle->pos() + QPoint(10, 0));
+        ui->gameMap->character->moveBy(10, 0);
 	} else if (combo == "W") {
-		rectangle->setPos(rectangle->pos() + QPoint(0, -10));
+        ui->gameMap->character->moveBy(0, -10);
 	}
-	scene->setSceneRect(QRectF(0, 0, 320, 320));
-	qDebug() << rectangle->pos();
 }
 
 void MapViewPage::mouseMoveEvent(QMouseEvent* e) {
