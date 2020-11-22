@@ -21,7 +21,9 @@ SOURCES += \
     $$PWD/GameMapCanvas/gamemapcanvas.cpp \
     $$PWD/GameMapCanvas/map.cpp \
     $$PWD/Weapons/shield.cpp \
+    FileParser/fileparser.cpp \
     character.cpp \
+    charactermanager.cpp \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
@@ -37,7 +39,9 @@ HEADERS += \
     $$PWD/GameMapCanvas/gamemapcanvas.h \
     $$PWD/GameMapCanvas/map.h \
     $$PWD/Weapons/shield.h \
+    FileParser/fileparser.h \
     character.h \
+    charactermanager.h \
     mainwindow.h \
     mapviewpage.h \
 
