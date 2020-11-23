@@ -2,20 +2,32 @@
 #define GRIDINFO_H
 #include <QVector>
 #include <QString>
-#include "Weapons/weapon.h"
 
 class GridInfo
 {
 private:
-    float height;
-    const unsigned int x;
-    const unsigned int y;
+    int height;
+    const int x;
+    const int y;
 //    QVector<Weapon> weapons;
 public:
-    GridInfo(float height, unsigned int x, unsigned int y /*, QVector<Weapon>&& weapons*/);
+    GridInfo(int height, int x, int y /*, QVector<Weapon>&& weapons*/);
 
-    float getHeight() const;
-    void setHeight(const float height);
+    int getHeight() const;
+    int heightDiff(const GridInfo& grid) const;
+    void setHeight(const int height);
+
+    /**
+     * @brief operator -: calculate the height differences between two grids
+     *
+     * @param leftOperand grid for left operand
+     * @param rightOperand grid for right operand
+     *
+     * @return absulote value of height differences
+     */
+    friend int operator-(const GridInfo& leftOperand, const GridInfo& rightOperand) {
+        return abs(leftOperand.height - rightOperand.height);
+    }
 
     QString toString() const;
 

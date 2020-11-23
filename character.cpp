@@ -1,17 +1,25 @@
 #include "character.h"
 
-Character::Character(){
+Character::Character(int stepValue): stepValue{stepValue} {
 
 }
 
-Character::Character(QString name, int health) : characterName(name), characterHealth(health)
+Character::Character(QString name, int health, int stepValue) : characterName(name), characterHealth(health), stepValue{stepValue}
 {
 
 }
 
-Character::Character(const QStringList data)
+Character::Character(const QStringList data, int stepValue): stepValue{stepValue}
 {
 
+}
+
+QPointF Character::getPosition() const {
+    return pos();
+}
+
+void Character::moveBy(qreal x, qreal y) {
+   QPointF newPos = this->pos() + QPoint(x, y);
 }
 
 //Character operator=(const Character& input) {

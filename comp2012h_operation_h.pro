@@ -45,7 +45,7 @@ HEADERS += \
     character.h \
     charactermanager.h \
     mainwindow.h \
-    mapviewpage.h \
+    mapviewpage.h
 
 FORMS += \
     mainwindow.ui \
