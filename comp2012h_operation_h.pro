@@ -16,6 +16,7 @@ SOURCES += \
     FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
+    Weapons/bullet.cpp \
     Weapons/meleeweapon.cpp \
     Weapons/weapon.cpp \
     Weapons/handgun.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
     KeyBoardManager/KeyState.h \
+    Weapons/bullet.h \
     Weapons/meleeweapon.h \
     Weapons/weapon.h \
     Weapons/handgun.h \

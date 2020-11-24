@@ -1,6 +1,4 @@
 #include "charactermanager.h"
-#include "FileParser/fileparser.h"
-#include "qdebug.h"
 
 character_manager *character_manager::instance = nullptr;
 
@@ -11,7 +9,6 @@ character_manager::character_manager()
 character_manager::~character_manager()
 {
     reset_character_manager();
-    //check leak in instance
 }
 
 character_manager *character_manager::get_instance()

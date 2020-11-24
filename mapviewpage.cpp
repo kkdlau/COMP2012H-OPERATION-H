@@ -6,6 +6,7 @@
 #include <QPointF>
 #include <QTimeLine>
 #include <iostream>
+#include "Weapons/bullet.h"
 
 #include "ui_mapviewpage.h"
 
@@ -31,7 +32,8 @@ MapViewPage::MapViewPage(QWidget* parent)
 	this->kbManager.addListeningCombo("A")
 		.addListeningCombo("S")
 		.addListeningCombo("D")
-		.addListeningCombo("W");
+        .addListeningCombo("W")
+        .addListeningCombo("K");
 }
 
 void MapViewPage::comboHandler(const QString& combo) {
@@ -45,6 +47,14 @@ void MapViewPage::comboHandler(const QString& combo) {
 	} else if (combo == "W") {
 		ui->gameMap->character->moveBy(0, -10);
 	}
+      else if(combo == "K")
+    {
+        qDebug()<<"SFJHSFKJHSFKJ";
+        Bullet *test = new Bullet(1, 45, 1, ui->gameMap->character->x(), ui->gameMap->character->y());
+        ui->gameMap->scene->addItem(test);
+
+
+    }
 }
 
 void MapViewPage::mouseMoveEvent(QMouseEvent* e) {
