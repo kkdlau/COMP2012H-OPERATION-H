@@ -14,15 +14,26 @@ Map::Map(QObject* parent, QString resourceName, QString mapConfigFilePath) : QGr
 
     parseMapConfigFile(mapConfigFilePath);
 
+    addObstacle(0, 2);
+    addObstacle(1, 2);
+
+    addObstacle(2, 0);
+    addObstacle(2, 1);
+
+    addObstacle(0, 5);
+    addObstacle(1, 5);
+
+
+}
+
+void Map::addObstacle(int posX, int posY) {
+    (*this)[posY][posX].setHeight(5);
     QColor clr = Qt::blue;
     clr.setAlphaF(0.3);
     QBrush tmpBrush{clr};
     QPen tmpPen;
     test_obstacle = addRect(0, 0, 32, 32, tmpPen, tmpBrush);
-    test_obstacle->setPos(.0f, 64.0f);
-    (*this)[2][0].setHeight(5);
-
-
+    test_obstacle->setPos(posX * 32.0f, posY *32.0f);
 }
 
 void Map::gridInfoinitialize() {

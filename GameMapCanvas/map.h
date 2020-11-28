@@ -39,6 +39,7 @@ class Map : public QGraphicsScene {
     void gridInfoinitialize(int w, int h, int baseHeight = 0);
 
    public:
+       enum class AXIS {X, Y};
     static const int GRID_SIZE_W;
     static const int GRID_SIZE_H;
     QGraphicsRectItem* test_obstacle;
@@ -57,6 +58,8 @@ class Map : public QGraphicsScene {
     bool isOutOfMap(const QPoint& p) const;
     bool isOutOfMap(const QPointF& p, qreal* x, qreal* y) const;
     bool isAccessible(const QPoint& from, const QPoint& to, const int stepValue) const;
+
+    void addObstacle(int posX, int posY);
 
 
     template<typename T>

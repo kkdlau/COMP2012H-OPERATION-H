@@ -49,8 +49,6 @@ public:
 
     Character operator=(const Character& input);
 
-    void collidingInY(int dy);
-
 private:
     QString characterName;
 
@@ -64,7 +62,15 @@ private:
     Map* presetMap;
     int characterHealth;
     int curWeaponID;
+
+
     int stepValue; // step value for height system, it describles how "high" can a character travels.
+
+    void moveYPositive(int dy);
+    void moveYNegative(int dy);
+
+    void moveXPositive(int dx);
+    void moveXNegative(int dx);
 
 signals:
     void isMoving(Character*);

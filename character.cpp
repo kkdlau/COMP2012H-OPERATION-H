@@ -22,7 +22,7 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     head->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
     head->setOffset(QPointF(-Character::WIDTH / 2, -Character::HEIGHT / 2));
     addToGroup(head);
-    setPos(QPointF{16, 16});
+    setPos(QPointF{32 * 3, 32.0f * 7});
 
 }
 
@@ -38,18 +38,96 @@ void Character::setPosition(QPointF p) {
     setPos(p);
 }
 
-void Character::collidingInY(int dy) {
+void Character::moveYPositive(int dy) {
     QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
 
+    qDebug() <<"x: " << pos().x();
     int shift = qFloor(pos().x()) % 32;
+
+    qDebug() << "shift: " << shift;
     int shiftIndex = shift ==  16? 0 : shift > 16? 1 : -1;
+
+    qDebug() << "shiftIndex: " << shiftIndex;
 
     const GridInfo& lowerGrid = (*presetMap)[p + QPoint{0, 1}];
     const GridInfo& lowerGrid2 = (*presetMap)[p + QPoint{shiftIndex, 1}];
 
-    if (lowerGrid.getHeight() && pos().y() + 16 + dy > (p.y() + 1) * 32) {
+    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
+
+    if (lowerGrid2.getHeight() && pos().y() + 16 + dy > (p.y() + 1) * 32) {
+        this->setY((p.y() + 1) * 32 - 16);
+    } else if (lowerGrid.getHeight() && pos().y() + 16 + dy > (p.y() + 1) * 32) {
         this->setY((p.y() + 1) * 32 - 16);
     } else this->setY(pos().y() + dy);
+}
+
+void Character::moveYNegative(int dy) {
+    QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
+
+    qDebug() <<"x: " << pos().x();
+    int shift = qFloor(pos().x()) % 32;
+
+    qDebug() << "shift: " << shift;
+    int shiftIndex = shift ==  16? 0 : shift > 16? 1 : -1;
+
+    qDebug() << "shiftIndex: " << shiftIndex;
+
+    const GridInfo& lowerGrid = (*presetMap)[p + QPoint{0, -1}];
+    const GridInfo& lowerGrid2 = (*presetMap)[p + QPoint{shiftIndex, -1}];
+
+    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
+
+    if (lowerGrid2.getHeight() && pos().y() - 16 + dy < p.y() * 32) {
+        this->setY((p.y()) * 32 + 16);
+    } else if (lowerGrid.getHeight() && pos().y() - 16 + dy < p.y() * 32) {
+        this->setY((p.y()) * 32 + 16);
+    } else this->setY(pos().y() + dy);
+}
+
+void Character::moveXPositive(int dx) {
+    QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
+
+    qDebug() <<"x: " << pos().x();
+    int shift = qFloor(pos().y()) % 32;
+
+    qDebug() << "shift: " << shift;
+    int shiftIndex = shift ==  16? 0 : shift > 16? 1 : -1;
+
+    qDebug() << "shiftIndex: " << shiftIndex;
+
+    const GridInfo& lowerGrid = (*presetMap)[p + QPoint{1, 0}];
+    const GridInfo& lowerGrid2 = (*presetMap)[p + QPoint{1, shiftIndex}];
+
+    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
+
+    if (lowerGrid2.getHeight() && pos().x() + 16 + dx > (p.x() + 1) * 32) {
+        this->setX((p.x() + 1) * 32 - 16);
+    } else if (lowerGrid.getHeight() && pos().x() + 16 + dx > (p.x() + 1) * 32) {
+        this->setX((p.x() + 1) * 32 - 16);
+    } else this->setX(pos().x() + dx);
+}
+
+void Character::moveXNegative(int dx) {
+    QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
+
+    qDebug() <<"x: " << pos().x();
+    int shift = qFloor(pos().y()) % 32;
+
+    qDebug() << "shift: " << shift;
+    int shiftIndex = shift ==  16? 0 : shift > 16? 1 : -1;
+
+    qDebug() << "shiftIndex: " << shiftIndex;
+
+    const GridInfo& lowerGrid = (*presetMap)[p + QPoint{-1, 0}];
+    const GridInfo& lowerGrid2 = (*presetMap)[p + QPoint{-1, shiftIndex}];
+
+    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
+
+    if (lowerGrid2.getHeight() && pos().x() - 16 + dx < p.x() * 32) {
+        this->setX(p.x() * 32 + 16);
+    } else if (lowerGrid.getHeight() && pos().x() - 16 + dx < p.x() * 32) {
+        this->setX(p.x() * 32 + 16);
+    } else this->setX(pos().x() + dx);
 }
 
 void Character::moveBy(qreal x, qreal y) {
@@ -67,9 +145,8 @@ void Character::moveBy(qreal x, qreal y) {
 //           animation->stop();
 //       }
 //   });
-
-//this->setPosition(QPointF{this->getPosition().x() + x, this->getPosition().y() + y});
-    collidingInY(y);
+    moveYNegative(y);
+    moveXNegative(x);
 }
 
 
