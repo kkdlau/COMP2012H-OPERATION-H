@@ -7,8 +7,10 @@
 #include <QTimeLine>
 #include <iostream>
 #include "Weapons/bullet.h"
-
+#include "character.h"
+#include "NewWeapon/rangedweapon.h"
 #include "ui_mapviewpage.h"
+#include "startpanel.h"
 
 using namespace std;
 
@@ -16,24 +18,31 @@ MapViewPage::MapViewPage(QWidget* parent)
 	: QDialog(parent), ui(new Ui::MapViewPage), kbManager(this) {
 	ui->setupUi(this);
 
-	ui->gameMap->character =
-		new QGraphicsPixmapItem(QPixmap(":character_test"));
-	//    ui->gameMap->character->setTransformOriginPoint(QPointF(16,16));
+    ui->gameMap->character =
+        new QGraphicsPixmapItem(QPixmap(":character_test"));
+    //    ui->gameMap->character->setTransformOriginPoint(QPointF(16,16));
     ui->gameMap->character->setOffset(QPointF(-Map::GRID_SIZE_W / 2, -Map::GRID_SIZE_H / 2));
-	ui->gameMap->scene->addItem(ui->gameMap->character);
+    ui->gameMap->scene->addItem(ui->gameMap->character);
+    Character *sample = new Character();
+    sample->setPos(100,100);
+    sample->setPixmap(QPixmap(":character_test"));
+    ui->gameMap->scene->addItem(sample);
+    connect(this, &MapViewPage::keyPressEvent, &kbManager,
+            &KeyboardManager::pressKey);
+    connect(this, &MapViewPage::keyReleaseEvent, &kbManager,
+            &KeyboardManager::releaseKey);
+    connect(&kbManager, &KeyboardManager::comboPressed, this,
+            &MapViewPage::comboHandler);
 
-	connect(this, &MapViewPage::keyPressEvent, &kbManager,
-			&KeyboardManager::pressKey);
-	connect(this, &MapViewPage::keyReleaseEvent, &kbManager,
-			&KeyboardManager::releaseKey);
-	connect(&kbManager, &KeyboardManager::comboPressed, this,
-			&MapViewPage::comboHandler);
-
-	this->kbManager.addListeningCombo("A")
-		.addListeningCombo("S")
-		.addListeningCombo("D")
+    this->kbManager.addListeningCombo("A")
+        .addListeningCombo("S")
+        .addListeningCombo("D")
         .addListeningCombo("W")
-        .addListeningCombo("K");
+        .addListeningCombo("K")
+        .addListeningCombo("M");
+
+    testWeapon = new RangedWeapon(10,500, 2000, 10);
+    testWeapon->Equip(ui->gameMap->character, sample);
 }
 
 void MapViewPage::comboHandler(const QString& combo) {
@@ -49,11 +58,13 @@ void MapViewPage::comboHandler(const QString& combo) {
 	}
       else if(combo == "K")
     {
-        qDebug()<<"SFJHSFKJHSFKJ";
-        Bullet *test = new Bullet(1, 45, 1, ui->gameMap->character->x(), ui->gameMap->character->y());
-        ui->gameMap->scene->addItem(test);
-
-
+        testWeapon->Attack();
+        qDebug()<<"FIREEE";
+    }
+        else if(combo == "M")
+    {
+        testWeapon->Attack();
+        testWeapon->Attack();
     }
 }
 

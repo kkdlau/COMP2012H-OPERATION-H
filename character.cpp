@@ -1,5 +1,8 @@
 #include "character.h"
-
+void Character::on_hit()
+{
+    qDebug()<<"I GOT STABBED REEEEEEEEEEEEEEEEEEEEEEE";
+}
 Character::Character(){
 
 }

@@ -13,37 +13,29 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
+  <widget class="QWidget" name="centralWid">
+   <widget class="QWidget" name="container" native="true">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>100</y>
-      <width>171</width>
-      <height>80</height>
+      <x>20</x>
+      <y>10</y>
+      <width>341</width>
+      <height>281</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="minimumSize">
-        <size>
-         <width>171</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>171</width>
-         <height>151</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>110</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -52,7 +44,7 @@
      <x>0</x>
      <y>0</y>
      <width>583</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

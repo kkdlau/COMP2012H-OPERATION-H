@@ -1,14 +1,14 @@
 #include "bullet.h"
 #include "QtMath"
-#include "character.h"
-#include "qdebug.h"
-Bullet::Bullet(int damage, int angle, int mapHeight, int x , int y): damage(damage), angle(angle), mapHeight(mapHeight)
+#include <QGraphicsScene>
+
+Bullet::Bullet(int damage, int angle, int x, int y, Character* owner): damage(damage), angle(angle), owner(owner)
 {
+    owner->scene()->addItem(this);
     setPos(x,y);
-    timer = new QTimer();
-    setPixmap(QPixmap(":gun.png"));
-    connect(timer, &QTimer::timeout, this, &Bullet::move);
-    timer->start(50);
+    setPixmap(QPixmap(":bullet"));
+    connect(&timer, &QTimer::timeout, this, &Bullet::move);
+    timer.start(50);
 }
 
 void Bullet::move()
@@ -22,10 +22,13 @@ void Bullet::move()
     QList<QGraphicsItem*> collision = collidingItems();
     for(int i = 0; i < collision.length(); i++)
     {
-
-        if(typeid(*(collision[i])) == typeid(Character))
+        if(typeid(*(collision[i])) == typeid(Character) && collision[i] != owner)
         {
             qDebug()<<"ENEMY HIT U FUCKIN CUNT";
         }
+    }
+    if(--lifeSpan <= 0)
+    {
+        delete this;
     }
 }

@@ -4,19 +4,21 @@
 #include <QObject>
 #include "QGraphicsPixmapItem"
 #include "qtimer.h"
-
+#include "character.h"
+#include "qdebug.h"
 class Bullet : public QObject,public QGraphicsPixmapItem
 {
 
 public:
-    Bullet(int damage, int angle, int mapHeight, int x, int y);
+    Bullet(int damage, int angle, int x, int y, Character* owner);
     void move();
 private:
     const int damage;
     const int angle;
-    const int mapHeight;
     const int bulletSpeed = 3;
-    QTimer *timer;
+    int lifeSpan = 100;
+    Character *owner;
+    QTimer timer;
 };
 
 #endif // BULLET_H

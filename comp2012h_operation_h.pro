@@ -16,19 +16,20 @@ SOURCES += \
     FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
+    NewWeapon/meleeweapon.cpp \
+    NewWeapon/rangedweapon.cpp \
+    NewWeapon/weapon.cpp \
     Weapons/bullet.cpp \
-    Weapons/meleeweapon.cpp \
-    Weapons/weapon.cpp \
-    Weapons/handgun.cpp \
-    Weapons/rangedweapon.cpp \
     GameMapCanvas/gamemapcanvas.cpp \
     GameMapCanvas/map.cpp \
-    Weapons/shield.cpp \
     character.cpp \
     charactermanager.cpp \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
+    startpanel.cpp \
+    testmelee.cpp \
+    uipanel.cpp
 
 HEADERS += \
     GameMapCanvas/gridinfo.h \
@@ -36,18 +37,19 @@ HEADERS += \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
     KeyBoardManager/KeyState.h \
+    NewWeapon/meleeweapon.h \
+    NewWeapon/rangedweapon.h \
+    NewWeapon/weapon.h \
     Weapons/bullet.h \
-    Weapons/meleeweapon.h \
-    Weapons/weapon.h \
-    Weapons/handgun.h \
-    Weapons/rangedweapon.h \
     GameMapCanvas/gamemapcanvas.h \
     GameMapCanvas/map.h \
-    Weapons/shield.h \
     character.h \
     charactermanager.h \
     mainwindow.h \
     mapviewpage.h \
+    startpanel.h \
+    testmelee.h \
+    uipanel.h
 
 FORMS += \
     mainwindow.ui \
