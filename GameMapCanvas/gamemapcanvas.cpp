@@ -18,10 +18,11 @@ void GameMapCanvas::scrollContentsBy(int, int) {}
 
 void GameMapCanvas::mouseMoveEvent(QMouseEvent* e) {
 	QGraphicsView::mouseMoveEvent(e);
-    qreal x = map->get_cursor_on_map().x() - character->pos().x() + Map::GRID_SIZE_W / 2;
-    qreal y = map->get_cursor_on_map().y() - character->pos().y() + Map::GRID_SIZE_H / 2;
+
+    qreal x = map->get_cursor_on_map().x() - character->pos().x();
+    qreal y = map->get_cursor_on_map().y() - character->pos().y();
 	qreal rad = qAtan(y / x);
-	if (x < 0 && y < 0) rad = M_PI + rad;
-	if (x < 0 && y > 0) rad = M_PI + rad;
+    if (x < 0) rad += M_PI;
+
     character->setRotation(qRadiansToDegrees(rad));
 }
