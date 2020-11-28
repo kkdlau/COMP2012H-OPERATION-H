@@ -20,6 +20,7 @@ Map::Map(QObject* parent, QString resourceName, QString mapConfigFilePath) : QGr
     QPen tmpPen;
     test_obstacle = addRect(0, 0, 32, 32, tmpPen, tmpBrush);
     test_obstacle->setPos(.0f, 64.0f);
+    (*this)[2][0].setHeight(5);
 
 
 }

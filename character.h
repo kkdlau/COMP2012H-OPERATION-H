@@ -49,6 +49,8 @@ public:
 
     Character operator=(const Character& input);
 
+    void collidingInY(int dy);
+
 private:
     QString characterName;
 

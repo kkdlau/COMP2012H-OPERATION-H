@@ -40,7 +40,7 @@ void GridInfo::setHeight(const int height) {
 }
 
 QString GridInfo::toString() const {
-    return QString("(%1, %2)").arg("%1", QString::number(x)).arg("%2", QString::number(y));
+    return QString("(%1, %2): %3").arg(QString::number(x)).arg(QString::number(y)).arg(QString::number(height));
 }
 
 int GridInfo::heightDiff(const GridInfo &grid) const {

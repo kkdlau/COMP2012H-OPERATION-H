@@ -43,7 +43,7 @@ void MapViewPage::comboHandler(const QString& combo) {
 	} else if (combo == "D") {
         ui->gameCanvas->character->moveBy(10, 0);
 	} else if (combo == "W") {
-        ui->gameCanvas->character->moveBy(0, -10);
+        ui->gameCanvas->character->moveBy(0, -5);
 	}
 }
 

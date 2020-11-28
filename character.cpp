@@ -1,5 +1,6 @@
 #include "character.h"
 #include <QDebug>
+#include <QtMath>
 #include <QVector2D>
 
 /*static Character member definitation*/
@@ -37,40 +38,38 @@ void Character::setPosition(QPointF p) {
     setPos(p);
 }
 
-bool testCollidesWithItem(QGraphicsItem* head, QGraphicsItem* obj) {
-    bool collide = head->collidesWithItem(obj);
-    if (collide) {
-        return (QVector2D{head->pos() - obj->pos()}).length() >= 0.01;
-    } else return false;
+void Character::collidingInY(int dy) {
+    QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
+
+    int shift = qFloor(pos().x()) % 32;
+    int shiftIndex = shift ==  16? 0 : shift > 16? 1 : -1;
+
+    const GridInfo& lowerGrid = (*presetMap)[p + QPoint{0, 1}];
+    const GridInfo& lowerGrid2 = (*presetMap)[p + QPoint{shiftIndex, 1}];
+
+    if (lowerGrid.getHeight() && pos().y() + 16 + dy > (p.y() + 1) * 32) {
+        this->setY((p.y() + 1) * 32 - 16);
+    } else this->setY(pos().y() + dy);
 }
 
 void Character::moveBy(qreal x, qreal y) {
-   bool intersect = head->boundingRect().intersects(presetMap->test_obstacle->boundingRect());
+//   bool intersect = head->boundingRect().intersects(presetMap->test_obstacle->boundingRect());
 
-   animation = new QPropertyAnimation(this, "move");
-   animation->keyValueAt(0.01);
-   animation->setDuration(100);
-   animation->setStartValue(this->getPosition());
-   animation->setEndValue(this->pos() + QPoint(x, y));
+//   animation = new QPropertyAnimation(this, "move");
+//   animation->keyValueAt(0.01);
+//   animation->setDuration(100);
+//   animation->setStartValue(this->getPosition());
+//   animation->setEndValue(this->pos() + QPoint(x, y));
 
-   if (head->collidesWithItem(presetMap->test_obstacle)) {
-       const QPointF oldPoint = this->getPosition();
-       animation->updateCurrentValue(0.01);
-//       qDebug() << oldPoint << ", new: " << animation->update;
-       this->setPosition(animation->keyValueAt(0.01).toPointF());
-       if (head->collidesWithItem(presetMap->test_obstacle)) {
-           this->setPosition(oldPoint);
-           qDebug() << "set old";
-           return;
-       }
-   }
+//   animation->start();
+//   connect(animation, &QPropertyAnimation::valueChanged, this, [&]() {
+//       if (head->collidesWithItem(presetMap->test_obstacle)) {
+//           animation->stop();
+//       }
+//   });
 
-   animation->start();
-   connect(animation, &QPropertyAnimation::valueChanged, this, [&]() {
-       if (head->collidesWithItem(presetMap->test_obstacle)) {
-           animation->stop();
-       }
-   });
+//this->setPosition(QPointF{this->getPosition().x() + x, this->getPosition().y() + y});
+    collidingInY(y);
 }
 
 
