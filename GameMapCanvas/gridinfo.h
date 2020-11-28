@@ -2,6 +2,7 @@
 #define GRIDINFO_H
 #include <QVector>
 #include <QString>
+#include <QGraphicsRectItem>
 
 class GridInfo
 {
@@ -9,12 +10,35 @@ private:
     int height;
     const int x;
     const int y;
-//    QVector<Weapon> weapons;
-public:
-    GridInfo(int height, int x, int y /*, QVector<Weapon>&& weapons*/);
+    QGraphicsRectItem* collidingRect; // this uses for checking collision
 
+    void updateCollidingRect();
+
+public:
+    GridInfo(int height, int x, int y);
+    GridInfo(const GridInfo& grid);
+
+    /**
+     * @brief getHeight get the height of grid
+     * @return height
+     */
     int getHeight() const;
+
+    QGraphicsRectItem* getCollidingRect() const;
+
+    void registerCollidingRect(QGraphicsRectItem* rect);
+
+    /**
+     * @brief heightDiff calculate the height differences between two grids
+     * @param grid the grid to compare
+     * @return absolute value of height differences
+     */
     int heightDiff(const GridInfo& grid) const;
+
+    /**
+     * @brief setHeight set the height of grid, it affects the height system
+     * @param height height to set, usually ranging from 0 (ground) ~ 15 (Big Wood Box)
+     */
     void setHeight(const int height);
 
     /**
@@ -26,13 +50,14 @@ public:
      * @return absulote value of height differences
      */
     friend int operator-(const GridInfo& leftOperand, const GridInfo& rightOperand) {
-        return abs(leftOperand.height - rightOperand.height);
+        return leftOperand.heightDiff(rightOperand);
     }
 
+    /**
+     * @brief toString get the string representation of GridInfo object
+     * @return string representation
+     */
     QString toString() const;
-
-//    const QVector<Weapon>& getWeapons() const;
-//    QVector<Weapon>& getWeapons();
 };
 
 #endif // GRIDINFO_H

@@ -23,5 +23,5 @@ void GameMapCanvas::mouseMoveEvent(QMouseEvent* e) {
 	qreal rad = qAtan(y / x);
 	if (x < 0 && y < 0) rad = M_PI + rad;
 	if (x < 0 && y > 0) rad = M_PI + rad;
-	character->setRotation(qRadiansToDegrees(rad));
+    character->setRotation(qRadiansToDegrees(rad));
 }

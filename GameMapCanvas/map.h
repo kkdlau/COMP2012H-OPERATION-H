@@ -2,6 +2,7 @@
 #define MAP_H
 
 #include <QGraphicsScene>
+#include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 #include <QObject>
 #include <QPointF>
@@ -22,9 +23,26 @@ class Map : public QGraphicsScene {
     int width;
     int height;
 
+    void parseMapConfigFile(QString mapConfigFilePath);
+
+    /**
+     * @brief gridInfoinitialize helper function for initializing the whole map
+     */
+    void gridInfoinitialize();
+
+    /**
+     * @brief gridInfoinitialize initialize the grid info of map, the range is specified
+     * @param w width of the map
+     * @param h height of the map
+     * @param baseHeight the base height, i.e. height of ground
+     */
+    void gridInfoinitialize(int w, int h, int baseHeight = 0);
+
    public:
     static const int GRID_SIZE_W;
     static const int GRID_SIZE_H;
+    QGraphicsRectItem* test_obstacle;
+
     Map(QObject* parent, QString resourceName, QString mapConfigFilePath);
 
 	void mouseMoveEvent(QGraphicsSceneMouseEvent* e) override;

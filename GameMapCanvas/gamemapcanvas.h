@@ -5,6 +5,7 @@
 #include <QGraphicsView>
 #include <QMouseEvent>
 #include <QString>
+#include "../character.h"
 
 #include "./map.h"
 
@@ -13,12 +14,12 @@ class GameMapCanvas : public QGraphicsView {
 	GameMapCanvas(QWidget* widget);
 	Map* map;
 
-	QGraphicsPixmapItem* character;
+    Character* character;
 	QGraphicsScene* scene;
 
 	void scrollContentsBy(int, int) override;
 
-	void mouseMoveEvent(QMouseEvent* k);
+    void mouseMoveEvent(QMouseEvent* k) override;
 };
 
 #endif	// GAMPMAPCANVAS_H

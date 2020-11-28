@@ -6,5 +6,6 @@
         <file alias="character_test">assets/character.png</file>
         <file alias="gun.png">assets/resize-gun.png</file>
         <file alias="shield.png">assets/resize-shield.png</file>
+        <file alias="test_gun.png">assets/test_gun.png</file>
     </qresource>
 </RCC>

@@ -1,10 +1,32 @@
 #include "gridinfo.h"
 #include <QtMath>
+#include "map.h"
+#include <QDebug>
 
-GridInfo::GridInfo(int height, int x, int y/*, QVector<Weapon>&& weapons = {}*/):
-    height{height}, x{x}, y{y}/*, weapons{weapons}*/
+GridInfo::GridInfo(int height, int x, int y):
+    height{height}, x{x}, y{y}
 {
+    collidingRect = new QGraphicsRectItem{.0f, .0f, 32.0f, 32.0f};
+    updateCollidingRect();
+}
 
+GridInfo::GridInfo(const GridInfo& grid): height{grid.height}, x{grid.x}, y{grid.y} {
+    collidingRect = new QGraphicsRectItem{grid.collidingRect->rect()};
+    updateCollidingRect();
+}
+
+QGraphicsRectItem* GridInfo::getCollidingRect() const {
+    return collidingRect;
+}
+
+void GridInfo::updateCollidingRect() {
+    collidingRect->setVisible(false);
+    collidingRect->setPos(x * Map::GRID_SIZE_W, y * Map::GRID_SIZE_H);
+}
+
+void GridInfo::registerCollidingRect(QGraphicsRectItem* rect) {
+    collidingRect = rect;
+    updateCollidingRect();
 }
 
 int GridInfo::getHeight() const {
@@ -13,6 +35,8 @@ int GridInfo::getHeight() const {
 
 void GridInfo::setHeight(const int height) {
     this->height = height;
+    qDebug() << "setHeight";
+    updateCollidingRect();
 }
 
 QString GridInfo::toString() const {
@@ -22,11 +46,3 @@ QString GridInfo::toString() const {
 int GridInfo::heightDiff(const GridInfo &grid) const {
     return abs(height - grid.height);
 }
-
-//const QVector<Weapon>& GridInfo::getWeapons() const {
-//    return weapons;
-//}
-
-//QVector<Weapon>& GridInfo::getWeapons() {
-//    return weapons;
-//}

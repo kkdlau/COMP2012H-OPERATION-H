@@ -27,7 +27,7 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="GameMapCanvas" name="gameMap"/>
+     <widget class="GameMapCanvas" name="gameCanvas"/>
     </item>
     <item>
      <widget class="QDialogButtonBox" name="buttonBox">

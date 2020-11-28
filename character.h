@@ -1,21 +1,28 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 #include <QPointF>
+#include <QVector2D>
+#include <QPropertyAnimation>
 #include "qstring.h"
 #include "qstringlist.h"
 #include "qgraphicsitem.h"
 #include "Weapons/weapon.h"
 #include "../GameMapCanvas/map.h"
 
-class Character : public QGraphicsItemGroup
+class Character : public QObject, public QGraphicsItemGroup
 {
+    Q_OBJECT
+    Q_PROPERTY(QPointF move READ getPosition WRITE setPosition)
 public:
-    Character(int stepValue = 5);
-    Character(QString, int, int stepValue = 5);
-    Character(const QStringList, int stepValue = 5);
-
-    static Character createTestCharacter();
+    Character(int stepValue = 5, Map* map = nullptr);
+    Character(QString, int, int stepValue = 5, Map* map = nullptr);
+    Character(const QStringList, int stepValue = 5, Map* map = nullptr);
     ~Character();
+
+    static const int WIDTH;
+    static const int HEIGHT;
+    static Character createTestCharacter();
+
     QString get_name() const;
     int get_health() const;
     bool is_alive() const;
@@ -29,12 +36,29 @@ public:
      */
     QPointF getPosition() const;
 
+    void setPosition(QPointF p);
+
+    /**
+     * @brief setMovementVector set character movement vector
+     *
+     * @param v movement vector
+     */
+    void setMovementVector(QVector2D v);
+
     void moveBy(qreal x, qreal y);
 
     Character operator=(const Character& input);
 
 private:
     QString characterName;
+
+
+    QPropertyAnimation* animation;
+    QVector2D moveVector;
+
+
+    QGraphicsPixmapItem* head;
+    QGraphicsPixmapItem* gun; // for testing purpose
     Map* presetMap;
     int characterHealth;
     int curWeaponID;
