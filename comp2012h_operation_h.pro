@@ -16,13 +16,12 @@ SOURCES += \
     FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
-    Weapons/meleeweapon.cpp \
-    Weapons/weapon.cpp \
-    Weapons/handgun.cpp \
-    Weapons/rangedweapon.cpp \
+    NewWeapon/meleeweapon.cpp \
+    NewWeapon/rangedweapon.cpp \
+    NewWeapon/weapon.cpp \
+    Weapons/bullet.cpp \
     GameMapCanvas/gamemapcanvas.cpp \
     GameMapCanvas/map.cpp \
-    Weapons/shield.cpp \
     character.cpp \
     charactermanager.cpp \
     main.cpp \
@@ -35,13 +34,12 @@ HEADERS += \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
     KeyBoardManager/KeyState.h \
-    Weapons/meleeweapon.h \
-    Weapons/weapon.h \
-    Weapons/handgun.h \
-    Weapons/rangedweapon.h \
+    NewWeapon/meleeweapon.h \
+    NewWeapon/rangedweapon.h \
+    NewWeapon/weapon.h \
+    Weapons/bullet.h \
     GameMapCanvas/gamemapcanvas.h \
     GameMapCanvas/map.h \
-    Weapons/shield.h \
     character.h \
     charactermanager.h \
     mainwindow.h \

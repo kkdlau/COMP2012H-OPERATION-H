@@ -6,7 +6,7 @@
 #include <QPointF>
 #include <QTimeLine>
 #include <iostream>
-#include "../character.h"
+#include "character.h"
 
 #include "ui_mapviewpage.h"
 
