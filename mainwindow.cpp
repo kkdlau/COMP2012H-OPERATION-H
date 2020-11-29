@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "mapviewpage.h"
+#include "udp.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,4 +21,18 @@ void MainWindow::on_pushButton_clicked()
     MapViewPage map_view_page;
     map_view_page.setModal(true);
     map_view_page.exec();
+}
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    UDP its_a_me;
+    QString raw_message("Hello");
+    its_a_me.say_hello_in_udp(raw_message);
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    UDP its_a_you;
+    its_a_you.read_from_udp();
 }

@@ -1,5 +1,6 @@
 #include "udp.h"
 #include <QDebug>
+#include "mainwindow.h"
 
 #define OUR_PORT 6969
 
@@ -10,10 +11,12 @@ UDP::UDP(QObject *parent) : QObject(parent) {
 }
 
 void UDP::say_hello_in_udp(QString raw_data) {
-    QByteArray data;
-
-    data.append("HI you");
-    socket->writeDatagram(data, QHostAddress::LocalHost, OUR_PORT);
+        QByteArray data;
+        QHostAddress target_address;
+//        target_address.setAddress("10.89.117.107");
+        target_address.setAddress("127.0.0.1");
+        data.append("Steven");
+        socket->writeDatagram(data, QHostAddress::Broadcast, OUR_PORT);
 }
 
 void UDP::read_from_udp() {
