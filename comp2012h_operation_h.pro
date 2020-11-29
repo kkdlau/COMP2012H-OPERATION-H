@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
 
 CONFIG += c++11
 
@@ -27,6 +27,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
+    udp.cpp
 
 HEADERS += \
     GameMapCanvas/gridinfo.h \
@@ -43,7 +44,8 @@ HEADERS += \
     character.h \
     charactermanager.h \
     mainwindow.h \
-    mapviewpage.h
+    mapviewpage.h \
+    udp.h
 
 FORMS += \
     mainwindow.ui \
