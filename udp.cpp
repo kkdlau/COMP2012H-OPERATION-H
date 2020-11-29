@@ -13,20 +13,20 @@ UDP::UDP(QObject *parent) : QObject(parent) {
 void UDP::say_hello_in_udp(QString raw_data) {
         QByteArray data;
         QHostAddress target_address;
-//        target_address.setAddress("10.89.117.107");
+//        target_address.setAddress("192.168.1.108");
         target_address.setAddress("127.0.0.1");
-        data.append("Steven");
-        socket->writeDatagram(data, QHostAddress::Broadcast, OUR_PORT);
+        data.append("Fuck Steven");
+        socket->writeDatagram(data, target_address, OUR_PORT);
 }
 
 void UDP::read_from_udp() {
     // Making the buffer for reading
     QByteArray buffer;
-    buffer.resize(1024);
+    buffer.resize(256);
     // All the networking related stuff
     QHostAddress sender;
     quint16 sender_port;
-    socket->readDatagram(buffer.data(), buffer.size(),&sender, &sender_port);
+    socket->readDatagram(buffer.data(), buffer.size(), &sender, &sender_port);
 
     qDebug() << "Sender" <<  sender;
     qDebug() << "Sender Port" << sender_port;
