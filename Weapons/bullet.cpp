@@ -2,7 +2,7 @@
 #include "QtMath"
 #include <QGraphicsScene>
 
-Bullet::Bullet(int damage, int angle, int x, int y): damage(damage), angle(angle)
+Bullet::Bullet(int damage, int angle, int x, int y, QGraphicsItem* owner): damage(damage), angle(angle), owner(owner)
 {
     setPos(x,y);
     setPixmap(QPixmap(":bullet"));

@@ -48,15 +48,20 @@ void MeleeWeapon::Skill()
 
 void MeleeWeapon::OnAttack()
 {
-    qDebug()<<"doin animation REEEEEEEEEEEEEEEEEEEEEEEEEEEEE ";
-    QList<QGraphicsItem*> collision = collidingItems();
-    for(int i = 0; i < collision.length(); i++)
+    if(!isAttackAnimation)
     {
-        if(typeid(*(collision[i])) == typeid(Character))
+        QList<QGraphicsItem*> collision = collidingItems();
+        for(int i = 0; i < collision.length(); i++)
         {
-            qDebug()<<"INSERT HARMING FUCNTION TO CHARACTER";
+            if(typeid(*(collision[i])) == typeid(Character) && collision[i] != parentItem())
+            {
+                Character* target = dynamic_cast<Character*>(collision[i]);
+                if(target) target->DealDamage(attack);
+            }
         }
+        isAttackAnimation = true;
     }
+    else isAttackAnimation = false;
 }
 
 void MeleeWeapon::InitializeAttackAnimation()

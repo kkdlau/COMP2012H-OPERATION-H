@@ -85,3 +85,12 @@ void WeaponManager::AttackWeapon(int weaponId, int angle)
         targetWeapon->Attack(angle);
     }
 }
+
+void WeaponManager::DequipWeapon(int weaponId)
+{
+    Weapon* targetWeapon = GetWeapon(weaponId);
+    if(targetWeapon != nullptr)
+    {
+        targetWeapon->Unequip();
+    }
+}
