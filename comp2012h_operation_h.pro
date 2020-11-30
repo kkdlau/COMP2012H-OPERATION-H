@@ -30,7 +30,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
-    Network/udp.cpp
+    Network/udp.cpp \
+    networkpage.cpp
 
 HEADERS += \
     GameMapCanvas/gridinfo.h \
@@ -51,11 +52,13 @@ HEADERS += \
     enemy.h \
     mainwindow.h \
     mapviewpage.h \
-    Network/udp.h
+    Network/udp.h \
+    networkpage.h
 
 FORMS += \
     mainwindow.ui \
-    mapviewpage.ui
+    mapviewpage.ui \
+    networkpage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
