@@ -22,6 +22,7 @@ SOURCES += \
     NewWeapon/meleeweapon.cpp \
     NewWeapon/rangedweapon.cpp \
     NewWeapon/weapon.cpp \
+    NewWeapon/weaponmanager.cpp \
     Weapons/bullet.cpp \
     GameMapCanvas/gamemapcanvas.cpp \
     GameMapCanvas/map.cpp \
@@ -31,7 +32,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
-    Network/udp.cpp
+    Network/udp.cpp \
+    networkpage.cpp
 
 HEADERS += \
     GameMapCanvas/gridinfo.h \
@@ -45,6 +47,7 @@ HEADERS += \
     NewWeapon/meleeweapon.h \
     NewWeapon/rangedweapon.h \
     NewWeapon/weapon.h \
+    NewWeapon/weaponmanager.h \
     Weapons/bullet.h \
     GameMapCanvas/gamemapcanvas.h \
     GameMapCanvas/map.h \
@@ -53,11 +56,13 @@ HEADERS += \
     enemy.h \
     mainwindow.h \
     mapviewpage.h \
-    Network/udp.h
+    Network/udp.h \
+    networkpage.h
 
 FORMS += \
     mainwindow.ui \
-    mapviewpage.ui
+    mapviewpage.ui \
+    networkpage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -6,10 +6,12 @@ TCPClient::TCPClient(QObject *parent) :
     QObject(parent),
     client_socket(new QTcpSocket(this))
 {
+
     // signal relay
     connect(client_socket, &QTcpSocket::connected, this, &TCPClient::connected);
     connect(client_socket, &QTcpSocket::disconnected, this, &TCPClient::disconnected);
     connect(client_socket, &QTcpSocket::readyRead, this, &TCPClient::on_ready_read);
+
 }
 
 void TCPClient::connect_to_server(const QHostAddress &server_address, quint16 server_port) {
@@ -26,6 +28,17 @@ void TCPClient::disconnect_from_server() {
 
 void TCPClient::send_text(const QString &text) {
     QDataStream clientStream(client_socket);
+
+    //  Not sure if this is needed or not
+    clientStream.setVersion(QDataStream::Qt_5_11);
+    clientStream << raw_data;
+}
+
+// Read all the data and print it in the qdebug()
+void TCPClient::ready_read() {
+    QByteArray data = client_socket->readAll();
+    qDebug() << data;
+
     clientStream.setVersion(QDataStream::Qt_5_11);
     clientStream << text;
 }

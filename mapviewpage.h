@@ -9,8 +9,7 @@
 #include <QKeyEvent>
 #include <QGraphicsPixmapItem>
 #include "KeyBoardManager/keyboardmanager.h"
-#include "NewWeapon/meleeweapon.h"
-#include "NewWeapon/rangedweapon.h"
+#include "NewWeapon/weaponmanager.h"
 
 namespace Ui {
 class MapViewPage;
@@ -34,7 +33,7 @@ private:
     void comboHandler(const QString&);
 
     //STeven SHIT
-    Character* currentChar = nullptr;
+    WeaponManager* weaponManager;
 
 public:
     void mouseMoveEvent(QMouseEvent*) override;

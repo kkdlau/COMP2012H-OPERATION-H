@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "mapviewpage.h"
+#include "networkpage.h"
 #include "Network/udp.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -35,4 +36,11 @@ void MainWindow::on_pushButton_3_clicked()
 {
     UDP its_a_you;
     its_a_you.read_from_udp();
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    NetworkPage network_page;
+    network_page.setModal(true);
+    network_page.exec();
 }
