@@ -15,4 +15,5 @@ void Weapon::Equip(QGraphicsItem * image, Character * character)
 {
     this->setParentItem(image);
     equippedCharacter = character;
+    this->setPos(0,0);
 }

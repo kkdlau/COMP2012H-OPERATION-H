@@ -7,5 +7,7 @@
         <file alias="gun.png">assets/resize-gun.png</file>
         <file alias="shield.png">assets/resize-shield.png</file>
         <file alias="test_gun.png">assets/test_gun.png</file>
+        <file alias="bullet">assets/bullet.png</file>
+        <file alias="knife">assets/output-onlinepngtools.png</file>
     </qresource>
 </RCC>

@@ -1,7 +1,7 @@
 #include "meleeweapon.h"
 #include "qdebug.h"
 
-MeleeWeapon::MeleeWeapon(int attack, QGraphicsItem* parent, int attackRange, int attackSpeed, QString image) : Weapon(attack, parent), attackRange(attackRange), attackSpeed(attackSpeed)
+MeleeWeapon::MeleeWeapon(int attack,  int attackRange, int attackSpeed, QGraphicsItem* parent,QString image) : Weapon(attack, parent), attackRange(attackRange), attackSpeed(attackSpeed)
 {
     setOffset(10, 0);
     InitializeAttackAnimation();
@@ -20,6 +20,28 @@ void MeleeWeapon::Attack()
     else
     {
         qDebug()<<"COOLDOWN FOR ATTACK!";
+    }
+}
+
+void MeleeWeapon::Charge()
+{
+    if (!isCharged)
+    {
+        isCharged = true;
+    }
+    else {
+        qDebug() << "ALREADY CHARGED!";
+    }
+}
+
+void MeleeWeapon::Skill()
+{
+    if (isCharged) {
+        // do things like 2x attack, 2x speed
+        timer.singleShot(skillTime, this, &MeleeWeapon::ResetCharge);
+    }
+    else {
+        qDebug() << "NOT CHARGED. CANNOT USE SKILL!";
     }
 }
 
@@ -54,4 +76,10 @@ void MeleeWeapon::InitializeAttackAnimation()
 void MeleeWeapon::ResetAttack()
 {
     isAttack = false;
+}
+
+
+void MeleeWeapon::ResetCharge()
+{
+    isCharged = false;
 }

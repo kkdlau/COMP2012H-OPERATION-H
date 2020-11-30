@@ -177,7 +177,45 @@ bool Character::is_alive() const{
 }
 
 void Character::shoot() {
-//    if (curWeapon.getWeaponType()) {
-//        return;
-//    }
+    if(currentWeapon)
+    {
+        currentWeapon->Attack();
+    }
+}
+
+void Character::EquipWeapon()
+{
+    QList<QGraphicsItem*> collide = collidingItems();
+    for(int i = 0; i < collide.length(); i++)
+    {
+        Weapon *data = dynamic_cast<Weapon*>(collide[i]);
+        if(data && data != currentWeapon)
+        {
+            if(currentWeapon)
+            {
+                DequipWeapon();
+            }
+            currentWeapon = data;
+            data->Equip(this, this);
+            return;
+        }
+    }
+}
+
+void Character::DequipWeapon()
+{
+    currentWeapon->Unequip();
+    currentWeapon->setPos(this->pos());
+    currentWeapon = nullptr;
+}
+
+void Character::DealDamage(int damage)
+{
+    characterHealth -= damage;
+    Harmed();
+}
+
+void Character::Harmed()
+{
+    qDebug()<<"THE CURRENT HEALTH IS "<< characterHealth;
 }
