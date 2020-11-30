@@ -5,9 +5,10 @@
 #include "qtimer.h"
 #include "character.h"
 #include "QGraphicsPixmapItem"
+#include "character.h"
 #define MAX_HEALTH = 10;
 
-class Enemy : public QObject, public QGraphicsPixmapItem
+class Enemy : public Character
 {
     Q_OBJECT
 public:

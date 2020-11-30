@@ -52,6 +52,8 @@ public:
     //SAMPLE WEAPON TEST STEVEN
     void EquipWeapon();
     void DequipWeapon();
+    void DealDamage(int damage);
+    void virtual Harmed();
     //SAMPLE WEAPON TEST STEVEN
 
 private:
@@ -65,7 +67,7 @@ private:
     QGraphicsPixmapItem* head;
     QGraphicsPixmapItem* gun; // for testing purpose
     Map* presetMap;
-    int characterHealth;
+    int characterHealth = 10;
     int curWeaponID;
 
     //SAMPLE WEAPON TEST STEVEN

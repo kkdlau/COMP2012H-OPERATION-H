@@ -207,5 +207,15 @@ void Character::DequipWeapon()
     currentWeapon->Unequip();
     currentWeapon->setPos(this->pos());
     currentWeapon = nullptr;
+}
 
+void Character::DealDamage(int damage)
+{
+    characterHealth -= damage;
+    Harmed();
+}
+
+void Character::Harmed()
+{
+    qDebug()<<"THE CURRENT HEALTH IS "<< characterHealth;
 }
