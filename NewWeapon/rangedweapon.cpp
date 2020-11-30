@@ -13,7 +13,7 @@ void RangedWeapon::Attack(int angle)
         --currentBullet;
         qDebug()<<"BULLET REMAINS : "<<currentBullet;
         isShooting = true;
-        Bullet *bulletShot = new Bullet(5, angle, this->x(), this->y());
+        Bullet *bulletShot = new Bullet(5, angle, this->x(), this->y(), parentItem());
         scene()->addItem(bulletShot);
         QPointF offset(30, 0);
         bulletShot->setPos(scenePos() + offset);

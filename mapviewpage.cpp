@@ -18,7 +18,7 @@ MapViewPage::MapViewPage(QWidget* parent)
 	ui->setupUi(this);
 
     ui->gameCanvas->character = new Character{5, ui->gameCanvas->map};
-    Enemy *test = new Enemy(100, ui->gameCanvas->character);
+    Character *test = new Character{5, ui->gameCanvas->map};
     test->setPos(200, 0);
     ui->gameCanvas->scene->addItem(test);
     //    ui->gameCanvas->character->setTransformOriginPoint(QPointF(16,16));
@@ -40,9 +40,9 @@ MapViewPage::MapViewPage(QWidget* parent)
         .addListeningCombo("M");
 
     weaponManager = WeaponManager::getInstance();
-    MeleeWeapon *test1 = new MeleeWeapon(0, 500, 500);
+    MeleeWeapon *test1 = new MeleeWeapon(0, 50, 500);
     RangedWeapon *test2 = new RangedWeapon(0, 500, 500, 10);
-    test1->setPos(100,100);
+    test1->setPos(100,250);
     test2->setPos(150, 150);
     ui->gameCanvas->scene->addItem(test1);
     ui->gameCanvas->scene->addItem(test2);

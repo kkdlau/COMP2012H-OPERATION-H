@@ -198,7 +198,7 @@ void Character::EquipWeapon()
             int weaponId = data->GetWeaponId();
             qDebug()<<"GET WEAPON ID :"<<weaponId;
             Weapon* test = weaponManager->GetWeapon(weaponId);
-            if(test)
+            if(test && weaponId != currentWeaponId)
             {
                 if(currentWeaponId != -1)
                 {
@@ -206,6 +206,7 @@ void Character::EquipWeapon()
                 }
                 weaponManager->EquipWeapon(weaponId, gun);
                 currentWeaponId = weaponId;
+                return;
             }
 
         }
@@ -214,11 +215,13 @@ void Character::EquipWeapon()
 
 void Character::DequipWeapon()
 {
-    //
+    weaponManager->DequipWeapon(currentWeaponId);
+    currentWeaponId = -1;
 }
 
 void Character::DealDamage(int damage)
 {
+    qDebug()<<"NPPPPPP";
     characterHealth -= damage;
     Harmed();
 }
