@@ -24,7 +24,7 @@ public:
 public slots:
     void connected();
     void disconnected();
-    void bytes_written(qint64);
+//    void bytes_written(qint6?4);
     void ready_read();
 
 private:
