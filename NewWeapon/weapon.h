@@ -4,8 +4,7 @@
 #include <QObject>
 #include "QGraphicsPixmapItem"
 #include "qtimer.h"
-
-class Character;
+#include "QRandomGenerator"
 
 class Weapon : public QObject, public QGraphicsPixmapItem
 {
@@ -13,12 +12,13 @@ class Weapon : public QObject, public QGraphicsPixmapItem
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 public:
     Weapon(int, QGraphicsItem*); //some area code may fix in future
-    void virtual Attack() = 0;
-    void Equip(QGraphicsItem*, Character*);//havent been properly implemented
+    void virtual Attack(int angle) = 0;
+    void Equip(QGraphicsItem*);//havent been properly implemented
     void Unequip();
+    int GetWeaponId();
 protected:
+    int weaponId = QRandomGenerator::global()->generate();
     QTimer timer;
-    Character* equippedCharacter;
     int attack = 0;
 };
 

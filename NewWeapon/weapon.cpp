@@ -7,13 +7,19 @@ Weapon::Weapon(int attack, QGraphicsItem *parent = nullptr) :QGraphicsPixmapItem
 
 void Weapon::Unequip()
 {
+    QPointF newPos(this->parentItem()->scenePos());
     this->setParentItem(nullptr);
-    equippedCharacter = nullptr;
-}
+    this->setPos(newPos);
 
-void Weapon::Equip(QGraphicsItem * image, Character * character)
+}
+void Weapon::Equip(QGraphicsItem *image)
 {
     this->setParentItem(image);
-    equippedCharacter = character;
     this->setPos(0,0);
+}
+
+
+int Weapon::GetWeaponId()
+{
+    return weaponId;
 }

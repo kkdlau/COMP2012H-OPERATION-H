@@ -21,6 +21,7 @@ SOURCES += \
     NewWeapon/meleeweapon.cpp \
     NewWeapon/rangedweapon.cpp \
     NewWeapon/weapon.cpp \
+    NewWeapon/weaponmanager.cpp \
     Weapons/bullet.cpp \
     GameMapCanvas/gamemapcanvas.cpp \
     GameMapCanvas/map.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     NewWeapon/meleeweapon.h \
     NewWeapon/rangedweapon.h \
     NewWeapon/weapon.h \
+    NewWeapon/weaponmanager.h \
     Weapons/bullet.h \
     GameMapCanvas/gamemapcanvas.h \
     GameMapCanvas/map.h \

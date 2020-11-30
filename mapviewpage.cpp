@@ -39,13 +39,17 @@ MapViewPage::MapViewPage(QWidget* parent)
         .addListeningCombo("K")
         .addListeningCombo("M");
 
+    weaponManager = WeaponManager::getInstance();
     MeleeWeapon *test1 = new MeleeWeapon(0, 500, 500);
     RangedWeapon *test2 = new RangedWeapon(0, 500, 500, 10);
     test1->setPos(100,100);
     test2->setPos(150, 150);
     ui->gameCanvas->scene->addItem(test1);
     ui->gameCanvas->scene->addItem(test2);
-    ui->gameCanvas->scene->addItem(currentChar);
+    weaponManager->AddWeapon(test1);
+    weaponManager->AddWeapon(test2);
+    ui->gameCanvas->scene->addItem(weaponManager->GenerateRandomWeapon());
+
 }
 
 void MapViewPage::comboHandler(const QString& combo) {

@@ -1,5 +1,6 @@
 #include "meleeweapon.h"
 #include "qdebug.h"
+#include "character.h"
 
 MeleeWeapon::MeleeWeapon(int attack,  int attackRange, int attackSpeed, QGraphicsItem* parent,QString image) : Weapon(attack, parent), attackRange(attackRange), attackSpeed(attackSpeed)
 {
@@ -9,7 +10,7 @@ MeleeWeapon::MeleeWeapon(int attack,  int attackRange, int attackSpeed, QGraphic
     setPixmap(QPixmap(image));
 }
 
-void MeleeWeapon::Attack()
+void MeleeWeapon::Attack(int angle)
 {
     if(!isAttack)
     {

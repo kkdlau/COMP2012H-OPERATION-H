@@ -3,13 +3,12 @@
 #include "weapon.h"
 #include "qpropertyanimation.h"
 #include "qsequentialanimationgroup.h"
-#include "character.h"
 
 class MeleeWeapon : public Weapon
 {
 public:
     MeleeWeapon(int attack,  int attackRange, int attackSpeed,QGraphicsItem *parent = nullptr, QString image = ":knife");
-    void virtual Attack() override;
+    void virtual Attack(int angle) override;
     void Charge();
     void Skill();
 signals:
