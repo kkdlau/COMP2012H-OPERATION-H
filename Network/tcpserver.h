@@ -17,13 +17,13 @@
 
 //    QString get_ip() const;
 //    quint16 get_tcp_port() const;
-////    QTcpSocket get_socket() const;
+//    QTcpSocket get_socket() const;
 
 //    template <class T>
 //    void receive_from_client(T raw_data);  // me
 
 //public slots:
-////    void broadcast(QString message);
+//    void broadcast(QString message);
 
 //private:
 //    quint16 server_port;

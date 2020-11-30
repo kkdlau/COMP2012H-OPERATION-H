@@ -31,15 +31,6 @@ void TCPClient::send_text(const QString &text) {
 
     //  Not sure if this is needed or not
     clientStream.setVersion(QDataStream::Qt_5_11);
-    clientStream << raw_data;
-}
-
-// Read all the data and print it in the qdebug()
-void TCPClient::ready_read() {
-    QByteArray data = client_socket->readAll();
-    qDebug() << data;
-
-    clientStream.setVersion(QDataStream::Qt_5_11);
     clientStream << text;
 }
 
