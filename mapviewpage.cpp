@@ -7,6 +7,7 @@
 #include <QTimeLine>
 #include <iostream>
 #include "character.h"
+#include "enemy.h"
 
 #include "ui_mapviewpage.h"
 
@@ -17,6 +18,9 @@ MapViewPage::MapViewPage(QWidget* parent)
 	ui->setupUi(this);
 
     ui->gameCanvas->character = new Character{5, ui->gameCanvas->map};
+    Enemy *test = new Enemy(100, ui->gameCanvas->character);
+    test->setPos(200, 0);
+    ui->gameCanvas->scene->addItem(test);
     //    ui->gameCanvas->character->setTransformOriginPoint(QPointF(16,16));
     //    ui->gameCanvas->character->setOffset(QPointF(-Map::GRID_SIZE_W / 2, -Map::GRID_SIZE_H / 2));
     ui->gameCanvas->scene->addItem(ui->gameCanvas->character);
