@@ -1,36 +1,32 @@
 #ifndef TCPCLIENT_H
 #define TCPCLIENT_H
 #include <QObject>
-#include <QWidget>
 #include <QTcpSocket>
-#include <QTcpServer>
-
+#include <QDataStream>
 
 class TCPClient : public QObject
 {
     Q_OBJECT
+
 public:
     explicit TCPClient(QObject *parent = nullptr);
-
-    void connect_to_host(const QHostAddress host_address, quint16 port);
-    void disconnect_from_host();
-
-    QHostAddress get_host_address() const;
-    quint16 get_host_port() const;
-
-    template <class T>
-    void send_to_host(T);
+    void send_text(const QString &text);
 
 public slots:
+    void connect_to_server(const QHostAddress &server_address, quint16 server_port);
+    void disconnect_from_server();
+
+private slots:
+    void on_ready_read();
+
+signals:
     void connected();
     void disconnected();
-    void ready_read();
+    void receive_text(const QString &text);
 
 private:
-    QHostAddress host_address;
-    quint16 host_port;
     QTcpSocket *client_socket;
-    bool connected_to_host;
+    void text_received(const QString &text);
 };
 
 #endif // TCPCLIENT_H
