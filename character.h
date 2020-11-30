@@ -6,8 +6,8 @@
 #include "qstring.h"
 #include "qstringlist.h"
 #include "qgraphicsitem.h"
-#include "NewWeapon/weapon.h"
 #include "../GameMapCanvas/map.h"
+#include "NewWeapon/weaponmanager.h"
 
 class Character : public QObject, public QGraphicsItemGroup
 {
@@ -71,7 +71,9 @@ private:
     int curWeaponID;
 
     //SAMPLE WEAPON TEST STEVEN
-    Weapon *currentWeapon = nullptr;
+
+    WeaponManager* weaponManager;
+    int currentWeaponId = -1;
     //SAMPLE WEAPON TEST STEVEN
 
 

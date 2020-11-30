@@ -6,7 +6,7 @@ class RangedWeapon : public Weapon
 {
 public:
     RangedWeapon(int attack, int attackSpeed, int reloadSpeed, int maxBullet,  QGraphicsItem*parent = nullptr);
-    void virtual Attack() override;
+    void virtual Attack(int angle) override;
     void virtual Reload();
 private:
     void ResetShootState();

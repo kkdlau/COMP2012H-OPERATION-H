@@ -2,9 +2,8 @@
 #include "QtMath"
 #include <QGraphicsScene>
 
-Bullet::Bullet(int damage, int angle, int x, int y, Character* owner): damage(damage), angle(angle), owner(owner)
+Bullet::Bullet(int damage, int angle, int x, int y): damage(damage), angle(angle)
 {
-    owner->scene()->addItem(this);
     setPos(x,y);
     setPixmap(QPixmap(":bullet"));
     connect(&timer, &QTimer::timeout, this, &Bullet::move);
@@ -22,7 +21,7 @@ void Bullet::move()
     QList<QGraphicsItem*> collision = collidingItems();
     for(int i = 0; i < collision.length(); i++)
     {
-        if(typeid(*(collision[i])) == typeid(Character) && collision[i] != owner)
+        if(typeid(*(collision[i])) == typeid(Character))
         {
             qDebug()<<"ENEMY HIT U FUCKIN CUNT";
             delete this;
