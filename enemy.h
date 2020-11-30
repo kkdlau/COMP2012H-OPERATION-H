@@ -14,7 +14,7 @@ public:
     Enemy(int moveSpeed = 100, Character *target = nullptr);
     void SetDestination(Character*);
     void Move();
-    void Harmed();
+    void Harmed(int damage);
 private:
     int moveSpeed;
     Character* target;
