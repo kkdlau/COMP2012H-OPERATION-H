@@ -2,57 +2,51 @@
 
 // Public
 // Please put mainwindow to the parameter
-TCPClient::TCPClient(QObject *parent) : QObject(parent), client_socket(new QTcpSocket(this)), connected_to_host(false)
+TCPClient::TCPClient(QObject *parent) :
+    QObject(parent),
+    client_socket(new QTcpSocket(this))
 {
-//    connect(client_socket, SIGNAL(connected()), this, SLOT(connected()));
-//    connect(client_socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
-//    connect(client_socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+    // signal relay
+    connect(client_socket, &QTcpSocket::connected, this, &TCPClient::connected);
+    connect(client_socket, &QTcpSocket::disconnected, this, &TCPClient::disconnected);
+    connect(client_socket, &QTcpSocket::readyRead, this, &TCPClient::on_ready_read);
 }
 
-void TCPClient::connect_to_host(const QHostAddress host_address, quint16 port) {
-    qDebug() << "Attempting to connect to host";
-    qDebug() << "Host Address" << host_address;
-    qDebug() << "Host Port" << host_port;
-    client_socket->connectToHost(host_address, port);
+void TCPClient::connect_to_server(const QHostAddress &server_address, quint16 server_port) {
+    qDebug() << "Attempting to connect to server";
+    client_socket->connectToHost(server_address, server_port);
+//    qDebug() << "Server Address: " << server_address;
+    qDebug() << "Server Port: " << server_port;
 }
 
-void TCPClient::disconnect_from_host() {
+void TCPClient::disconnect_from_server() {
     client_socket->disconnectFromHost();
+    qDebug() << "Client disconnected from server";
 }
 
-QHostAddress TCPClient::get_host_address() const {
-    return host_address;
-}
-
-quint16 TCPClient::get_host_port() const {
-    return host_port;
-}
-
-// Public Slots
-void TCPClient::connected() {
-    qDebug() << "Connected to host";
-    connected_to_host = true;
-    host_address = client_socket->peerAddress();
-    host_port = client_socket->peerPort();
-}
-
-void TCPClient::disconnected() {
-    qDebug() << "Disconnected from host";
-    connected_to_host = false;
-}
-
-template <class T>
-void TCPClient::send_to_host(T raw_data) {
+void TCPClient::send_text(const QString &text) {
     QDataStream clientStream(client_socket);
-    //  Not sure if this is needed or not
-    //  clientStream.setVersion(QDataStream::Qt_5_11);
-    clientStream << raw_data;
+    clientStream.setVersion(QDataStream::Qt_5_11);
+    clientStream << text;
 }
 
-void TCPClient::ready_read() {
+// Signals
+void TCPClient::on_ready_read() {
+    qDebug("Client ready for reading");
+    QByteArray text_to_send;
     QDataStream socket_stream(client_socket);
+    socket_stream.setVersion(QDataStream::Qt_5_11);
 
-//    I don't know if this is needed or not
-    //    socket_stream.setVersion(QDataStream::Qt_5_11);
+    while (true) {
+        socket_stream.startTransaction();
+        socket_stream >> text_to_send;
+        if (socket_stream.commitTransaction()) {
+            emit text_received(text_to_send);
+        } else break;
+    }
+}
 
+// Private
+void TCPClient::text_received(const QString &text) {
+    emit receive_text(text);
 }

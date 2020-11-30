@@ -20,14 +20,12 @@ public:
 //    QTcpSocket get_socket() const;
 
     template <class T>
-    void receive_from_client(T);  // me
+    void receive_from_client(T raw_data);  // me
 
 public slots:
 //    void broadcast(QString message);
 
 private:
-    void save_client_info(const QTcpSocket client_socket);  // me
-
     // server side (aka this side) info
     QString server_ip;
     quint16 server_tcp_port;
