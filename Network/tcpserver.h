@@ -1,37 +1,44 @@
-//#ifndef TCPSERVER_H
-//#define TCPSERVER_H
+#ifndef TCPSERVER_H
+#define TCPSERVER_H
 
-//#include <QObject>
-//#include <QTcpSocket>
-//#include <QTcpServer>
+#include <QObject>
+#include <QTcpSocket>
+#include <QTcpServer>
 
-//class TCPServer : public QTcpServer
-//{
-//    Q_OBJECT
+#include "serviceworker.h"
 
-//public:
-//    explicit TCPServer(QObject *parent = nullptr);
+class TCPServer : public QTcpServer
+{
+    Q_OBJECT
 
-//    void connect_to_client(const QTcpSocket client_socket);  // me
-//    void disconnect_from_client();  // me
+public:
+    explicit TCPServer(QObject *parent = nullptr);
 
-//    QString get_ip() const;
-//    quint16 get_tcp_port() const;
-//    QTcpSocket get_socket() const;
+    QString get_ip() const;
+    quint16 get_tcp_port() const;
+    QList<ServiceWorker*> get_clients() const;
 
-//    template <class T>
-//    void receive_from_client(T raw_data);  // me
+protected:
+    void incomingConnection(qintptr socket_descriptor) override;
 
-//public slots:
-//    void broadcast(QString message);
+signals:
+    void receive_text(ServiceWorker *sender, const QString &text);
 
-//private:
-//    quint16 server_port;
-//    QString server_ip;
-//    QList<ServiceWorker*> clients;
+public slots:
+    void stopServer();
+    void startGameBroadcast();
+    void broadcast(const QString &message, ServiceWorker *exclude = nullptr);
 
-//    QTcpSocket client_socket;
-//    void text_received(const QString &text);
-//};
+private slots:
+    void text_received(ServiceWorker *sender, const QString &text);
+    void user_disconnectedd(ServiceWorker *sender);
 
-//#endif // TCPSERVER_H
+private:
+    quint16 server_port;
+    QString server_ip;
+    QList<ServiceWorker*> clients;
+    QList<ServiceWorker*> list;
+    void send_text(ServiceWorker *worker, const QString &text);
+};
+
+#endif // TCPSERVER_H

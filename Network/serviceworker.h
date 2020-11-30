@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTcpSocket>
+#include <QDataStream>
 
 class ServiceWorker : public QObject
 {
