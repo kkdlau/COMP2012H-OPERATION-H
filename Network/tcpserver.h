@@ -12,7 +12,7 @@ class TCPServer : public QTcpServer
 public:
     explicit TCPServer(QObject *parent = nullptr);
     QString get_ip() const;
-    QString get_tcp_port() const;
+    quint16 get_tcp_port() const;
 
 public slots:
 //    void broadcast(QString message);
