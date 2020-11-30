@@ -1,44 +1,37 @@
-#ifndef TCPSERVER_H
-#define TCPSERVER_H
+//#ifndef TCPSERVER_H
+//#define TCPSERVER_H
 
-#include <QObject>
-#include <QWidget>
-#include <QTcpSocket>
-#include <QTcpServer>
+//#include <QObject>
+//#include <QTcpSocket>
+//#include <QTcpServer>
 
-class TCPServer : public QTcpServer
-{
-    Q_OBJECT
-public:
-    explicit TCPServer(QObject *parent = nullptr);
+//class TCPServer : public QTcpServer
+//{
+//    Q_OBJECT
 
-    void connect_to_client(const QTcpSocket client_socket);  // me
-    void disconnect_from_client();  // me
+//public:
+//    explicit TCPServer(QObject *parent = nullptr);
 
-    QString get_ip() const;
-    quint16 get_tcp_port() const;
-//    QTcpSocket get_socket() const;
+//    void connect_to_client(const QTcpSocket client_socket);  // me
+//    void disconnect_from_client();  // me
 
-    template <class T>
-    void receive_from_client(T raw_data);  // me
+//    QString get_ip() const;
+//    quint16 get_tcp_port() const;
+////    QTcpSocket get_socket() const;
 
-public slots:
-//    void broadcast(QString message);
+//    template <class T>
+//    void receive_from_client(T raw_data);  // me
 
-private:
-    // server side (aka this side) info
-    QString server_ip;
-    quint16 server_tcp_port;
-    QTcpServer tcp_server;
-    QTcpSocket server_socket;
+//public slots:
+////    void broadcast(QString message);
 
-    // client side info
-    quint16 client_tcp_port;
-    QString client_ip;
-    QTcpSocket client_socket;  // me
-    QHostAddress client_address;  // me
-    int num_clients_connected{0};  // me
-    bool connected_to_client;
-};
+//private:
+//    quint16 server_port;
+//    QString server_ip;
+//    QList<ServiceWorker*> clients;
 
-#endif // TCPSERVER_H
+//    QTcpSocket client_socket;
+//    void text_received(const QString &text);
+//};
+
+//#endif // TCPSERVER_H

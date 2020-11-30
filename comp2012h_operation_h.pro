@@ -16,6 +16,7 @@ SOURCES += \
     FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
+    Network/serviceworker.cpp \
     Network/tcpclient.cpp \
     Network/tcpserver.cpp \
     NewWeapon/meleeweapon.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
     KeyBoardManager/KeyState.h \
+    Network/serviceworker.h \
     Network/tcpclient.h \
     Network/tcpserver.h \
     NewWeapon/meleeweapon.h \
