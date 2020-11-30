@@ -8,7 +8,7 @@
 class MeleeWeapon : public Weapon
 {
 public:
-    MeleeWeapon(int attack, QGraphicsItem *parent, int attackRange, int attackSpeed, QString image = ":knife");
+    MeleeWeapon(int attack,  int attackRange, int attackSpeed,QGraphicsItem *parent = nullptr, QString image = ":knife");
     void virtual Attack() override;
 signals:
     void EndAttackAnimation();

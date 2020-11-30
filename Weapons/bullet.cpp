@@ -25,6 +25,7 @@ void Bullet::move()
         if(typeid(*(collision[i])) == typeid(Character) && collision[i] != owner)
         {
             qDebug()<<"ENEMY HIT U FUCKIN CUNT";
+            delete this;
         }
     }
     if(--lifeSpan <= 0)

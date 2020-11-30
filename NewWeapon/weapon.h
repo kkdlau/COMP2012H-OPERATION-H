@@ -4,7 +4,9 @@
 #include <QObject>
 #include "QGraphicsPixmapItem"
 #include "qtimer.h"
-#include "character.h"
+
+class Character;
+
 class Weapon : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT

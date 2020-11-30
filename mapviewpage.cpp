@@ -31,7 +31,17 @@ MapViewPage::MapViewPage(QWidget* parent)
 	this->kbManager.addListeningCombo("A")
 		.addListeningCombo("S")
 		.addListeningCombo("D")
-		.addListeningCombo("W");
+        .addListeningCombo("W")
+        .addListeningCombo("K")
+        .addListeningCombo("M");
+
+    MeleeWeapon *test1 = new MeleeWeapon(0, 500, 500);
+    RangedWeapon *test2 = new RangedWeapon(0, 500, 500, 10);
+    test1->setPos(100,100);
+    test2->setPos(150, 150);
+    ui->gameCanvas->scene->addItem(test1);
+    ui->gameCanvas->scene->addItem(test2);
+    ui->gameCanvas->scene->addItem(currentChar);
 }
 
 void MapViewPage::comboHandler(const QString& combo) {
@@ -45,6 +55,14 @@ void MapViewPage::comboHandler(const QString& combo) {
 	} else if (combo == "W") {
         ui->gameCanvas->character->moveBy(0, -5);
 	}
+      else if(combo == "K")
+    {
+        ui->gameCanvas->character->EquipWeapon();
+    }
+      else if(combo == "M")
+    {
+        ui->gameCanvas->character->shoot();
+    }
 }
 
 void MapViewPage::mouseMoveEvent(QMouseEvent* e) {

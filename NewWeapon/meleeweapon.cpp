@@ -1,7 +1,7 @@
 #include "meleeweapon.h"
 #include "qdebug.h"
 
-MeleeWeapon::MeleeWeapon(int attack, QGraphicsItem* parent, int attackRange, int attackSpeed, QString image) : Weapon(attack, parent), attackRange(attackRange), attackSpeed(attackSpeed)
+MeleeWeapon::MeleeWeapon(int attack,  int attackRange, int attackSpeed, QGraphicsItem* parent,QString image) : Weapon(attack, parent), attackRange(attackRange), attackSpeed(attackSpeed)
 {
     setOffset(10, 0);
     InitializeAttackAnimation();

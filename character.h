@@ -6,7 +6,7 @@
 #include "qstring.h"
 #include "qstringlist.h"
 #include "qgraphicsitem.h"
-#include "Weapons/weapon.h"
+#include "NewWeapon/weapon.h"
 #include "../GameMapCanvas/map.h"
 
 class Character : public QObject, public QGraphicsItemGroup
@@ -49,6 +49,11 @@ public:
 
     Character operator=(const Character& input);
 
+    //SAMPLE WEAPON TEST STEVEN
+    void EquipWeapon();
+    void DequipWeapon();
+    //SAMPLE WEAPON TEST STEVEN
+
 private:
     QString characterName;
 
@@ -62,6 +67,10 @@ private:
     Map* presetMap;
     int characterHealth;
     int curWeaponID;
+
+    //SAMPLE WEAPON TEST STEVEN
+    Weapon *currentWeapon = nullptr;
+    //SAMPLE WEAPON TEST STEVEN
 
 
     int stepValue; // step value for height system, it describles how "high" can a character travels.
