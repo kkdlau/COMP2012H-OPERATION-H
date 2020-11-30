@@ -21,4 +21,10 @@ void NetworkPage::on_pushButton_clicked()
         msg.exec();
         return;
     }
+
+}
+
+void NetworkPage::on_pushButton_2_clicked()
+{
+   this->close();
 }
