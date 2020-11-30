@@ -23,7 +23,7 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     head->setOffset(QPointF(-Character::WIDTH / 2, -Character::HEIGHT / 2));
     addToGroup(head);
     setPos(QPointF{32 * 3, 32.0f * 7});
-
+    
 }
 
 QPointF Character::getPosition() const {

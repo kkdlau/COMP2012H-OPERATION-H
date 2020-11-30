@@ -16,6 +16,8 @@ SOURCES += \
     FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
+    Network/tcpclient.cpp \
+    Network/tcpserver.cpp \
     NewWeapon/meleeweapon.cpp \
     NewWeapon/rangedweapon.cpp \
     NewWeapon/weapon.cpp \
@@ -27,7 +29,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
-    udp.cpp
+    Network/udp.cpp
 
 HEADERS += \
     GameMapCanvas/gridinfo.h \
@@ -35,6 +37,8 @@ HEADERS += \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
     KeyBoardManager/KeyState.h \
+    Network/tcpclient.h \
+    Network/tcpserver.h \
     NewWeapon/meleeweapon.h \
     NewWeapon/rangedweapon.h \
     NewWeapon/weapon.h \
@@ -45,7 +49,7 @@ HEADERS += \
     charactermanager.h \
     mainwindow.h \
     mapviewpage.h \
-    udp.h
+    Network/udp.h
 
 FORMS += \
     mainwindow.ui \

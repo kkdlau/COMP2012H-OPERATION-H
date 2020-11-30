@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QUdpSocket>
+#include <QNetworkDatagram>
 
 class UDP : public QObject
 {
