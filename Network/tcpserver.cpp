@@ -26,5 +26,5 @@
 
 //template <class T>
 //void TCPServer::receive_from_client(T raw_data) {
-//    QDataStream clientStream()
+//    QDataStream clientStream();
 //}

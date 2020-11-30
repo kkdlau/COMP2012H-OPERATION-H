@@ -1,5 +1,6 @@
 #include "enemy.h"
 #include "mapviewpage.h"
+#include "qdebug.h"
 
 Enemy::Enemy(int moveSpeed, Character *target) : moveSpeed(moveSpeed), target(target)
 {
@@ -24,6 +25,7 @@ void Enemy::Move()
 
 void Enemy::Harmed(int damage) //this class should inherit character for usability
 {
+    qDebug()<<"IM GETTING HIT BABY WOO";
     health -= damage;
     if(health <= 0)
     {

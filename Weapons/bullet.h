@@ -10,9 +10,10 @@ class Bullet : public QObject,public QGraphicsPixmapItem
 {
 
 public:
-    Bullet(int damage, int angle, int x, int y);
+    Bullet(int damage, int angle, int x, int y, QGraphicsItem* owner);
     void move();
 private:
+    QGraphicsItem * owner;
     const int damage;
     const int angle;
     const int bulletSpeed = 3;

@@ -20,6 +20,7 @@ private:
     void ResetCharge();
     QSequentialAnimationGroup attackAnimation;
     bool isAttack = false;
+    bool isAttackAnimation = false;
     bool isCharged = false;
     int attackSpeed = 500;
     int attackRange = 25;

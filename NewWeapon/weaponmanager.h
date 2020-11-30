@@ -17,6 +17,7 @@ public:
     const QList<Weapon*> GetWeaponDatabase() const;
     Weapon* GetWeapon(int weaponId);
     void EquipWeapon(int weaponId, QGraphicsItem* owner);
+    void DequipWeapon(int weaponId);
     void AttackWeapon(int weaponId, int angle);
     //TEST
     static WeaponManager* getInstance();
