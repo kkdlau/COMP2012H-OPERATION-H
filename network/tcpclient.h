@@ -5,23 +5,33 @@
 #include <QTcpSocket>
 #include <QTcpServer>
 
+
 class TCPClient : public QObject
 {
     Q_OBJECT
 public:
     explicit TCPClient(QObject *parent = nullptr);
+
+    void connect_to_host(const QHostAddress host_address, quint16 port);
+    void disconnect_from_host();
+
+    QHostAddress get_host_address() const;
+    quint16 get_host_port() const;
+
+    template <class T>
+    void send_to_host(T);
+
 public slots:
-//    void connect(QHostAddress &address, quint16 port);
-//    void disconnect();
-private slots:
-//    void onReadyRead();
-signals:
-//    void connected();
-//    void disconnected();
-//    void receive(QString);
+    void connected();
+    void disconnected();
+    void bytes_written(qint64);
+    void ready_read();
+
 private:
-    QTcpSocket *clientSocket;
-//    void send(QString);
+    QHostAddress host_address;
+    quint16 host_port;
+    QTcpSocket *client_socket;
+    bool connected_to_host;
 };
 
 #endif // TCPCLIENT_H
