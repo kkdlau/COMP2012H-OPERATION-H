@@ -3,7 +3,6 @@
 
 Enemy::Enemy(int moveSpeed, Character *target) : moveSpeed(moveSpeed), target(target)
 {
-    setPixmap(QPixmap(":knife"));
     connect(&timer, &QTimer::timeout, this, &Enemy::Move);
     timer.start(1000/60);
 }
