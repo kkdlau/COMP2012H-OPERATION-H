@@ -19,19 +19,19 @@ public:
     QList<ServiceWorker*> get_clients() const;
 
 protected:
-    void incomingConnection(qintptr socket_descriptor) override;
+//    void incomingConnection(qintptr socket_descriptor) override;
 
 signals:
     void receive_text(ServiceWorker *sender, const QString &text);
 
 public slots:
-    void stopServer();
-    void startGameBroadcast();
-    void broadcast(const QString &message, ServiceWorker *exclude = nullptr);
+//    void stopServer();
+//    void startGameBroadcast();
+//    void broadcast(const QString &message, ServiceWorker *exclude = nullptr);
 
 private slots:
-    void text_received(ServiceWorker *sender, const QString &text);
-    void user_disconnectedd(ServiceWorker *sender);
+//    void text_received(ServiceWorker *sender, const QString &text);
+//    void user_disconnectedd(ServiceWorker *sender);
 
 private:
     quint16 server_port;

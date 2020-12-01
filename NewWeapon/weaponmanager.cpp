@@ -1,5 +1,6 @@
 #include "weaponmanager.h"
 #include "qdebug.h"
+#include "UI/itemframe.h"
 WeaponManager* WeaponManager::Instance = nullptr;
 
 WeaponManager::WeaponManager()
@@ -74,6 +75,7 @@ void WeaponManager::EquipWeapon(int weaponId, QGraphicsItem *owner)
     {
         qDebug()<<"EQUIPping BABY";
         targetWeapon->Equip(owner);
+        ItemFrame::item->setPixmap(targetWeapon->pixmap());
     }
 }
 

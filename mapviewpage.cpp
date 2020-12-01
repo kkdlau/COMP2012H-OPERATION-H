@@ -10,6 +10,7 @@
 #include "enemy.h"
 
 #include "ui_mapviewpage.h"
+#include "UI/itemframe.h"
 
 using namespace std;
 
@@ -49,6 +50,9 @@ MapViewPage::MapViewPage(QWidget* parent)
     weaponManager->AddWeapon(test1);
     weaponManager->AddWeapon(test2);
     ui->gameCanvas->scene->addItem(weaponManager->GenerateRandomWeapon());
+    ItemFrame *uiWeapon = new ItemFrame();
+    ui->gameCanvas->scene->addItem(uiWeapon);
+    uiWeapon->setPos(250,250);
 
 }
 
