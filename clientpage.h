@@ -2,6 +2,7 @@
 #define CLIENTPAGE_H
 
 #include <QDialog>
+#include "Network/tcpclient.h"
 namespace Ui {
 class ClientPage;
 }
@@ -13,10 +14,15 @@ class ClientPage : public QDialog
 public:
     explicit ClientPage(QWidget *parent = nullptr);
     ~ClientPage();
+
+public slots:
+    void debug_connected();
+    void debug_disconnected();
 private slots:
     void on_pushButton_clicked();
 
 private:
+    TCPClient* tcp_client;
     Ui::ClientPage *ui;
 };
 
