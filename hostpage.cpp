@@ -1,6 +1,7 @@
 #include "hostpage.h"
 #include "ui_hostpage.h"
 #include <QNetworkInterface>
+#include "qtcpserver.h"
 
 HostPage::HostPage(QWidget *parent) :
     QDialog(parent),
@@ -8,6 +9,7 @@ HostPage::HostPage(QWidget *parent) :
 {
     ui->setupUi(this);
     update_ip();
+    QTcpServer tcp_server;
 }
 
 HostPage::~HostPage()
