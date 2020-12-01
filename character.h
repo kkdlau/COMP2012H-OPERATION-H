@@ -15,6 +15,7 @@ class Character : public QObject, public QGraphicsItemGroup
     Q_PROPERTY(qreal moveX READ getPositionX WRITE setPositionX)
     Q_PROPERTY(qreal moveY READ getPositionY WRITE setPositionY)
 public:
+    enum class MOVE_DIRECTION { LEFT, RIGHT, UP, DOWN };
     Character(int stepValue = 5, Map* map = nullptr);
     Character(QString, int, int stepValue = 5, Map* map = nullptr);
     Character(const QStringList, int stepValue = 5, Map* map = nullptr);
@@ -101,6 +102,7 @@ private:
 
 signals:
     void isMoving(Character*);
+    void blockByObstacle(MOVE_DIRECTION);
 };
 
 #endif // CHARACTER_H

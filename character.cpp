@@ -45,7 +45,13 @@ void Character::moveYPositive(int dy) {
     QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
 
     if (p.y() == presetMap->getHeight(Map::UNIT::GRID) - 1) {
-        setY(pos().y() + 16 + dy >  presetMap->getHeight(Map::UNIT::PIXEL)? presetMap->getHeight(Map::UNIT::PIXEL) - 16: pos().y() + dy);
+        if (pos().y() + 16 + dy >  presetMap->getHeight(Map::UNIT::PIXEL)) {
+            setY(presetMap->getHeight(Map::UNIT::PIXEL) - 16);
+            emit blockByObstacle(MOVE_DIRECTION::DOWN);
+            animationY->stop();
+        } else {
+            setY(pos().y() + dy);
+        }
         return;
     }
 
@@ -64,8 +70,12 @@ void Character::moveYPositive(int dy) {
 
     if (lowerGrid2.getHeight() && pos().y() + 16 + dy > (p.y() + 1) * 32) {
         this->setY((p.y() + 1) * 32 - 16);
+        emit blockByObstacle(MOVE_DIRECTION::DOWN);
+        animationY->stop();
     } else if (lowerGrid.getHeight() && pos().y() + 16 + dy > (p.y() + 1) * 32) {
         this->setY((p.y() + 1) * 32 - 16);
+        emit blockByObstacle(MOVE_DIRECTION::DOWN);
+        animationY->stop();
     } else this->setY(pos().y() + dy);
 }
 
@@ -74,7 +84,12 @@ void Character::moveYNegative(int dy) {
     QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
 
     if (p.y() == 0) {
-        setY(pos().y() - 16 + dy <  0? 16: pos().y() + dy);
+        if (pos().y() - 16 + dy <  0) {
+            setY(16);
+            emit blockByObstacle(MOVE_DIRECTION::UP);
+        } else {
+            setY(pos().y() + dy);
+        }
         return;
     }
 
@@ -94,8 +109,10 @@ void Character::moveYNegative(int dy) {
 
     if (lowerGrid2.getHeight() && pos().y() - 16 + dy < p.y() * 32) {
         this->setY((p.y()) * 32 + 16);
+        emit blockByObstacle(MOVE_DIRECTION::UP);
     } else if (lowerGrid.getHeight() && pos().y() - 16 + dy < p.y() * 32) {
         this->setY((p.y()) * 32 + 16);
+        emit blockByObstacle(MOVE_DIRECTION::UP);
     } else this->setY(pos().y() + dy);
 }
 
@@ -104,10 +121,14 @@ void Character::moveXPositive(int dx) {
 
     if (p.x() == presetMap->getWidth(Map::UNIT::GRID) - 1) {
         if (pos().x() + 16 + dx >  presetMap->getWidth(Map::UNIT::PIXEL)) {
-            setX(presetMap->getWidth(Map::UNIT::PIXEL) - 16); animationX->stop(); return;
+            setX(presetMap->getWidth(Map::UNIT::PIXEL) - 16);
+            animationX->stop();
+            emit blockByObstacle(MOVE_DIRECTION::RIGHT);
         } else {
-            setX(pos().x() + dx); return;
+            setX(pos().x() + dx);
         }
+
+        return;
     }
 
 //    qDebug() <<"x: " << pos().x();
@@ -125,8 +146,12 @@ void Character::moveXPositive(int dx) {
 
     if (lowerGrid2.getHeight() && pos().x() + 16 + dx > (p.x() + 1) * 32) {
         this->setX((p.x() + 1) * 32 - 16);
+        emit blockByObstacle(MOVE_DIRECTION::RIGHT);
+        animationX->stop();
     } else if (lowerGrid.getHeight() && pos().x() + 16 + dx > (p.x() + 1) * 32) {
         this->setX((p.x() + 1) * 32 - 16);
+        emit blockByObstacle(MOVE_DIRECTION::RIGHT);
+        animationX->stop();
     } else this->setX(pos().x() + dx);
 }
 
@@ -134,12 +159,13 @@ void Character::moveXNegative(int dx) {
     QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
 
     if (p.x() == 0) {
-        setX(pos().x() - 16 + dx <  0? 16: pos().x() + dx);
         if (pos().x() - 16 + dx < 0) {
-            setX(16); animationX->stop(); return;
+            setX(16); animationX->stop();
+            emit blockByObstacle(MOVE_DIRECTION::LEFT);
         } else {
-            setX(16); return;
+            setX(pos().x() + dx);
         }
+        return;
     }
 
 //    qDebug() <<"x: " << pos().x();
@@ -157,9 +183,11 @@ void Character::moveXNegative(int dx) {
 
     if (lowerGrid2.getHeight() && pos().x() - 16 + dx < p.x() * 32) {
         this->setX(p.x() * 32 + 16);
+        emit blockByObstacle(MOVE_DIRECTION::LEFT);
         animationX->stop();
     } else if (lowerGrid.getHeight() && pos().x() - 16 + dx < p.x() * 32) {
         this->setX(p.x() * 32 + 16);
+        emit blockByObstacle(MOVE_DIRECTION::LEFT);
         this->animationX->stop();
     } else this->setX(pos().x() + dx);
 }
