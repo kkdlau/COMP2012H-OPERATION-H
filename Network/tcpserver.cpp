@@ -1,9 +1,9 @@
-#include "tcpserver.h"
+//#include "tcpserver.h"
 
-TCPServer::TCPServer(QObject *parent) : QTcpServer(parent), server_socket(new QTcpSocket(this)), connected_to_client(false)
-{
-    // NOT DONE!!!
-}
+//TCPServer::TCPServer(QObject *parent) : QTcpServer(parent), server_socket(new QTcpSocket(this)), connected_to_client(false)
+//{
+//    // NOT DONE!!!
+//}
 
 //void TCPServer::connect_to_client(const QTcpSocket client_socket) {
 //    client_tcp_port = client_socket.peerPort();
