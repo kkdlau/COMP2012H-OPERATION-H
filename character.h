@@ -73,8 +73,8 @@ private:
     QString characterName;
 
 
-    QPropertyAnimation* animationX;
-    QPropertyAnimation* animationY;
+    QPropertyAnimation* animationX{nullptr};
+    QPropertyAnimation* animationY{nullptr};
     QVector2D moveVector;
 
 

@@ -168,8 +168,8 @@ void Character::moveBy(qreal x, qreal y) {
 //   bool intersect = head->boundingRect().intersects(presetMap->test_obstacle->boundingRect());
 
 if (x) {
-//    if (animationX) animationX->stop();
-//    delete animationX;
+    if (animationX) animationX->stop();
+    delete animationX;
     animationX = new QPropertyAnimation(this, "moveX");
     animationX->setDuration(100);
     animationX->setStartValue(this->getPositionX());
@@ -179,8 +179,8 @@ if (x) {
 }
 
 if (y) {
-//    if (animationY) animationY->stop();
-//    delete animationY;
+    if (animationY) animationY->stop();
+    delete animationY;
     animationY = new QPropertyAnimation(this, "moveY");
     animationY->setDuration(100);
     animationY->setStartValue(this->getPositionY());
