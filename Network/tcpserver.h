@@ -22,7 +22,7 @@ protected:
 //    void incomingConnection(qintptr socket_descriptor) override;
 
 signals:
-//    void receive_text(ServiceWorker *sender, const QString &text);
+    void receive_text(ServiceWorker *sender, const QString &text);
 
 public slots:
 //    void stopServer();
@@ -31,12 +31,10 @@ public slots:
 
 private slots:
 //    void text_received(ServiceWorker *sender, const QString &text);
-//    void user_disconnectedd(ServiceWorker *sender);
+//    void user_disconnected(ServiceWorker *sender);
 
 private:
     quint16 server_port;
-    QTcpSocket *server_socket;
-    bool connected_to_client;
     QString server_ip;
     QList<ServiceWorker*> clients;
     QList<ServiceWorker*> list;

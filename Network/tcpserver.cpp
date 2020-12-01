@@ -1,55 +1,47 @@
+#include <QMessageBox>
+#include <QNetworkInterface>
 #include "tcpserver.h"
 
-TCPServer::TCPServer(QObject *parent) : QTcpServer(parent), server_socket(new QTcpSocket(this)), connected_to_client(false)
+TCPServer::TCPServer(QObject *parent) :
+    QTcpServer(parent)
 {
-    // NOT DONE!!!
+    if (!listen()) {
+        qDebug("Unable to start the server");
+        close();
+        return;
+    }
+    server_port = serverPort();
+
+    // Find a usable IP address
+    QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
+    for (int i = 0; i < ipAddressesList.size(); ++i) {
+        if (ipAddressesList.at(i) != QHostAddress::LocalHost &&
+                ipAddressesList.at(i).toIPv4Address()) {
+            server_ip = ipAddressesList.at(i).toString();
+            break;
+        }
+    }
+
+    if (server_ip.isEmpty())
+        server_ip = QHostAddress(QHostAddress::LocalHost).toString();
 }
 
-//void TCPServer::connect_to_client(const QTcpSocket client_socket) {
-//    client_tcp_port = client_socket.peerPort();
-//    client_address = client_socket.peerAddress();
+QString TCPServer::get_ip() const {
+    return server_ip;
+}
 
+quint16 TCPServer::get_tcp_port() const {
+    return server_port;
+}
 
-//TCPServer::TCPServer(QObject *parent) :
-//    QTcpServer(parent)
-//{
-//    if (!listen()) {
-//        qDebug("Unable to start the server");
-//        close();
-//        return;
-//    }
-//    server_port = serverPort();
-
-//    // Find a usable IP address
-//    QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
-//    for (int i = 0; i < ipAddressesList.size(); ++i) {
-//        if (ipAddressesList.at(i) != QHostAddress::LocalHost &&
-//                ipAddressesList.at(i).toIPv4Address()) {
-//            server_ip = ipAddressesList.at(i).toString();
-//            break;
-//        }
-//    }
-
-//    if (server_ip.isEmpty())
-//        server_ip = QHostAddress(QHostAddress::LocalHost).toString();
-//}
-
-//QString TCPServer::get_ip() const {
-//    return server_ip;
-//}
-
-//quint16 TCPServer::get_tcp_port() const {
-//    return server_port;
-//}
-
-//QList<ServiceWorker*> TCPServer::get_clients() const {
-//    return clients;
-//}
+QList<ServiceWorker*> TCPServer::get_clients() const {
+    return clients;
+}
 
 //void TCPServer::incomingConnection(qintptr socketDesriptor) {
 //    qDebug("New Player");
 //    ServiceWorker *worker = new ServiceWorker(this);
-//    if (!worker->setSocketDescriptor(socketDesriptor)) {
+//    if (!worker->set_socket_descriptor(socketDesriptor)) {
 //        worker->deleteLater();
 //        return;
 //    }
@@ -60,7 +52,7 @@ TCPServer::TCPServer(QObject *parent) : QTcpServer(parent), server_socket(new QT
 //        playerFullMsg["type"] = "playerFull";
 //        sendJson(worker, playerFullMsg);
 //        connect(worker, &ServiceWorker::disconnectedFromClient, this, std::bind(&Server::userDisconnected, this, worker));
-//        qDebug() << fullList;
+//        qDebug() << list;
 //        return;
 //    }
 
@@ -70,7 +62,7 @@ TCPServer::TCPServer(QObject *parent) : QTcpServer(parent), server_socket(new QT
 //        QJsonObject playerNamesMsg;
 //        QJsonArray playerNames;
 //        for (ServiceWorker *worker : clients)
-//            playerNames.append(worker->getPlayerName());
+//            playerNames.append(worker->get_character_name());
 //        playerNamesMsg["type"] = "playerList";
 //        playerNamesMsg["playerNames"] = playerNames;
 //        sendJson(worker, playerNamesMsg);
@@ -99,11 +91,11 @@ TCPServer::TCPServer(QObject *parent) : QTcpServer(parent), server_socket(new QT
 //        for (ServiceWorker *worker : clients) {
 //            if (worker == sender)
 //                continue;
-//            if (worker->getPlayerName() == playerName) {
+//            if (worker->get_character_name() == playerName) {
 //                QJsonObject playerRepeatNameMsg;
 //                playerRepeatNameMsg["type"] = "nameRepeat";
 //                sendJson(sender, playerRepeatNameMsg);
-//                fullList.append(sender);
+//                list.append(sender);
 //                clients.removeAll(sender);
 //                return;
 //            }
@@ -134,14 +126,14 @@ TCPServer::TCPServer(QObject *parent) : QTcpServer(parent), server_socket(new QT
 //    broadcast(startGameMsg);
 //}
 
-//void TCPServer::userDisconnected(ServiceWorker *sender) {
+//void TCPServer::user_disconnected(ServiceWorker *sender) {
 //    qDebug("user disconnect");
 //    if (std::find(clients.begin(), clients.end(), sender) == clients.end()) {
-//        fullList.removeAll(sender);
+//        list.removeAll(sender);
 //        return;
 //    }
 //    clients.removeAll(sender);
-//    const QString player = sender->getPlayerName();
+//    const QString player = sender->get_character_name();
 //    if (!player.isEmpty()) {
 //        QJsonObject disconnectedMessage;
 //        disconnectedMessage["type"] = QString("playerDisconnected");
@@ -151,7 +143,7 @@ TCPServer::TCPServer(QObject *parent) : QTcpServer(parent), server_socket(new QT
 //    sender->deleteLater();
 //}
 
-//void TCPServer::sned_text(ServiceWorker *worker, const QString &text) {
+//void TCPServer::send_text(ServiceWorker *worker, const QString &text) {
 //    Q_ASSERT(worker);
 //    worker->(json);
 //}
