@@ -3,6 +3,7 @@
 #include <QVector>
 #include <QString>
 #include <QGraphicsRectItem>
+#include "../NewWeapon/weapon.h"
 
 class GridInfo
 {
@@ -10,9 +11,7 @@ private:
     int height;
     const int x;
     const int y;
-    QGraphicsRectItem* collidingRect; // this uses for checking collision
-
-    void updateCollidingRect();
+    Weapon* weapon{nullptr};
 
 public:
     GridInfo(int height, int x, int y);
@@ -23,10 +22,6 @@ public:
      * @return height
      */
     int getHeight() const;
-
-    QGraphicsRectItem* getCollidingRect() const;
-
-    void registerCollidingRect(QGraphicsRectItem* rect);
 
     /**
      * @brief heightDiff calculate the height differences between two grids

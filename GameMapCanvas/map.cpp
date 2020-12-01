@@ -34,11 +34,6 @@ void Map::gridInfoinitialize(int w, int h, int baseHeight) {
         QVector<GridInfo> row;
         for (int x = 0; x < w; ++x) {
             row.push_back(GridInfo{baseHeight, x, y});
-
-            GridInfo& grid = row.last();
-
-            grid.getCollidingRect()->setZValue(1);
-            this->addItem(grid.getCollidingRect());
         }
         grid.push_back(row);
     }

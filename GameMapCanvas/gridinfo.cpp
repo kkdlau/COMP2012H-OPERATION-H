@@ -6,27 +6,10 @@
 GridInfo::GridInfo(int height, int x, int y):
     height{height}, x{x}, y{y}
 {
-    collidingRect = new QGraphicsRectItem{.0f, .0f, 32.0f, 32.0f};
-    updateCollidingRect();
+
 }
 
 GridInfo::GridInfo(const GridInfo& grid): height{grid.height}, x{grid.x}, y{grid.y} {
-    collidingRect = new QGraphicsRectItem{grid.collidingRect->rect()};
-    updateCollidingRect();
-}
-
-QGraphicsRectItem* GridInfo::getCollidingRect() const {
-    return collidingRect;
-}
-
-void GridInfo::updateCollidingRect() {
-    collidingRect->setVisible(false);
-    collidingRect->setPos(x * Map::GRID_SIZE_W, y * Map::GRID_SIZE_H);
-}
-
-void GridInfo::registerCollidingRect(QGraphicsRectItem* rect) {
-    collidingRect = rect;
-    updateCollidingRect();
 }
 
 int GridInfo::getHeight() const {
@@ -36,7 +19,6 @@ int GridInfo::getHeight() const {
 void GridInfo::setHeight(const int height) {
     this->height = height;
     qDebug() << "setHeight";
-    updateCollidingRect();
 }
 
 QString GridInfo::toString() const {
