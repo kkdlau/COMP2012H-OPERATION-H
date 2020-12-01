@@ -12,7 +12,8 @@
 class Character : public QObject, public QGraphicsItemGroup
 {
     Q_OBJECT
-    Q_PROPERTY(QPointF move READ getPosition WRITE setPosition)
+    Q_PROPERTY(qreal moveX READ getPositionX WRITE setPositionX)
+    Q_PROPERTY(qreal moveY READ getPositionY WRITE setPositionY)
 public:
     Character(int stepValue = 5, Map* map = nullptr);
     Character(QString, int, int stepValue = 5, Map* map = nullptr);
@@ -38,6 +39,18 @@ public:
 
     void setPosition(QPointF p);
 
+    /*for animation - start*/
+
+    qreal getPositionX() const;
+
+    qreal getPositionY() const;
+
+    void setPositionX(qreal p);
+
+    void setPositionY(qreal p);
+
+    /*for animation - end*/
+
     /**
      * @brief setMovementVector set character movement vector
      *
@@ -60,7 +73,8 @@ private:
     QString characterName;
 
 
-    QPropertyAnimation* animation;
+    QPropertyAnimation* animationX;
+    QPropertyAnimation* animationY;
     QVector2D moveVector;
 
 
