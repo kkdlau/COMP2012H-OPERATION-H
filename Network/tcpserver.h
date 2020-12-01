@@ -35,8 +35,6 @@
 
 //private:
 //    quint16 server_port;
-//    QTcpSocket *server_socket;
-//    bool connected_to_client;
 //    QString server_ip;
 //    QList<ServiceWorker*> clients;
 //    QList<ServiceWorker*> list;
