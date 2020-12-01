@@ -5,11 +5,11 @@
 
 HostPage::HostPage(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::HostPage)
+    ui(new Ui::HostPage),
+    tcp_server(new TCPServer(this))
 {
     ui->setupUi(this);
     update_ip();
-    QTcpServer tcp_server;
 }
 
 HostPage::~HostPage()

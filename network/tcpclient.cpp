@@ -30,6 +30,10 @@ void TCPClient::send_text(const QString &text) {
     clientStream << text;
 }
 
+// public slot
+
+
+
 // Signals
 void TCPClient::on_ready_read() {
     qDebug("Client ready for reading");

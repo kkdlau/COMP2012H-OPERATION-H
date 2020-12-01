@@ -2,7 +2,7 @@
 #define HOSTPAGE_H
 
 #include <QDialog>
-
+#include "Network/tcpserver.h"
 namespace Ui {
 class HostPage;
 }
@@ -17,6 +17,7 @@ public:
     void update_ip();
 private:
     Ui::HostPage *ui;
+    QTcpServer* tcp_server;
 };
 
 #endif // HOSTPAGE_H
