@@ -29,6 +29,7 @@ SOURCES += \
     GameMapCanvas/map.cpp \
     character.cpp \
     charactermanager.cpp \
+    clientpage.cpp \
     enemy.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -55,6 +56,7 @@ HEADERS += \
     GameMapCanvas/map.h \
     character.h \
     charactermanager.h \
+    clientpage.h \
     enemy.h \
     mainwindow.h \
     mapviewpage.h \
@@ -62,6 +64,7 @@ HEADERS += \
     networkpage.h
 
 FORMS += \
+    clientpage.ui \
     mainwindow.ui \
     mapviewpage.ui \
     networkpage.ui

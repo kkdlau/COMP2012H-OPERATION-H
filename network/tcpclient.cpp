@@ -2,11 +2,7 @@
 
 // Public
 // Please put mainwindow to the parameter
-TCPClient::TCPClient(QObject *parent) :
-    QObject(parent),
-    client_socket(new QTcpSocket(this))
-{
-
+TCPClient::TCPClient(QObject *parent) : QObject(parent), client_socket(new QTcpSocket(this)) {
     // signal relay
     connect(client_socket, &QTcpSocket::connected, this, &TCPClient::connected);
     connect(client_socket, &QTcpSocket::disconnected, this, &TCPClient::disconnected);
