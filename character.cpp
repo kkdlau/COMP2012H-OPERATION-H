@@ -41,18 +41,23 @@ void Character::setPosition(QPointF p) {
 void Character::moveYPositive(int dy) {
     QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
 
-    qDebug() <<"x: " << pos().x();
+    if (p.y() == presetMap->getHeight(Map::UNIT::GRID) - 1) {
+        setY(pos().y() + 16 + dy >  presetMap->getHeight(Map::UNIT::PIXEL)? presetMap->getHeight(Map::UNIT::PIXEL) - 16: pos().y() + dy);
+        return;
+    }
+
+//    qDebug() <<"x: " << pos().x();
     int shift = qFloor(pos().x()) % 32;
 
-    qDebug() << "shift: " << shift;
+//    qDebug() << "shift: " << shift;
     int shiftIndex = shift ==  16? 0 : shift > 16? 1 : -1;
 
-    qDebug() << "shiftIndex: " << shiftIndex;
+//    qDebug() << "shiftIndex: " << shiftIndex;
 
     const GridInfo& lowerGrid = (*presetMap)[p + QPoint{0, 1}];
     const GridInfo& lowerGrid2 = (*presetMap)[p + QPoint{shiftIndex, 1}];
 
-    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
+//    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
 
     if (lowerGrid2.getHeight() && pos().y() + 16 + dy > (p.y() + 1) * 32) {
         this->setY((p.y() + 1) * 32 - 16);
@@ -62,6 +67,10 @@ void Character::moveYPositive(int dy) {
 }
 
 void Character::moveYNegative(int dy) {
+    if (pos().y() - 16.0 + dy < 0) {
+        pos().ry() = 16.0;
+        return;
+    }
     QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
 
     qDebug() <<"x: " << pos().x();
@@ -145,8 +154,8 @@ void Character::moveBy(qreal x, qreal y) {
 //           animation->stop();
 //       }
 //   });
-    moveYNegative(y);
-    moveXNegative(x);
+//if (x > 0) moveXPositive(x); else moveXNegative(x);sss
+if (y > 0) moveYPositive(y); else moveYNegative(y);
 }
 
 
