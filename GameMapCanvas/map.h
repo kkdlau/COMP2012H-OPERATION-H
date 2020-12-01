@@ -39,7 +39,7 @@ class Map : public QGraphicsScene {
     void gridInfoinitialize(int w, int h, int baseHeight = 0);
 
    public:
-       enum class AXIS {X, Y};
+       enum class UNIT {PIXEL, GRID};
     static const int GRID_SIZE_W;
     static const int GRID_SIZE_H;
     QGraphicsRectItem* test_obstacle;
@@ -62,19 +62,10 @@ class Map : public QGraphicsScene {
     void addObstacle(int posX, int posY);
 
 
-    template<typename T>
-    /**
-     * @brief getWidth: get width of map. T should be either GRID or PIXEL.
-     * @return width of map
-     */
-    T getWidth() const;
+    qreal getWidth(UNIT unitRepresent) const;
 
-    template<typename T>
-    /**
-     * @brief getHeight: get height of map. T should be either GRID or PIXEL.
-     * @return height of map
-     */
-    T getHeight() const;
+    qreal getHeight(UNIT unitRepresent) const;
+
 	~Map();
 };
 

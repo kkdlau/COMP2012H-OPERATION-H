@@ -89,23 +89,17 @@ void Map::parseMapConfigFile(QString mapConfigFilePath) {
 }
 
 
-template <typename T>
-T Map::getWidth() const {
-    if (typeid (T) == typeid (GRID)) return this->width;
-    else if (typeid (T) == typeid (PIXEL)) return this->width * Map::GRID_SIZE_W;
-    else {
-        qDebug() << "undefined bahaviour: passing unkown unit";
-        return NULL;
+qreal Map::getWidth(Map::UNIT unitRepresent) const {
+    switch (unitRepresent) {
+    case Map::UNIT::GRID: return width;
+    case Map::UNIT::PIXEL: return width * Map::GRID_SIZE_W;
     }
 }
 
-template <typename T>
-T Map::getHeight() const {
-    if (typeid (T) == typeid (GRID)) return this->height;
-    else if (typeid (T) == typeid (PIXEL)) return this->height * Map::GRID_SIZE_H;
-    else {
-        qDebug() << "undefined bahaviour: passing unkown unit";
-        return NULL;
+qreal Map::getHeight(Map::UNIT unitRepresent) const {
+    switch (unitRepresent) {
+    case Map::UNIT::GRID: return height;
+    case Map::UNIT::PIXEL: return height * Map::GRID_SIZE_H;
     }
 }
 
@@ -139,10 +133,10 @@ bool Map::isOutOfMap(const QPoint& p) const {
 bool Map::isOutOfMap(const QPointF& p, qreal* x, qreal* y) const {
     if (isOutOfMap(p.toPoint())) {
         if (p.x() < 0) *x = p.x();
-        else *x = p.x() - getWidth<PIXEL>();
+        else *x = p.x() - getWidth(Map::UNIT::GRID);
 
         if (p.y() < 0) *y = p.y();
-        else *y = p.y() - getHeight<PIXEL>();
+        else *y = p.y() - getHeight(Map::UNIT::GRID);
         return true;
     } else return false;
 }
