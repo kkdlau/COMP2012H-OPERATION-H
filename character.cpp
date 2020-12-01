@@ -24,7 +24,7 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     gun = new QGraphicsPixmapItem();
     addToGroup(head);
     addToGroup(gun);
-    setPos(QPointF{32 * 3, 32.0f * 7});
+    setPos(QPointF{32.0f * 8 + 16, 32.0f * 7});
     weaponManager = WeaponManager::getInstance();
     
 }
@@ -70,24 +70,27 @@ void Character::moveYPositive(int dy) {
 }
 
 void Character::moveYNegative(int dy) {
-    if (pos().y() - 16.0 + dy < 0) {
-        pos().ry() = 16.0;
-        return;
-    }
+
     QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
 
-    qDebug() <<"x: " << pos().x();
+    if (p.y() == 0) {
+        setY(pos().y() - 16 + dy <  0? 16: pos().y() + dy);
+        return;
+    }
+
+
+//    qDebug() <<"x: " << pos().x();
     int shift = qFloor(pos().x()) % 32;
 
-    qDebug() << "shift: " << shift;
+//    qDebug() << "shift: " << shift;
     int shiftIndex = shift ==  16? 0 : shift > 16? 1 : -1;
 
-    qDebug() << "shiftIndex: " << shiftIndex;
+//    qDebug() << "shiftIndex: " << shiftIndex;
 
     const GridInfo& lowerGrid = (*presetMap)[p + QPoint{0, -1}];
     const GridInfo& lowerGrid2 = (*presetMap)[p + QPoint{shiftIndex, -1}];
 
-    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
+//    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
 
     if (lowerGrid2.getHeight() && pos().y() - 16 + dy < p.y() * 32) {
         this->setY((p.y()) * 32 + 16);
@@ -98,6 +101,11 @@ void Character::moveYNegative(int dy) {
 
 void Character::moveXPositive(int dx) {
     QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
+
+    if (p.x() == presetMap->getWidth(Map::UNIT::GRID) - 1) {
+        setX(pos().x() + 16 + dx >  presetMap->getWidth(Map::UNIT::PIXEL)? presetMap->getWidth(Map::UNIT::PIXEL) - 16: pos().x() + dx);
+        return;
+    }
 
     qDebug() <<"x: " << pos().x();
     int shift = qFloor(pos().y()) % 32;
@@ -122,18 +130,23 @@ void Character::moveXPositive(int dx) {
 void Character::moveXNegative(int dx) {
     QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
 
-    qDebug() <<"x: " << pos().x();
+    if (p.x() == 0) {
+        setX(pos().x() - 16 + dx <  0? 16: pos().x() + dx);
+        return;
+    }
+
+//    qDebug() <<"x: " << pos().x();
     int shift = qFloor(pos().y()) % 32;
 
-    qDebug() << "shift: " << shift;
+//    qDebug() << "shift: " << shift;
     int shiftIndex = shift ==  16? 0 : shift > 16? 1 : -1;
 
-    qDebug() << "shiftIndex: " << shiftIndex;
+//    qDebug() << "shiftIndex: " << shiftIndex;
 
     const GridInfo& lowerGrid = (*presetMap)[p + QPoint{-1, 0}];
     const GridInfo& lowerGrid2 = (*presetMap)[p + QPoint{-1, shiftIndex}];
 
-    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
+//    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
 
     if (lowerGrid2.getHeight() && pos().x() - 16 + dx < p.x() * 32) {
         this->setX(p.x() * 32 + 16);
@@ -159,6 +172,7 @@ void Character::moveBy(qreal x, qreal y) {
 //   });
 //if (x > 0) moveXPositive(x); else moveXNegative(x);sss
 if (y > 0) moveYPositive(y); else moveYNegative(y);
+if (x > 0) moveXPositive(x); else moveXNegative(x);
 }
 
 
