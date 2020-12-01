@@ -31,6 +31,7 @@ SOURCES += \
     charactermanager.cpp \
     clientpage.cpp \
     enemy.cpp \
+    hostpage.cpp \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
@@ -58,6 +59,7 @@ HEADERS += \
     charactermanager.h \
     clientpage.h \
     enemy.h \
+    hostpage.h \
     mainwindow.h \
     mapviewpage.h \
     Network/udp.h \
@@ -65,6 +67,7 @@ HEADERS += \
 
 FORMS += \
     clientpage.ui \
+    hostpage.ui \
     mainwindow.ui \
     mapviewpage.ui \
     networkpage.ui

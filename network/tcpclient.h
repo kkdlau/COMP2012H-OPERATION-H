@@ -4,6 +4,8 @@
 #include <QTcpSocket>
 #include <QDataStream>
 
+#define OUR_PORT 45454
+
 class TCPClient : public QObject
 {
     Q_OBJECT
@@ -12,7 +14,6 @@ public:
     explicit TCPClient(QObject *parent = nullptr);
     void send_text(const QString &text);
 
-public slots:
     void connect_to_server(const QHostAddress &server_address, quint16 server_port);
     void disconnect_from_server();
 

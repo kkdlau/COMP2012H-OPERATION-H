@@ -1,6 +1,7 @@
 #include "networkpage.h"
 #include "ui_networkpage.h"
 #include "clientpage.h"
+#include "hostpage.h"
 #include <QMessageBox>
 
 NetworkPage::NetworkPage(QWidget *parent) :
@@ -24,13 +25,15 @@ void NetworkPage::on_pushButton_clicked()
     } else {
         // Host radio button checked
         if (ui->radioButton->isChecked()) {
-            ClientPage client_page;
-            client_page.setModal(true);
-            client_page.exec();
+            HostPage host_page;
+            host_page.setModal(true);
+            host_page.exec();
         }
         // Client radio button checked
         else {
-
+            ClientPage client_page;
+            client_page.setModal(true);
+            client_page.exec();
         }
     }
 }
