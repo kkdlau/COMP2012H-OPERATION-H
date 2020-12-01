@@ -2,10 +2,11 @@
 #include "mapviewpage.h"
 #include "qdebug.h"
 
-Enemy::Enemy(int moveSpeed, Character *target) : moveSpeed(moveSpeed), target(target)
+Enemy::Enemy(Map* map, int moveSpeed, Character *target) : Character(moveSpeed, map), moveSpeed(moveSpeed), target(target)
 {
     connect(&timer, &QTimer::timeout, this, &Enemy::Move);
-    timer.start(1000/60);
+    connect(this, &Character::blockByObstacle, this, &Enemy::Unblock);
+    timer.start(100);
 }
 
 void Enemy::SetDestination(Character* target)
@@ -18,15 +19,28 @@ void Enemy::Move()
     if(target != nullptr)
     {
         QLineF drawLine(this->scenePos(), target->scenePos());
-        drawLine.setLength(moveSpeed/60);
-        setPos(x() + drawLine.dx(), y() + drawLine.dy());
+        drawLine.setLength(moveSpeed/30);
+        moveBy(drawLine.dx(), drawLine.dy());
     }
 }
 
-void Enemy::Harmed(int damage) //this class should inherit character for usability
+void Enemy::Unblock(MOVE_DIRECTION direction)
 {
-    qDebug()<<"IM GETTING HIT BABY WOO";
-    health -= damage;
+    QLineF drawLine(this->scenePos(), target->scenePos());
+    if(MOVE_DIRECTION::UP == direction || MOVE_DIRECTION::DOWN == direction)
+    {
+        moveBy(drawLine.dx()*1.5, 0);
+    }
+    else
+    {
+        moveBy(0,drawLine.dy()*1.5);
+    }
+
+}
+
+void Enemy::Harmed() //this class should inherit character for usability
+{
+    qDebug()<<"IM GETTING HIT BABY WOOshjdkfjkalfhjakldshk";
     if(health <= 0)
     {
         delete this;

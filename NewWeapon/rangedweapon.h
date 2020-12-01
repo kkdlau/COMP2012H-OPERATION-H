@@ -8,6 +8,7 @@ public:
     RangedWeapon(int attack, int attackSpeed, int reloadSpeed, int maxBullet,  QGraphicsItem*parent = nullptr);
     void virtual Attack(int angle) override;
     void virtual Reload();
+    QString ReturnAmmoString();//poor implementation
 private:
     void ResetShootState();
     void ResetReloadState();

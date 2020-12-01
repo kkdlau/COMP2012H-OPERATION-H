@@ -8,7 +8,7 @@ WeaponManager::WeaponManager()
 }
 
 WeaponManager::~WeaponManager(){
-
+    Instance = nullptr; //TODO ID FUCKIN KNOW
 }
 WeaponManager* WeaponManager::getInstance()
 {
@@ -75,7 +75,17 @@ void WeaponManager::EquipWeapon(int weaponId, QGraphicsItem *owner)
     {
         qDebug()<<"EQUIPping BABY";
         targetWeapon->Equip(owner);
-        ItemFrame::item->setPixmap(targetWeapon->pixmap());
+        ChangeWeaponPicture(targetWeapon->pixmap());
+        if(targetWeapon->GetWeaponType() == WeaponType::RANGED)
+        {
+            RangedWeapon* weapon = dynamic_cast<RangedWeapon*>(targetWeapon);
+            ChangeText(weapon->ReturnAmmoString());
+        }
+        else
+        {
+            ChangeText("-//-");
+        }
+
     }
 }
 
@@ -86,6 +96,15 @@ void WeaponManager::AttackWeapon(int weaponId, int angle)
     {
         targetWeapon->Attack(angle);
     }
+    if(targetWeapon->GetWeaponType() == WeaponType::RANGED)
+    {
+        RangedWeapon* weapon = dynamic_cast<RangedWeapon*>(targetWeapon);
+        ChangeText(weapon->ReturnAmmoString());
+    }
+    else
+    {
+        ChangeText("-//-");
+    }
 }
 
 void WeaponManager::DequipWeapon(int weaponId)
@@ -94,5 +113,7 @@ void WeaponManager::DequipWeapon(int weaponId)
     if(targetWeapon != nullptr)
     {
         targetWeapon->Unequip();
+        ChangeWeaponPicture(QPixmap());
+        ChangeText("-//-");
     }
 }

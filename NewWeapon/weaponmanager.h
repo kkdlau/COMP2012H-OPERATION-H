@@ -4,7 +4,8 @@
 #include <QObject>
 #include "NewWeapon/meleeweapon.h"
 #include "NewWeapon/rangedweapon.h"
-class WeaponManager : public QObject
+#include "UI/itemframe.h"
+class WeaponManager : public ItemFrame
 {
     Q_OBJECT
 public:

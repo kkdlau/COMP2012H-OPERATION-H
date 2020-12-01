@@ -1,6 +1,6 @@
 #include "weapon.h"
 
-Weapon::Weapon(int attack, QGraphicsItem *parent = nullptr) :QGraphicsPixmapItem(parent), attack(attack)
+Weapon::Weapon(WeaponType weaponType, int attack, QGraphicsItem *parent = nullptr) :QGraphicsPixmapItem(parent), attack(attack), type(weaponType)
 {
 
 }
@@ -22,4 +22,9 @@ void Weapon::Equip(QGraphicsItem *image)
 int Weapon::GetWeaponId()
 {
     return weaponId;
+}
+
+WeaponType Weapon::GetWeaponType()
+{
+    return type;
 }

@@ -202,7 +202,6 @@ if (x) {
     animationX->setDuration(100);
     animationX->setStartValue(this->getPositionX());
     animationX->setEndValue(this->getPositionX() + x);
-
     animationX->start();
 }
 
@@ -274,7 +273,7 @@ bool Character::is_alive() const{
 void Character::shoot() {
     if(currentWeaponId != -1)
     {
-        weaponManager->AttackWeapon(currentWeaponId, 45);
+        weaponManager->AttackWeapon(currentWeaponId, this->rotation());
     }
 }
 
@@ -303,6 +302,7 @@ void Character::EquipWeapon()
 
         }
     }
+    DequipWeapon() ;
 }
 
 void Character::DequipWeapon()
