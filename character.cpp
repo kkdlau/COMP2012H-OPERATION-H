@@ -21,9 +21,12 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     head = new QGraphicsPixmapItem(QPixmap(":character_test"));
     head->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
     head->setOffset(QPointF(-Character::WIDTH / 2, -Character::HEIGHT / 2));
+    gun = new QGraphicsPixmapItem();
     addToGroup(head);
+    addToGroup(gun);
     setPos(QPointF{32 * 3, 32.0f * 7});
-
+    weaponManager = WeaponManager::getInstance();
+    
 }
 
 QPointF Character::getPosition() const {
@@ -186,7 +189,53 @@ bool Character::is_alive() const{
 }
 
 void Character::shoot() {
-//    if (curWeapon.getWeaponType()) {
-//        return;
-//    }
+    if(currentWeaponId != -1)
+    {
+        weaponManager->AttackWeapon(currentWeaponId, 45);
+    }
+}
+
+void Character::EquipWeapon()
+{
+    QList<QGraphicsItem*> collide = collidingItems();
+
+    for(int i = 0; i < collide.length(); i++)
+    {
+        Weapon *data = dynamic_cast<Weapon*>(collide[i]);
+        if(data)
+        {
+            int weaponId = data->GetWeaponId();
+            qDebug()<<"GET WEAPON ID :"<<weaponId;
+            Weapon* test = weaponManager->GetWeapon(weaponId);
+            if(test && weaponId != currentWeaponId)
+            {
+                if(currentWeaponId != -1)
+                {
+                    DequipWeapon();
+                }
+                weaponManager->EquipWeapon(weaponId, gun);
+                currentWeaponId = weaponId;
+                return;
+            }
+
+        }
+    }
+}
+
+void Character::DequipWeapon()
+{
+    weaponManager->DequipWeapon(currentWeaponId);
+    currentWeaponId = -1;
+}
+
+void Character::DealDamage(int damage)
+{
+    qDebug()<<"NPPPPPP";
+    characterHealth -= damage;
+    Harmed();
+}
+
+void Character::Harmed()
+{
+    qDebug()<<"THE CURRENT HEALTH IS "<< characterHealth;
 }
