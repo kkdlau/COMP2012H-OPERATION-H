@@ -14,6 +14,9 @@ INCLUDEPATH += GameMapCanvas/
 SOURCES += \
     GameMapCanvas/camera.cpp \
     GameMapCanvas/gridinfo.cpp \
+    GameScene/overlay.cpp \
+    GameScene/camera.cpp \
+    GameScene/gridinfo.cpp \
     FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
@@ -49,6 +52,9 @@ SOURCES += \
 HEADERS += \
     GameMapCanvas/camera.h \
     GameMapCanvas/gridinfo.h \
+    GameScene/overlay.h \
+    GameScene/camera.h \
+    GameScene/gridinfo.h \
     FileParser/fileparser.h \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
