@@ -8,13 +8,10 @@
 const int Map::GRID_SIZE_W = 32;
 const int Map::GRID_SIZE_H = 32;
 
-Map::Map(QObject* parent, QString resourceName, QString mapConfigFilePath) : QGraphicsScene{parent}, grid{} {
-    layer = new QGraphicsItemGroup;
-    layer->addToGroup(new QGraphicsPixmapItem{QPixmap(resourceName)});
-    addItem(layer);
+Map::Map(QString imgPath, QString configFilePath): grid{} {
+    addToGroup(new QGraphicsPixmapItem{QPixmap(imgPath)});
 
-    parseMapConfigFile(mapConfigFilePath);
-    setSceneRect(0, 0, 320, 320);
+    parseMapConfigFile(configFilePath);
 
 //    addObstacle(1, 0);
 //    addObstacle(1, 1);
@@ -35,7 +32,7 @@ void Map::addObstacle(int posX, int posY) {
     clr.setAlphaF(0.3);
     QBrush tmpBrush{clr};
     QPen tmpPen;
-    test_obstacle = new QGraphicsRectItem(0, 0, 32, 32);
+    QGraphicsRectItem* test_obstacle = new QGraphicsRectItem(0, 0, 32, 32);
     test_obstacle->setPen(tmpPen);
     test_obstacle->setBrush(tmpBrush);
     layer->addToGroup(test_obstacle);
@@ -105,8 +102,7 @@ qreal Map::getHeight(Map::UNIT unitRepresent) const {
 }
 
 void Map::mouseMoveEvent(QGraphicsSceneMouseEvent* e) {
-    QGraphicsScene::mouseMoveEvent(e);
-    cursorPos = layer->mapFromScene(e->scenePos());
+    cursorPos = mapFromScene(e->scenePos());
 }
 
 QVector<GridInfo>& Map::operator[](const unsigned columnIndex) {
@@ -170,10 +166,6 @@ void Map::drawPath(QList<QPoint> path) {
 
     QGraphicsRectItem* rect = new QGraphicsRectItem{path.last().x() * 32.0f + 10, path.last().y() * 32.0f + 10, 12, 12};
     layer->addToGroup(rect);
-}
-
-QGraphicsItemGroup* Map::mapLayer() {
-    return layer;
 }
 
 Map::~Map() {}
