@@ -4,10 +4,11 @@
 
 MeleeWeapon::MeleeWeapon(int attack,  int attackRange, int attackSpeed, QGraphicsItem* parent,QString image) : Weapon(WeaponType::MELEE, attack, parent), attackRange(attackRange), attackSpeed(attackSpeed)
 {
-    setOffset(10, 0);
+    QPixmap img = QPixmap(image);
+    setOffset(-img.size().width() / 2, -img.size().height() / 2);
     InitializeAttackAnimation();
     connect(&attackAnimation, &QSequentialAnimationGroup::currentAnimationChanged, this, &MeleeWeapon::OnAttack);
-    setPixmap(QPixmap(image));
+    setPixmap(img);
 }
 
 void MeleeWeapon::Attack(int angle)

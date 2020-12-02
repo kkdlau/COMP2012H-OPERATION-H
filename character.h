@@ -6,7 +6,7 @@
 #include "qstring.h"
 #include "qstringlist.h"
 #include "qgraphicsitem.h"
-#include "../GameMapCanvas/map.h"
+#include "GameScene/map.h"
 #include "NewWeapon/weapon.h"
 #include "UI/itemframe.h"
 #include "UI/healthbar.h"
@@ -67,8 +67,11 @@ public:
 
     //SAMPLE WEAPON TEST STEVEN
 
-    void EquipWeapon();
-    void DequipWeapon();
+    void pickWeapon();
+    void equipWeapon(Weapon* weapon);
+    void dequipWeapon();
+
+
     void DealDamage(int damage);
     void virtual Harmed();
     ItemFrame *weaponUI = nullptr;
@@ -108,6 +111,10 @@ private:
 signals:
     void isMoving(QPointF p);
     void blockByObstacle(MOVE_DIRECTION);
+
+    void equipWeaponSignal(Weapon*);
+    void dequipWeaponSignal(Weapon*);
+
 };
 
 #endif // CHARACTER_H

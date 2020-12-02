@@ -9,11 +9,12 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # For promoted widgets
-INCLUDEPATH += GameMapCanvas/
+INCLUDEPATH += GameScene/
 
 SOURCES += \
-    GameMapCanvas/camera.cpp \
-    GameMapCanvas/gridinfo.cpp \
+    ../../Program/comp2012h_operation_h/GameScene/overlay.cpp \
+    GameScene/camera.cpp \
+    GameScene/gridinfo.cpp \
     FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
@@ -32,8 +33,8 @@ SOURCES += \
     Pathing/astar.cpp \
     UI/itemframe.cpp \
     Weapons/bullet.cpp \
-    GameMapCanvas/gamemapcanvas.cpp \
-    GameMapCanvas/map.cpp \
+    GameScene/gamemapcanvas.cpp \
+    GameScene/map.cpp \
     character.cpp \
     charactermanager.cpp \
     clientpage.cpp \
@@ -47,8 +48,9 @@ SOURCES += \
     remoteselector.cpp
 
 HEADERS += \
-    GameMapCanvas/camera.h \
-    GameMapCanvas/gridinfo.h \
+    ../../Program/comp2012h_operation_h/GameScene/overlay.h \
+    GameScene/camera.h \
+    GameScene/gridinfo.h \
     FileParser/fileparser.h \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
@@ -68,8 +70,8 @@ HEADERS += \
     Pathing/astar.h \
     UI/itemframe.h \
     Weapons/bullet.h \
-    GameMapCanvas/gamemapcanvas.h \
-    GameMapCanvas/map.h \
+    GameScene/gamemapcanvas.h \
+    GameScene/map.h \
     character.h \
     charactermanager.h \
     clientpage.h \

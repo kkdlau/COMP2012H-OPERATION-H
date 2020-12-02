@@ -13,10 +13,11 @@ private:
     int height;
     const int x;
     const int y;
+    QGraphicsItemGroup* renderlayer{nullptr};
     Weapon* weapon{nullptr};
 
 public:
-    GridInfo(int height, int x, int y);
+    GridInfo(int height, int x, int y,  QGraphicsItemGroup* belongLayer);
     GridInfo(const GridInfo& grid);
 
     /**
@@ -56,10 +57,27 @@ public:
      */
     QString toString() const;
 
-    QPointF GetPosition();
-    void AddWeaponToGrid(Weapon* data);
-    bool IsWeaponInGrid();
-    Weapon* GetWeaponData();
+    /**
+     * @brief getPos Get the position of Grid
+     * @return the position
+     */
+    QPoint getPos() const;
+
+    /**
+     * @brief putWeapon Put the weapon on ground
+     * @param data
+     */
+    void putWeapon(Weapon* data);
+
+    /**
+     * @brief isWeaponOnGround Check if the grid consist of weapon
+     * @return true if the grid consist of weapon
+     */
+    bool isWeaponOnGround() const;
+
+    void removeWeapon();
+
+    Weapon* popWeapon();
 };
 
 #endif // GRIDINFO_H
