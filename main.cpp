@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
 
-//    QSound::play(":assets/footsteps.wav");  // uncomment if u want to hear
+////    QSound::play(":assets/footsteps.wav");  // uncomment if u want to hear
     w.show();
     return a.exec();
 }

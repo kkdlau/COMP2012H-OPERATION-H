@@ -16,9 +16,13 @@ void Enemy::setDestination(Character* target)
 
 void Enemy::action()
 {
-    QLineF drawLine(this->scenePos(), target->scenePos());
-    move(drawLine);
-    attack(drawLine);
+    if(target != nullptr)
+    {
+        QLineF drawLine(this->scenePos(), target->scenePos());
+        move(drawLine);
+        attack(drawLine);
+    }
+
 }
 void Enemy::move(QLineF drawLine)
 {
@@ -53,7 +57,6 @@ void Enemy::unblock(MOVE_DIRECTION direction)
 
 void Enemy::Harmed() //this class should inherit character for usability
 {
-    qDebug()<<"IM GETTING HIT BABY WOOshjdkfjkalfhjakldshk";
     if(characterHealth <= 0)
     {
         dequipWeapon();

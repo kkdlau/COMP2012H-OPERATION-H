@@ -59,6 +59,7 @@ void MeleeWeapon::OnAttack()
             {
                 qDebug()<<"FOUND SHIT";
                 checking->DealDamage(attack);
+                return;
             }
         }
         isAttackAnimation = true;

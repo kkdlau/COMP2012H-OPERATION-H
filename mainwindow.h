@@ -28,7 +28,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Server server;
-    Client client;
+    //Server server;
+    //Client client;
 };
 #endif // MAINWINDOW_H

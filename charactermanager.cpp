@@ -2,68 +2,128 @@
 #include "FileParser/fileparser.h"
 #include "qdebug.h"
 
-character_manager *character_manager::instance = nullptr;
+CharacterManager *CharacterManager::instance = nullptr;
 
-character_manager::character_manager()
+CharacterManager::CharacterManager()
 {
+    qDebug()<<"INITIAL "<<characterDatabase.length();
 }
 
-character_manager::~character_manager()
+CharacterManager::~CharacterManager()
 {
+    qDebug()<<"INITIAL "<<characterDatabase.length();
     reset_character_manager();
     //check leak in instance
 }
 
-character_manager *character_manager::get_instance()
+CharacterManager *CharacterManager::get_instance()
 {
     if(instance == nullptr)
     {
-        instance = new character_manager();
+        instance = new CharacterManager();
     }
     return instance;
 }
-Character* character_manager::get_character(QString character_name) const
+//Character* character_manager::get_character(QString character_name) const
+//{
+//    return database.contains(character_name)? database[character_name] : nullptr;
+//}
+
+//Character* character_manager::operator[](QString character_name) const
+//{
+//    return get_character(character_name);
+//}
+
+const QList<Character*> CharacterManager::get_all_characters() const
 {
-    return database.contains(character_name)? database[character_name] : nullptr;
+    return characterDatabase;
 }
 
-Character* character_manager::operator[](QString character_name) const
+bool CharacterManager::is_character_exist(Character* character)
 {
-    return get_character(character_name);
+    return characterDatabase.contains(character);
 }
 
-const QList<Character*> character_manager::get_all_characters() const
+void CharacterManager::set_map(Map *map)
 {
-    return database.values();
+    this->map = map;
 }
 
-bool character_manager::is_character_exist(QString name)
+void CharacterManager::add_character(Character * charData)
 {
-    return database.contains(name);
-}
-
-void character_manager::add_character(Character * charData)
-{
-    if(!is_character_exist(charData->get_name()))
+    if(!is_character_exist(charData) && map != nullptr)
     {
-        database.insert(charData->get_name(), charData);
+        connect(charData, &Character::deadSignal, this, &CharacterManager::delete_character);
+        characterDatabase.append(charData);
+        map->addToGroup(charData);
     }
 }
 
-void character_manager::delete_character(QString charName)
+void CharacterManager::delete_character(Character* charData)
 {
-    if(is_character_exist(charName))
+    if(is_character_exist(charData))
     {
-        delete database[charName];
-        database.remove(charName);
+        qDebug()<<"DELETING THE CHARACTER BITCH";
+        disconnect(charData, &Character::deadSignal, this, &CharacterManager::delete_character);
+        map->removeFromGroup(charData);
+        delete charData;
+        characterDatabase.removeOne(charData);
+        qDebug()<<"CHAR LEFT: "<<characterDatabase.length();
+        if(characterDatabase.length() <= 1)
+        {
+            temp_function();
+        }
+    }
+    else
+    {
+        qCritical()<<"YOU ARE TRYING TO DELETE A NON-EXIST CHARACTER IN THE MANAGER";
     }
 }
 
-void character_manager::reset_character_manager()
+Character* CharacterManager::generate_random_character()
 {
-    QStringList key = database.keys();
-    for(int i = 0; i < key.count(); i++)
+    if(map != nullptr)
     {
-        delete_character(key[i]);
+        Character* newChar = new Character{5, map};
+        add_character(newChar);
+        qDebug()<<"NEW CHAR MADE "<<characterDatabase.length();
+        return newChar;
+
     }
+    else
+    {
+        qCritical()<<"NO MAP DETECTED WHEN CREATING";
+        return nullptr;
+    }
+}
+//check tmrw
+Enemy* CharacterManager::generate_random_enemy()
+{
+    if(map != nullptr)
+    {
+        Enemy* newChar = new Enemy{map};
+        add_character(newChar);
+        qDebug()<<"NEW CHAR MADE "<<characterDatabase.length();
+        return newChar;
+
+    }
+    else
+    {
+        qCritical()<<"NO MAP DETECTED WHEN CREATING";
+        return nullptr;
+    }
+}
+
+void CharacterManager::temp_function()
+{
+    QMessageBox::aboutQt(nullptr, "HAVE FUN BITCH");
+}
+
+void CharacterManager::reset_character_manager()
+{
+    for(int i = 0; i < characterDatabase.length(); i++)
+    {
+        delete_character(characterDatabase[i]);
+    }
+    characterDatabase.clear();
 }

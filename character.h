@@ -86,8 +86,6 @@ public:
 
 private:
     QString characterName;
-
-
     QPropertyAnimation* animationX{nullptr};
     QPropertyAnimation* animationY{nullptr};
     QVector2D moveVector;
@@ -114,6 +112,7 @@ signals:
 
     void equipWeaponSignal(Weapon*);
     void dequipWeaponSignal(Weapon*);
+    void attackWeaponSignal();
 
     void deadSignal(Character*);
 
