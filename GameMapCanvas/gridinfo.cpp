@@ -28,3 +28,26 @@ QString GridInfo::toString() const {
 int GridInfo::heightDiff(const GridInfo &grid) const {
     return abs(height - grid.height);
 }
+
+void GridInfo::AddWeaponToGrid(Weapon *data)
+{
+    weapon = data;
+}
+
+bool GridInfo::IsWeaponInGrid()
+{
+    return weapon;
+}
+
+Weapon *GridInfo::GetWeaponData()
+{
+    Weapon* temp = weapon;
+    weapon = nullptr;
+    return temp;
+}
+
+QPointF GridInfo::GetPosition()
+{
+    QPointF data(x * 16, y * 16);
+    return data;
+}

@@ -1,6 +1,7 @@
 #include "weaponmanager.h"
 #include "qdebug.h"
 #include "UI/itemframe.h"
+
 WeaponManager* WeaponManager::Instance = nullptr;
 
 WeaponManager::WeaponManager()
@@ -8,6 +9,7 @@ WeaponManager::WeaponManager()
 }
 
 WeaponManager::~WeaponManager(){
+    qDebug()<<"SINCE IT FUKIN ACCESSED IT IT MEANS ITS DELETED";
     Instance = nullptr; //TODO ID FUCKIN KNOW
 }
 WeaponManager* WeaponManager::getInstance()
@@ -45,6 +47,7 @@ Weapon* WeaponManager::GenerateRandomWeapon()
     {
         tempWeapon =  new RangedWeapon(5,500,500,10);
     }
+    weaponDatabase.append(tempWeapon);
     return tempWeapon;
 }
 

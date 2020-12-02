@@ -25,7 +25,6 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     addToGroup(head);
     addToGroup(gun);
     setPos(QPointF{32.0f * 2 + 16, 32.0f * 3});
-    weaponManager = WeaponManager::getInstance();
     
 }
 
@@ -271,9 +270,9 @@ bool Character::is_alive() const{
 }
 
 void Character::shoot() {
-    if(currentWeaponId != -1)
+    if(currentWeapon != nullptr)
     {
-        weaponManager->AttackWeapon(currentWeaponId, this->rotation());
+        currentWeapon->Attack(this->rotation());
     }
 }
 
@@ -284,22 +283,15 @@ void Character::EquipWeapon()
     for(int i = 0; i < collide.length(); i++)
     {
         Weapon *data = dynamic_cast<Weapon*>(collide[i]);
-        if(data)
+        if(data && data != currentWeapon)
         {
-            int weaponId = data->GetWeaponId();
-            qDebug()<<"GET WEAPON ID :"<<weaponId;
-            Weapon* test = weaponManager->GetWeapon(weaponId);
-            if(test && weaponId != currentWeaponId)
+            if(currentWeapon != nullptr)
             {
-                if(currentWeaponId != -1)
-                {
-                    DequipWeapon();
-                }
-                weaponManager->EquipWeapon(weaponId, gun);
-                currentWeaponId = weaponId;
-                return;
+                DequipWeapon();
             }
-
+            data->Equip(gun);
+            currentWeapon = data;
+            return;
         }
     }
     DequipWeapon() ;
@@ -307,8 +299,8 @@ void Character::EquipWeapon()
 
 void Character::DequipWeapon()
 {
-    weaponManager->DequipWeapon(currentWeaponId);
-    currentWeaponId = -1;
+    currentWeapon->Unequip();
+    currentWeapon= nullptr;
 }
 
 void Character::DealDamage(int damage)

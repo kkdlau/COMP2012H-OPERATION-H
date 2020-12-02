@@ -43,14 +43,22 @@ MapViewPage::MapViewPage(QWidget* parent)
     weaponManager = WeaponManager::getInstance();
     weaponManager->setPos(200,200);
     ui->gameCanvas->scene->addItem(weaponManager);
-    MeleeWeapon *test1 = new MeleeWeapon(0, 50, 500);
-    RangedWeapon *test2 = new RangedWeapon(0, 500, 500, 10);
-    test1->setPos(100,250);
-    test2->setPos(150, 150);
-    ui->gameCanvas->scene->addItem(test1);
-    ui->gameCanvas->scene->addItem(test2);
-    weaponManager->AddWeapon(test1);
-    weaponManager->AddWeapon(test2);
+    Map* something = ui->gameCanvas->map;
+    GridInfo &idk = something[0][3][3];
+    Weapon *sample = weaponManager->GenerateRandomWeapon();
+    sample->setPos(idk.GetPosition());
+    ui->gameCanvas->scene->addItem(sample);
+    idk.AddWeaponToGrid(sample);
+
+
+//    MeleeWeapon *test1 = new MeleeWeapon(0, 50, 500);
+//    RangedWeapon *test2 = new RangedWeapon(0, 500, 500, 10);
+//    test1->setPos(100,250);
+//    test2->setPos(150, 150);
+//    ui->gameCanvas->scene->addItem(test1);
+//    ui->gameCanvas->scene->addItem(test2);
+//    weaponManager->AddWeapon(test1);
+//    weaponManager->AddWeapon(test2);
 //    ui->gameCanvas->scene->addItem(weaponManager->GenerateRandomWeapon());
 //    ItemFrame *uiWeapon = new ItemFrame();
 //    ui->gameCanvas->scene->addItem(uiWeapon);
