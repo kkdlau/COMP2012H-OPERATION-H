@@ -3,8 +3,6 @@
 #include "clientpage.h"
 #include "hostpage.h"
 #include <QMessageBox>
-#include "Network/server.h"
-#include "Network/client.h"
 
 NetworkPage::NetworkPage(QWidget *parent) :
     QDialog(parent),
@@ -27,13 +25,15 @@ void NetworkPage::on_pushButton_clicked()
     } else {
         // Host radio button checked
         if (ui->radioButton->isChecked()) {
-            Server server;
-            server.exec();
+            HostPage host_page;
+            host_page.setModal(true);
+            host_page.exec();
         }
         // Client radio button checked
         else {
-            Client client;
-            client.exec();
+            ClientPage client_page;
+            client_page.setModal(true);
+            client_page.exec();
         }
     }
 }

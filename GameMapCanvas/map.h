@@ -69,7 +69,7 @@ class Map : public QGraphicsScene {
 
     void drawPath(QList<QPoint> path);
 
-    QGraphicsItemGroup* mapLayer();
+    QGraphicsItemGroup* displayLayer();
 
 	~Map();
 };

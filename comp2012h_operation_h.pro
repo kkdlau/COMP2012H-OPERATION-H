@@ -9,17 +9,21 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # For promoted widgets
-INCLUDEPATH += GameScene/
+INCLUDEPATH += GameMapCanvas/
 
 SOURCES += \
-    ../../Program/comp2012h_operation_h/GameScene/overlay.cpp \
-    GameScene/camera.cpp \
-    GameScene/gridinfo.cpp \
+    GameMapCanvas/camera.cpp \
+    GameMapCanvas/gridinfo.cpp \
     FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
+    Network/bluetoothclient.cpp \
+    Network/bluetoothserver.cpp \
     Network/client.cpp \
     Network/server.cpp \
+    Network/serviceworker.cpp \
+    Network/tcpclient.cpp \
+    Network/tcpserver.cpp \
     NewWeapon/meleeweapon.cpp \
     NewWeapon/rangedweapon.cpp \
     NewWeapon/weapon.cpp \
@@ -28,8 +32,8 @@ SOURCES += \
     Pathing/astar.cpp \
     UI/itemframe.cpp \
     Weapons/bullet.cpp \
-    GameScene/gamemapcanvas.cpp \
-    GameScene/map.cpp \
+    GameMapCanvas/gamemapcanvas.cpp \
+    GameMapCanvas/map.cpp \
     character.cpp \
     charactermanager.cpp \
     clientpage.cpp \
@@ -39,18 +43,23 @@ SOURCES += \
     mainwindow.cpp \
     mapviewpage.cpp \
     Network/udp.cpp \
-    networkpage.cpp
+    networkpage.cpp \
+    remoteselector.cpp
 
 HEADERS += \
-    ../../Program/comp2012h_operation_h/GameScene/overlay.h \
-    GameScene/camera.h \
-    GameScene/gridinfo.h \
+    GameMapCanvas/camera.h \
+    GameMapCanvas/gridinfo.h \
     FileParser/fileparser.h \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
     KeyBoardManager/KeyState.h \
+    Network/bluetoothclient.h \
+    Network/bluetoothserver.h \
     Network/client.h \
     Network/server.h \
+    Network/serviceworker.h \
+    Network/tcpclient.h \
+    Network/tcpserver.h \
     NewWeapon/meleeweapon.h \
     NewWeapon/rangedweapon.h \
     NewWeapon/weapon.h \
@@ -59,8 +68,8 @@ HEADERS += \
     Pathing/astar.h \
     UI/itemframe.h \
     Weapons/bullet.h \
-    GameScene/gamemapcanvas.h \
-    GameScene/map.h \
+    GameMapCanvas/gamemapcanvas.h \
+    GameMapCanvas/map.h \
     character.h \
     charactermanager.h \
     clientpage.h \
@@ -69,14 +78,16 @@ HEADERS += \
     mainwindow.h \
     mapviewpage.h \
     Network/udp.h \
-    networkpage.h
+    networkpage.h \
+    remoteselector.h
 
 FORMS += \
     clientpage.ui \
     hostpage.ui \
     mainwindow.ui \
     mapviewpage.ui \
-    networkpage.ui
+    networkpage.ui \
+    remoteselector.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

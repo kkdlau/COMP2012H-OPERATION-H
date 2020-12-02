@@ -23,6 +23,7 @@ private slots:
     void on_pushButton_clicked();
 
 private:
+    TCPClient* tcp_client;
     Ui::ClientPage *ui;
 };
 

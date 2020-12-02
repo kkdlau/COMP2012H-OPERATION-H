@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 //    server.show();
 //    client.show();
     // END STARDUST stuff
-//    QSound::play(":assets/footsteps.wav");  // uncomment if u want to hear
+    QSound::play(":assets/footsteps.wav");
     w.show();
     return a.exec();
 }

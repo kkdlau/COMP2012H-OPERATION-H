@@ -52,11 +52,11 @@ void Camera::updateVerticalFocus(qreal v) {
 
 
     if (v <= heightHalf) {
-        canvas->map->mapLayer()->setY(0);
+        canvas->map->displayLayer()->setY(0);
     } else if (v >= mapHeight - heightHalf) {
-        canvas->map->mapLayer()->setY(-(mapHeight - windowHeight));
+        canvas->map->displayLayer()->setY(-(mapHeight - windowHeight));
     } else {
-        canvas->map->mapLayer()->setY(-(v - heightHalf));
+        canvas->map->displayLayer()->setY(-(v - heightHalf));
     }
 }
 
@@ -65,11 +65,11 @@ void Camera::updateHorizontalFocus(qreal h) {
     const int mapWidth = canvas->map->getWidth(Map::UNIT::PIXEL);
 
     if (h <= widthHalf) {
-        canvas->map->mapLayer()->setX(0);
+        canvas->map->displayLayer()->setX(0);
     } else if (h >= mapWidth - widthHalf) {
-        canvas->map->mapLayer()->setX(-(mapWidth - windowHeight));
+        canvas->map->displayLayer()->setX(-(mapWidth - windowHeight));
     } else {
-        canvas->map->mapLayer()->setX(-(h - widthHalf));
+        canvas->map->displayLayer()->setX(-(h - widthHalf));
     }
 }
 

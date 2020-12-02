@@ -16,10 +16,10 @@ Map::Map(QObject* parent, QString resourceName, QString mapConfigFilePath) : QGr
     parseMapConfigFile(mapConfigFilePath);
     setSceneRect(0, 0, 320, 320);
 
-//    addObstacle(1, 0);
-//    addObstacle(1, 1);
-//    addObstacle(1, 2);
-//    addObstacle(1, 3);
+    addObstacle(1, 0);
+    addObstacle(1, 1);
+    addObstacle(1, 2);
+    addObstacle(1, 3);
 
     QList<QPoint> path;
     path.push_back(QPoint{0, 0});
@@ -50,7 +50,7 @@ void Map::gridInfoinitialize(int w, int h, int baseHeight) {
     for (int y = 0; y < h; ++y) {
         QVector<GridInfo> row;
         for (int x = 0; x < w; ++x) {
-            row.push_back(GridInfo{baseHeight, x, y, this->mapLayer()});
+            row.push_back(GridInfo{baseHeight, x, y});
         }
         grid.push_back(row);
     }
@@ -172,7 +172,7 @@ void Map::drawPath(QList<QPoint> path) {
     layer->addToGroup(rect);
 }
 
-QGraphicsItemGroup* Map::mapLayer() {
+QGraphicsItemGroup* Map::displayLayer() {
     return layer;
 }
 

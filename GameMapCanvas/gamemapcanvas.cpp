@@ -5,7 +5,6 @@
 GameMapCanvas::GameMapCanvas(QWidget* w) : QGraphicsView(w) {
 	setMouseTracking(true);
 	setAttribute(Qt::WA_Hover);
-    setAlignment(Qt::AlignTop | Qt::AlignLeft);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     map = new Map{this, ":map_2.png", ":map_2.txt"};
