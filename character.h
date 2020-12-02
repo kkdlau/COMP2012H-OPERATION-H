@@ -3,6 +3,7 @@
 #include <QPointF>
 #include <QVector2D>
 #include <QPropertyAnimation>
+#include <QMediaPlayer>
 #include "qstring.h"
 #include "qstringlist.h"
 #include "qgraphicsitem.h"
@@ -99,6 +100,7 @@ private:
     Map* presetMap;
     int curWeaponID;
 
+    bool move_state{false}; // if last moment was moving, then true, otherwise false
 
     int stepValue; // step value for height system, it describles how "high" can a character travels.
 
@@ -108,7 +110,12 @@ private:
     void moveXPositive(int dx);
     void moveXNegative(int dx);
 
+//    QMediaPlayer* footstep_sound{nullptr};
+    QMediaPlayer footstep_sound;
+
 signals:
+    void startMoving();
+    void stopMoving();
     void isMoving(QPointF p);
     void blockByObstacle(MOVE_DIRECTION);
 
@@ -116,7 +123,6 @@ signals:
     void dequipWeaponSignal(Weapon*);
 
     void deadSignal(Character*);
-
 };
 
 #endif // CHARACTER_H
