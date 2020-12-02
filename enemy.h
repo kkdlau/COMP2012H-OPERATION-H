@@ -15,9 +15,11 @@ class Enemy : public Character
     Q_PROPERTY(qreal moveY READ getPositionY WRITE setPositionY)
 public:
     Enemy(Map* map, int moveSpeed = 100, Character *target = nullptr);
-    void SetDestination(Character*);
-    void Unblock(MOVE_DIRECTION);
-    void Move();
+    void setDestination(Character*);
+    void unblock(MOVE_DIRECTION);
+    void action();
+    void move(QLineF distance);
+    void attack(QLineF distance);
     virtual void Harmed();
 private:
     int xUnblockOffset = 0;

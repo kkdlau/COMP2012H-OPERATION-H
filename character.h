@@ -77,7 +77,10 @@ public:
     ItemFrame *weaponUI = nullptr;
     //SAMPLE WEAPON TEST STEVEN
 
+    //SAMPLE WEAPON TEST STEVEN
+    Weapon* currentWeapon = nullptr;
 
+    //SAMPLE WEAPON TEST STEVEN
     void setRotation(qreal degree);
 
 private:
@@ -96,11 +99,6 @@ private:
     int characterHealth = 10;
     int maxHealth = 10;
     int curWeaponID;
-
-    //SAMPLE WEAPON TEST STEVEN
-    Weapon* currentWeapon = nullptr;
-
-    //SAMPLE WEAPON TEST STEVEN
 
 
     int stepValue; // step value for height system, it describles how "high" can a character travels.

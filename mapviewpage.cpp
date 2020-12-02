@@ -25,10 +25,12 @@ MapViewPage::MapViewPage(QWidget* parent)
 	ui->gameCanvas->scene->addItem(playerItemFrame);
     QRectF screenSize= ui->gameCanvas->scene->sceneRect();
     playerItemFrame->setPos(screenSize.width() - 64, screenSize.height() - 64);
+    weaponManager = WeaponManager::getInstance();
+        Enemy *test = new Enemy{ui->gameCanvas->scene->mapLayer(), 0, ui->gameCanvas->character};
+        test->equipWeapon(weaponManager->GenerateRandomWeapon());
+        test->setPos(100, 100);
+        ui->gameCanvas->scene->mapLayer()->addToGroup(test);
 
-	//    Enemy *test = new Enemy{ui->gameCanvas->map, 100,
-	//    ui->gameCanvas->character}; test->setPos(300, 50);
-	//    ui->gameCanvas->scene->addItem(test);
 
     ui->gameCanvas->scene->mapLayer()->addToGroup(ui->gameCanvas->character);
 
@@ -51,7 +53,7 @@ MapViewPage::MapViewPage(QWidget* parent)
 		.addListeningCombo("K")
 		.addListeningCombo("M");
 
-	weaponManager = WeaponManager::getInstance();
+
 	//    weaponManager->setPos(200,200);
 	//    ui->gameCanvas->scene->addItem(weaponManager);
     Map* something = ui->gameCanvas->scene->mapLayer();

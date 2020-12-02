@@ -4,27 +4,40 @@
 
 Enemy::Enemy(Map* map, int moveSpeed, Character *target) : Character(moveSpeed, map), moveSpeed(moveSpeed), target(target)
 {
-    connect(&timer, &QTimer::timeout, this, &Enemy::Move);
-    connect(this, &Character::blockByObstacle, this, &Enemy::Unblock);
-    timer.start(100);
+    connect(&timer, &QTimer::timeout, this, &Enemy::action);
+    connect(this, &Character::blockByObstacle, this, &Enemy::unblock);
+    timer.start(300);
 }
 
-void Enemy::SetDestination(Character* target)
+void Enemy::setDestination(Character* target)
 {
     this->target = target;
 }
 
-void Enemy::Move()
+void Enemy::action()
+{
+    QLineF drawLine(this->scenePos(), target->scenePos());
+    move(drawLine);
+    attack(drawLine);
+}
+void Enemy::move(QLineF drawLine)
 {
     if(target != nullptr)
     {
-        QLineF drawLine(this->scenePos(), target->scenePos());
         drawLine.setLength(moveSpeed/30);
         moveBy(drawLine.dx(), drawLine.dy());
     }
 }
 
-void Enemy::Unblock(MOVE_DIRECTION direction)
+void Enemy::attack(QLineF drawLine)
+{
+    if(currentWeapon != nullptr && drawLine.length() < 5)
+    {
+        shoot();
+    }
+}
+
+void Enemy::unblock(MOVE_DIRECTION direction)
 {
     QLineF drawLine(this->scenePos(), target->scenePos());
     if(MOVE_DIRECTION::UP == direction || MOVE_DIRECTION::DOWN == direction)
@@ -43,6 +56,6 @@ void Enemy::Harmed() //this class should inherit character for usability
     qDebug()<<"IM GETTING HIT BABY WOOshjdkfjkalfhjakldshk";
     if(health <= 0)
     {
-        delete this;
+        dequipWeapon();
     }
 }
