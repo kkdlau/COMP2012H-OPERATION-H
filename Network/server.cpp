@@ -3,6 +3,7 @@
 #include <QtCore>
 
 #include "server.h"
+#include "mapviewpage.h"
 
 Server::Server(QWidget *parent)
     : QDialog(parent)
@@ -13,21 +14,11 @@ Server::Server(QWidget *parent)
 
     initServer();
 
-    //! [2]
-    fortunes << tr("Steven is on9")
-             << tr("Suck my Dick")
-             << tr("FML")
-             << tr("Fuck you all")
-             << tr("Shit ass group project")
-             << tr("Chalex is handsome")
-             << tr("Danny SO GOOD");
-    //! [2]
     auto quitButton = new QPushButton(tr("Quit"));
     quitButton->setAutoDefault(false);
+
     connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
-    //! [3]
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::sendFortune);
-    //! [3]
 
     auto buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch(1);
@@ -58,53 +49,46 @@ Server::Server(QWidget *parent)
 
 void Server::initServer()
 {
-//! [0] //! [1]
     tcpServer = new QTcpServer(this);
     if (!tcpServer->listen()) {
-        QMessageBox::critical(this, tr("Fortune Server"),
-                              tr("Unable to start the server: %1.")
+        QMessageBox::critical(this, tr("Host"),
+                              tr("Ha Ha do you not have a NIC card in your computer: %1.")
                               .arg(tcpServer->errorString()));
         close();
         return;
     }
-//! [0]
-    QString ipAddress;
-    QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
-    // use the first non-localhost IPv4 address
-    for (int i = 0; i < ipAddressesList.size(); ++i) {
-        if (ipAddressesList.at(i) != QHostAddress::LocalHost &&
-            ipAddressesList.at(i).toIPv4Address()) {
-            ipAddress = ipAddressesList.at(i).toString();
-            break;
+
+    // Finding your actual ip address
+    const QHostAddress &localhost = QHostAddress(QHostAddress::LocalHost);
+    for (const QHostAddress &address: QNetworkInterface::allAddresses()) {
+        if (address.protocol() == QAbstractSocket::IPv4Protocol && address != localhost) {
+            qDebug() << (address.toString());
+            statusLabel->setText(tr("Server Information:\n\nIP: %1\nport: %2\n\n")
+                                 .arg(address.toString()).arg(tcpServer->serverPort()));
         }
     }
-    // if we did not find one, use IPv4 localhost
-    if (ipAddress.isEmpty())
-        ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
-    statusLabel->setText(tr("The server is running on\n\nIP: %1\nport: %2\n\n"
-                            "Run the Fortune Client example now.")
-                         .arg(ipAddress).arg(tcpServer->serverPort()));
-//! [1]
 }
 
-//! [4]
 void Server::sendFortune()
 {
-//! [5]
+    // Some previous settings
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_10);
 
-    out << fortunes[QRandomGenerator::global()->bounded(fortunes.size())];
-//! [4] //! [7]
+    // Sending the data out
+    out << "Connected";
 
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
     connect(clientConnection, &QAbstractSocket::disconnected,
             clientConnection, &QObject::deleteLater);
-//! [7] //! [8]
 
     clientConnection->write(block);
     clientConnection->disconnectFromHost();
-//! [5]
+
+    // Opening the actual game page;
+    MapViewPage game_page;
+    game_page.setModal(true);
+    game_page.exec();
 }
-//! [8]
+

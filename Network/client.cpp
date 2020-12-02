@@ -2,7 +2,7 @@
 #include <QtNetwork>
 
 #include "client.h"
-
+#include "mapviewpage.h"
 //! [0]
 Client::Client(QWidget *parent)
     : QDialog(parent)
@@ -135,6 +135,10 @@ void Client::readFortune()
     currentFortune = nextFortune;
     statusLabel->setText(currentFortune);
     getFortuneButton->setEnabled(true);
+
+    MapViewPage game_page;
+    game_page.setModal(true);
+    game_page.exec();
 }
 //! [8]
 

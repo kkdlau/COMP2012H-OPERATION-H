@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtBluetooth>
+#include "Network/client.h"
+#include "Network/server.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,6 +28,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QList<QBluetoothHostInfo> localAdapters;
+    Server server;
+    Client client;
 };
 #endif // MAINWINDOW_H

@@ -13,7 +13,6 @@ class QPushButton;
 class QTcpSocket;
 QT_END_NAMESPACE
 
-//! [0]
 class Client : public QDialog
 {
     Q_OBJECT
@@ -37,6 +36,5 @@ private:
     QDataStream in;
     QString currentFortune;
 };
-//! [0]
 
 #endif

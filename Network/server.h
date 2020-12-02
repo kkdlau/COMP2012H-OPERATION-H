@@ -10,7 +10,6 @@ class QLabel;
 class QTcpServer;
 QT_END_NAMESPACE
 
-//! [0]
 class Server : public QDialog
 {
     Q_OBJECT
@@ -28,6 +27,5 @@ private:
     QTcpServer *tcpServer = nullptr;
     QVector<QString> fortunes;
 };
-//! [0]
 
 #endif
