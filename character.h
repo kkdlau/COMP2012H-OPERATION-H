@@ -9,6 +9,7 @@
 #include "../GameMapCanvas/map.h"
 #include "NewWeapon/weapon.h"
 #include "UI/itemframe.h"
+#include "UI/healthbar.h"
 
 class Character : public QObject, public QGraphicsItemGroup
 {
@@ -84,8 +85,10 @@ private:
 
     QGraphicsPixmapItem* head;
     QGraphicsPixmapItem* gun; // for testing purpose
+    QGraphicsRectItem* health;
     Map* presetMap;
     int characterHealth = 10;
+    int maxHealth = 10;
     int curWeaponID;
 
     //SAMPLE WEAPON TEST STEVEN

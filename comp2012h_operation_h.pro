@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network bluetooth
 
 CONFIG += c++11
 
@@ -17,6 +17,8 @@ SOURCES += \
     FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
+    Network/bluetoothclient.cpp \
+    Network/bluetoothserver.cpp \
     Network/client.cpp \
     Network/server.cpp \
     Network/serviceworker.cpp \
@@ -26,6 +28,7 @@ SOURCES += \
     NewWeapon/rangedweapon.cpp \
     NewWeapon/weapon.cpp \
     NewWeapon/weaponmanager.cpp \
+    UI/healthbar.cpp \
     Pathing/astar.cpp \
     UI/itemframe.cpp \
     Weapons/bullet.cpp \
@@ -40,7 +43,8 @@ SOURCES += \
     mainwindow.cpp \
     mapviewpage.cpp \
     Network/udp.cpp \
-    networkpage.cpp
+    networkpage.cpp \
+    remoteselector.cpp
 
 HEADERS += \
     GameMapCanvas/camera.h \
@@ -49,6 +53,8 @@ HEADERS += \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
     KeyBoardManager/KeyState.h \
+    Network/bluetoothclient.h \
+    Network/bluetoothserver.h \
     Network/client.h \
     Network/server.h \
     Network/serviceworker.h \
@@ -58,6 +64,7 @@ HEADERS += \
     NewWeapon/rangedweapon.h \
     NewWeapon/weapon.h \
     NewWeapon/weaponmanager.h \
+    UI/healthbar.h \
     Pathing/astar.h \
     UI/itemframe.h \
     Weapons/bullet.h \
@@ -71,14 +78,16 @@ HEADERS += \
     mainwindow.h \
     mapviewpage.h \
     Network/udp.h \
-    networkpage.h
+    networkpage.h \
+    remoteselector.h
 
 FORMS += \
     clientpage.ui \
     hostpage.ui \
     mainwindow.ui \
     mapviewpage.ui \
-    networkpage.ui
+    networkpage.ui \
+    remoteselector.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
