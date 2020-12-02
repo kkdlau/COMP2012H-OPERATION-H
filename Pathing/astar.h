@@ -1,6 +1,6 @@
 #ifndef PATHING_H
 #define PATHING_H
-#include "GameMapCanvas/map.h"
+#include "GameScene/map.h"
 #include <QList>
 #include <QVector>
 class AStar

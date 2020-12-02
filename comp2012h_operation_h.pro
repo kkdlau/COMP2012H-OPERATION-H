@@ -9,24 +9,23 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # For promoted widgets
-INCLUDEPATH += GameMapCanvas/
+INCLUDEPATH += GameScene/
 
 SOURCES += \
+<<<<<<< HEAD
     GameMapCanvas/camera.cpp \
     GameMapCanvas/gridinfo.cpp \
     GameScene/overlay.cpp \
+=======
+    ../../Program/comp2012h_operation_h/GameScene/overlay.cpp \
+>>>>>>> parent of 3b9a029... Revert "Merge branch 'main' of https://github.com/kkdlau/COMP2012H-OPERATION-H into main"
     GameScene/camera.cpp \
     GameScene/gridinfo.cpp \
     FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
-    Network/bluetoothclient.cpp \
-    Network/bluetoothserver.cpp \
     Network/client.cpp \
     Network/server.cpp \
-    Network/serviceworker.cpp \
-    Network/tcpclient.cpp \
-    Network/tcpserver.cpp \
     NewWeapon/meleeweapon.cpp \
     NewWeapon/rangedweapon.cpp \
     NewWeapon/weapon.cpp \
@@ -35,8 +34,8 @@ SOURCES += \
     Pathing/astar.cpp \
     UI/itemframe.cpp \
     Weapons/bullet.cpp \
-    GameMapCanvas/gamemapcanvas.cpp \
-    GameMapCanvas/map.cpp \
+    GameScene/gamemapcanvas.cpp \
+    GameScene/map.cpp \
     character.cpp \
     charactermanager.cpp \
     clientpage.cpp \
@@ -46,26 +45,24 @@ SOURCES += \
     mainwindow.cpp \
     mapviewpage.cpp \
     Network/udp.cpp \
-    networkpage.cpp \
-    remoteselector.cpp
+    networkpage.cpp
 
 HEADERS += \
+<<<<<<< HEAD
     GameMapCanvas/camera.h \
     GameMapCanvas/gridinfo.h \
     GameScene/overlay.h \
+=======
+    ../../Program/comp2012h_operation_h/GameScene/overlay.h \
+>>>>>>> parent of 3b9a029... Revert "Merge branch 'main' of https://github.com/kkdlau/COMP2012H-OPERATION-H into main"
     GameScene/camera.h \
     GameScene/gridinfo.h \
     FileParser/fileparser.h \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
     KeyBoardManager/KeyState.h \
-    Network/bluetoothclient.h \
-    Network/bluetoothserver.h \
     Network/client.h \
     Network/server.h \
-    Network/serviceworker.h \
-    Network/tcpclient.h \
-    Network/tcpserver.h \
     NewWeapon/meleeweapon.h \
     NewWeapon/rangedweapon.h \
     NewWeapon/weapon.h \
@@ -74,8 +71,8 @@ HEADERS += \
     Pathing/astar.h \
     UI/itemframe.h \
     Weapons/bullet.h \
-    GameMapCanvas/gamemapcanvas.h \
-    GameMapCanvas/map.h \
+    GameScene/gamemapcanvas.h \
+    GameScene/map.h \
     character.h \
     charactermanager.h \
     clientpage.h \
@@ -84,16 +81,14 @@ HEADERS += \
     mainwindow.h \
     mapviewpage.h \
     Network/udp.h \
-    networkpage.h \
-    remoteselector.h
+    networkpage.h
 
 FORMS += \
     clientpage.ui \
     hostpage.ui \
     mainwindow.ui \
     mapviewpage.ui \
-    networkpage.ui \
-    remoteselector.ui
+    networkpage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

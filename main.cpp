@@ -17,6 +17,10 @@ int main(int argc, char *argv[])
 //    server.show();
 //    client.show();
     // END STARDUST stuff
+<<<<<<< HEAD
+=======
+//    QSound::play(":assets/footsteps.wav");  // uncomment if u want to hear
+>>>>>>> parent of 3b9a029... Revert "Merge branch 'main' of https://github.com/kkdlau/COMP2012H-OPERATION-H into main"
     w.show();
     return a.exec();
 }
