@@ -21,6 +21,7 @@ public:
     void move(QLineF distance);
     void attack(QLineF distance);
     virtual void Harmed();
+    ~Enemy();
 private:
     int xUnblockOffset = 0;
     int yUnblockOffset = 0;

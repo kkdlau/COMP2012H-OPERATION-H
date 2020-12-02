@@ -30,6 +30,11 @@ MapViewPage::MapViewPage(QWidget* parent)
         test->equipWeapon(weaponManager->GenerateRandomWeapon());
         test->setPos(100, 100);
         ui->gameCanvas->scene->mapLayer()->addToGroup(test);
+        connect(test, &Character::deadSignal, this, [&](Character* c)
+        {
+            qDebug()<<"DELETING THE SHIT NOW!";
+            delete c;
+        });
 
 
     ui->gameCanvas->scene->mapLayer()->addToGroup(ui->gameCanvas->character);

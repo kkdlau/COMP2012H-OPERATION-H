@@ -28,6 +28,12 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     health = new HealthBar(head, characterHealth, maxHealth);
 }
 
+Character::~Character()
+{
+    delete head;
+    delete gun;
+}
+
 QPointF Character::getPosition() const {
     return pos();
 }
@@ -248,9 +254,6 @@ void Character::setPositionY(qreal p) {
 
 
 
-Character::~Character(){};
-
-
 QString Character::get_name() const
 {
     return characterName;
@@ -326,11 +329,6 @@ void Character::dequipWeapon()
 void Character::DealDamage(int damage)
 {
     characterHealth -= damage;
-    if (characterHealth <0) {
-        characterHealth = 0;
-        emit deadSignal(this);
-    }
-
     health->DecrementBar(damage);
     Harmed();
 }
