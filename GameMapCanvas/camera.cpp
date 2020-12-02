@@ -16,12 +16,10 @@ void Camera::unsubscribeCanvasSizeEvent() {
 void Camera::updateCanvasSize(QSizeF size) {
     windowWidth = size.width();
     windowHeight = size.height();
-    qDebug() << "window width: " << windowWidth;
-    qDebug() << "window height: " << windowHeight;
 }
 
 void Camera::registerCanvas(GameMapCanvas *canvas) {
-    if (canvas == nullptr) return;
+    if (!canvas) return;
     this->canvas = canvas;
 
 //    canvasSizeChangeConnection = connect(canvas, &QGraphicsView::resize, this, &Camera::updateCanvasSize);
@@ -37,16 +35,15 @@ void Camera::unsubscribe() {
 
 template<typename funcOwner, typename functionPointer>
 void Camera::subscribe(funcOwner owner, functionPointer funcs) {
+    if (!owner) return;
     unsubscribe();
     cameraMoveConnection = connect(owner, funcs, this, &Camera::updateFocus);
 }
 
 void Camera::updateFocus(QPointF p) {
-    qDebug() << p;
+    if (!canvas) return;
     updateHorizontalFocus(p.x());
     updateVerticalFocus(p.y());
-
-    qDebug() << canvas->sceneRect();
 }
 
 void Camera::updateVerticalFocus(qreal v) {
