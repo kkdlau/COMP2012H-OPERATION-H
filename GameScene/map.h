@@ -48,7 +48,8 @@ class Map : public QGraphicsItemGroup {
 
 	void mouseMoveEvent(QGraphicsSceneMouseEvent* e) override;
 
-	const QPointF& get_cursor_on_map() const;
+    void updateCursorPos(QPointF p);
+    const QPointF& getCursorPos() const;
     QVector<GridInfo>& operator[](const unsigned columnIndex);
     const QVector<GridInfo>& operator[](const unsigned columnIndex) const;
 

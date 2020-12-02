@@ -10,6 +10,9 @@ class Overlay: public QGraphicsScene
 public:
     Overlay(QString imgPath, QString configFilePath);
     Map* mapLayer();
+
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+
 private:
     ItemFrame *itemFrame = nullptr;
     Map *map = nullptr;

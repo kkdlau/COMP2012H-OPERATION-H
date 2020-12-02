@@ -102,6 +102,7 @@ qreal Map::getHeight(Map::UNIT unitRepresent) const {
 }
 
 void Map::mouseMoveEvent(QGraphicsSceneMouseEvent* e) {
+    qDebug() << "update";
     cursorPos = mapFromScene(e->scenePos());
 }
 
@@ -121,7 +122,11 @@ const GridInfo& Map::operator[](const QPoint& p) const {
     return grid[p.y()][p.x()];
 }
 
-const QPointF& Map::get_cursor_on_map() const { return cursorPos; }
+void Map::updateCursorPos(QPointF p) {
+    cursorPos = p;
+}
+
+const QPointF& Map::getCursorPos() const { return cursorPos; }
 
 bool Map::isOutOfMap(const QPoint& p) const {
     return p.x() < 0 || p.y() < 0 || p.x() >= this->width || p.y() >= this->height;
