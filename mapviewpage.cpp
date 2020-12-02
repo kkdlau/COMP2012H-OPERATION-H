@@ -52,8 +52,7 @@ MapViewPage::MapViewPage(QWidget* parent)
 		.addListeningCombo("M");
 
 	weaponManager = WeaponManager::getInstance();
-	//    weaponManager->setPos(200,200);
-	//    ui->gameCanvas->scene->addItem(weaponManager);
+
     Map* something = ui->gameCanvas->scene->mapLayer();
 
 	GridInfo& idk = (*something)[0][0];

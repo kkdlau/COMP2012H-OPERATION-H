@@ -326,6 +326,11 @@ void Character::dequipWeapon()
 void Character::DealDamage(int damage)
 {
     characterHealth -= damage;
+    if (characterHealth <0) {
+        characterHealth = 0;
+        emit deadSignal(this);
+    }
+
     health->DecrementBar(damage);
     Harmed();
 }
