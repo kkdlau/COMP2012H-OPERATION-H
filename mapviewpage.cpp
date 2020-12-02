@@ -8,7 +8,6 @@
 #include <iostream>
 
 #include "UI/itemframe.h"
-#include "character.h"
 #include "enemy.h"
 #include "ui_mapviewpage.h"
 
@@ -18,25 +17,20 @@ MapViewPage::MapViewPage(QWidget* parent)
 	: QDialog(parent), ui(new Ui::MapViewPage), kbManager(this) {
 	ui->setupUi(this);
 	ui->gameCanvas->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-
-    ui->gameCanvas->character = new Character{5, ui->gameCanvas->scene->mapLayer()};
-	ItemFrame* playerItemFrame = new ItemFrame();
-	ui->gameCanvas->character->weaponUI = playerItemFrame;
-	ui->gameCanvas->scene->addItem(playerItemFrame);
-    QRectF screenSize= ui->gameCanvas->scene->sceneRect();
-    playerItemFrame->setPos(screenSize.width() - 64, screenSize.height() - 64);
     weaponManager = WeaponManager::getInstance();
-        Enemy *test = new Enemy{ui->gameCanvas->scene->mapLayer(), 0, ui->gameCanvas->character};
-        test->equipWeapon(weaponManager->GenerateRandomWeapon());
-        test->setPos(100, 100);
-        ui->gameCanvas->scene->mapLayer()->addToGroup(test);
-        connect(test, &Character::deadSignal, this, [&](Character* c)
-        {
-            qDebug()<<"DELETING THE SHIT NOW!";
-            delete c;
-        });
-
-
+    characterManager = CharacterManager::get_instance();
+    characterManager->set_map(ui->gameCanvas->scene->mapLayer());
+    ui->gameCanvas->character = characterManager->generate_random_character();
+//	ItemFrame* playerItemFrame = new ItemFrame();
+//	ui->gameCanvas->character->weaponUI = playerItemFrame;
+//	ui->gameCanvas->scene->addItem(playerItemFrame);
+//  QRectF screenSize= ui->gameCanvas->scene->sceneRect();
+//  playerItemFrame->setPos(screenSize.width() - 64, screenSize.height() - 64);
+    Enemy *test = characterManager->generate_random_enemy();
+    //test->setDestination(ui->gameCanvas->character);
+    test->equipWeapon(weaponManager->GenerateRandomWeapon());
+    test->setPos(100, 100);
+    ui->gameCanvas->scene->mapLayer()->addToGroup(test);
     ui->gameCanvas->scene->mapLayer()->addToGroup(ui->gameCanvas->character);
 
 	ui->gameCanvas->cameraController->subscribe(ui->gameCanvas->character,
@@ -79,7 +73,6 @@ void MapViewPage::comboHandler(const QString& combo) {
 		ui->gameCanvas->character->moveBy(0, -5);
 	} else if (combo == "K") {
 		ui->gameCanvas->character->pickWeapon();
-        ui->gameCanvas->character->DealDamage(2);
 	} else if (combo == "M") {
 		ui->gameCanvas->character->shoot();
 	}

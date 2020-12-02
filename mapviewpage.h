@@ -10,6 +10,7 @@
 #include <QGraphicsPixmapItem>
 #include "KeyBoardManager/keyboardmanager.h"
 #include "NewWeapon/weaponmanager.h"
+#include "charactermanager.h"
 
 namespace Ui {
 class MapViewPage;
@@ -33,6 +34,7 @@ private:
     void comboHandler(const QString&);
 
     //STeven SHIT
+    CharacterManager* characterManager;
     WeaponManager* weaponManager;
 
 public:

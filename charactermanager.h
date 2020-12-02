@@ -1,9 +1,13 @@
 #ifndef CHARACTERMANAGER_H
 #define CHARACTERMANAGER_H
 #include "character.h"
+#include "enemy.h"
 #include "qhash.h"
+#include "qobject.h"
+#include "GameScene/map.h"
+#include <QMessageBox>
 
-class character_manager
+class CharacterManager : public QObject
 {
 public:
     /**
@@ -16,23 +20,23 @@ public:
     /**
      * Constructor for character_manager()
      */
-    character_manager();
+    CharacterManager();
     /**
       *Destructor for chracter_manager(), deleting
       * any *character in the database
       */
-    ~character_manager();
+    ~CharacterManager();
     /**
      * @brief get specified character in database, return null if character doesnt exist;
      * @param character_name
      * @return character*\/ nullptr if character does not exist
      */
-    Character* get_character(QString character_name) const;
+    //Character* get_character() const; ->redundant
     /**
      * @brief operator [] to simplify get_character function
      * @return character*
      */
-    Character* operator[](QString)const;
+    //Character* operator[](QString)const; ->redundant
     /**
      * @brief get_all_characters return a constant list of all character
      * @return const QList<Character*>
@@ -41,25 +45,25 @@ public:
     /**
      * @brief Prevent ability to create another instance via copy constructor
      */
-    character_manager(character_manager*) = delete;
+    CharacterManager(CharacterManager*) = delete;
     /**
      * @brief prevent ability to create another instance via memberwise assignment
      * @return
      */
-    Character* operator=(character_manager*) = delete;
+    Character* operator=(CharacterManager*) = delete;
     /**
      * @brief check if character is in the database
      * @return bool
      */
-    bool is_character_exist(QString);
+    bool is_character_exist(Character*);
     /**
      * @brief add *character to the database
      */
     void add_character(Character*);
     /**
-     * @brief delete specified character name in database
+     * @brief delete specified character in database
      */
-    void delete_character(QString);
+    void delete_character(Character*);
     /**
      * @brief delete all character in the database
      */
@@ -68,16 +72,22 @@ public:
      * @brief return an instance of character_manager.
      * @return *character_manager
      */
-    static character_manager *get_instance();
+    static CharacterManager *get_instance();
+    Character* generate_random_character();
+    Enemy* generate_random_enemy();
+    //delete tmrw
+    void temp_function();
+    void set_map(Map* map);
 private:
     /**
     * @brief static variable to hold character_manager
     */
-   static character_manager *instance;
+   static CharacterManager *instance;
    /**
     * @brief Hashmap to save the characters.
     */
-   QHash<QString, Character*> database;
+   QList<Character*> characterDatabase;
+   Map* map;
 };
 
 #endif // CHARACTERMANAGER_H

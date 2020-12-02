@@ -14,6 +14,7 @@ public:
     void ChangeText(QString data);
     void SetTargetWeapon(Weapon*);
     void unfocusedWeapon();
+    //void characterSingalSetup(Character*);
 protected:
     QGraphicsRectItem *layout;
     QGraphicsPixmapItem *weaponImage;
