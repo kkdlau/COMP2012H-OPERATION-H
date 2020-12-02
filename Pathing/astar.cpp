@@ -2,19 +2,95 @@
 #include <QtMath>
 #include <QDebug>
 
-int AStar::evaluateCost(QPoint p1, QPoint p2, QPoint end) {
-    QPoint diff = p1 - p2;
+AStar::AStar(const Map& map): map{map} {
+
+}
+
+AStar::AStar(const AStar& pathingInstance): map{map} {
+    start = pathingInstance.start;
+    end = pathingInstance.end;
+}
+
+QList<QPoint> AStar::search(QPoint start, QPoint end) {
+    this->start = start;
+    this->end = end;
+
+    QList<MapNode*> openList;
+
+    QVector<QVector<MapNode>> mapState;
+
+    initialState(mapState);
+    mapState[start.y()][start.x()].state = MapNode::State::OPEN;
+
+    openList.push_back(&mapState[start.y()][start.x()]);
+
+    do {
+        int index = minCostNode(openList);
+        MapNode& n = *openList[index];
+        openList.removeAt(index);
+        n.state = MapNode::State::CLOSE;
+
+        if (n.x == end.x() && n.y == end.y()) {
+            QList<QPoint> toReturn;
+
+            toReturn.push_back(n.toQPoint());
+            MapNode* _n = &n;
+            while (_n->parent) {
+                toReturn.push_front(_n->toQPoint());
+                _n = _n->parent;
+            }
+
+            toReturn.push_front(_n->toQPoint());
+
+            return toReturn;
+        };
+
+        forEachNeighbor(n, [&](int x,int y) {
+            //            qDebug() << "visit" << mapState[y][x].toString();
+            MapNode& node = mapState[y][x];
+            if (node.state == MapNode::State::NONE) {
+                node.gCost = evaluateGCost(n, node);
+                node.hCost = evaluateHCost(node);
+                node.cost = node.gCost + node.hCost;
+                node.state = MapNode::State::OPEN;
+                node.parent = &n;
+                openList.push_back(&node);
+            } else if (node.state == MapNode::State::OPEN) {
+                if (evaluateCost(n, node, end) < node.cost) {
+                    //                    qDebug() << "change parent:" << node.toQPoint() << " - from:"  << node.parent->toQPoint() << " to " << n.toQPoint();
+                    node.gCost = evaluateGCost(n, node);
+                    node.hCost = evaluateHCost(node);
+                    node.cost = node.gCost + node.hCost;
+                    node.state = MapNode::State::OPEN;
+                    node.parent = &n;
+                }
+            }
+        });
+    } while (openList.length());
+
+    return {};
+}
+
+int AStar::evaluateGCost(const MapNode& from, const MapNode& to) const {
+    QPoint diff = from.toQPoint() - to.toQPoint();
 
     /**
      * @brief cost the initial cost is 14 if the movement is diagonal, otherwise 10.
      */
-    int cost = (diff.x() == 1 && diff.y() == 1)? 14 : 10;
-
-    // Heuristic Estimate
-    return (cost += (qAbs(diff.x()) + qAbs(diff.y())) * 10);
+    int cost = (qAbs(diff.x()) == 1 && qAbs(diff.y()) == 1)? 14 : 10;
+    return cost + from.gCost;
 }
 
-void AStar::initialState(QVector<QVector<MapNode>> & state, const Map& map) {
+int AStar::evaluateHCost(const MapNode& current) const {
+    QPoint diff = current.toQPoint() - end;
+    return qAbs(diff.x()) + qAbs(diff.y()) * 10;
+}
+
+int AStar::evaluateCost(MapNode& from, MapNode& to, QPoint end) const {
+    return evaluateGCost(from, to) + evaluateHCost(to);
+}
+
+void AStar::initialState(QVector<QVector<MapNode>> & state) const {
     for (int y = 0, sizeY = map.getHeight(Map::UNIT::GRID); y < sizeY; ++y) {
         state.push_back({});
         for (int x = 0, sizeX = map.getWidth(Map::UNIT::GRID); x < sizeX; ++x) {
@@ -23,64 +99,46 @@ void AStar::initialState(QVector<QVector<MapNode>> & state, const Map& map) {
     }
 }
 
-int AStar::minCostNode(QList<MapNode>& list) {
-    qDebug() << "search min cost";
+int AStar::minCostNode(QList<MapNode*>& list) const {
+//    qDebug() << "search min cost";
 
     int minCost = 9999999;
     int index = 0;
     for (int i = 0; i < list.size(); ++i) {
-        if (list[i].getCost() < minCost) {
-            minCost = list[i].getCost();
+        if (list[i]->cost < minCost) {
+            minCost = list[i]->cost;
             index = i;
         }
     }
 
-    qDebug() << "index: " << index;
+//    qDebug() << "index: " << index;
 
     return index;
 }
 
 template<typename F>
-void AStar::forEachNeighbor(const Map& map, MapNode node, F process) {
-    QPoint p{node.getX(), node.getY()};
+void AStar::forEachNeighbor(const MapNode& node, F process) const {
+    QPoint p{node.x, node.y};
+    QList<QPoint> neighbors = {
+        QPoint{p.x() + 1, p.y() + 1},
+        QPoint{p.x() - 1, p.y() + 1},
+        QPoint{p.x() - 1, p.y() - 1},
+        QPoint{p.x() + 1, p.y() - 1},
+        QPoint{p.x() + 1, p.y()},
+        QPoint{p.x() - 1, p.y()},
+        QPoint{p.x(), p.y() + 1},
+        QPoint{p.x(), p.y() - 1}
 
-    if (!map.isOutOfMap(QPoint{p.x() + 1, p.y()}))
-        process(p.x() + 1, p.y());
+    };
 
-    if (!map.isOutOfMap(QPoint{p.x() - 1, p.y()}))
-        process(p.x() - 1, p.y());
+    QList<QPoint>::iterator ptr;
 
-    if (!map.isOutOfMap(QPoint{p.x(), p.y() + 1}))
-        process(p.x(), p.y() + 1);
+    for (ptr = neighbors.begin(); ptr < neighbors.end(); ++ptr) {
+        QPoint tmp = *ptr;
 
-    if (!map.isOutOfMap(QPoint{p.x(), p.y() - 1}))
-        process(p.x(), p.y() - 1);
+//        qDebug() << "check neighbor: " << tmp << "- access?:" << map.isAccessible(p, tmp, 1);
+        if (!map.isOutOfMap(tmp) && map.isAccessible(p, tmp, 1))
+            process(tmp.x(), tmp.y());
+    }
 
-}
-
-QList<QPoint> AStar::search(const Map& map, QPoint start, QPoint end) {
-    bool success = false;
-    QList<MapNode> openList;
-
-    QVector<QVector<MapNode>> mapState;
-
-    initialState(mapState, map);
-
-    openList.push_back(MapNode{start.x(), start.y(), 0});
-
-    do {
-        int index = minCostNode(openList);
-        MapNode n = openList[index];
-        openList.removeAt(index);
-
-        if (n.getX() == end.x() && n.getY() == end.y()) return {};
-        mapState[n.getY()][n.getX()].setVisitState(true);
-
-        forEachNeighbor(map, n, [&](int x,int y) {
-            if (!mapState[y][x].isVisited()) {
-                openList.push_back(MapNode{x, y, evaluateCost(n.toQPoint(), QPoint{x, y}, end)});
-            }
-        });
-
-    } while (openList.length());
 }

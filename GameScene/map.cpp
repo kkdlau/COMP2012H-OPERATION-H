@@ -4,6 +4,7 @@
 #include <QList>
 #include <QFile>
 #include <QtMath>
+#include "Pathing/astar.h"
 
 const int Map::GRID_SIZE_W = 32;
 const int Map::GRID_SIZE_H = 32;
@@ -13,17 +14,19 @@ Map::Map(QString imgPath, QString configFilePath): grid{} {
 
     parseMapConfigFile(configFilePath);
 
-//    addObstacle(1, 0);
-//    addObstacle(1, 1);
-//    addObstacle(1, 2);
-//    addObstacle(1, 3);
+    addObstacle(1, 0);
+    addObstacle(1, 1);
+    addObstacle(1, 2);
+    addObstacle(1, 3);
 
-    QList<QPoint> path;
-    path.push_back(QPoint{0, 0});
-    path.push_back(QPoint{0, 1});
-    path.push_back(QPoint{0, 2});
+    addObstacle(2, 1);
+    addObstacle(3, 1);
+    addObstacle(4, 1);
 
-    drawPath(path);
+    AStar pathing{*this};
+
+
+    drawPath(pathing.search(QPoint{0, 0}, QPoint{3, 0}));
 }
 
 void Map::addObstacle(int posX, int posY) {

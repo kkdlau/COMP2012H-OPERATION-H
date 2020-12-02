@@ -3,49 +3,64 @@
 #include "GameScene/map.h"
 #include <QList>
 #include <QVector>
+#include <QString>
+
 class AStar
 {
-public:
-    AStar() = delete;
+
+private:
+    const Map& map;
+    QPoint start;
+    QPoint end;
 
     class MapNode {
-    private:
+    public:
+        enum class State {OPEN, CLOSE, NONE};
         int x;
         int y;
-        bool visited{false};
         int cost{-1};
+        int gCost{-1};
+        int hCost{-1};
         MapNode* parent{nullptr};
-    public:
-        MapNode(int x, int y): x{x}, y{y} {}
-        MapNode(int x, int y, int cost, MapNode* parent = nullptr): x{x}, y{y}, cost{cost}, parent{parent} {}
+        State state;
+        MapNode(int x, int y): x{x}, y{y} {
+            state = State::NONE;
+        }
 
-        void setVisitState(bool state) {visited = state;}
-
-        void setCost(int cost) {this->cost = cost;}
-
-        bool isVisited() const {return visited;}
-
-        int getCost() const {return cost;}
-
-        int getX() const {return x;}
-
-        int getY() const {return y;}
+        MapNode(int x, int y, int cost, MapNode* parent): x{x}, y{y}, cost{cost}, parent{parent} {
+            state = State::NONE;
+        }
 
         QPoint toQPoint() const {return QPoint{x, y};}
+
+        QString toString() const {
+            return QString{"Node at (%1, %2), state: %3"}.arg(QString::number(x)).arg(QString::number(y)).arg(QString{state == State::NONE? "NONE" : state == State::CLOSE? "CLOSE": "OPEN"});
+        }
 
         ~MapNode() {}
     };
 
-    static int minCostNode(QList<MapNode>& list);
+public:
+    AStar() = delete;
 
-    static int evaluateCost(QPoint p1, QPoint p2, QPoint end);
+    AStar(const Map& map);
 
-    static void initialState(QVector<QVector<MapNode>>& state, const Map& map);
+    AStar(const AStar& pathingInstance);
+
+    int minCostNode(QList<MapNode*>& list) const;
+
+    int evaluateGCost(const MapNode& from, const MapNode& to) const;
+
+    int evaluateHCost(const MapNode& current) const;
+
+    int evaluateCost(MapNode& from, MapNode& to, QPoint end) const;
+
+    void initialState(QVector<QVector<MapNode>>& state) const;
 
     template<typename F>
-    static void forEachNeighbor(const Map& map,MapNode node, F process);
+    void forEachNeighbor(const MapNode& node, F process) const;
 
-    static QList<QPoint> search(const Map& map, QPoint start, QPoint end);
+    QList<QPoint> search(QPoint start, QPoint end);
 };
 
 #endif // PATHING_H
