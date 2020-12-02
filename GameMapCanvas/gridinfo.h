@@ -5,6 +5,8 @@
 #include <QGraphicsRectItem>
 #include "../NewWeapon/weapon.h"
 
+#include "qpoint.h"
+
 class GridInfo
 {
 private:
@@ -53,6 +55,11 @@ public:
      * @return string representation
      */
     QString toString() const;
+
+    QPointF GetPosition();
+    void AddWeaponToGrid(Weapon* data);
+    bool IsWeaponInGrid();
+    Weapon* GetWeaponData();
 };
 
 #endif // GRIDINFO_H
