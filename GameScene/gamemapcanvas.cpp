@@ -8,10 +8,9 @@ GameMapCanvas::GameMapCanvas(QWidget* w) : QGraphicsView(w) {
     setAlignment(Qt::AlignTop | Qt::AlignLeft);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    map = new Map{this, ":map_2.png", ":map_2.txt"};
-	setScene(map);
+    scene = new Overlay{":map_2.png", ":map_2.txt"};
+    setScene(scene);
     setSceneRect(QRectF(0, 0, Map::GRID_SIZE_W * 10, Map::GRID_SIZE_H * 10));
-	scene = map;
 
     cameraController = new Camera;
 
@@ -27,8 +26,8 @@ void GameMapCanvas::mouseMoveEvent(QMouseEvent* e) {
 
 //    map->displayLayer()->mapFromScene(e->);
 
-    qreal x = map->get_cursor_on_map().x() - character->pos().x();
-    qreal y = map->get_cursor_on_map().y() - character->pos().y();
+    qreal x = scene->mapLayer()->get_cursor_on_map().x() - character->pos().x();
+    qreal y = scene->mapLayer()->get_cursor_on_map().y() - character->pos().y();
 	qreal rad = qAtan(y / x);
     if (x < 0) rad += M_PI;
 

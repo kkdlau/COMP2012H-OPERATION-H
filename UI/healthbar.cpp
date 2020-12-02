@@ -11,7 +11,7 @@ HealthBar::HealthBar(QGraphicsItem *parent, int initialHealth, int totalHealth) 
 
 void HealthBar::UpdateBar()
 {
-    double healthRange = 80 * (currentValue / maximumValue);
+    double healthRange = 40 * (currentValue / maximumValue);
     setRect(rect().x(),rect().y(),healthRange,5);
 }
 

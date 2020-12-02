@@ -35,7 +35,7 @@ void Map::addObstacle(int posX, int posY) {
     QGraphicsRectItem* test_obstacle = new QGraphicsRectItem(0, 0, 32, 32);
     test_obstacle->setPen(tmpPen);
     test_obstacle->setBrush(tmpBrush);
-    layer->addToGroup(test_obstacle);
+    addToGroup(test_obstacle);
     test_obstacle->setPos(posX * 32.0f, posY *32.0f);
 }
 
@@ -47,7 +47,7 @@ void Map::gridInfoinitialize(int w, int h, int baseHeight) {
     for (int y = 0; y < h; ++y) {
         QVector<GridInfo> row;
         for (int x = 0; x < w; ++x) {
-            row.push_back(GridInfo{baseHeight, x, y, this->mapLayer()});
+            row.push_back(GridInfo{baseHeight, x, y, this});
         }
         grid.push_back(row);
     }
@@ -160,12 +160,12 @@ void Map::drawPath(QList<QPoint> path) {
         QPoint nextP = *(ptr + 1);
         QGraphicsRectItem* rect = new QGraphicsRectItem{p.x() * 32.0f + 10, p.y() * 32.0f + 10, 12, 12};
         rect->setBrush(Qt::black);
-        layer->addToGroup(new QGraphicsLineItem{p.x() * 32.0f + 16, p.y() * 32.0f + 16, nextP.x() * 32.0f + 16, nextP.y() * 32.0f + 16});
-        layer->addToGroup(rect);
+        addToGroup(new QGraphicsLineItem{p.x() * 32.0f + 16, p.y() * 32.0f + 16, nextP.x() * 32.0f + 16, nextP.y() * 32.0f + 16});
+        addToGroup(rect);
     }
 
     QGraphicsRectItem* rect = new QGraphicsRectItem{path.last().x() * 32.0f + 10, path.last().y() * 32.0f + 10, 12, 12};
-    layer->addToGroup(rect);
+    addToGroup(rect);
 }
 
 Map::~Map() {}
