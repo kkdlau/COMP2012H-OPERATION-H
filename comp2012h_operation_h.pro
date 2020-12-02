@@ -28,6 +28,7 @@ SOURCES += \
     NewWeapon/rangedweapon.cpp \
     NewWeapon/weapon.cpp \
     NewWeapon/weaponmanager.cpp \
+    Pathing/astar.cpp \
     UI/itemframe.cpp \
     Weapons/bullet.cpp \
     GameMapCanvas/gamemapcanvas.cpp \
@@ -62,6 +63,7 @@ HEADERS += \
     NewWeapon/rangedweapon.h \
     NewWeapon/weapon.h \
     NewWeapon/weaponmanager.h \
+    Pathing/astar.h \
     UI/itemframe.h \
     Weapons/bullet.h \
     GameMapCanvas/gamemapcanvas.h \

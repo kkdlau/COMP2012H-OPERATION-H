@@ -66,6 +66,8 @@ class Map : public QGraphicsScene {
 
     qreal getHeight(UNIT unitRepresent) const;
 
+    void drawPath(QList<QPoint> path);
+
 	~Map();
 };
 
