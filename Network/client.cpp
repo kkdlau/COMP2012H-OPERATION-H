@@ -8,7 +8,7 @@ Client::Client(QWidget *parent)
     : QDialog(parent)
     , hostCombo(new QComboBox)
     , portLineEdit(new QLineEdit)
-    , get_game_stat_Button(new QPushButton(tr("Get Game Stat")))
+    , getFortuneButton(new QPushButton(tr("Get Fortune")))
     , tcpSocket(new QTcpSocket(this))
 {
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -44,32 +44,32 @@ Client::Client(QWidget *parent)
     auto portLabel = new QLabel(tr("S&erver port:"));
     portLabel->setBuddy(portLineEdit);
 
-    statusLabel = new QLabel(tr("This examples requires that you run the "
-                                "Fortune Server example as well."));
+    statusLabel = new QLabel(tr("Fuck you all "
+                                "Why would you read this"));
 
-    get_game_stat_Button->setDefault(true);
-    get_game_stat_Button->setEnabled(false);
+    getFortuneButton->setDefault(true);
+    getFortuneButton->setEnabled(false);
 
     auto quitButton = new QPushButton(tr("Quit"));
 
     auto buttonBox = new QDialogButtonBox;
-    buttonBox->addButton(get_game_stat_Button, QDialogButtonBox::ActionRole);
+    buttonBox->addButton(getFortuneButton, QDialogButtonBox::ActionRole);
     buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
 
 //! [1]
-    input.setDevice(tcpSocket);
-    input.setVersion(QDataStream::Qt_4_0);
+    in.setDevice(tcpSocket);
+    in.setVersion(QDataStream::Qt_4_0);
 //! [1]
 
     connect(hostCombo, &QComboBox::editTextChanged,
-            this, &Client::enable_get_game_stat_button);
+            this, &Client::enableGetFortuneButton);
     connect(portLineEdit, &QLineEdit::textChanged,
-            this, &Client::enable_get_game_stat_button);
-    connect(get_game_stat_Button, &QAbstractButton::clicked,
-            this, &Client::request_game_stat);
+            this, &Client::enableGetFortuneButton);
+    connect(getFortuneButton, &QAbstractButton::clicked,
+            this, &Client::requestNewFortune);
     connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
 //! [2] //! [3]
-    connect(tcpSocket, &QIODevice::readyRead, this, &Client::read_game_stat);
+    connect(tcpSocket, &QIODevice::readyRead, this, &Client::readFortune);
 //! [2] //! [4]
     connect(tcpSocket, &QAbstractSocket::errorOccurred,
 //! [3]
@@ -105,9 +105,9 @@ Client::Client(QWidget *parent)
 //! [5]
 
 //! [6]
-void Client::request_game_stat()
+void Client::requestNewFortune()
 {
-    get_game_stat_Button->setEnabled(false);
+    getFortuneButton->setEnabled(false);
     tcpSocket->abort();
 //! [7]
     tcpSocket->connectToHost(hostCombo->currentText(),
@@ -117,24 +117,24 @@ void Client::request_game_stat()
 //! [6]
 
 //! [8]
-void Client::read_game_stat()
+void Client::readFortune()
 {
-    input.startTransaction();
+    in.startTransaction();
 
-    QString next_game_stat;
-    input >> next_game_stat;
+    QString nextFortune;
+    in >> nextFortune;
 
-    if (!input.commitTransaction())
+    if (!in.commitTransaction())
         return;
 
-    if (next_game_stat == current_game_stat) {
-        QTimer::singleShot(0, this, &Client::request_game_stat);
+    if (nextFortune == currentFortune) {
+        QTimer::singleShot(0, this, &Client::requestNewFortune);
         return;
     }
 
-    current_game_stat = next_game_stat;
-    statusLabel->setText(current_game_stat);
-    get_game_stat_Button->setEnabled(true);
+    currentFortune = nextFortune;
+    statusLabel->setText(currentFortune);
+    getFortuneButton->setEnabled(true);
 }
 //! [8]
 
@@ -162,127 +162,13 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
                                  .arg(tcpSocket->errorString()));
     }
 
-    get_game_stat_Button->setEnabled(true);
+    getFortuneButton->setEnabled(true);
 }
 //! [13]
 
-void Client::enable_get_game_stat_button()
+void Client::enableGetFortuneButton()
 {
-    get_game_stat_Button->setEnabled(!hostCombo->currentText().isEmpty() &&
+    getFortuneButton->setEnabled(!hostCombo->currentText().isEmpty() &&
                                  !portLineEdit->text().isEmpty());
 
 }
-
-
-//#include <QtWidgets>
-//#include <QtNetwork>
-
-//#include "client.h"
-
-//Client::Client(QWidget *parent)
-//    : QDialog(parent),
-//      hostLineEdit(new QLineEdit("operation_h")),
-//      getActionButton(new QPushButton(tr("Get Action"))),
-//      statusLabel(new QLabel(tr("Enter the server name "
-//                                "to join a game."))),
-//      socket(new QLocalSocket(this))
-//{
-//    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
-//    QLabel *hostLabel = new QLabel(tr("&Server name:"));
-//    hostLabel->setBuddy(hostLineEdit);
-
-//    statusLabel->setWordWrap(true);
-
-//    getActionButton->setDefault(true);
-//    QPushButton *quitButton = new QPushButton(tr("Quit"));
-
-//    QDialogButtonBox *buttonBox = new QDialogButtonBox;
-//    buttonBox->addButton(getActionButton, QDialogButtonBox::ActionRole);
-//    buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
-
-//    in.setDevice(socket);
-//    in.setVersion(QDataStream::Qt_5_10);
-
-//    connect(hostLineEdit, &QLineEdit::textChanged,
-//            this, &Client::enableGetActionButton);
-//    connect(getActionButton, &QPushButton::clicked,
-//            this, &Client::requestNewAction);
-//    connect(quitButton, &QPushButton::clicked, this, &Client::close);
-//    connect(socket, &QLocalSocket::readyRead, this, &Client::readAction);
-//    connect(socket, &QLocalSocket::errorOccurred, this, &Client::displayError);
-
-//    QGridLayout *mainLayout = new QGridLayout(this);
-//    mainLayout->addWidget(hostLabel, 0, 0);
-//    mainLayout->addWidget(hostLineEdit, 0, 1);
-//    mainLayout->addWidget(statusLabel, 2, 0, 1, 2);
-//    mainLayout->addWidget(buttonBox, 3, 0, 1, 2);
-
-//    setWindowTitle(QGuiApplication::applicationDisplayName());
-//    hostLineEdit->setFocus();
-//}
-
-//void Client::requestNewAction()
-//{
-//    getActionButton->setEnabled(false);
-//    blockSize = 0;
-//    socket->abort();
-//    socket->connectToServer(hostLineEdit->text());
-//}
-
-//void Client::readAction()
-//{
-//    if (blockSize == 0) {
-//        // Relies on the fact that QDataStream serializes a quint32 into
-//        // sizeof(quint32) bytes
-//        if (socket->bytesAvailable() < (int)sizeof(quint32))
-//            return;
-//        in >> blockSize;
-//    }
-
-//    if (socket->bytesAvailable() < blockSize || in.atEnd())
-//        return;
-
-//    QString nextAction;
-//    in >> nextAction;
-
-//    if (nextAction == currentAction) {
-//        QTimer::singleShot(0, this, &Client::requestNewAction);
-//        return;
-//    }
-
-//    currentAction = nextAction;
-//    statusLabel->setText(currentAction);
-//    getActionButton->setEnabled(true);
-//}
-
-//void Client::displayError(QLocalSocket::LocalSocketError socketError)
-//{
-//    switch (socketError) {
-//    case QLocalSocket::ServerNotFoundError:
-//        QMessageBox::information(this, tr("Operation H Client"),
-//                                 tr("The host was not found. Please make sure "
-//                                    "that the server is running and that the "
-//                                    "server name is correct."));
-//        break;
-//    case QLocalSocket::ConnectionRefusedError:
-//        QMessageBox::information(this, tr("Operation H Client"),
-//                                 tr("The connection was refused by the peer. "
-//                                    "Make sure the fortune server is running, "
-//                                    "and check that the server name "
-//                                    "is correct."));
-//        break;
-//    case QLocalSocket::PeerClosedError:
-//        break;
-//    default:
-//        QMessageBox::information(this, tr("Local Fortune Client"),
-//                                 tr("The following error occurred: %1.")
-//                                 .arg(socket->errorString()));
-//    }
-
-//    getActionButton->setEnabled(true);
-//}
-
-//void Client::enableGetActionButton()
-//{
-//    getActionButton->setEnabled(!hostLineEdit->text().isEmpty());
-//}
