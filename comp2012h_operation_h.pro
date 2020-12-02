@@ -12,6 +12,7 @@ CONFIG += c++11
 INCLUDEPATH += GameMapCanvas/
 
 SOURCES += \
+    GameMapCanvas/camera.cpp \
     GameMapCanvas/gridinfo.cpp \
     FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
@@ -39,6 +40,7 @@ SOURCES += \
     networkpage.cpp
 
 HEADERS += \
+    GameMapCanvas/camera.h \
     GameMapCanvas/gridinfo.h \
     FileParser/fileparser.h \
     KeyBoardManager/combo.h \

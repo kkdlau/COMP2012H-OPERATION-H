@@ -13,6 +13,7 @@ Map::Map(QObject* parent, QString resourceName, QString mapConfigFilePath) : QGr
 	addPixmap(*mapImg);
 
     parseMapConfigFile(mapConfigFilePath);
+    setSceneRect(0, 0, 320, 320);
 }
 
 void Map::addObstacle(int posX, int posY) {

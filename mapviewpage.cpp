@@ -17,6 +17,9 @@ using namespace std;
 MapViewPage::MapViewPage(QWidget* parent)
 	: QDialog(parent), ui(new Ui::MapViewPage), kbManager(this) {
 	ui->setupUi(this);
+    ui->gameCanvas->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+//    ui->gameCanvas->resize(320, 320);
+//    ui->gameCanvas->fitInView(ui->gameCanvas->sceneRect(), Qt::KeepAspectRatio);
 
     ui->gameCanvas->character = new Character{5, ui->gameCanvas->map};
     Character *test = new Character{5, ui->gameCanvas->map};
@@ -25,6 +28,9 @@ MapViewPage::MapViewPage(QWidget* parent)
     //    ui->gameCanvas->character->setTransformOriginPoint(QPointF(16,16));
     //    ui->gameCanvas->character->setOffset(QPointF(-Map::GRID_SIZE_W / 2, -Map::GRID_SIZE_H / 2));
     ui->gameCanvas->scene->addItem(ui->gameCanvas->character);
+
+    ui->gameCanvas->cameraController->subscribe(ui->gameCanvas->character, &Character::isMoving);
+
 
 	connect(this, &MapViewPage::keyPressEvent, &kbManager,
 			&KeyboardManager::pressKey);

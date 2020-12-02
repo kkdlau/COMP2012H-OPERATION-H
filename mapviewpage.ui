@@ -27,7 +27,14 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="GameMapCanvas" name="gameCanvas"/>
+     <widget class="GameMapCanvas" name="gameCanvas">
+      <property name="maximumSize">
+       <size>
+        <width>320</width>
+        <height>320</height>
+       </size>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QDialogButtonBox" name="buttonBox">

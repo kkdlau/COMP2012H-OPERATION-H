@@ -101,7 +101,7 @@ private:
     void moveXNegative(int dx);
 
 signals:
-    void isMoving(Character*);
+    void isMoving(QPointF p);
     void blockByObstacle(MOVE_DIRECTION);
 };
 

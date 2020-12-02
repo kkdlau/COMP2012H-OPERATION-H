@@ -9,5 +9,7 @@
         <file alias="test_gun.png">assets/test_gun.png</file>
         <file alias="bullet">assets/bullet.png</file>
         <file alias="knife">assets/output-onlinepngtools.png</file>
+        <file alias="map_2.png">assets/map_2.png</file>
+        <file alias="map_2.txt">assets/map_2.txt</file>
     </qresource>
 </RCC>

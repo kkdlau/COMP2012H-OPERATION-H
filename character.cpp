@@ -199,7 +199,7 @@ if (x) {
     if (animationX) animationX->stop();
     delete animationX;
     animationX = new QPropertyAnimation(this, "moveX");
-    animationX->setDuration(100);
+    animationX->setDuration(70);
     animationX->setStartValue(this->getPositionX());
     animationX->setEndValue(this->getPositionX() + x);
 
@@ -210,7 +210,7 @@ if (y) {
     if (animationY) animationY->stop();
     delete animationY;
     animationY = new QPropertyAnimation(this, "moveY");
-    animationY->setDuration(100);
+    animationY->setDuration(70);
     animationY->setStartValue(this->getPositionY());
     animationY->setEndValue(this->getPositionY() + y);
     animationY->start();
@@ -233,6 +233,8 @@ void Character::setPositionX(qreal p) {
     } else {
         moveXNegative(diff);
     }
+
+    emit isMoving(this->pos());
 }
 
 void Character::setPositionY(qreal p) {
@@ -242,6 +244,8 @@ void Character::setPositionY(qreal p) {
     } else {
         moveYNegative(diff);
     }
+
+     emit isMoving(this->pos());
 }
 
 
