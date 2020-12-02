@@ -14,10 +14,8 @@ void Camera::unsubscribeCanvasSizeEvent() {
 }
 
 void Camera::updateCanvasSize(QSizeF size) {
-//    windowWidth = size.width();
-//    windowHeight = size.height();
-    windowWidth = 320;
-    windowHeight = 320;
+    windowWidth = size.width();
+    windowHeight = size.height();
     qDebug() << "window width: " << windowWidth;
     qDebug() << "window height: " << windowHeight;
 }
@@ -44,45 +42,54 @@ void Camera::subscribe(funcOwner owner, functionPointer funcs) {
 }
 
 void Camera::updateFocus(QPointF p) {
+    qDebug() << p;
     updateHorizontalFocus(p.x());
     updateVerticalFocus(p.y());
+
+    qDebug() << canvas->sceneRect();
 }
 
 void Camera::updateVerticalFocus(qreal v) {
     const int heightHalf = windowHeight / 2;
     const int mapHeight = canvas->map->getHeight(Map::UNIT::PIXEL);
 
+
     if (v <= heightHalf) {
         QRectF rect = canvas->sceneRect();
         rect.setY(0);
+        rect.setHeight(windowHeight);
         canvas->setSceneRect(rect);
     } else if (v >= mapHeight - heightHalf) {
         QRectF rect = canvas->sceneRect();
         rect.setY(mapHeight - windowHeight);
+        rect.setHeight(windowHeight);
         canvas->setSceneRect(rect);
     } else {
         QRectF rect = canvas->sceneRect();
         rect.setY(v - heightHalf);
+        rect.setHeight(windowHeight);
         canvas->setSceneRect(rect);
     }
 }
 
 void Camera::updateHorizontalFocus(qreal h) {
-    const int widthtHalf = windowWidth / 2;
-    const int mapHeight = canvas->map->getWidth(Map::UNIT::PIXEL);
+    const int widthHalf = windowWidth / 2;
+    const int mapWidth = canvas->map->getWidth(Map::UNIT::PIXEL);
 
-    if (h <= widthtHalf) {
+    if (h <= widthHalf) {
         QRectF rect = canvas->sceneRect();
         rect.setX(0);
+        rect.setWidth(windowWidth);
         canvas->setSceneRect(rect);
-    } else if (h >= mapHeight - widthtHalf) {
+    } else if (h >= mapWidth - widthHalf) {
         QRectF rect = canvas->sceneRect();
-        rect.setX(mapHeight - windowHeight);
+        rect.setX(mapWidth - windowHeight);
+        rect.setWidth(windowWidth);
         canvas->setSceneRect(rect);
     } else {
         QRectF rect = canvas->sceneRect();
-        rect.setX(h - widthtHalf);
-
+        rect.setX(h - widthHalf);
+        rect.setWidth(windowWidth);
         canvas->setSceneRect(rect);
     }
 }
