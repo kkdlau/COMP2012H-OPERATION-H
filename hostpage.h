@@ -17,7 +17,7 @@ public:
     void update_ip();
 private:
     Ui::HostPage *ui;
-    TCPServer* tcp_server;
+    QTcpServer* tcp_server;
 };
 
 #endif // HOSTPAGE_H

@@ -1,6 +1,4 @@
 #include "tcpclient.h"
-#include <QMessageBox>
-#include <QDebug>
 
 // Public
 // Please put mainwindow to the parameter
@@ -9,18 +7,14 @@ TCPClient::TCPClient(QObject *parent) : QObject(parent), client_socket(new QTcpS
     connect(client_socket, &QTcpSocket::connected, this, &TCPClient::connected);
     connect(client_socket, &QTcpSocket::disconnected, this, &TCPClient::disconnected);
     connect(client_socket, &QTcpSocket::readyRead, this, &TCPClient::on_ready_read);
-}
 
-QTcpSocket* TCPClient::get_client_socket() const {
-    return client_socket;
 }
 
 void TCPClient::connect_to_server(const QHostAddress &server_address, quint16 server_port) {
     qDebug() << "Attempting to connect to server";
-    client_socket->abort();
+    client_socket->connectToHost(server_address, server_port);
 //    qDebug() << "Server Address: " << server_address;
     qDebug() << "Server Port: " << server_port;
-    client_socket->connectToHost(server_address, server_port);
 }
 
 void TCPClient::disconnect_from_server() {
@@ -35,7 +29,6 @@ void TCPClient::send_text(const QString &text) {
     clientStream.setVersion(QDataStream::Qt_5_11);
     clientStream << text;
 }
-
 
 // public slot
 
