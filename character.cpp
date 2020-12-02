@@ -9,7 +9,15 @@ const int Character::HEIGHT = Map::GRID_SIZE_H;
 
 Character::Character(QString name, int health, int stepValue, Map* map) : characterName(name), characterHealth(health), stepValue{stepValue}, presetMap{map}
 {
+//    footstep_sound = new QMediaPlayer;
+//    footstep_sound->setMedia(QUrl::fromLocalFile(":/assets/footsteps.wav"));
+//    footstep_sound->setVolume(50);
+//    connect(this, &Character::startMoving, &footstep_sound, &QMediaPlayer::play);
 
+    footstep_sound.setMedia(QUrl::fromLocalFile(":assets/footsteps.wav"));
+    footstep_sound.setVolume(50);
+//    connect(this, &Character::startMoving, &footstep_sound, &QMediaPlayer::play);
+//    connect(this, &Character::startMoving, this, &Character::test_slot);
 }
 
 Character::Character(const QStringList data, int stepValue, Map* map): stepValue{stepValue}, presetMap{map}
@@ -26,6 +34,12 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     addToGroup(gun);
     setPos(QPointF{32.0f * 2 + 16, 32.0f * 3});
     health = new HealthBar(head, characterHealth, maxHealth);
+
+    // fk idk wt im doing
+//    footstep_sound.setMedia(QUrl::fromLocalFile("C:/Users/kfche/Documents/GitHub/COMP2012H-OPERATION-H/assets/footsteps.wav"));  // uncomment me and change path
+//    footstep_sound.setMedia(QUrl::fromLocalFile(":assets/footsteps.wav"));
+    footstep_sound.setVolume(50);
+//    connect(this, &Character::startMoving, &footstep_sound, &QMediaPlayer::play);
 }
 
 Character::~Character()
@@ -220,6 +234,13 @@ if (y) {
     animationY->start();
 }
 
+//if (footstep_sound.mediaStatus() == QMediaPlayer::MediaStatus::NoMedia || footstep_sound.mediaStatus() == QMediaPlayer::MediaStatus::EndOfMedia) {
+//    footstep_sound.play();
+//}
+if (footstep_sound.state() != QMediaPlayer::State::PlayingState) footstep_sound.play();
+//qDebug() << move_state;
+//qDebug() << (x||y);
+//move_state = (x || y);
 }
 
 qreal Character::getPositionX() const {

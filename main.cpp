@@ -5,6 +5,7 @@
 #include "Network/client.h"
 // END stardust
 
+#include <QSound>
 #include <QApplication>
 
 int main(int argc, char *argv[])
