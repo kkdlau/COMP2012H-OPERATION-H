@@ -3,6 +3,8 @@
 #include "mapviewpage.h"
 #include "networkpage.h"
 #include "Network/udp.h"
+#include "remoteselector.h"
+#include <QtBluetooth>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -38,9 +40,20 @@ void MainWindow::on_pushButton_3_clicked()
     its_a_you.read_from_udp();
 }
 
+static const QLatin1String serviceUuid("e8e10f95-1a70-4b27-9ccf-02010264e9c8");
+
 void MainWindow::on_pushButton_4_clicked()
 {
-    NetworkPage network_page;
-    network_page.setModal(true);
-    network_page.exec();
+    const QBluetoothAddress adapter = localAdapters.isEmpty() ?
+                                           QBluetoothAddress() :
+                                           localAdapters.at(0).address();
+    RemoteSelector remote_selector(adapter);
+    remote_selector.startDiscovery(QBluetoothUuid(serviceUuid));
+    remote_selector.exec();
+
+
+
+//    NetworkPage network_page;
+//    network_page.setModal(true);
+//    network_page.exec();
 }
