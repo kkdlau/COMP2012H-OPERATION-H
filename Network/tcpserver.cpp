@@ -40,7 +40,7 @@ void TCPServer::send_one_thing()
             clientConnection, &QObject::deleteLater);
 
     clientConnection->write(block);
-    clientConnection->disconnectFromHost();
+//    clientConnection->disconnectFromHost();
 }
 
 
