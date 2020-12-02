@@ -3,6 +3,7 @@
 #include <QPointF>
 #include <QVector2D>
 #include <QPropertyAnimation>
+#include <QSound>
 #include "qstring.h"
 #include "qstringlist.h"
 #include "qgraphicsitem.h"
@@ -110,6 +111,8 @@ private:
 
     void moveXPositive(int dx);
     void moveXNegative(int dx);
+
+//    static QSound test;
 
 signals:
     void isMoving(QPointF p);
