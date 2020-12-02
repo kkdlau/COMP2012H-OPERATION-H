@@ -116,6 +116,8 @@ signals:
     void equipWeaponSignal(Weapon*);
     void dequipWeaponSignal(Weapon*);
 
+    void deadSignal(Character*);
+
 };
 
 #endif // CHARACTER_H
