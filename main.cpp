@@ -11,14 +11,12 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-//    UDP client;
-//    client.read_from_udp();
-    w.show();
-    // START stardust
+    // STARDUST stuff
     Server server;
-    server.show();
     Client client;
+    server.show();
     client.show();
-    // END stardust
+    // END STARDUST stuff
+    w.show();
     return a.exec();
 }
