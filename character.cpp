@@ -25,7 +25,7 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     addToGroup(head);
     addToGroup(gun);
     setPos(QPointF{32.0f * 2 + 16, 32.0f * 3});
-    health = new HealthBar(head);
+    health = new HealthBar(head, characterHealth, maxHealth);
 }
 
 QPointF Character::getPosition() const {
@@ -325,12 +325,18 @@ void Character::dequipWeapon()
 
 void Character::DealDamage(int damage)
 {
-    qDebug()<<"NPPPPPP";
     characterHealth -= damage;
+    health->DecrementBar(damage);
     Harmed();
 }
 
 void Character::Harmed()
 {
     qDebug()<<"THE CURRENT HEALTH IS "<< characterHealth;
+}
+
+void Character::setRotation(qreal angle) {
+    QGraphicsItemGroup::setRotation(angle);
+    health->setRotation(-angle -180);
+
 }

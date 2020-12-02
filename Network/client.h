@@ -1,14 +1,16 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#include <QDialog>
 #include <QDataStream>
-#include <QLocalSocket>
+#include <QDialog>
+#include <QTcpSocket>
 
 QT_BEGIN_NAMESPACE
+class QComboBox;
 class QLabel;
 class QLineEdit;
 class QPushButton;
+class QTcpSocket;
 QT_END_NAMESPACE
 
 class Client : public QDialog
@@ -19,21 +21,20 @@ public:
     explicit Client(QWidget *parent = nullptr);
 
 private slots:
-    void requestNewAction();
-    void readAction();
-    void displayError(QLocalSocket::LocalSocketError socketError);
-    void enableGetActionButton();
+    void requestNewFortune();
+    void readFortune();
+    void displayError(QAbstractSocket::SocketError socketError);
+    void enableGetFortuneButton();
 
 private:
-    QLineEdit *hostLineEdit;
-    QPushButton *getActionButton;
-    QLabel *statusLabel;
+    QComboBox *hostCombo = nullptr;
+    QLineEdit *portLineEdit = nullptr;
+    QLabel *statusLabel = nullptr;
+    QPushButton *getFortuneButton = nullptr;
 
-    QLocalSocket *socket;
+    QTcpSocket *tcpSocket = nullptr;
     QDataStream in;
-    quint32 blockSize;
-
-    QString currentAction;
+    QString currentFortune;
 };
 
-#endif // CLIENT_H
+#endif
