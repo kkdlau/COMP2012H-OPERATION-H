@@ -8,6 +8,7 @@
 #include "qgraphicsitem.h"
 #include "../GameMapCanvas/map.h"
 #include "NewWeapon/weapon.h"
+#include "UI/itemframe.h"
 
 class Character : public QObject, public QGraphicsItemGroup
 {
@@ -69,6 +70,7 @@ public:
     void DequipWeapon();
     void DealDamage(int damage);
     void virtual Harmed();
+    ItemFrame *weaponUI = nullptr;
     //SAMPLE WEAPON TEST STEVEN
 
 private:
@@ -88,6 +90,7 @@ private:
 
     //SAMPLE WEAPON TEST STEVEN
     Weapon* currentWeapon = nullptr;
+
     //SAMPLE WEAPON TEST STEVEN
 
 

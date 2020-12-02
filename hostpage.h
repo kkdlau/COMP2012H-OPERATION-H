@@ -18,6 +18,8 @@ public:
 private:
     Ui::HostPage *ui;
     TCPServer* tcp_server;
+private slots:
+    void debug_connected();
 
 };
 

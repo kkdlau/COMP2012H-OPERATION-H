@@ -15,9 +15,9 @@ void RangedWeapon::Attack(int angle)
         isShooting = true;
         Bullet *bulletShot = new Bullet(5, angle, this->x(), this->y(), parentItem());
         scene()->addItem(bulletShot);
-        QPointF offset(30, 0);
-        bulletShot->setPos(scenePos() + offset);
+        bulletShot->setPos(this->scenePos());
         timer.singleShot(attackSpeed/maxBullet, this, &RangedWeapon::ResetShootState);
+        emit OnWeaponUpdate(WeaponDataText());
     }
     else if (currentBullet <= 0)
     {
@@ -30,6 +30,7 @@ void RangedWeapon::Reload()
 {
     if(!isReloading)
     {
+        emit OnWeaponUpdate("RELOADING");
         isReloading = true;
         timer.singleShot(reloadSpeed, this, &RangedWeapon::ResetReloadState);
     }
@@ -43,10 +44,11 @@ void RangedWeapon::ResetShootState()
 void RangedWeapon::ResetReloadState()
 {
     currentBullet = maxBullet;
+    emit OnWeaponUpdate(WeaponDataText());
     isReloading = false;
 }
 
-QString RangedWeapon::ReturnAmmoString()
+QString RangedWeapon::WeaponDataText()
 {
     return QString::number(currentBullet) + "/" + QString::number(maxBullet);
 }

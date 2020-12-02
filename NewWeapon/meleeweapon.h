@@ -11,6 +11,7 @@ public:
     void virtual Attack(int angle) override;
     void Charge();
     void Skill();
+    QString virtual WeaponDataText() override;
 signals:
     void EndAttackAnimation();
 private:

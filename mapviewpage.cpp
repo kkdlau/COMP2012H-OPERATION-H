@@ -22,6 +22,10 @@ MapViewPage::MapViewPage(QWidget* parent)
 //    ui->gameCanvas->fitInView(ui->gameCanvas->sceneRect(), Qt::KeepAspectRatio);
 
     ui->gameCanvas->character = new Character{5, ui->gameCanvas->map};
+    ItemFrame  *playerItemFrame = new ItemFrame();
+    ui->gameCanvas->character->weaponUI = playerItemFrame;
+    playerItemFrame->setParentItem(ui->gameCanvas->character);
+    playerItemFrame ->setPos(200,200);
     Enemy *test = new Enemy{ui->gameCanvas->map, 100, ui->gameCanvas->character};
     test->setPos(300, 50);
     ui->gameCanvas->scene->addItem(test);
@@ -47,10 +51,11 @@ MapViewPage::MapViewPage(QWidget* parent)
         .addListeningCombo("M");
 
     weaponManager = WeaponManager::getInstance();
-    weaponManager->setPos(200,200);
-    ui->gameCanvas->scene->addItem(weaponManager);
+//    weaponManager->setPos(200,200);
+//    ui->gameCanvas->scene->addItem(weaponManager);
     Map* something = ui->gameCanvas->map;
-    GridInfo &idk = something[0][3][3];
+    GridInfo &idk = something[0][0][1];
+    qDebug()<<idk.GetPosition();
     Weapon *sample = weaponManager->GenerateRandomWeapon();
     sample->setPos(idk.GetPosition());
     ui->gameCanvas->scene->addItem(sample);

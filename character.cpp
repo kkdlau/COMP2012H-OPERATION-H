@@ -25,7 +25,6 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     addToGroup(head);
     addToGroup(gun);
     setPos(QPointF{32.0f * 2 + 16, 32.0f * 3});
-    
 }
 
 QPointF Character::getPosition() const {
@@ -282,29 +281,66 @@ void Character::shoot() {
 
 void Character::EquipWeapon()
 {
-    QList<QGraphicsItem*> collide = collidingItems();
 
-    for(int i = 0; i < collide.length(); i++)
+    QPoint gridLocation = (this->scenePos()/ 32).toPoint();
+    GridInfo &found = presetMap[0][gridLocation.y()-1][gridLocation.x() - 1];
+    qDebug()<<"Grid Found, Checking "<<gridLocation.y()-1<<"/"<<gridLocation.x() -1<<"//"<<found.GetPosition();
+    if(found.IsWeaponInGrid())
     {
-        Weapon *data = dynamic_cast<Weapon*>(collide[i]);
-        if(data && data != currentWeapon)
+        qDebug()<<"FOUND WEAPON AH";
+        Weapon* getWeapon = found.GetWeaponData();
+        if(currentWeapon != nullptr)
         {
-            if(currentWeapon != nullptr)
-            {
-                DequipWeapon();
-            }
-            data->Equip(gun);
-            currentWeapon = data;
-            return;
+            found.AddWeaponToGrid(currentWeapon);
+            currentWeapon->Unequip();
         }
+        getWeapon->Equip(gun);
+        currentWeapon = getWeapon;
+        if(weaponUI != nullptr)
+        {
+            weaponUI->SetTargetWeapon(getWeapon);
+        }
+        return;
     }
-    DequipWeapon() ;
+    if(currentWeapon != nullptr)
+    {
+        DequipWeapon();
+    }
+
+//    QList<QGraphicsItem*> collide = collidingItems();
+
+//    for(int i = 0; i < collide.length(); i++)
+//    {
+//        Weapon *data = dynamic_cast<Weapon*>(collide[i]);
+//        if(data && data != currentWeapon)
+//        {
+//            if(currentWeapon != nullptr)
+//            {
+//                DequipWeapon();
+//            }
+//            data->Equip(gun);
+//            currentWeapon = data;
+//            if(weaponUI != nullptr)
+//            {
+//                weaponUI->SetTargetWeapon(data);
+//            }
+//            return;
+//        }
+//    }
+//    if(currentWeapon != nullptr)
+//    {
+//        DequipWeapon();
+//    }
 }
 
 void Character::DequipWeapon()
 {
     currentWeapon->Unequip();
+    QPoint gridLocation = (this->scenePos()/ 32).toPoint();
+    GridInfo &found = presetMap[0][gridLocation.y()-1][gridLocation.x() - 1];
+    found.AddWeaponToGrid(currentWeapon);
     currentWeapon= nullptr;
+    weaponUI->unfocusedWeapon();
 }
 
 void Character::DealDamage(int damage)

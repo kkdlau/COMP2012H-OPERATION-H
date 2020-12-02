@@ -10,6 +10,11 @@ HostPage::HostPage(QWidget *parent) :
 {
     ui->setupUi(this);
     update_ip();
+    connect(tcp_server,&TCPServer::newConnection, this, &HostPage::debug_connected);
+}
+
+void HostPage::debug_connected(){
+    qDebug() << "Connected";
 }
 
 HostPage::~HostPage()
