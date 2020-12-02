@@ -34,6 +34,7 @@ private slots:
 //    void user_disconnected(ServiceWorker *sender);
 
 private:
+    QTcpServer* tcp_server;
     quint16 server_port;
     QString server_ip;
     QList<ServiceWorker*> clients;
