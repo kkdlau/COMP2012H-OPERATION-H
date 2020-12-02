@@ -17,6 +17,7 @@ public:
 public slots:
     void connect_to_server(const QHostAddress &server_address, quint16 server_port);
     void disconnect_from_server();
+    QTcpSocket* get_client_socket() const;
 
 private slots:
     void on_ready_read();

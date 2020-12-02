@@ -13,6 +13,7 @@ class ClientPage : public QDialog
 
 public:
     explicit ClientPage(QWidget *parent = nullptr);
+    void display_error(QAbstractSocket::SocketError socketError);
     ~ClientPage();
 
 public slots:

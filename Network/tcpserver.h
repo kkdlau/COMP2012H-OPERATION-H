@@ -38,6 +38,7 @@ private:
     QString server_ip;
     QList<ServiceWorker*> clients;
     QList<ServiceWorker*> list;
+    QTcpServer tcp_server;
     void send_text(ServiceWorker *worker, const QString &text);
 };
 

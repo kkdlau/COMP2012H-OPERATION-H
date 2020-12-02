@@ -12,9 +12,15 @@ TCPClient::TCPClient(QObject *parent) : QObject(parent), client_socket(new QTcpS
 
 void TCPClient::connect_to_server(const QHostAddress &server_address, quint16 server_port) {
     qDebug() << "Attempting to connect to server";
-    client_socket->connectToHost(server_address, server_port);
+    client_socket->abort();
 //    qDebug() << "Server Address: " << server_address;
     qDebug() << "Server Port: " << server_port;
+    client_socket->connectToHost(server_address, server_port);
+
+}
+
+QTcpSocket* TCPClient::get_client_socket() const {
+    return client_socket;
 }
 
 void TCPClient::disconnect_from_server() {

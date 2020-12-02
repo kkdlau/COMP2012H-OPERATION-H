@@ -3,7 +3,7 @@
 #include "tcpserver.h"
 
 TCPServer::TCPServer(QObject *parent) :
-    QTcpServer(parent)
+    tcp_server(new QTcpServer(this))
 {
     if (!listen()) {
         qDebug("Unable to start the server");
@@ -12,18 +12,6 @@ TCPServer::TCPServer(QObject *parent) :
     }
     server_port = serverPort();
 
-    // Find a usable IP address
-    QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
-    for (int i = 0; i < ipAddressesList.size(); ++i) {
-        if (ipAddressesList.at(i) != QHostAddress::LocalHost &&
-                ipAddressesList.at(i).toIPv4Address()) {
-            server_ip = ipAddressesList.at(i).toString();
-            break;
-        }
-    }
-
-    if (server_ip.isEmpty())
-        server_ip = QHostAddress(QHostAddress::LocalHost).toString();
 }
 
 QString TCPServer::get_ip() const {
