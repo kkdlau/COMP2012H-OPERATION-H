@@ -79,7 +79,8 @@ public:
 
     //SAMPLE WEAPON TEST STEVEN
     Weapon* currentWeapon = nullptr;
-
+    int characterHealth = 10;
+    int maxHealth = 10;
     //SAMPLE WEAPON TEST STEVEN
     void setRotation(qreal degree);
 
@@ -96,8 +97,6 @@ private:
     QGraphicsPixmapItem* gun; // for testing purpose
     HealthBar* health;
     Map* presetMap;
-    int characterHealth = 10;
-    int maxHealth = 10;
     int curWeaponID;
 
 

@@ -54,8 +54,16 @@ void Enemy::unblock(MOVE_DIRECTION direction)
 void Enemy::Harmed() //this class should inherit character for usability
 {
     qDebug()<<"IM GETTING HIT BABY WOOshjdkfjkalfhjakldshk";
-    if(health <= 0)
+    if(characterHealth <= 0)
     {
         dequipWeapon();
+        emit deadSignal(this);
     }
+}
+
+Enemy::~Enemy()
+{
+    disconnect(&timer, &QTimer::timeout, this, &Enemy::action);
+    disconnect(this, &Character::blockByObstacle, this, &Enemy::unblock);
+    timer.stop();
 }
