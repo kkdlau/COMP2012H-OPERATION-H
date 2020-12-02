@@ -17,6 +17,7 @@ public:
     QString get_ip() const;
     quint16 get_tcp_port() const;
     QList<ServiceWorker*> get_clients() const;
+    void send_one_thing();
 
 protected:
 //    void incomingConnection(qintptr socket_descriptor) override;
@@ -38,7 +39,7 @@ private:
     QString server_ip;
     QList<ServiceWorker*> clients;
     QList<ServiceWorker*> list;
-    QTcpServer tcp_server;
+    QTcpServer* tcp_server;
     void send_text(ServiceWorker *worker, const QString &text);
 };
 

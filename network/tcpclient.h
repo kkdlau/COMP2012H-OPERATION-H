@@ -29,7 +29,9 @@ signals:
 
 private:
     QTcpSocket *client_socket;
+    QDataStream input;
     void text_received(const QString &text);
+    void read_stuff();
 };
 
 #endif // TCPCLIENT_H

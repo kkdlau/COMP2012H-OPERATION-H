@@ -11,6 +11,7 @@ TCPServer::TCPServer(QObject *parent) :
         return;
     }
     server_port = serverPort();
+    connect(tcp_server, &QTcpServer::newConnection, this, &TCPServer::send_one_thing);
 
 }
 
@@ -25,6 +26,23 @@ quint16 TCPServer::get_tcp_port() const {
 QList<ServiceWorker*> TCPServer::get_clients() const {
     return clients;
 }
+
+void TCPServer::send_one_thing()
+{
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_10);
+
+    out << "Steven sucks your dick";
+
+    QTcpSocket *clientConnection = tcp_server->nextPendingConnection();
+    connect(clientConnection, &QAbstractSocket::disconnected,
+            clientConnection, &QObject::deleteLater);
+
+    clientConnection->write(block);
+    clientConnection->disconnectFromHost();
+}
+
 
 //void TCPServer::incomingConnection(qintptr socketDesriptor) {
 //    qDebug("New Player");

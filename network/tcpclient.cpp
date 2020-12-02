@@ -6,8 +6,8 @@ TCPClient::TCPClient(QObject *parent) : QObject(parent), client_socket(new QTcpS
     // signal relay
     connect(client_socket, &QTcpSocket::connected, this, &TCPClient::connected);
     connect(client_socket, &QTcpSocket::disconnected, this, &TCPClient::disconnected);
-    connect(client_socket, &QTcpSocket::readyRead, this, &TCPClient::on_ready_read);
-
+//    connect(client_socket, &QTcpSocket::readyRead, this, &TCPClient::on_ready_read);
+    connect(client_socket, &QTcpSocket::readyRead, this, &TCPClient::read_stuff);
 }
 
 void TCPClient::connect_to_server(const QHostAddress &server_address, quint16 server_port) {
@@ -59,4 +59,17 @@ void TCPClient::on_ready_read() {
 // Private
 void TCPClient::text_received(const QString &text) {
     emit receive_text(text);
+}
+
+void TCPClient::read_stuff()
+{
+    input.startTransaction();
+
+    QString cur_message;
+    input >> cur_message;
+
+    if (!input.commitTransaction())
+        return;
+
+    qDebug() << cur_message;
 }
