@@ -14,6 +14,18 @@ Map::Map(QObject* parent, QString resourceName, QString mapConfigFilePath) : QGr
 
     parseMapConfigFile(mapConfigFilePath);
     setSceneRect(0, 0, 320, 320);
+
+    addObstacle(1, 0);
+    addObstacle(1, 1);
+    addObstacle(1, 2);
+    addObstacle(1, 3);
+
+    QList<QPoint> path;
+    path.push_back(QPoint{0, 0});
+    path.push_back(QPoint{0, 1});
+    path.push_back(QPoint{0, 2});
+
+    drawPath(path);
 }
 
 void Map::addObstacle(int posX, int posY) {
@@ -138,6 +150,22 @@ bool Map::isAccessible(const QPoint &from, const QPoint &to, const int stepValue
         /*directional neighbor checking*/
         return (*this)[from] - (*this)[to] <= stepValue;
     } return false;
+}
+
+void Map::drawPath(QList<QPoint> path) {
+    QList<QPoint>::iterator ptr;
+    QList<QPoint>::iterator end = path.end() - 1;
+    for (ptr = path.begin(); ptr < end; ++ptr) {
+        QPoint p = *ptr;
+        QPoint nextP = *(ptr + 1);
+        QGraphicsRectItem* rect = new QGraphicsRectItem{p.x() * 32.0f + 10, p.y() * 32.0f + 10, 12, 12};
+        rect->setBrush(Qt::black);
+        addLine(p.x() * 32.0f + 16, p.y() * 32.0f + 16, nextP.x() * 32.0f + 16, nextP.y() * 32.0f + 16);
+        addItem(rect);
+    }
+
+    QGraphicsRectItem* rect = new QGraphicsRectItem{path.last().x() * 32.0f + 10, path.last().y() * 32.0f + 10, 12, 12};
+    addItem(rect);
 }
 
 Map::~Map() { delete mapImg; }
