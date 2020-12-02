@@ -12,13 +12,7 @@ CONFIG += c++11
 INCLUDEPATH += GameScene/
 
 SOURCES += \
-<<<<<<< HEAD
-    GameMapCanvas/camera.cpp \
-    GameMapCanvas/gridinfo.cpp \
     GameScene/overlay.cpp \
-=======
-    ../../Program/comp2012h_operation_h/GameScene/overlay.cpp \
->>>>>>> parent of 3b9a029... Revert "Merge branch 'main' of https://github.com/kkdlau/COMP2012H-OPERATION-H into main"
     GameScene/camera.cpp \
     GameScene/gridinfo.cpp \
     FileParser/fileparser.cpp \
@@ -48,13 +42,7 @@ SOURCES += \
     networkpage.cpp
 
 HEADERS += \
-<<<<<<< HEAD
-    GameMapCanvas/camera.h \
-    GameMapCanvas/gridinfo.h \
     GameScene/overlay.h \
-=======
-    ../../Program/comp2012h_operation_h/GameScene/overlay.h \
->>>>>>> parent of 3b9a029... Revert "Merge branch 'main' of https://github.com/kkdlau/COMP2012H-OPERATION-H into main"
     GameScene/camera.h \
     GameScene/gridinfo.h \
     FileParser/fileparser.h \
