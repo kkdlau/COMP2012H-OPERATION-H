@@ -22,9 +22,9 @@ MapViewPage::MapViewPage(QWidget* parent)
 //    ui->gameCanvas->fitInView(ui->gameCanvas->sceneRect(), Qt::KeepAspectRatio);
 
     ui->gameCanvas->character = new Character{5, ui->gameCanvas->map};
-    Character *test = new Character{5, ui->gameCanvas->map};
-    test->setPos(200, 0);
-//    ui->gameCanvas->scene->addItem(test);
+    Enemy *test = new Enemy{ui->gameCanvas->map, 100, ui->gameCanvas->character};
+    test->setPos(300, 50);
+    ui->gameCanvas->scene->addItem(test);
     //    ui->gameCanvas->character->setTransformOriginPoint(QPointF(16,16));
     //    ui->gameCanvas->character->setOffset(QPointF(-Map::GRID_SIZE_W / 2, -Map::GRID_SIZE_H / 2));
     ui->gameCanvas->scene->addItem(ui->gameCanvas->character);
@@ -46,7 +46,17 @@ MapViewPage::MapViewPage(QWidget* parent)
         .addListeningCombo("K")
         .addListeningCombo("M");
 
-//    weaponManager = WeaponManager::getInstance();
+    weaponManager = WeaponManager::getInstance();
+    weaponManager->setPos(200,200);
+    ui->gameCanvas->scene->addItem(weaponManager);
+    Map* something = ui->gameCanvas->map;
+    GridInfo &idk = something[0][3][3];
+    Weapon *sample = weaponManager->GenerateRandomWeapon();
+    sample->setPos(idk.GetPosition());
+    ui->gameCanvas->scene->addItem(sample);
+    idk.AddWeaponToGrid(sample);
+
+
 //    MeleeWeapon *test1 = new MeleeWeapon(0, 50, 500);
 //    RangedWeapon *test2 = new RangedWeapon(0, 500, 500, 10);
 //    test1->setPos(100,250);

@@ -16,15 +16,14 @@ void Bullet::move()
     float radian = qDegreesToRadians((float)angle);
     float yOffset = angleSection % 2 == 0? bulletSpeed * qSin(radian) : bulletSpeed * qCos(radian);
     float xOffset = angleSection % 2 == 0? bulletSpeed * qCos(radian) : bulletSpeed * qSin(radian);
-    qDebug()<<"X: "<<x()<<"/"<<xOffset<<"Y: "<<y()<<"/"<<yOffset;
     setPos(x()+xOffset, y()+yOffset);
     QList<QGraphicsItem*> collision = collidingItems();
     for(int i = 0; i < collision.length(); i++)
     {
-        if(typeid(*(collision[i])) == typeid(Character))
+        Character* checking = dynamic_cast<Character*>(collision[i]->parentItem());
+        if(checking)
         {
-            qDebug()<<"ENEMY HIT U FUCKIN CUNT";
-            delete this;
+            qDebug()<<"IT FUCKIN WORSKLJHJFSGIOKDCVHJLDSGHADJSFDSLFzs";
         }
     }
     if(--lifeSpan <= 0)

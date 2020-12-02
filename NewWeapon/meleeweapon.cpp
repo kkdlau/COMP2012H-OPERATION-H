@@ -2,7 +2,7 @@
 #include "qdebug.h"
 #include "character.h"
 
-MeleeWeapon::MeleeWeapon(int attack,  int attackRange, int attackSpeed, QGraphicsItem* parent,QString image) : Weapon(attack, parent), attackRange(attackRange), attackSpeed(attackSpeed)
+MeleeWeapon::MeleeWeapon(int attack,  int attackRange, int attackSpeed, QGraphicsItem* parent,QString image) : Weapon(WeaponType::MELEE, attack, parent), attackRange(attackRange), attackSpeed(attackSpeed)
 {
     setOffset(10, 0);
     InitializeAttackAnimation();
@@ -53,15 +53,20 @@ void MeleeWeapon::OnAttack()
         QList<QGraphicsItem*> collision = collidingItems();
         for(int i = 0; i < collision.length(); i++)
         {
-            if(typeid(*(collision[i])) == typeid(Character) && collision[i] != parentItem())
+            Character* checking = dynamic_cast<Character*>(collision[i]->parentItem());
+            if(checking)
             {
-                Character* target = dynamic_cast<Character*>(collision[i]);
-                if(target) target->DealDamage(attack);
+                qDebug()<<"FOUND SHIT";
+                checking->DealDamage(attack);
             }
         }
         isAttackAnimation = true;
     }
-    else isAttackAnimation = false;
+    else
+    {
+        isAttackAnimation = false;
+        qDebug()<<"resetti";
+    }
 }
 
 void MeleeWeapon::InitializeAttackAnimation()

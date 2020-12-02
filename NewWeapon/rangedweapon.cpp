@@ -1,7 +1,7 @@
 #include "rangedweapon.h"
 #include "Weapons/bullet.h"
 #include "character.h"
-RangedWeapon::RangedWeapon(int attack, int attackSpeed, int reloadSpeed,int maxBullet, QGraphicsItem *parent): Weapon(attack,parent), attackSpeed(attackSpeed), reloadSpeed(reloadSpeed), maxBullet(maxBullet), currentBullet(maxBullet)
+RangedWeapon::RangedWeapon(int attack, int attackSpeed, int reloadSpeed,int maxBullet, QGraphicsItem *parent): Weapon(WeaponType::RANGED, attack,parent), attackSpeed(attackSpeed), reloadSpeed(reloadSpeed), maxBullet(maxBullet), currentBullet(maxBullet)
 {
     setPixmap(QPixmap(":gun.png"));
 }
@@ -44,4 +44,9 @@ void RangedWeapon::ResetReloadState()
 {
     currentBullet = maxBullet;
     isReloading = false;
+}
+
+QString RangedWeapon::ReturnAmmoString()
+{
+    return QString::number(currentBullet) + "/" + QString::number(maxBullet);
 }

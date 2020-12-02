@@ -17,6 +17,8 @@ SOURCES += \
     FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
+    Network/client.cpp \
+    Network/server.cpp \
     Network/serviceworker.cpp \
     Network/tcpclient.cpp \
     Network/tcpserver.cpp \
@@ -46,6 +48,8 @@ HEADERS += \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
     KeyBoardManager/KeyState.h \
+    Network/client.h \
+    Network/server.h \
     Network/serviceworker.h \
     Network/tcpclient.h \
     Network/tcpserver.h \

@@ -1,6 +1,7 @@
 #include "weaponmanager.h"
 #include "qdebug.h"
 #include "UI/itemframe.h"
+
 WeaponManager* WeaponManager::Instance = nullptr;
 
 WeaponManager::WeaponManager()
@@ -8,7 +9,8 @@ WeaponManager::WeaponManager()
 }
 
 WeaponManager::~WeaponManager(){
-
+    qDebug()<<"SINCE IT FUKIN ACCESSED IT IT MEANS ITS DELETED";
+    Instance = nullptr; //TODO ID FUCKIN KNOW
 }
 WeaponManager* WeaponManager::getInstance()
 {
@@ -45,6 +47,7 @@ Weapon* WeaponManager::GenerateRandomWeapon()
     {
         tempWeapon =  new RangedWeapon(5,500,500,10);
     }
+    weaponDatabase.append(tempWeapon);
     return tempWeapon;
 }
 
@@ -75,7 +78,17 @@ void WeaponManager::EquipWeapon(int weaponId, QGraphicsItem *owner)
     {
         qDebug()<<"EQUIPping BABY";
         targetWeapon->Equip(owner);
-        ItemFrame::item->setPixmap(targetWeapon->pixmap());
+        ChangeWeaponPicture(targetWeapon->pixmap());
+        if(targetWeapon->GetWeaponType() == WeaponType::RANGED)
+        {
+            RangedWeapon* weapon = dynamic_cast<RangedWeapon*>(targetWeapon);
+            ChangeText(weapon->ReturnAmmoString());
+        }
+        else
+        {
+            ChangeText("-//-");
+        }
+
     }
 }
 
@@ -86,6 +99,15 @@ void WeaponManager::AttackWeapon(int weaponId, int angle)
     {
         targetWeapon->Attack(angle);
     }
+    if(targetWeapon->GetWeaponType() == WeaponType::RANGED)
+    {
+        RangedWeapon* weapon = dynamic_cast<RangedWeapon*>(targetWeapon);
+        ChangeText(weapon->ReturnAmmoString());
+    }
+    else
+    {
+        ChangeText("-//-");
+    }
 }
 
 void WeaponManager::DequipWeapon(int weaponId)
@@ -94,5 +116,7 @@ void WeaponManager::DequipWeapon(int weaponId)
     if(targetWeapon != nullptr)
     {
         targetWeapon->Unequip();
+        ChangeWeaponPicture(QPixmap());
+        ChangeText("-//-");
     }
 }

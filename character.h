@@ -7,7 +7,7 @@
 #include "qstringlist.h"
 #include "qgraphicsitem.h"
 #include "../GameMapCanvas/map.h"
-#include "NewWeapon/weaponmanager.h"
+#include "NewWeapon/weapon.h"
 
 class Character : public QObject, public QGraphicsItemGroup
 {
@@ -64,6 +64,7 @@ public:
     Character operator=(const Character& input);
 
     //SAMPLE WEAPON TEST STEVEN
+
     void EquipWeapon();
     void DequipWeapon();
     void DealDamage(int damage);
@@ -86,9 +87,7 @@ private:
     int curWeaponID;
 
     //SAMPLE WEAPON TEST STEVEN
-
-    WeaponManager* weaponManager;
-    int currentWeaponId = -1;
+    Weapon* currentWeapon = nullptr;
     //SAMPLE WEAPON TEST STEVEN
 
 
