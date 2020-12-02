@@ -74,6 +74,9 @@ public:
     ItemFrame *weaponUI = nullptr;
     //SAMPLE WEAPON TEST STEVEN
 
+
+    void setRotation(qreal degree);
+
 private:
     QString characterName;
 
@@ -85,7 +88,7 @@ private:
 
     QGraphicsPixmapItem* head;
     QGraphicsPixmapItem* gun; // for testing purpose
-    QGraphicsRectItem* health;
+    HealthBar* health;
     Map* presetMap;
     int characterHealth = 10;
     int maxHealth = 10;

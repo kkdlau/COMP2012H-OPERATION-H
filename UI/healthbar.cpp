@@ -1,11 +1,12 @@
 #include "healthbar.h"
 #include "qbrush.h"
 
-HealthBar::HealthBar(QGraphicsItem *parent) : QGraphicsRectItem(parent)
+HealthBar::HealthBar(QGraphicsItem *parent, int initialHealth, int totalHealth) : QGraphicsRectItem(parent)
 {
-    setRect(0,0,40,5);
+    setRect(-20,30,40,5);
     setBrush(QBrush(Qt::red));
     setRotation(90);
+    SetValue(initialHealth, totalHealth);
 }
 
 void HealthBar::UpdateBar()
@@ -24,4 +25,10 @@ void HealthBar::DecrementBar(float amount)
 {
     currentValue -= amount;
     UpdateBar();
+}
+
+void HealthBar::SetValue(int currentValue, int maximumValue)
+{
+    this->currentValue = currentValue;
+    this->maximumValue = maximumValue;
 }

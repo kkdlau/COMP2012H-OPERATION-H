@@ -24,10 +24,11 @@ MapViewPage::MapViewPage(QWidget* parent)
     ui->gameCanvas->character = new Character{5, ui->gameCanvas->map};
     ItemFrame  *playerItemFrame = new ItemFrame();
     ui->gameCanvas->character->weaponUI = playerItemFrame;
-    playerItemFrame->setParentItem(ui->gameCanvas->character);
+    ui->gameCanvas->scene->addItem(playerItemFrame);
     playerItemFrame ->setPos(200,200);
     Enemy *test = new Enemy{ui->gameCanvas->map, 100, ui->gameCanvas->character};
-    test->setPos(300, 50);
+    QRectF sceneRect = ui->gameCanvas->scene->sceneRect();
+    playerItemFrame->setPos(sceneRect.height() - 64, sceneRect.width() - 64);
     ui->gameCanvas->scene->addItem(test);
     //    ui->gameCanvas->character->setTransformOriginPoint(QPointF(16,16));
     //    ui->gameCanvas->character->setOffset(QPointF(-Map::GRID_SIZE_W / 2, -Map::GRID_SIZE_H / 2));
