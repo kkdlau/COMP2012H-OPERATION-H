@@ -12,7 +12,7 @@ CONFIG += c++11
 INCLUDEPATH += GameScene/
 
 SOURCES += \
-    ../../Program/comp2012h_operation_h/GameScene/overlay.cpp \
+    GameScene/overlay.cpp \
     GameScene/camera.cpp \
     GameScene/gridinfo.cpp \
     FileParser/fileparser.cpp \
@@ -42,7 +42,7 @@ SOURCES += \
     networkpage.cpp
 
 HEADERS += \
-    ../../Program/comp2012h_operation_h/GameScene/overlay.h \
+    GameScene/overlay.h \
     GameScene/camera.h \
     GameScene/gridinfo.h \
     FileParser/fileparser.h \
