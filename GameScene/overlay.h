@@ -10,6 +10,7 @@ class Overlay: public QGraphicsScene
 public:
     Overlay(QString imgPath, QString configFilePath);
     Map* mapLayer();
+    ItemFrame* getItemFrame();
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 

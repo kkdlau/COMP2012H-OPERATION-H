@@ -9,6 +9,7 @@ public:
     void virtual Attack(int angle) override;
     void virtual Reload();
     QString virtual WeaponDataText() override;
+    void virtual InitializeAttackAnimation() override;
 private:
     void ResetShootState();
     void ResetReloadState();

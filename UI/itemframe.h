@@ -4,6 +4,7 @@
 #include <QGraphicsProxyWidget>
 #include <QLabel>
 #include "NewWeapon/weapon.h"
+#include "character.h"
 
 class ItemFrame : public QObject, public QGraphicsItemGroup
 {
@@ -13,8 +14,8 @@ public:
     void ChangeWeaponPicture(QPixmap picture);
     void ChangeText(QString data);
     void SetTargetWeapon(Weapon*);
-    void unfocusedWeapon();
-    //void characterSingalSetup(Character*);
+    void unfocusedWeapon(Weapon*);
+    void characterSingalSetup(Character*);
 protected:
     QGraphicsRectItem *layout;
     QGraphicsPixmapItem *weaponImage;

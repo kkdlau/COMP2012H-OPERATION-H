@@ -301,6 +301,7 @@ void Character::shoot() {
     if(currentWeapon != nullptr)
     {
         currentWeapon->Attack(this->rotation());
+        attackWeaponSignal(currentWeapon->WeaponDataText());
     }
 }
 
@@ -356,7 +357,11 @@ void Character::DealDamage(int damage)
 
 void Character::Harmed()
 {
-    qDebug()<<"THE CURRENT HEALTH IS "<< characterHealth;
+    if(characterHealth <= 0)
+    {
+        dequipWeapon();
+        emit deadSignal(this);
+    }
 }
 
 void Character::setRotation(qreal angle) {

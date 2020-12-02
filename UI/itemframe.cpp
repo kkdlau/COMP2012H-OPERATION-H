@@ -10,9 +10,10 @@ ItemFrame::ItemFrame()
     weaponStat = new QLabel();
     weaponImage = new QGraphicsPixmapItem();
     weaponImage->setPos(0, layout->rect().height()/2);
-    labelProxy->setWidget(weaponStat);
     weaponStat->setText("-/-");
-    labelProxy->setPos(layout->rect().width()/2 - labelProxy->rect().width(), layout->rect().height());
+    weaponStat->setMinimumWidth(32);
+    labelProxy->setWidget(weaponStat);
+    labelProxy->setPos(2, layout->rect().height());
     addToGroup(layout);
     addToGroup(weaponImage);
     addToGroup(labelProxy);
@@ -39,15 +40,25 @@ void ItemFrame::ChangeWeaponPicture(QPixmap picture)
 void ItemFrame::SetTargetWeapon(Weapon *weaponData)
 {
     currentFocusedWeapon = weaponData;
-    connect(currentFocusedWeapon, &Weapon::OnWeaponUpdate, this, &ItemFrame::ChangeWeaponPicture);
     ChangeWeaponPicture(currentFocusedWeapon->pixmap());
-    ChangeText("currentFocusedWeapon->");
+    ChangeText(weaponData->WeaponDataText());
 }
 
-void ItemFrame::unfocusedWeapon()
+void ItemFrame::unfocusedWeapon(Weapon* weaponData)
 {
-    disconnect(currentFocusedWeapon, nullptr, nullptr, nullptr);
-    currentFocusedWeapon = nullptr;
-    ChangeWeaponPicture(QPixmap());
-    ChangeText("-//-");
+    if(weaponData == currentFocusedWeapon)
+    {
+        disconnect(currentFocusedWeapon, &Weapon::OnWeaponUpdate, this, &ItemFrame::ChangeWeaponPicture);
+        currentFocusedWeapon = nullptr;
+        ChangeWeaponPicture(QPixmap());
+        ChangeText("-//-");
+    }
+
+}
+
+void ItemFrame::characterSingalSetup(Character *target)
+{
+    connect(target, &Character::equipWeaponSignal, this, &ItemFrame::SetTargetWeapon);
+    connect(target, &Character::dequipWeaponSignal, this, &ItemFrame::unfocusedWeapon);
+    connect(target, &Character::attackWeaponSignal, this, &ItemFrame::ChangeText);
 }

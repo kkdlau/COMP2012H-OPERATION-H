@@ -21,11 +21,10 @@ MapViewPage::MapViewPage(QWidget* parent)
     characterManager = CharacterManager::get_instance();
     characterManager->set_map(ui->gameCanvas->scene->mapLayer());
     ui->gameCanvas->character = characterManager->generate_random_character();
-//	ItemFrame* playerItemFrame = new ItemFrame();
-//	ui->gameCanvas->character->weaponUI = playerItemFrame;
-//	ui->gameCanvas->scene->addItem(playerItemFrame);
-//  QRectF screenSize= ui->gameCanvas->scene->sceneRect();
-//  playerItemFrame->setPos(screenSize.width() - 64, screenSize.height() - 64);
+    ItemFrame* playerItemFrame = ui->gameCanvas->scene->getItemFrame();
+    playerItemFrame->characterSingalSetup(ui->gameCanvas->character);
+    QRectF screenSize= ui->gameCanvas->scene->sceneRect();
+    //playerItemFrame->setPos(screenSize.width() - 64, screenSize.height() - 64);
     Enemy *test = characterManager->generate_random_enemy();
     //test->setDestination(ui->gameCanvas->character);
     test->equipWeapon(weaponManager->GenerateRandomWeapon());
@@ -73,6 +72,7 @@ void MapViewPage::comboHandler(const QString& combo) {
 		ui->gameCanvas->character->moveBy(0, -5);
 	} else if (combo == "K") {
 		ui->gameCanvas->character->pickWeapon();
+        ui->gameCanvas->character->DealDamage(2);
 	} else if (combo == "M") {
 		ui->gameCanvas->character->shoot();
 	}

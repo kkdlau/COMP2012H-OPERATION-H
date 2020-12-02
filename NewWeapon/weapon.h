@@ -5,6 +5,7 @@
 #include "QGraphicsPixmapItem"
 #include "qtimer.h"
 #include "QRandomGenerator"
+#include "qsequentialanimationgroup.h"
 enum WeaponType
 {
     MELEE, RANGED
@@ -23,12 +24,15 @@ public:
     WeaponType GetWeaponType();
     //temp implementation
     QString virtual WeaponDataText() = 0;
+    void virtual InitializeAttackAnimation() = 0;
+
 signals:
     void OnWeaponUpdate(QString);
 protected:
     int weaponId = QRandomGenerator::global()->generate();
     QTimer timer;
     int attack = 0;
+    QSequentialAnimationGroup attackAnimation;
 private:
     WeaponType type;
 };

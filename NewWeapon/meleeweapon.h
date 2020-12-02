@@ -2,7 +2,6 @@
 #define MELEEWEAPON_H
 #include "weapon.h"
 #include "qpropertyanimation.h"
-#include "qsequentialanimationgroup.h"
 
 class MeleeWeapon : public Weapon
 {
@@ -15,11 +14,10 @@ public:
 signals:
     void EndAttackAnimation();
 private:
-    void InitializeAttackAnimation();
+    virtual void InitializeAttackAnimation() override;
     void OnAttack();
     void ResetAttack();
     void ResetCharge();
-    QSequentialAnimationGroup attackAnimation;
     bool isAttack = false;
     bool isAttackAnimation = false;
     bool isCharged = false;

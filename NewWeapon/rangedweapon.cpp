@@ -4,6 +4,7 @@
 RangedWeapon::RangedWeapon(int attack, int attackSpeed, int reloadSpeed,int maxBullet, QGraphicsItem *parent): Weapon(WeaponType::RANGED, attack,parent), attackSpeed(attackSpeed), reloadSpeed(reloadSpeed), maxBullet(maxBullet), currentBullet(maxBullet)
 {
     setPixmap(QPixmap(":gun.png"));
+    InitializeAttackAnimation();
 }
 
 void RangedWeapon::Attack(int angle)
@@ -13,9 +14,10 @@ void RangedWeapon::Attack(int angle)
         --currentBullet;
         qDebug()<<"BULLET REMAINS : "<<currentBullet;
         isShooting = true;
-        Bullet *bulletShot = new Bullet(5, angle, this->x(), this->y(), parentItem());
+        Bullet *bulletShot = new Bullet(5, angle, this->x(), this->y(), parentItem()); //fix this
         scene()->addItem(bulletShot);
         bulletShot->setPos(this->scenePos());
+        attackAnimation.start();
         timer.singleShot(attackSpeed/maxBullet, this, &RangedWeapon::ResetShootState);
         emit OnWeaponUpdate(WeaponDataText());
     }
@@ -51,4 +53,19 @@ void RangedWeapon::ResetReloadState()
 QString RangedWeapon::WeaponDataText()
 {
     return QString::number(currentBullet) + "/" + QString::number(maxBullet);
+}
+
+void RangedWeapon::InitializeAttackAnimation()
+{
+    QPropertyAnimation *startAnimation = new QPropertyAnimation(this, "pos");
+    startAnimation->setDuration(attackSpeed/2);
+    startAnimation->setStartValue(QPoint(0,0));
+    startAnimation->setEndValue(QPoint(-30,0));
+    attackAnimation.addAnimation(startAnimation);
+    QPropertyAnimation *endAnimation = new QPropertyAnimation(this, "pos");
+    endAnimation->setDuration(attackSpeed/2);
+    endAnimation->setStartValue(QPoint(-30,0));
+    endAnimation->setEndValue(QPoint(0,0));
+    attackAnimation.addAnimation(endAnimation);
+
 }

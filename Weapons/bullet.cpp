@@ -21,7 +21,7 @@ void Bullet::move()
     for(int i = 0; i < collision.length(); i++)
     {
         Character* checking = dynamic_cast<Character*>(collision[i]->parentItem());
-        if(checking)
+        if(checking && checking != parentItem())//danny gimmie ideasplz
         {
             qDebug()<<"IT FUCKIN WORSKLJHJFSGIOKDCVHJLDSGHADJSFDSLFzs";
         }

@@ -13,6 +13,11 @@ void Overlay::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) {
     mapLayer()->updateCursorPos(mapLayer()->mapFromScene(mouseEvent->scenePos()));
 }
 
+ItemFrame* Overlay::getItemFrame()
+{
+    return itemFrame;
+}
+
 Map* Overlay::mapLayer()
 {
     return map;

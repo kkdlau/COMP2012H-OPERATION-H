@@ -9,7 +9,6 @@
 #include "qgraphicsitem.h"
 #include "GameScene/map.h"
 #include "NewWeapon/weapon.h"
-#include "UI/itemframe.h"
 #include "UI/healthbar.h"
 
 class Character : public QObject, public QGraphicsItemGroup
@@ -75,7 +74,6 @@ public:
 
     void DealDamage(int damage);
     void virtual Harmed();
-    ItemFrame *weaponUI = nullptr;
     //SAMPLE WEAPON TEST STEVEN
 
     //SAMPLE WEAPON TEST STEVEN
@@ -119,7 +117,7 @@ signals:
 
     void equipWeaponSignal(Weapon*);
     void dequipWeaponSignal(Weapon*);
-    void attackWeaponSignal();
+    void attackWeaponSignal(QString); //change tmrw
 
     void deadSignal(Character*);
 };

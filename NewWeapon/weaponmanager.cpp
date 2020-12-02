@@ -38,7 +38,7 @@ void WeaponManager::DeleteWeapon(Weapon* weaponData)
 Weapon* WeaponManager::GenerateRandomWeapon()
 {
 //    int number = QRandomGenerator::global()->generate()% 2;
-    int number = 1;
+    int number = 0;
     Weapon* tempWeapon;
     if(number == 1)
     {
