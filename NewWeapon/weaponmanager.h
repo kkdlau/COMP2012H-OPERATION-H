@@ -4,8 +4,7 @@
 #include <QObject>
 #include "NewWeapon/meleeweapon.h"
 #include "NewWeapon/rangedweapon.h"
-#include "UI/itemframe.h"
-class WeaponManager : public ItemFrame
+class WeaponManager : public QObject
 {
     Q_OBJECT
 public:
@@ -17,10 +16,6 @@ public:
     //TEST
     const QList<Weapon*> GetWeaponDatabase() const;
     Weapon* GetWeapon(int weaponId);
-    void EquipWeapon(int weaponId, QGraphicsItem* owner);
-    void DequipWeapon(int weaponId);
-    void AttackWeapon(int weaponId, int angle);
-    //TEST
     static WeaponManager* getInstance();
     //insert preventive later
 private:

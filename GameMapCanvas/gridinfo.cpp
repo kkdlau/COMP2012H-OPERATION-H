@@ -48,6 +48,6 @@ Weapon *GridInfo::GetWeaponData()
 
 QPointF GridInfo::GetPosition()
 {
-    QPointF data(x * 16, y * 16);
+    QPointF data(x * 32, y * 32);
     return data;
 }
