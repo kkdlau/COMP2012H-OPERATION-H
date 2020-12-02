@@ -25,7 +25,7 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     addToGroup(head);
     addToGroup(gun);
     setPos(QPointF{32.0f * 2 + 16, 32.0f * 3});
-    health = new HealthBar(head);
+    health = new HealthBar(head, characterHealth, maxHealth);
 }
 
 QPointF Character::getPosition() const {
@@ -280,78 +280,63 @@ void Character::shoot() {
     }
 }
 
-void Character::EquipWeapon()
-{
+void Character::pickWeapon() {
 
-    QPoint gridLocation = (this->scenePos()/ 32).toPoint();
-    GridInfo &found = presetMap[0][gridLocation.y()-1][gridLocation.x() - 1];
-    qDebug()<<"Grid Found, Checking "<<gridLocation.y()-1<<"/"<<gridLocation.x() -1<<"//"<<found.GetPosition();
-    if(found.IsWeaponInGrid())
-    {
-        qDebug()<<"FOUND WEAPON AH";
-        Weapon* getWeapon = found.GetWeaponData();
-        if(currentWeapon != nullptr)
-        {
-            found.AddWeaponToGrid(currentWeapon);
-            currentWeapon->Unequip();
-        }
-        getWeapon->Equip(gun);
-        currentWeapon = getWeapon;
-        if(weaponUI != nullptr)
-        {
-            weaponUI->SetTargetWeapon(getWeapon);
-        }
-        return;
-    }
-    if(currentWeapon != nullptr)
-    {
-        DequipWeapon();
-    }
+    qDebug() << "current pos: " << (pos() / 32).toPoint();
 
-//    QList<QGraphicsItem*> collide = collidingItems();
+    QPoint currentPos = (pos() / 32).toPoint();
+    currentPos.rx()--;
+    currentPos.ry()--;
+    GridInfo& currentGrid = (*presetMap)[currentPos];
 
-//    for(int i = 0; i < collide.length(); i++)
-//    {
-//        Weapon *data = dynamic_cast<Weapon*>(collide[i]);
-//        if(data && data != currentWeapon)
-//        {
-//            if(currentWeapon != nullptr)
-//            {
-//                DequipWeapon();
-//            }
-//            data->Equip(gun);
-//            currentWeapon = data;
-//            if(weaponUI != nullptr)
-//            {
-//                weaponUI->SetTargetWeapon(data);
-//            }
-//            return;
-//        }
-//    }
-//    if(currentWeapon != nullptr)
-//    {
-//        DequipWeapon();
-//    }
+    qDebug() << currentGrid.toString();
+
+    if (currentGrid.isWeaponOnGround()) {
+        Weapon* pickedWeapon = currentGrid.popWeapon();
+        equipWeapon(pickedWeapon);
+
+    } else if (currentWeapon != nullptr)
+        dequipWeapon();
 }
 
-void Character::DequipWeapon()
+void Character::equipWeapon(Weapon* weapon) {
+    currentWeapon = weapon;
+    addToGroup(weapon);
+    weapon->setPos(0, 0);
+    emit equipWeaponSignal(currentWeapon);
+}
+
+void Character::dequipWeapon()
 {
-    currentWeapon->Unequip();
-    QPoint gridLocation = (this->scenePos()/ 32).toPoint();
-    GridInfo &found = presetMap[0][gridLocation.y()-1][gridLocation.x() - 1];
-    found.AddWeaponToGrid(currentWeapon);
-    currentWeapon= nullptr;
-    weaponUI->unfocusedWeapon();
+    if (currentWeapon == nullptr) return;
+
+    emit dequipWeaponSignal(currentWeapon);
+
+    QPoint currentPos = (pos() / 32).toPoint();
+    currentPos.rx()--;
+    currentPos.ry()--;
+    GridInfo& currentGrid = (*presetMap)[currentPos];
+    removeFromGroup(currentWeapon);
+
+    currentGrid.putWeapon(currentWeapon);
+
+    currentWeapon = nullptr;
 }
 
 void Character::DealDamage(int damage)
 {
-    qDebug()<<"NPPPPPP";
     characterHealth -= damage;
+    health->DecrementBar(damage);
     Harmed();
 }
 
 void Character::Harmed()
 {
     qDebug()<<"THE CURRENT HEALTH IS "<< characterHealth;
+}
+
+void Character::setRotation(qreal angle) {
+    QGraphicsItemGroup::setRotation(angle);
+    health->setRotation(-angle -180);
+
 }
