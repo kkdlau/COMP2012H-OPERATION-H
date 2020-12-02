@@ -6,6 +6,8 @@
 #define SERVER_H
 
 #include <QDialog>
+#include <QVector>
+#include <QString>
 #include "charactermanager.h"
 #include "character.h"
 
@@ -13,6 +15,7 @@ QT_BEGIN_NAMESPACE
 class QLabel;
 class QPushButton;
 class QLocalServer;
+class QTcpServer;
 QT_END_NAMESPACE
 
 class Server : public QDialog
@@ -24,13 +27,16 @@ public:
 
 private slots:
 //    void sendAction();  // assume we only send action commands now
-    void sendGamestats();
+    void send_game_stats();
 
 private:
-    QLocalServer *server;
+    void init_server();
 //    QStringList actions;
-    QStringList gamestats;
-    QString generateGamestats(Character* character);
+//    QStringList gamestats;
+//    QString generateGamestats(Character* character);
+    QLabel *statusLabel = nullptr;
+    QTcpServer *tcpServer = nullptr;
+    QVector<QString> game_stat;
 };
 
 #endif // SERVER_H
