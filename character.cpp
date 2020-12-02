@@ -25,6 +25,7 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     addToGroup(head);
     addToGroup(gun);
     setPos(QPointF{32.0f * 2 + 16, 32.0f * 3});
+    health = new HealthBar(head);
 }
 
 QPointF Character::getPosition() const {

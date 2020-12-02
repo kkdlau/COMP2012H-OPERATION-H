@@ -28,6 +28,7 @@ SOURCES += \
     NewWeapon/rangedweapon.cpp \
     NewWeapon/weapon.cpp \
     NewWeapon/weaponmanager.cpp \
+    UI/healthbar.cpp \
     Pathing/astar.cpp \
     UI/itemframe.cpp \
     Weapons/bullet.cpp \
@@ -63,6 +64,7 @@ HEADERS += \
     NewWeapon/rangedweapon.h \
     NewWeapon/weapon.h \
     NewWeapon/weaponmanager.h \
+    UI/healthbar.h \
     Pathing/astar.h \
     UI/itemframe.h \
     Weapons/bullet.h \
