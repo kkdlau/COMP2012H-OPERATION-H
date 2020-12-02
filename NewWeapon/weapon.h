@@ -21,6 +21,10 @@ public:
     void Unequip();
     int GetWeaponId();
     WeaponType GetWeaponType();
+    //temp implementation
+    QString virtual WeaponDataText() = 0;
+signals:
+    void OnWeaponUpdate(QString);
 protected:
     int weaponId = QRandomGenerator::global()->generate();
     QTimer timer;

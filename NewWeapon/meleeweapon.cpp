@@ -94,3 +94,8 @@ void MeleeWeapon::ResetCharge()
 {
     isCharged = false;
 }
+
+QString MeleeWeapon::WeaponDataText()
+{
+    return "-/-";
+}

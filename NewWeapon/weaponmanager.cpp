@@ -47,7 +47,7 @@ Weapon* WeaponManager::GenerateRandomWeapon()
     {
         tempWeapon =  new RangedWeapon(5,500,500,10);
     }
-    weaponDatabase.append(tempWeapon);
+    AddWeapon(tempWeapon);
     return tempWeapon;
 }
 
@@ -70,53 +70,4 @@ Weapon* WeaponManager::GetWeapon(int weaponId)
     return nullptr;
 }
 
-void WeaponManager::EquipWeapon(int weaponId, QGraphicsItem *owner)
-{
-     qDebug()<<"EQUIP FOUND BABY";
-    Weapon* targetWeapon = GetWeapon(weaponId);
-    if(targetWeapon != nullptr)
-    {
-        qDebug()<<"EQUIPping BABY";
-        targetWeapon->Equip(owner);
-        ChangeWeaponPicture(targetWeapon->pixmap());
-        if(targetWeapon->GetWeaponType() == WeaponType::RANGED)
-        {
-            RangedWeapon* weapon = dynamic_cast<RangedWeapon*>(targetWeapon);
-            ChangeText(weapon->ReturnAmmoString());
-        }
-        else
-        {
-            ChangeText("-//-");
-        }
 
-    }
-}
-
-void WeaponManager::AttackWeapon(int weaponId, int angle)
-{
-    Weapon* targetWeapon = GetWeapon(weaponId);
-    if(targetWeapon != nullptr)
-    {
-        targetWeapon->Attack(angle);
-    }
-    if(targetWeapon->GetWeaponType() == WeaponType::RANGED)
-    {
-        RangedWeapon* weapon = dynamic_cast<RangedWeapon*>(targetWeapon);
-        ChangeText(weapon->ReturnAmmoString());
-    }
-    else
-    {
-        ChangeText("-//-");
-    }
-}
-
-void WeaponManager::DequipWeapon(int weaponId)
-{
-    Weapon* targetWeapon = GetWeapon(weaponId);
-    if(targetWeapon != nullptr)
-    {
-        targetWeapon->Unequip();
-        ChangeWeaponPicture(QPixmap());
-        ChangeText("-//-");
-    }
-}
