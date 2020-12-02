@@ -3,11 +3,11 @@
 #include <QtCore>
 
 #include "server.h"
-#include "mapviewpage.h"
 
 Server::Server(QWidget *parent)
     : QDialog(parent)
     , statusLabel(new QLabel)
+    , game_page(new MapViewPage)
 {
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     statusLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
@@ -18,7 +18,8 @@ Server::Server(QWidget *parent)
     quitButton->setAutoDefault(false);
 
     connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
-    connect(tcpServer, &QTcpServer::newConnection, this, &Server::sendFortune);
+    connect(tcpServer, &QTcpServer::newConnection, this, &Server::send_game_stat);
+    connect(game_page, &MapViewPage::emitKeyboardPressed, this, &Server::send_game_stat);
 
     auto buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch(1);
@@ -69,8 +70,7 @@ void Server::initServer()
     }
 }
 
-void Server::sendFortune()
-{
+void Server::open_game_page() {
     // Some previous settings
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
@@ -87,8 +87,24 @@ void Server::sendFortune()
     clientConnection->disconnectFromHost();
 
     // Opening the actual game page;
-    MapViewPage game_page;
-    game_page.setModal(true);
-    game_page.exec();
+    game_page->setModal(true);
+    game_page->exec();
+}
+
+void Server::send_game_stat() {
+    // Some previous settings
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_10);
+
+    // Sending the data out
+    out << "Connected";
+
+    QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
+    connect(clientConnection, &QAbstractSocket::disconnected,
+            clientConnection, &QObject::deleteLater);
+
+    clientConnection->write(block);
+    clientConnection->disconnectFromHost();
 }
 

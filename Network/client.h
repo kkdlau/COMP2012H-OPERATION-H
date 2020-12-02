@@ -4,6 +4,7 @@
 #include <QDataStream>
 #include <QDialog>
 #include <QTcpSocket>
+#include "mapviewpage.h"
 
 QT_BEGIN_NAMESPACE
 class QComboBox;
@@ -21,7 +22,7 @@ public:
     explicit Client(QWidget *parent = nullptr);
 
 private slots:
-    void requestNewFortune();
+    void send_game_stat();
     void readFortune();
     void displayError(QAbstractSocket::SocketError socketError);
     void enableGetFortuneButton();
@@ -35,6 +36,7 @@ private:
     QTcpSocket *tcpSocket = nullptr;
     QDataStream in;
     QString currentFortune;
+    MapViewPage* game_page;
 };
 
 #endif

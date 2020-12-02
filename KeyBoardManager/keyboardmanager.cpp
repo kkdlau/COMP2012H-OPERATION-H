@@ -43,6 +43,7 @@ void KeyboardManager::pressKey(QKeyEvent* k) {
 			emit comboPressed(*ptr);
 		}
 	}
+    emit emitKeyboardPressed();
 }
 
 void KeyboardManager::releaseKey(QKeyEvent* k) {
