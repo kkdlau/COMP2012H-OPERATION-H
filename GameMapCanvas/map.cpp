@@ -9,8 +9,9 @@ const int Map::GRID_SIZE_W = 32;
 const int Map::GRID_SIZE_H = 32;
 
 Map::Map(QObject* parent, QString resourceName, QString mapConfigFilePath) : QGraphicsScene{parent}, grid{} {
-	mapImg = new QPixmap(resourceName);
-	addPixmap(*mapImg);
+    layer = new QGraphicsItemGroup;
+    layer->addToGroup(new QGraphicsPixmapItem{QPixmap(resourceName)});
+    addItem(layer);
 
     parseMapConfigFile(mapConfigFilePath);
     setSceneRect(0, 0, 320, 320);
@@ -34,7 +35,10 @@ void Map::addObstacle(int posX, int posY) {
     clr.setAlphaF(0.3);
     QBrush tmpBrush{clr};
     QPen tmpPen;
-    test_obstacle = addRect(0, 0, 32, 32, tmpPen, tmpBrush);
+    test_obstacle = new QGraphicsRectItem(0, 0, 32, 32);
+    test_obstacle->setPen(tmpPen);
+    test_obstacle->setBrush(tmpBrush);
+    layer->addToGroup(test_obstacle);
     test_obstacle->setPos(posX * 32.0f, posY *32.0f);
 }
 
@@ -101,8 +105,8 @@ qreal Map::getHeight(Map::UNIT unitRepresent) const {
 }
 
 void Map::mouseMoveEvent(QGraphicsSceneMouseEvent* e) {
-	QGraphicsScene::mouseMoveEvent(e);
-	cursorPos = e->scenePos();
+    QGraphicsScene::mouseMoveEvent(e);
+    cursorPos = layer->mapFromScene(e->scenePos());
 }
 
 QVector<GridInfo>& Map::operator[](const unsigned columnIndex) {
@@ -160,12 +164,16 @@ void Map::drawPath(QList<QPoint> path) {
         QPoint nextP = *(ptr + 1);
         QGraphicsRectItem* rect = new QGraphicsRectItem{p.x() * 32.0f + 10, p.y() * 32.0f + 10, 12, 12};
         rect->setBrush(Qt::black);
-        addLine(p.x() * 32.0f + 16, p.y() * 32.0f + 16, nextP.x() * 32.0f + 16, nextP.y() * 32.0f + 16);
-        addItem(rect);
+        layer->addToGroup(new QGraphicsLineItem{p.x() * 32.0f + 16, p.y() * 32.0f + 16, nextP.x() * 32.0f + 16, nextP.y() * 32.0f + 16});
+        layer->addToGroup(rect);
     }
 
     QGraphicsRectItem* rect = new QGraphicsRectItem{path.last().x() * 32.0f + 10, path.last().y() * 32.0f + 10, 12, 12};
-    addItem(rect);
+    layer->addToGroup(rect);
 }
 
-Map::~Map() { delete mapImg; }
+QGraphicsItemGroup* Map::displayLayer() {
+    return layer;
+}
+
+Map::~Map() {}

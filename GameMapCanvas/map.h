@@ -10,13 +10,14 @@
 #include <QWidget>
 #include <QVector>
 #include "gridinfo.h"
-
+#include <QGraphicsItemGroup>
 using GRID = int;
 using PIXEL = qreal;
 
 class Map : public QGraphicsScene {
    private:
 	QString mapName;
+    QGraphicsItemGroup* layer;
 	QPixmap* mapImg;
 	QPointF cursorPos;
     QVector<QVector<GridInfo>> grid;
@@ -67,6 +68,8 @@ class Map : public QGraphicsScene {
     qreal getHeight(UNIT unitRepresent) const;
 
     void drawPath(QList<QPoint> path);
+
+    QGraphicsItemGroup* displayLayer();
 
 	~Map();
 };

@@ -52,20 +52,11 @@ void Camera::updateVerticalFocus(qreal v) {
 
 
     if (v <= heightHalf) {
-        QRectF rect = canvas->sceneRect();
-        rect.setY(0);
-        rect.setHeight(windowHeight);
-        canvas->setSceneRect(rect);
+        canvas->map->displayLayer()->setY(0);
     } else if (v >= mapHeight - heightHalf) {
-        QRectF rect = canvas->sceneRect();
-        rect.setY(mapHeight - windowHeight);
-        rect.setHeight(windowHeight);
-        canvas->setSceneRect(rect);
+        canvas->map->displayLayer()->setY(-(mapHeight - windowHeight));
     } else {
-        QRectF rect = canvas->sceneRect();
-        rect.setY(v - heightHalf);
-        rect.setHeight(windowHeight);
-        canvas->setSceneRect(rect);
+        canvas->map->displayLayer()->setY(-(v - heightHalf));
     }
 }
 
@@ -74,20 +65,11 @@ void Camera::updateHorizontalFocus(qreal h) {
     const int mapWidth = canvas->map->getWidth(Map::UNIT::PIXEL);
 
     if (h <= widthHalf) {
-        QRectF rect = canvas->sceneRect();
-        rect.setX(0);
-        rect.setWidth(windowWidth);
-        canvas->setSceneRect(rect);
+        canvas->map->displayLayer()->setX(0);
     } else if (h >= mapWidth - widthHalf) {
-        QRectF rect = canvas->sceneRect();
-        rect.setX(mapWidth - windowHeight);
-        rect.setWidth(windowWidth);
-        canvas->setSceneRect(rect);
+        canvas->map->displayLayer()->setX(-(mapWidth - windowHeight));
     } else {
-        QRectF rect = canvas->sceneRect();
-        rect.setX(h - widthHalf);
-        rect.setWidth(windowWidth);
-        canvas->setSceneRect(rect);
+        canvas->map->displayLayer()->setX(-(h - widthHalf));
     }
 }
 

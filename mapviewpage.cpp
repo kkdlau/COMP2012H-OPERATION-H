@@ -31,7 +31,7 @@ MapViewPage::MapViewPage(QWidget* parent)
     ui->gameCanvas->scene->addItem(test);
     //    ui->gameCanvas->character->setTransformOriginPoint(QPointF(16,16));
     //    ui->gameCanvas->character->setOffset(QPointF(-Map::GRID_SIZE_W / 2, -Map::GRID_SIZE_H / 2));
-    ui->gameCanvas->scene->addItem(ui->gameCanvas->character);
+    ui->gameCanvas->map->displayLayer()->addToGroup(ui->gameCanvas->character);
 
     ui->gameCanvas->cameraController->subscribe(ui->gameCanvas->character, &Character::isMoving);
 

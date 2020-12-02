@@ -22,7 +22,9 @@ void GameMapCanvas::scrollContentsBy(int dx, int dy) {
 }
 
 void GameMapCanvas::mouseMoveEvent(QMouseEvent* e) {
-	QGraphicsView::mouseMoveEvent(e);
+    QGraphicsView::mouseMoveEvent(e);
+
+//    map->displayLayer()->mapFromScene(e->);
 
     qreal x = map->get_cursor_on_map().x() - character->pos().x();
     qreal y = map->get_cursor_on_map().y() - character->pos().y();
