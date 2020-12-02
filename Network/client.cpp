@@ -8,7 +8,7 @@ Client::Client(QWidget *parent)
     : QDialog(parent)
     , hostCombo(new QComboBox)
     , portLineEdit(new QLineEdit)
-    , getFortuneButton(new QPushButton(tr("Get Fortune")))
+    , getFortuneButton(new QPushButton(tr("Connect to Server")))
     , tcpSocket(new QTcpSocket(this))
 {
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
