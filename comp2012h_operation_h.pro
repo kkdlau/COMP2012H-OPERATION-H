@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network bluetooth
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network bluetooth multimedia multimediawidgets
 
 CONFIG += c++11
 
