@@ -41,6 +41,8 @@ MapViewPage::MapViewPage(QWidget* parent)
 			&KeyboardManager::releaseKey);
 	connect(&kbManager, &KeyboardManager::comboPressed, this,
 			&MapViewPage::comboHandler);
+    connect(&kbManager, &KeyboardManager::emitKeyboardPressed, this,
+            &MapViewPage::emitKeyboardPressed);
 
 	this->kbManager.addListeningCombo("A")
 		.addListeningCombo("S")

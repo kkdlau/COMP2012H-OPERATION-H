@@ -10,6 +10,7 @@ Client::Client(QWidget *parent)
     , portLineEdit(new QLineEdit)
     , getFortuneButton(new QPushButton(tr("Connect to Server")))
     , tcpSocket(new QTcpSocket(this))
+    , game_page(new MapViewPage())
 {
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 //! [0]
@@ -66,15 +67,12 @@ Client::Client(QWidget *parent)
     connect(portLineEdit, &QLineEdit::textChanged,
             this, &Client::enableGetFortuneButton);
     connect(getFortuneButton, &QAbstractButton::clicked,
-            this, &Client::requestNewFortune);
+            this, &Client::send_game_stat);
     connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
-//! [2] //! [3]
     connect(tcpSocket, &QIODevice::readyRead, this, &Client::readFortune);
-//! [2] //! [4]
     connect(tcpSocket, &QAbstractSocket::errorOccurred,
-//! [3]
             this, &Client::displayError);
-//! [4]
+    connect(game_page, &MapViewPage::emitKeyboardPressed, this, &Client::send_game_stat);
 
     QGridLayout *mainLayout = nullptr;
     if (QGuiApplication::styleHints()->showIsFullScreen() || QGuiApplication::styleHints()->showIsMaximized()) {
@@ -105,7 +103,7 @@ Client::Client(QWidget *parent)
 //! [5]
 
 //! [6]
-void Client::requestNewFortune()
+void Client::send_game_stat()
 {
     getFortuneButton->setEnabled(false);
     tcpSocket->abort();
@@ -121,24 +119,18 @@ void Client::readFortune()
 {
     in.startTransaction();
 
-    QString nextFortune;
-    in >> nextFortune;
+    QString current_stat;
+    in >> current_stat;
 
     if (!in.commitTransaction())
         return;
 
-    if (nextFortune == currentFortune) {
-        QTimer::singleShot(0, this, &Client::requestNewFortune);
-        return;
-    }
 
-    currentFortune = nextFortune;
-    statusLabel->setText(currentFortune);
+    statusLabel->setText(current_stat);
     getFortuneButton->setEnabled(true);
 
-    MapViewPage game_page;
-    game_page.setModal(true);
-    game_page.exec();
+    game_page->setModal(true);
+    game_page->exec();
 }
 //! [8]
 

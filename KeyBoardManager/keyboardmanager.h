@@ -84,6 +84,8 @@ class KeyboardManager : public QObject {
 	 * @param combo Combo to be triggered in string representation
 	 */
 	void comboPressed(const QString& combo);
+
+    void emitKeyboardPressed();
 };
 
 #endif	// KEYBOARDMANAGER_H

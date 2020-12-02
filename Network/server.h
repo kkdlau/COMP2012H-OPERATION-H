@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QString>
 #include <QVector>
+#include "mapviewpage.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -18,7 +19,8 @@ public:
     explicit Server(QWidget *parent = nullptr);
 
 private slots:
-    void sendFortune();
+    void send_game_stat();
+    void open_game_page();
 
 private:
     void initServer();
@@ -26,6 +28,7 @@ private:
     QLabel *statusLabel = nullptr;
     QTcpServer *tcpServer = nullptr;
     QVector<QString> fortunes;
+    MapViewPage* game_page;
 };
 
 #endif

@@ -41,6 +41,7 @@ public:
 signals:
     void keyPressEvent(QKeyEvent*) ;
     void keyReleaseEvent(QKeyEvent*) ;
+    void emitKeyboardPressed();
 };
 
 #endif // MAPVIEWPAGE_H
