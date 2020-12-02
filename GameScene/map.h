@@ -14,7 +14,7 @@
 using GRID = int;
 using PIXEL = qreal;
 
-class Map : public QGraphicsScene {
+class Map : public QGraphicsItemGroup {
    private:
 	QString mapName;
     QGraphicsItemGroup* layer;
@@ -40,12 +40,11 @@ class Map : public QGraphicsScene {
     void gridInfoinitialize(int w, int h, int baseHeight = 0);
 
    public:
-       enum class UNIT {PIXEL, GRID};
+    enum class UNIT {PIXEL, GRID};
     static const int GRID_SIZE_W;
     static const int GRID_SIZE_H;
-    QGraphicsRectItem* test_obstacle;
 
-    Map(QObject* parent, QString resourceName, QString mapConfigFilePath);
+    Map(QString imgPath, QString configFilePath);
 
 	void mouseMoveEvent(QGraphicsSceneMouseEvent* e) override;
 
@@ -68,8 +67,6 @@ class Map : public QGraphicsScene {
     qreal getHeight(UNIT unitRepresent) const;
 
     void drawPath(QList<QPoint> path);
-
-    QGraphicsItemGroup* mapLayer();
 
 	~Map();
 };

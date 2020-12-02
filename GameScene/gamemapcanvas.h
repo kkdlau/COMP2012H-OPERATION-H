@@ -6,17 +6,17 @@
 #include <QMouseEvent>
 #include <QString>
 #include "../character.h"
+#include "GameScene/overlay.h"
 
 class Camera;
 
 class GameMapCanvas : public QGraphicsView {
    public:
 	GameMapCanvas(QWidget* widget);
-	Map* map;
     Camera* cameraController;
 
     Character* character;
-	QGraphicsScene* scene;
+    Overlay* scene;
 
     void scrollContentsBy(int dx, int dy) override;
 
