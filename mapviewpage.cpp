@@ -22,12 +22,9 @@ MapViewPage::MapViewPage(QWidget* parent)
 	ui->gameCanvas->character = characterManager->generate_random_character();
 	ItemFrame* playerItemFrame = ui->gameCanvas->scene->getItemFrame();
 	playerItemFrame->characterSingalSetup(ui->gameCanvas->character);
-	QRectF screenSize = ui->gameCanvas->scene->sceneRect();
-    playerItemFrame->setPos(screenSize.width() - 64, screenSize.height() -64);
-
-
+    playerItemFrame->setPos(250,250);
     Enemy* test = characterManager->generate_random_enemy();
-    test->setDestination(ui->gameCanvas->character);
+    //test->setDestination(ui->gameCanvas->character);
     test->equipWeapon(weaponManager->GenerateRandomWeapon());
     //	test->setPos(100, 100);
     ui->gameCanvas->scene->mapLayer()->addToGroup(test);
@@ -37,7 +34,7 @@ MapViewPage::MapViewPage(QWidget* parent)
 												&Character::isMoving);
 	Map* something = ui->gameCanvas->scene->mapLayer();
 
-	GridInfo& idk = (*something)[3][3];
+    GridInfo& idk = (*something)[8][2];
 	idk.putWeapon(weaponManager->GenerateRandomWeapon());
 
 	controller.control(ui->gameCanvas->character);

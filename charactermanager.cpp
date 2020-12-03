@@ -116,6 +116,7 @@ void CharacterManager::dispose_from_map(Character *charData)
     if(is_character_exist(charData))
     {
         disconnect(charData, &Character::deadSignal, this, &CharacterManager::delete_character);
+        charData->dequipWeapon();
         map->removeFromGroup(charData);
         charData->setVisible(false);
         qDebug()<<"CHAR LEFT: "<<characterDatabase.length();
@@ -127,10 +128,11 @@ void CharacterManager::dispose_from_map(Character *charData)
                 remainingPlayer++;
             }
         }
-        if(characterDatabase.length() <= 1)
+        if(remainingPlayer <= 1)
         {
             temp_function();
-            delete this;
+            //TODO: Insert endgame
+
         }
     }
     else

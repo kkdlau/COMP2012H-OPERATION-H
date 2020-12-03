@@ -401,17 +401,13 @@ void Character::equipWeapon(Weapon* weapon) {
 void Character::dequipWeapon()
 {
     if (currentWeapon == nullptr) return;
-
-    emit dequipWeaponSignal(currentWeapon);
-
     QPoint currentPos = (pos() / 32).toPoint();
     currentPos.rx()--;
     currentPos.ry()--;
     GridInfo& currentGrid = (*presetMap)[currentPos];
     removeFromGroup(currentWeapon);
-
     currentGrid.putWeapon(currentWeapon);
-
+    emit dequipWeaponSignal(currentWeapon);
     currentWeapon = nullptr;
 }
 
