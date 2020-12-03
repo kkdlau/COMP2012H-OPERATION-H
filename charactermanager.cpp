@@ -6,17 +6,17 @@ CharacterManager *CharacterManager::instance = nullptr;
 
 CharacterManager::CharacterManager()
 {
-    qDebug()<<"INITIAL "<<characterDatabase.length();
 }
 
 CharacterManager::~CharacterManager()
 {
     qDebug()<<"INITIAL "<<characterDatabase.length();
     reset_character_manager();
+    instance = nullptr;
     //check leak in instance
 }
 
-CharacterManager *CharacterManager::get_instance()
+CharacterManager *CharacterManager::getInstance()
 {
     if(instance == nullptr)
     {
@@ -63,13 +63,12 @@ void CharacterManager::delete_character(Character* charData)
 {
     if(is_character_exist(charData))
     {
-        qDebug()<<"DELETING THE CHARACTER BITCH";
         disconnect(charData, &Character::deadSignal, this, &CharacterManager::delete_character);
         map->removeFromGroup(charData);
         delete charData;
         characterDatabase.removeOne(charData);
         qDebug()<<"CHAR LEFT: "<<characterDatabase.length();
-        if(characterDatabase.length() <= 1)
+        if(characterDatabase.length() <= 1 && !deleting)
         {
             temp_function();
         }
@@ -86,7 +85,6 @@ Character* CharacterManager::generate_random_character()
     {
         Character* newChar = new Character{5, map};
         add_character(newChar);
-        qDebug()<<"NEW CHAR MADE "<<characterDatabase.length();
         return newChar;
 
     }
@@ -121,7 +119,8 @@ void CharacterManager::temp_function()
 
 void CharacterManager::reset_character_manager()
 {
-    for(int i = 0; i < characterDatabase.length(); i++)
+    deleting = true;
+    for(int i = characterDatabase.length() - 1; i >= 0; i--)
     {
         delete_character(characterDatabase[i]);
     }

@@ -1,12 +1,14 @@
 #include "enemy.h"
 #include "mapviewpage.h"
 #include "qdebug.h"
+#include <QtMath>
+#include "Pathing/astar.h"
 
 Enemy::Enemy(Map* map, int moveSpeed, Character *target) : Character(moveSpeed, map), moveSpeed(moveSpeed), target(target)
 {
     connect(&timer, &QTimer::timeout, this, &Enemy::action);
     connect(this, &Character::blockByObstacle, this, &Enemy::unblock);
-    timer.start(300);
+    timer.start(150);
 }
 
 void Enemy::setDestination(Character* target)
@@ -18,18 +20,25 @@ void Enemy::action()
 {
     if(target != nullptr)
     {
+        AStar pathing{*presetMap};
+        qDebug()<<"POSITIONS ORIGIN: "<<(pos()/32).toPoint()<< "TARGET: "<<(target->pos()/32).toPoint();
+
+        QList<QPoint> pathToTake = pathing.search((pos()/32).toPoint(), (target->pos()/32).toPoint());
+        qDebug()<<"LIST:"<<pathToTake;
+        presetMap->drawPath(pathToTake);
         QLineF drawLine(this->scenePos(), target->scenePos());
-        move(drawLine);
-        attack(drawLine);
+        setRotation(qRadiansToDegrees(qAtan2(drawLine.dx(), drawLine.dy())) * -1 + 90);
+        move(pathToTake[1]*32);
+//        attack(drawLine);
     }
 
 }
-void Enemy::move(QLineF drawLine)
+void Enemy::move(QPoint point)
 {
     if(target != nullptr)
-    {
-        drawLine.setLength(moveSpeed/30);
-        moveBy(drawLine.dx(), drawLine.dy());
+    {   QLineF pathLine(this->scenePos(), point);
+        pathLine.setLength(5);
+        moveBy(pathLine.dx(), pathLine.dy());
     }
 }
 

@@ -22,6 +22,10 @@ ItemFrame::ItemFrame()
 ItemFrame::~ItemFrame()
 {
     delete layout;
+    if(currentFocusedWeapon != nullptr)
+    {
+        unfocusedWeapon(currentFocusedWeapon);
+    }
     delete weaponImage;
     delete labelProxy;
 }

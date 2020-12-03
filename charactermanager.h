@@ -72,10 +72,9 @@ public:
      * @brief return an instance of character_manager.
      * @return *character_manager
      */
-    static CharacterManager *get_instance();
+    static CharacterManager *getInstance();
     Character* generate_random_character();
     Enemy* generate_random_enemy();
-    //delete tmrw
     void temp_function();
     void set_map(Map* map);
 private:
@@ -88,6 +87,7 @@ private:
     */
    QList<Character*> characterDatabase;
    Map* map;
+   bool deleting = false;
 };
 
 #endif // CHARACTERMANAGER_H

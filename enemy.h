@@ -18,7 +18,7 @@ public:
     void setDestination(Character*);
     void unblock(MOVE_DIRECTION);
     void action();
-    void move(QLineF distance);
+    void move(QPoint point);
     void attack(QLineF distance);
     virtual void Harmed();
     ~Enemy();

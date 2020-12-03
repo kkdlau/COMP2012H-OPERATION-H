@@ -91,7 +91,8 @@ public:
     int maxHealth = 10;
     //SAMPLE WEAPON TEST STEVEN
     void setRotation(qreal degree);
-
+protected:
+    Map* presetMap;
 private:
     float spd{10};
     QString characterName;
@@ -103,7 +104,6 @@ private:
     QGraphicsPixmapItem* head;
     QGraphicsPixmapItem* gun; // for testing purpose
     HealthBar* health;
-    Map* presetMap;
     int curWeaponID;
 
     bool move_state{false}; // if last moment was moving, then true, otherwise false

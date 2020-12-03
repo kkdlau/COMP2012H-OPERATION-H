@@ -9,6 +9,7 @@ class Overlay: public QGraphicsScene
 {
 public:
     Overlay(QString imgPath, QString configFilePath);
+    ~Overlay();
     Map* mapLayer();
     ItemFrame* getItemFrame();
 

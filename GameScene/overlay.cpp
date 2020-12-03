@@ -8,6 +8,11 @@ Overlay::Overlay(QString imgPath, QString configFilePath) {
     addItem(itemFrame);
 }
 
+Overlay::~Overlay()
+{
+    delete itemFrame;
+}
+
 void Overlay::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) {
     QGraphicsScene::mousePressEvent(mouseEvent);
     mapLayer()->updateCursorPos(mapLayer()->mapFromScene(mouseEvent->scenePos()));

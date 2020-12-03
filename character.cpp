@@ -34,6 +34,7 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     addToGroup(gun);
     setPos(QPointF{32.0f * 2 + 16, 32.0f * 3});
     health = new HealthBar(head, characterHealth, maxHealth);
+    setRotation(0);
 
     // fk idk wt im doing
 //    footstep_sound.setMedia(QUrl::fromLocalFile("C:/Users/kfche/Documents/GitHub/COMP2012H-OPERATION-H/assets/footsteps.wav"));  // uncomment me and change path
@@ -45,6 +46,10 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
 Character::~Character()
 {
     delete head;
+    if(currentWeapon != nullptr)
+    {
+        dequipWeapon();
+    }
     delete gun;
 }
 

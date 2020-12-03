@@ -9,7 +9,10 @@ WeaponManager::WeaponManager()
 }
 
 WeaponManager::~WeaponManager(){
-    qDebug()<<"SINCE IT FUKIN ACCESSED IT IT MEANS ITS DELETED";
+    for(int i = 0; i < weaponDatabase.length(); i++)
+    {
+        delete weaponDatabase[i];
+    }
     Instance = nullptr; //TODO ID FUCKIN KNOW
 }
 WeaponManager* WeaponManager::getInstance()
