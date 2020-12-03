@@ -13,11 +13,6 @@ Map::Map(QString imgPath, QString configFilePath): grid{} {
     addToGroup(new QGraphicsPixmapItem{QPixmap(imgPath)});
 
     parseMapConfigFile(configFilePath);
-
-    AStar pathing{*this};
-
-
-    drawPath(pathing.search(QPoint{0, 0}, QPoint{18, 18}));
 }
 
 void Map::addObstacle(int posX, int posY) {
