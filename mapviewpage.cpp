@@ -54,7 +54,10 @@ MapViewPage::MapViewPage(QWidget* parent)
 	timer.setInterval(50);
 	timer.start();
 	connect(&timer, &QTimer::timeout, this,
-			[&]() { controller.updateKeyHoldingControl(); });
+            [&]() {
+                controller.updateKeyHoldingControl();
+//ui->gameCanvas->character->moveTo(3, 3);
+            });
 }
 
 void MapViewPage::keyPressEvent(QKeyEvent* e) {

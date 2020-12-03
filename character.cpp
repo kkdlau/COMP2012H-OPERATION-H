@@ -20,19 +20,19 @@ Character::Character(QString name, int health, int stepValue, Map* map) : charac
 //    connect(this, &Character::startMoving, this, &Character::test_slot);
 }
 
-Character::Character(const QStringList data, int stepValue, Map* map): stepValue{stepValue}, presetMap{map}
+Character::Character(const QStringList data, int stepValue, Map* map): stepValue{stepValue}, presetMap{map}, aimPos{-1, -1}
 {
 
 }
 
-Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{map} {
+Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{map}, aimPos{-1, -1} {
     head = new QGraphicsPixmapItem(QPixmap(":character_test"));
     head->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
     head->setOffset(QPointF(-Character::WIDTH / 2, -Character::HEIGHT / 2));
     gun = new QGraphicsPixmapItem();
     addToGroup(head);
     addToGroup(gun);
-    setPos(QPointF{32.0f * 2 + 16, 32.0f * 3});
+    setPos(QPointF{32* 4 + 16, 32 * 4 + 16});
     health = new HealthBar(head, characterHealth, maxHealth);
     setRotation(0);
 
@@ -53,12 +53,15 @@ Character::~Character()
     delete gun;
 }
 
+QPoint Character::getGridPos() const {
+    return QPoint{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
+}
 void Character::setMovementVector(QVector2D v) {
     moveVector = v;
 }
 
 void Character::moveYPositive(int dy) {
-    QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
+    QPoint p = getGridPos();
 
     if (p.y() == presetMap->getHeight(Map::UNIT::GRID) - 1) {
         if (pos().y() + 16 + dy >  presetMap->getHeight(Map::UNIT::PIXEL)) {
@@ -97,7 +100,7 @@ void Character::moveYPositive(int dy) {
 
 void Character::moveYNegative(int dy) {
 
-    QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
+    QPoint p = getGridPos();
 
     if (p.y() == 0) {
         if (pos().y() - 16 + dy <  0) {
@@ -133,7 +136,7 @@ void Character::moveYNegative(int dy) {
 }
 
 void Character::moveXPositive(int dx) {
-    QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
+    QPoint p = getGridPos();
 
     if (p.x() == presetMap->getWidth(Map::UNIT::GRID) - 1) {
         if (pos().x() + 16 + dx >  presetMap->getWidth(Map::UNIT::PIXEL)) {
@@ -172,7 +175,7 @@ void Character::moveXPositive(int dx) {
 }
 
 void Character::moveXNegative(int dx) {
-    QPoint p{qFloor(pos().x() / 32.0), qFloor(pos().y() / 32.0)};
+    QPoint p = getGridPos();
 
     if (p.x() == 0) {
         if (pos().x() - 16 + dx < 0) {
@@ -272,6 +275,16 @@ void Character::setPositionX(qreal p) {
         moveXNegative(diff);
     }
 
+    if (aimPos.x() != -1) {
+        float realX = aimPos.x() * 32 + 16;
+        if (qAbs(realX - pos().x()) < 2) {
+            setX(realX);
+            animationX->stop();
+
+            aimPos.rx() = -1;
+        }
+    }
+
     emit isMoving(this->pos());
 }
 
@@ -283,10 +296,43 @@ void Character::setPositionY(qreal p) {
         moveYNegative(diff);
     }
 
+    if (aimPos.y() != -1) {
+        float realY = aimPos.y() * 32 + 16;
+        if (qAbs(realY - pos().y()) < 2) {
+            setY(realY);
+            animationY->stop();
+            aimPos.ry() = -1;
+        }
+    }
+
      emit isMoving(this->pos());
 }
 
+void Character::moveTo(int x, int y) {
+    QPoint tmp = QPoint{x, y};
+    QPoint aimPosReal = QPoint{x * 32 + 16, y * 32 + 16};
+    QPoint diff = getGridPos() - tmp;
 
+    if (qAbs(diff.x()) + qAbs(diff.y()) > 2) {
+        aimPos = {-1, -1};
+        return; // do nothing if the given position is not a neighbor grid
+    }
+
+    unsigned direction = 0;
+    aimPos = tmp;
+    QPoint diffReal = aimPosReal - pos().toPoint();
+    if (diffReal.x() > 0) direction |= MOVE_DIRECTION::RIGHT;
+    if (diffReal.x() < 0) direction |= MOVE_DIRECTION::LEFT;
+    if (diffReal.y() > 0) direction |= MOVE_DIRECTION::DOWN;
+    if (diffReal.y() < 0) direction |= MOVE_DIRECTION::UP;
+
+    QVector2D v = getMovementvector(direction);
+    moveBy(v.x(), v.y());
+}
+
+void Character::moveTo(QPoint p) {
+    moveTo(p.x(), p.y());
+}
 
 QString Character::get_name() const
 {
