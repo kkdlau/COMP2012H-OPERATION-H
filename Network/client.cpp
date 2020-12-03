@@ -52,6 +52,7 @@ Client::Client(QWidget *parent)
     getFortuneButton->setEnabled(false);
 
     auto quitButton = new QPushButton(tr("Quit"));
+    auto sendButton = new QPushButton(tr("Send"));
 
     auto buttonBox = new QDialogButtonBox;
     buttonBox->addButton(getFortuneButton, QDialogButtonBox::ActionRole);
@@ -67,9 +68,10 @@ Client::Client(QWidget *parent)
     connect(portLineEdit, &QLineEdit::textChanged,
             this, &Client::enableGetFortuneButton);
     connect(getFortuneButton, &QAbstractButton::clicked,
-            this, &Client::send_game_stat);
+            this, &Client::start_connection);
     connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
     connect(tcpSocket, &QIODevice::readyRead, this, &Client::readFortune);
+    connect(tcpSocket, &QIODevice::readyRead, this, &Client::send_game_stat);
     connect(tcpSocket, &QAbstractSocket::errorOccurred,
             this, &Client::displayError);
 
@@ -99,21 +101,15 @@ Client::Client(QWidget *parent)
     portLineEdit->setFocus();
 //! [5]
 }
-//! [5]
 
-//! [6]
-void Client::send_game_stat()
+void Client::start_connection()
 {
     getFortuneButton->setEnabled(false);
     tcpSocket->abort();
-//! [7]
     tcpSocket->connectToHost(hostCombo->currentText(),
                              portLineEdit->text().toInt());
-//! [7]
 }
-//! [6]
 
-//! [8]
 void Client::readFortune()
 {
     in.startTransaction();
@@ -124,16 +120,17 @@ void Client::readFortune()
     if (!in.commitTransaction())
         return;
 
+    if (current_stat == "Connected") {
+        send_game_stat();
+    }
+
 
     statusLabel->setText(current_stat);
     getFortuneButton->setEnabled(true);
 
-    game_page->setModal(true);
-    game_page->exec();
+    in.abortTransaction();
 }
-//! [8]
 
-//! [13]
 void Client::displayError(QAbstractSocket::SocketError socketError)
 {
     switch (socketError) {
@@ -163,7 +160,41 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
 void Client::set_game_page(MapViewPage* input_page) {
     game_page = input_page;
 }
-//! [13]
+
+void Client::compose_game_stats() {
+    QList<Character*> list_of_characters = game_page->get_character_manager()->get_all_characters();
+    game_stats << tr("START");
+    for (int i = 0; i < list_of_characters.size(); i++) {
+        game_stats << tr(QString(QString("Character")+ i).toStdString().c_str())
+                   << tr(list_of_characters.at(i)->get_name().toStdString().c_str())
+                   << tr(QString::number(list_of_characters.at(i)->getPositionX()).toStdString().c_str())
+                   << tr(QString::number(list_of_characters.at(i)->getPositionY()).toStdString().c_str())
+                   << tr(QString::number(list_of_characters.at(i)->rotation()).toStdString().c_str())
+                   << tr(QString::number(list_of_characters.at(i)->get_health()).toStdString().c_str());
+    }
+    game_stats << tr("END");
+}
+
+
+void Client::send_game_stat() {
+    // Some previous settings
+    qDebug("Sending game stats from the client side");
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_10);
+
+    // TODO: Send the list of game stats
+    compose_game_stats();
+    for (int i = 0; i < game_stats.size(); i++)
+    out << game_stats[i];
+
+//    connect(clientConnection, &QAbstractSocket::disconnected,
+//            clientConnection, &QObject::deleteLater);
+
+    tcpSocket->write(block);
+//    clientConnection->disconnectFromHost();
+    game_stats.clear();
+}
 
 void Client::enableGetFortuneButton()
 {

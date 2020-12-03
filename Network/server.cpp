@@ -1,28 +1,53 @@
 #include <QtWidgets>
 #include <QtNetwork>
 #include <QtCore>
-
+#include <QString>
+#include <QTimer>
 #include "server.h"
 
 Server::Server(QWidget *parent)
     : QDialog(parent)
     , statusLabel(new QLabel)
+    , clientConnection(new QTcpSocket(this))
+    , timer(new QTimer(this))
 {
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     statusLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
     initServer();
 
+
     auto quitButton = new QPushButton(tr("Quit"));
     quitButton->setAutoDefault(false);
+    auto testButton = new QPushButton(tr("test"));
+    testButton->setAutoDefault(false);
+    auto openScreenButton = new QPushButton(tr("open"));
+    openScreenButton->setAutoDefault(false);
+
+    in.setDevice(clientConnection);
+    in.setVersion(QDataStream::Qt_4_0);
 
     connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
-    connect(tcpServer, &QTcpServer::newConnection, this, &Server::send_game_stat);
+    connect(testButton, &QAbstractButton::clicked, this, &Server::send_game_stat);
+    connect(openScreenButton, &QAbstractButton::clicked, this, &Server::exec_game_page);
+//    connect(tcpServer, &QTcpServer::newConnection, this, &Server::send_game_stat);
+//    connect(tcpServer, &QTcpServer::newConnection, this, &Server::exec_game_page);
+    connect(tcpServer, &QTcpServer::newConnection, this, &Server::send_connected_signal);
+    connect(clientConnection, &QTcpSocket::readyRead, this, &Server::send_game_stat);
+    connect(clientConnection, &QTcpSocket::readyRead, this, &Server::debug_readyread);
+    connect(clientConnection, &QTcpSocket::readyRead, this, &Server::read_game_stat);
+    connect(timer, &QTimer::timeout, this, &Server::send_game_stat);
+    connect(timer, &QTimer::timeout, this, &Server::debug_timer);
 
     auto buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch(1);
     buttonLayout->addWidget(quitButton);
     buttonLayout->addStretch(1);
+    buttonLayout->addWidget(testButton);
+    buttonLayout->addStretch(1);
+    buttonLayout->addWidget(openScreenButton);
+    buttonLayout->addStretch(1);
+
 
     QVBoxLayout *mainLayout = nullptr;
     if (QGuiApplication::styleHints()->showIsFullScreen() || QGuiApplication::styleHints()->showIsMaximized()) {
@@ -43,7 +68,9 @@ Server::Server(QWidget *parent)
     mainLayout->addWidget(statusLabel);
     mainLayout->addLayout(buttonLayout);
 
+
     setWindowTitle(QGuiApplication::applicationDisplayName());
+
 }
 
 void Server::initServer()
@@ -68,6 +95,13 @@ void Server::initServer()
     }
 }
 
+void Server::debug_timer() {
+    qDebug("timer once");
+}
+void Server::debug_readyread() {
+    qDebug("read once");
+}
+
 void Server::open_game_page() {
     // Some previous settings
     QByteArray block;
@@ -75,7 +109,7 @@ void Server::open_game_page() {
     out.setVersion(QDataStream::Qt_5_10);
 
     // Sending the data out
-    out << "Connected";
+    out << tr("Connected");
 
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
     connect(clientConnection, &QAbstractSocket::disconnected,
@@ -89,24 +123,90 @@ void Server::open_game_page() {
     game_page->exec();
 }
 
+void Server::compose_game_stats() {
+    QList<Character*> list_of_characters = game_page->get_character_manager()->get_all_characters();
+    game_stats.clear();
+    game_stats << tr("START");
+    for (int i = 0; i < list_of_characters.size(); i++) {
+        game_stats << tr(QString(QString("Character")+ i).toStdString().c_str())
+                   << tr(list_of_characters.at(i)->get_name().toStdString().c_str())
+                   << tr(QString::number(list_of_characters.at(i)->getPositionX()).toStdString().c_str())
+                   << tr(QString::number(list_of_characters.at(i)->getPositionY()).toStdString().c_str())
+                   << tr(QString::number(list_of_characters.at(i)->rotation()).toStdString().c_str())
+                   << tr(QString::number(list_of_characters.at(i)->get_health()).toStdString().c_str());
+    }
+    game_stats << tr("END");
+}
+
 void Server::set_game_page(MapViewPage* input_page) {
     game_page = input_page;
 }
 
-void Server::send_game_stat() {
-    // Some previous settings
+void Server::exec_game_page() {
+    game_page->setModal(true);
+    game_page->show();
+}
+
+void Server::read_game_stat()
+{
+    in.startTransaction();
+
+    QString current_stat;
+    in >> current_stat;
+
+    if (!in.commitTransaction())
+        return;
+
+    if (current_stat == "Connected") {
+        send_game_stat();
+    }
+
+
+    qDebug() << "Received Stuff";
+
+    in.abortTransaction();
+}
+
+
+void Server::send_connected_signal() {
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_10);
 
-    // Sending the data out
-    out << "Connected";
+    QString connected_string("Connected");
+    game_stats << connected_string;
 
-    QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
-    connect(clientConnection, &QAbstractSocket::disconnected,
-            clientConnection, &QObject::deleteLater);
+    out << game_stats[0];
+
+    clientConnection = tcpServer->nextPendingConnection();
+    qDebug() << "Current Client Connection" << clientConnection;
+    qDebug() << "Current Connection address from:"<< clientConnection->peerAddress();
+    qDebug() << "Current Connection port from:"<< clientConnection->peerPort();
+
+//    connect(clientConnection, &QAbstractSocket::disconnected,
+//            clientConnection, &QObject::deleteLater);
 
     clientConnection->write(block);
-    clientConnection->disconnectFromHost();
+    timer->start(500);
+//    clientConnection->disconnectFromHost();
 }
 
+
+void Server::send_game_stat() {
+    // Some previous settings
+    qDebug("Sending game stats from the server side");
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_10);
+
+    // TODO: Send the list of game stats
+    compose_game_stats();
+    for (int i = 0; i < game_stats.size(); i++)
+    out << game_stats[i];
+
+//    connect(clientConnection, &QAbstractSocket::disconnected,
+//            clientConnection, &QObject::deleteLater);
+
+    clientConnection->write(block);
+//    clientConnection->disconnectFromHost();
+}

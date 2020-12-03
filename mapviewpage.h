@@ -43,6 +43,7 @@ private:
     WeaponManager* weaponManager;
 
 public:
+    CharacterManager* get_character_manager();
     void mouseMoveEvent(QMouseEvent*) override;
     void onMouseEvent(const QString& eName, const QPoint& p);
     void keyPressEvent(QKeyEvent*) override;
