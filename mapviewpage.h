@@ -50,6 +50,8 @@ public:
     void keyReleaseEvent(QKeyEvent*) override;
 signals:
     void emitKeyboardPressed();
+private slots:
+    void on_buttonBox_clicked(QAbstractButton *button);
 };
 
 #endif // MAPVIEWPAGE_H

@@ -391,6 +391,7 @@ void Character::pickWeapon() {
 void Character::equipWeapon(Weapon* weapon) {
     currentWeapon = weapon;
     addToGroup(weapon);
+    weapon->setPos(0, 0); // reset the position: previous position is position of map, it should relative to character now
     weapon->OffsetWeaponPickUp();
     weapon->setRotation(rotation());
     emit equipWeaponSignal(currentWeapon);

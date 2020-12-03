@@ -6,7 +6,7 @@
 #include <QPointF>
 #include <QTimeLine>
 #include <iostream>
-
+#include <QDialogButtonBox>
 #include "UI/itemframe.h"
 #include "enemy.h"
 #include "ui_mapviewpage.h"
@@ -48,6 +48,7 @@ MapViewPage::MapViewPage(QWidget* parent)
     connect(ui->gameCanvas->character, &Character::deadSignal, this, [&]() {
        controller.unControl();
     });
+
 }
 
 void MapViewPage::keyPressEvent(QKeyEvent* e) {
@@ -75,4 +76,9 @@ MapViewPage::~MapViewPage() {
 void MapViewPage::initializeManager() {
 	weaponManager = WeaponManager::getInstance();
 	characterManager = CharacterManager::getInstance();
+}
+
+void MapViewPage::on_buttonBox_clicked(QAbstractButton *button)
+{
+    delete this;
 }
