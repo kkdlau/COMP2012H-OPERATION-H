@@ -45,11 +45,11 @@ Weapon* WeaponManager::GenerateRandomWeapon()
     Weapon* tempWeapon;
     if(number == 1)
     {
-        tempWeapon = new MeleeWeapon(10,50,500);
+        tempWeapon = new MeleeWeapon(20,50,500);
     }
     else
     {
-        tempWeapon =  new RangedWeapon(5,500,500,10);
+        tempWeapon =  new RangedWeapon(20,500,500,10);
     }
     AddWeapon(tempWeapon);
     return tempWeapon;

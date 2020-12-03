@@ -22,32 +22,19 @@ MapViewPage::MapViewPage(QWidget* parent)
 	ui->gameCanvas->character = characterManager->generate_random_character();
 	ItemFrame* playerItemFrame = ui->gameCanvas->scene->getItemFrame();
 	playerItemFrame->characterSingalSetup(ui->gameCanvas->character);
-	QRectF screenSize = ui->gameCanvas->scene->sceneRect();
-    playerItemFrame->setPos(screenSize.width() - 64, screenSize.height() -64);
-
-
+    playerItemFrame->setPos(250,250);
     Enemy* test = characterManager->generate_random_enemy();
-    test->setDestination(ui->gameCanvas->character);
-	// test->equipWeapon(weaponManager->GenerateRandomWeapon());
+    //test->setDestination(ui->gameCanvas->character);
+    test->equipWeapon(weaponManager->GenerateRandomWeapon());
     //	test->setPos(100, 100);
     ui->gameCanvas->scene->mapLayer()->addToGroup(test);
 	ui->gameCanvas->scene->mapLayer()->addToGroup(ui->gameCanvas->character);
 
 	ui->gameCanvas->cameraController->subscribe(ui->gameCanvas->character,
 												&Character::isMoving);
-
-	//	connect(this, &MapViewPage::keyPressEvent, &kbManager,
-	//			&KeyboardManager::pressKey);
-	//	connect(this, &MapViewPage::keyReleaseEvent, &kbManager,
-	//			&KeyboardManager::releaseKey);
-	//	connect(&kbManager, &KeyboardManager::comboPressed, this,
-	//			&MapViewPage::comboHandler);
-	//    connect(&kbManager, &KeyboardManager::emitKeyboardPressed, this,
-	//            &MapViewPage::emitKeyboardPressed);
-
 	Map* something = ui->gameCanvas->scene->mapLayer();
 
-	GridInfo& idk = (*something)[3][3];
+    GridInfo& idk = (*something)[8][2];
 	idk.putWeapon(weaponManager->GenerateRandomWeapon());
 
 	controller.control(ui->gameCanvas->character);
@@ -58,6 +45,10 @@ MapViewPage::MapViewPage(QWidget* parent)
                 controller.updateKeyHoldingControl();
 //ui->gameCanvas->character->moveTo(3, 3);
             });
+
+    connect(ui->gameCanvas->character, &Character::deadSignal, this, [&]() {
+       controller.unControl();
+    });
 }
 
 void MapViewPage::keyPressEvent(QKeyEvent* e) {

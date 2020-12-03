@@ -13,12 +13,18 @@ void RangedWeapon::Attack(int angle)
     {
         --currentBullet;
         isShooting = true;
-        Bullet *bulletShot = new Bullet(5, angle, this->x(), this->y(), parentItem()); //fix this
-        scene()->addItem(bulletShot);
-        bulletShot->setPos(this->scenePos());
-        attackAnimation.start();
-        timer.singleShot(attackSpeed/maxBullet, this, &RangedWeapon::ResetShootState);
-        emit OnWeaponUpdate(WeaponDataText());
+        Bullet *bulletShot = new Bullet(5, angle, this->scenePos().x(), this->scenePos().y(), parentItem()->parentItem());
+        QGraphicsItemGroup *test = dynamic_cast<QGraphicsItemGroup*>(parentItem()->parentItem());
+        if(test)
+        {
+            test->addToGroup(bulletShot);
+            bulletShot->setPos(this->scenePos());//fix this
+            qDebug()<<this->scenePos()<<"BULLEEETT CORRDS";
+            attackAnimation.start();
+            timer.singleShot(attackSpeed/maxBullet, this, &RangedWeapon::ResetShootState);
+            emit OnWeaponUpdate(WeaponDataText());
+        }
+
     }
     else if (currentBullet <= 0)
     {
@@ -49,6 +55,7 @@ void RangedWeapon::ResetReloadState()
     isReloading = false;
 }
 
+
 QString RangedWeapon::WeaponDataText()
 {
     return QString::number(currentBullet) + "/" + QString::number(maxBullet);
@@ -59,11 +66,11 @@ void RangedWeapon::InitializeAttackAnimation()
     QPropertyAnimation *startAnimation = new QPropertyAnimation(this, "pos");
     startAnimation->setDuration(attackSpeed/2);
     startAnimation->setStartValue(QPoint(0,0));
-    startAnimation->setEndValue(QPoint(-30,0));
+    startAnimation->setEndValue(QPoint(-5,0));
     attackAnimation.addAnimation(startAnimation);
     QPropertyAnimation *endAnimation = new QPropertyAnimation(this, "pos");
     endAnimation->setDuration(attackSpeed/2);
-    endAnimation->setStartValue(QPoint(-30,0));
+    endAnimation->setStartValue(QPoint(-5,0));
     endAnimation->setEndValue(QPoint(0,0));
     attackAnimation.addAnimation(endAnimation);
 

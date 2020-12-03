@@ -8,7 +8,7 @@ Enemy::Enemy(Map* map, int moveSpeed, Character *target) : Character(moveSpeed, 
 {
     connect(&timer, &QTimer::timeout, this, &Enemy::action);
     connect(this, &Character::blockByObstacle, this, &Enemy::unblock);
-    timer.start(200);
+    timer.start(50);
     setPos(QPointF{32* 3 + 16, 32 * 5 + 16});
 }
 
@@ -19,22 +19,17 @@ void Enemy::setDestination(Character* target)
 
 void Enemy::action()
 {
-    if(target != nullptr)
+    if(target != nullptr && target->is_alive())
     {
         move();
-//        AStar pathing{*presetMap};
-//        qDebug()<<"POSITIONS ORIGIN: "<<(pos()/32).toPoint()<< "TARGET: "<<(target->pos()/32).toPoint();
-
-//        QList<QPoint> pathToTake = pathing.search((pos()/32).toPoint(), (target->pos()/32).toPoint());
-//        qDebug()<<"LIST:"<<pathToTake;
-//        presetMap->drawPath(pathToTake);
-//        QLineF drawLine(this->scenePos(), target->scenePos());
-//        setRotation(qRadiansToDegrees(qAtan2(drawLine.dx(), drawLine.dy())) * -1 + 90);
-//        move(pathToTake[1]*32);
-//        attack(drawLine);
+        attack();
     }
-
+    else if (target != nullptr && !target->is_alive())
+    {
+        target = nullptr;
+    }
 }
+
 void Enemy::move()
 {
     if(target != nullptr)
@@ -42,34 +37,27 @@ void Enemy::move()
         if(pathingList.isEmpty())
         {
             AStar pathing{*presetMap};
-            pathingList = pathing.search((pos()/32).toPoint(), (target->pos()/32).toPoint());
-            qDebug()<<"LIST GENERATED "<< pathingList;
+            pathingList = pathing.search(getGridPos(), target->getGridPos());
         }
         else
         {
-            moveTo(pathingList[0]);
-            qDebug()<<"CURR POS : "<< getGridPos();
-            qDebug()<<"Target POS : "<< pathingList[0];
-            if(pathingList[0] == getGridPos())
+
+            moveTo(pathingList[1]);
+            if(pathingList[1] == getGridPos() && isPerfectCenterize())
             {
-                if(!pathingList.isEmpty())
-                {
-                    qDebug()<<"DELETING POS : "<< pathingList[0];
-                    pathingList.removeFirst();
-                }
-                else
-                {
-                    qCritical()<<"EMPTY LIST BYPASSED?";
-                }
+                if(!pathingList.isEmpty()) pathingList.clear();
+                AStar pathing{*presetMap};
+                pathingList = pathing.search(getGridPos(), target->getGridPos());
             }
         }
 
     }
 }
 
-void Enemy::attack(QLineF drawLine)
+void Enemy::attack()
 {
-    if(currentWeapon != nullptr && drawLine.length() < 5)
+    QLineF distance(getGridPos(), target->getGridPos());
+    if(currentWeapon != nullptr && distance.length() < 2)
     {
         shoot();
     }

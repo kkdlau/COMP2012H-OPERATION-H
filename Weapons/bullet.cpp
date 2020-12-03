@@ -4,7 +4,6 @@
 
 Bullet::Bullet(int damage, int angle, int x, int y, QGraphicsItem* owner): damage(damage), angle(angle), owner(owner)
 {
-    setPos(x,y);
     setPixmap(QPixmap(":bullet"));
     connect(&timer, &QTimer::timeout, this, &Bullet::move);
     timer.start(50);
@@ -36,7 +35,8 @@ void Bullet::move()
     }
     if(--lifeSpan <= 0)
     {
-        qDebug()<<"I DIED";
-        delete this;
+        disconnect(&timer, &QTimer::timeout, this, &Bullet::move);
+        timer.stop();
+        setVisible(false);
     }
 }

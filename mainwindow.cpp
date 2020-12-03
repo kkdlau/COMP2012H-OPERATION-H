@@ -7,7 +7,6 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , map_view_page(new MapViewPage)
 {
     ui->setupUi(this);
 
@@ -37,6 +36,7 @@ void MainWindow::on_pushButton_Map3_clicked()
 
 void MainWindow::on_pushButton_GameStart_clicked()
 {
+    map_view_page = new MapViewPage();
     map_view_page->setModal(true);
     map_view_page->exec();
 }

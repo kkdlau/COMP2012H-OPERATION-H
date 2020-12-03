@@ -19,7 +19,7 @@ public:
     void unblock(MOVE_DIRECTION);
     void action();
     void move();
-    void attack(QLineF distance);
+    void attack();
     virtual void Harmed();
     ~Enemy();
 private:
@@ -28,7 +28,7 @@ private:
     int moveSpeed;
     Character* target;
     QTimer timer;
-    int health = 10;
+    int healthBar = 10;
     QList<QPoint> pathingList;
     int stepIndex = 0;
 };

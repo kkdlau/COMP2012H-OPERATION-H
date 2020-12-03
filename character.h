@@ -91,6 +91,8 @@ public:
     int maxHealth = 10;
     //SAMPLE WEAPON TEST STEVEN
     void setRotation(qreal degree);
+
+    bool isPerfectCenterize() const;
 protected:
     Map* presetMap;
 private:
@@ -104,7 +106,7 @@ private:
 
     QGraphicsPixmapItem* head;
     QGraphicsPixmapItem* gun; // for testing purpose
-    HealthBar* health;
+    HealthBar* healthBar;
     int curWeaponID;
 
     bool move_state{false}; // if last moment was moving, then true, otherwise false
@@ -146,6 +148,7 @@ public:
         static const QVector<char> listenKeyList;
         void setState(char key, bool pressed);
 
+        void unControl();
         void control(Character* c);
 
         void updateKeyPressControl();
