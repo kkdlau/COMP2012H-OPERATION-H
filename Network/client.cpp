@@ -99,21 +99,15 @@ Client::Client(QWidget *parent)
     portLineEdit->setFocus();
 //! [5]
 }
-//! [5]
 
-//! [6]
 void Client::send_game_stat()
 {
     getFortuneButton->setEnabled(false);
     tcpSocket->abort();
-//! [7]
     tcpSocket->connectToHost(hostCombo->currentText(),
                              portLineEdit->text().toInt());
-//! [7]
 }
-//! [6]
 
-//! [8]
 void Client::readFortune()
 {
     in.startTransaction();
@@ -128,12 +122,8 @@ void Client::readFortune()
     statusLabel->setText(current_stat);
     getFortuneButton->setEnabled(true);
 
-    game_page->setModal(true);
-    game_page->exec();
 }
-//! [8]
 
-//! [13]
 void Client::displayError(QAbstractSocket::SocketError socketError)
 {
     switch (socketError) {

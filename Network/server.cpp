@@ -1,6 +1,7 @@
 #include <QtWidgets>
 #include <QtNetwork>
 #include <QtCore>
+#include <QString>
 
 #include "server.h"
 
@@ -13,11 +14,14 @@ Server::Server(QWidget *parent)
 
     initServer();
 
+
     auto quitButton = new QPushButton(tr("Quit"));
     quitButton->setAutoDefault(false);
 
     connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
-    connect(tcpServer, &QTcpServer::newConnection, this, &Server::send_game_stat);
+//    connect(tcpServer, &QTcpServer::newConnection, this, &Server::send_game_stat);
+    connect(tcpServer, &QTcpServer::newConnection, this, &Server::exec_game_page);
+    connect(tcpServer, &QTcpServer::newConnection, this, &Server::send_connected_signal);
 
     auto buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch(1);
@@ -44,6 +48,8 @@ Server::Server(QWidget *parent)
     mainLayout->addLayout(buttonLayout);
 
     setWindowTitle(QGuiApplication::applicationDisplayName());
+//    compose_game_stats();
+    game_stats << tr("Connected");
 }
 
 void Server::initServer()
@@ -75,7 +81,7 @@ void Server::open_game_page() {
     out.setVersion(QDataStream::Qt_5_10);
 
     // Sending the data out
-    out << "Connected";
+    out << tr("Connected");
 
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
     connect(clientConnection, &QAbstractSocket::disconnected,
@@ -89,9 +95,34 @@ void Server::open_game_page() {
     game_page->exec();
 }
 
+void Server::compose_game_stats() {
+    QList<Character*> list_of_characters = game_page->get_character_manager()->get_all_characters();
+    game_stats << tr("START");
+    for (int i = 0; i < list_of_characters.size(); i++) {
+        game_stats << tr(QString(QString("Character")+ i).toStdString().c_str())
+                   << tr(list_of_characters.at(i)->get_name().toStdString().c_str())
+                   << tr(QString::number(list_of_characters.at(i)->getPositionX()).toStdString().c_str())
+                   << tr(QString::number(list_of_characters.at(i)->getPositionY()).toStdString().c_str())
+                   << tr(QString::number(list_of_characters.at(i)->rotation()).toStdString().c_str())
+                   << tr(QString::number(list_of_characters.at(i)->get_health()).toStdString().c_str());
+    }
+    game_stats << tr("END");
+}
+
 void Server::set_game_page(MapViewPage* input_page) {
     game_page = input_page;
 }
+
+void Server::exec_game_page() {
+    game_page->setModal(true);
+    game_page->exec();
+}
+
+void Server::send_connected_signal() {
+    QString connected_string("Connected");
+    game_stats << connected_string;
+}
+
 
 void Server::send_game_stat() {
     // Some previous settings
@@ -99,14 +130,14 @@ void Server::send_game_stat() {
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_10);
 
-    // Sending the data out
-    out << "Connected";
+    // TODO: Send the list of game stats
+    out << game_stats[0];
 
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
-    connect(clientConnection, &QAbstractSocket::disconnected,
-            clientConnection, &QObject::deleteLater);
+//    connect(clientConnection, &QAbstractSocket::disconnected,
+//            clientConnection, &QObject::deleteLater);
 
     clientConnection->write(block);
-    clientConnection->disconnectFromHost();
+//    clientConnection->disconnectFromHost();
+    game_stats.clear();
 }
-

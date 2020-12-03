@@ -68,6 +68,10 @@ void MapViewPage::keyReleaseEvent(QKeyEvent* e) {
 	controller.setState(e->key(), false);
 }
 
+CharacterManager* MapViewPage::get_character_manager() {
+    return characterManager;
+}
+
 void MapViewPage::mouseMoveEvent(QMouseEvent* e) {
 	//	qDebug() << e->x() << ", " << e->y() << "\n";
 }

@@ -21,14 +21,16 @@ public:
 
 private slots:
     void send_game_stat();
-
+    void exec_game_page();
     void open_game_page();
+    void send_connected_signal();
 private:
+    void compose_game_stats();
     void initServer();
 
     QLabel *statusLabel = nullptr;
     QTcpServer *tcpServer = nullptr;
-    QVector<QString> fortunes;
+    QVector<QString> game_stats;
     MapViewPage* game_page;
 };
 
