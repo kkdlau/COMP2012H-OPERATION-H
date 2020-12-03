@@ -75,8 +75,15 @@ public:
      */
     bool isWeaponOnGround() const;
 
+    /**
+     * @brief removeWeapon Remove the weapon from grid.
+     */
     void removeWeapon();
 
+    /**
+     * @brief popWeapon Pop the Weapon from grid. It transform the ownership of owner.
+     * @return weapon pointer
+     */
     Weapon* popWeapon();
 };
 

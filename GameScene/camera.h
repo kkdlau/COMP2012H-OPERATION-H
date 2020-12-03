@@ -12,8 +12,8 @@ class Camera: public QObject
     Q_OBJECT
 private:
     GameMapCanvas* canvas{nullptr}; // internal variable for update canvas rect
-    int windowWidth;
-    int windowHeight;
+    int windowWidth; // canvas width
+    int windowHeight; // canvas height
     QMetaObject::Connection cameraMoveConnection;
     QMetaObject::Connection canvasSizeChangeConnection;
 
