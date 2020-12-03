@@ -25,12 +25,12 @@ MapViewPage::MapViewPage(QWidget* parent)
 	QRectF screenSize = ui->gameCanvas->scene->sceneRect();
 	// playerItemFrame->setPos(screenSize.width() - 64, screenSize.height() -
 	// 64);
-	Enemy* test = characterManager->generate_random_enemy();
-	test->setDestination(ui->gameCanvas->character);
+//	Enemy* test = characterManager->generate_random_enemy();
+//	test->setDestination(ui->gameCanvas->character);
 	// test->setDestination(ui->gameCanvas->character);
 	// test->equipWeapon(weaponManager->GenerateRandomWeapon());
-	test->setPos(100, 100);
-	ui->gameCanvas->scene->mapLayer()->addToGroup(test);
+//	test->setPos(100, 100);
+//	ui->gameCanvas->scene->mapLayer()->addToGroup(test);
 	ui->gameCanvas->scene->mapLayer()->addToGroup(ui->gameCanvas->character);
 
 	ui->gameCanvas->cameraController->subscribe(ui->gameCanvas->character,

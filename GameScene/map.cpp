@@ -59,7 +59,7 @@ void Map::gridInfoinitialize(int w, int h, int baseHeight) {
 /***
  * Description of Map Configuration file:
  *
- * First line - [width: int] [height: int]: the size of map, in pixel unit
+ * First line - [width: int] [height: int]: the size of map, in grid unit
  * Second line and after - [cor_x: int] [cor_y: int] [grid_height: int]: the height of a grid, for configuring grid_height, please refer to character height system.
  *
  */

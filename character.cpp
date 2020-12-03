@@ -14,7 +14,7 @@ Character::Character(QString name, int health, int stepValue, Map* map) : charac
 //    footstep_sound->setVolume(50);
 //    connect(this, &Character::startMoving, &footstep_sound, &QMediaPlayer::play);
 
-    footstep_sound.setMedia(QUrl::fromLocalFile(":assets/footsteps.wav"));
+    footstep_sound.setMedia(QUrl::fromLocalFile(":assets/footsteps_new.wav"));
     footstep_sound.setVolume(50);
 //    connect(this, &Character::startMoving, &footstep_sound, &QMediaPlayer::play);
 //    connect(this, &Character::startMoving, this, &Character::test_slot);
@@ -36,8 +36,8 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     health = new HealthBar(head, characterHealth, maxHealth);
     setRotation(0);
 
-    // fk idk wt im doing
-//    footstep_sound.setMedia(QUrl::fromLocalFile("C:/Users/kfche/Documents/GitHub/COMP2012H-OPERATION-H/assets/footsteps.wav"));  // uncomment me and change path
+//     fk idk wt im doing
+    footstep_sound.setMedia(QUrl::fromLocalFile("C:/Users/kfche/Documents/GitHub/COMP2012H-OPERATION-H/assets/footsteps_new.wav"));  // uncomment me and change path
 //    footstep_sound.setMedia(QUrl::fromLocalFile(":assets/footsteps.wav"));
     footstep_sound.setVolume(50);
 //    connect(this, &Character::startMoving, &footstep_sound, &QMediaPlayer::play);
