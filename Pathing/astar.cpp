@@ -11,7 +11,7 @@ AStar::AStar(const AStar& pathingInstance): map{map} {
     end = pathingInstance.end;
 }
 
-QList<QPoint> AStar::search(QPoint start, QPoint end) {
+QList<QPoint> AStar::search(QPoint start, QPoint end, int stepValue) {
     this->start = start;
     this->end = end;
 
@@ -45,7 +45,7 @@ QList<QPoint> AStar::search(QPoint start, QPoint end) {
             return toReturn;
         };
 
-        forEachNeighbor(n, [&](int x,int y) {
+        forEachNeighbor(n, stepValue,[&](int x,int y) {
             //            qDebug() << "visit" << mapState[y][x].toString();
             MapNode& node = mapState[y][x];
             if (node.state == MapNode::State::NONE) {
@@ -117,7 +117,7 @@ int AStar::minCostNode(QList<MapNode*>& list) const {
 }
 
 template<typename F>
-void AStar::forEachNeighbor(const MapNode& node, F process) const {
+void AStar::forEachNeighbor(const MapNode& node, int stepValue, F process) const {
     QPoint p{node.x, node.y};
     QList<QPoint> neighbors = {
         QPoint{p.x() + 1, p.y() + 1},
@@ -137,7 +137,7 @@ void AStar::forEachNeighbor(const MapNode& node, F process) const {
         QPoint tmp = *ptr;
 
 //        qDebug() << "check neighbor: " << tmp << "- access?:" << map.isAccessible(p, tmp, 1);
-        if (!map.isOutOfMap(tmp) && map.isAccessible(p, tmp, 1))
+        if (!map.isOutOfMap(tmp) && map.isAccessible(p, tmp, stepValue))
             process(tmp.x(), tmp.y());
     }
 
