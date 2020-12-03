@@ -11,6 +11,7 @@
         <file alias="knife">assets/output-onlinepngtools.png</file>
         <file alias="map_2.png">assets/map_2.png</file>
         <file alias="map_2.txt">assets/map_2.txt</file>
+        <file alias="game_logo.txt">assets/game-logo.png</file>
         <file>assets/footsteps.wav</file>
         <file>assets/gunshot.wav</file>
         <file>assets/sword.wav</file>

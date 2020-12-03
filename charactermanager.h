@@ -77,6 +77,7 @@ public:
     Enemy* generate_random_enemy();
     void temp_function();
     void set_map(Map* map);
+    bool check_endgame();
 private:
     /**
     * @brief static variable to hold character_manager

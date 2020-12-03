@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     , map_view_page(new MapViewPage)
 {
     ui->setupUi(this);
+
 }
 
 MainWindow::~MainWindow()
