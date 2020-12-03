@@ -17,7 +17,23 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pushButton_Map1_clicked()
+{
+    qDebug() << "I want to quit U";
+}
+
+void MainWindow::on_pushButton_Map2_clicked()
+{
+    qDebug() << "I want to jump mushroom";
+}
+
+void MainWindow::on_pushButton_Map3_clicked()
+{
+    qDebug() << "But before all those I need to revise, fml";
+}
+
+
+void MainWindow::on_pushButton_GameStart_clicked()
 {
     map_view_page = new MapViewPage();
     map_view_page->setModal(true);
