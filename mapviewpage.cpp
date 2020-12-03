@@ -28,23 +28,13 @@ MapViewPage::MapViewPage(QWidget* parent)
 
     Enemy* test = characterManager->generate_random_enemy();
     test->setDestination(ui->gameCanvas->character);
-	// test->equipWeapon(weaponManager->GenerateRandomWeapon());
+    test->equipWeapon(weaponManager->GenerateRandomWeapon());
     //	test->setPos(100, 100);
     ui->gameCanvas->scene->mapLayer()->addToGroup(test);
 	ui->gameCanvas->scene->mapLayer()->addToGroup(ui->gameCanvas->character);
 
 	ui->gameCanvas->cameraController->subscribe(ui->gameCanvas->character,
 												&Character::isMoving);
-
-	//	connect(this, &MapViewPage::keyPressEvent, &kbManager,
-	//			&KeyboardManager::pressKey);
-	//	connect(this, &MapViewPage::keyReleaseEvent, &kbManager,
-	//			&KeyboardManager::releaseKey);
-	//	connect(&kbManager, &KeyboardManager::comboPressed, this,
-	//			&MapViewPage::comboHandler);
-	//    connect(&kbManager, &KeyboardManager::emitKeyboardPressed, this,
-	//            &MapViewPage::emitKeyboardPressed);
-
 	Map* something = ui->gameCanvas->scene->mapLayer();
 
 	GridInfo& idk = (*something)[3][3];
@@ -58,6 +48,10 @@ MapViewPage::MapViewPage(QWidget* parent)
                 controller.updateKeyHoldingControl();
 //ui->gameCanvas->character->moveTo(3, 3);
             });
+
+    connect(ui->gameCanvas->character, &Character::deadSignal, this, [&]() {
+       controller.unControl();
+    });
 }
 
 void MapViewPage::keyPressEvent(QKeyEvent* e) {

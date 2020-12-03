@@ -33,7 +33,7 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     addToGroup(head);
     addToGroup(gun);
     setPos(QPointF{32* 3 + 16, 32 * 8 + 16});
-    health = new HealthBar(head, characterHealth, maxHealth);
+    healthBar = new HealthBar(head, characterHealth, maxHealth);
     setRotation(0);
 
 //     fk idk wt im doing
@@ -418,7 +418,7 @@ void Character::dequipWeapon()
 void Character::DealDamage(int damage)
 {
     characterHealth -= damage;
-    health->DecrementBar(damage);
+    healthBar->DecrementBar(damage);
     Harmed();
 }
 
@@ -433,6 +433,11 @@ void Character::Harmed()
 
 void Character::setRotation(qreal angle) {
     QGraphicsItemGroup::setRotation(angle);
-    health->setRotation(-angle -180);
+    healthBar->setRotation(-angle -180);
 
+}
+
+
+bool Character::isPerfectCenterize() const {
+    return int(pos().x()) % 32 == 16 &&  int(pos().y()) % 32 == 16;
 }

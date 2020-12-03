@@ -75,6 +75,7 @@ public:
     static CharacterManager *getInstance();
     Character* generate_random_character();
     Enemy* generate_random_enemy();
+    void dispose_from_map(Character*);
     void temp_function();
     void set_map(Map* map);
 private:

@@ -53,7 +53,7 @@ void CharacterManager::add_character(Character * charData)
 {
     if(!is_character_exist(charData) && map != nullptr)
     {
-        connect(charData, &Character::deadSignal, this, &CharacterManager::delete_character);
+        connect(charData, &Character::deadSignal, this, &CharacterManager::dispose_from_map);
         characterDatabase.append(charData);
         map->addToGroup(charData);
     }
@@ -63,15 +63,9 @@ void CharacterManager::delete_character(Character* charData)
 {
     if(is_character_exist(charData))
     {
-        disconnect(charData, &Character::deadSignal, this, &CharacterManager::delete_character);
-        map->removeFromGroup(charData);
+
         delete charData;
         characterDatabase.removeOne(charData);
-        qDebug()<<"CHAR LEFT: "<<characterDatabase.length();
-        if(characterDatabase.length() <= 1 && !deleting)
-        {
-            temp_function();
-        }
     }
     else
     {
@@ -115,6 +109,34 @@ Enemy* CharacterManager::generate_random_enemy()
 void CharacterManager::temp_function()
 {
     QMessageBox::aboutQt(nullptr, "HAVE FUN BITCH");
+}
+
+void CharacterManager::dispose_from_map(Character *charData)
+{
+    if(is_character_exist(charData))
+    {
+        disconnect(charData, &Character::deadSignal, this, &CharacterManager::delete_character);
+        map->removeFromGroup(charData);
+        charData->setVisible(false);
+        qDebug()<<"CHAR LEFT: "<<characterDatabase.length();
+        int remainingPlayer = 0;
+        for(int i = 0; i < characterDatabase.length(); i++)
+        {
+            if(characterDatabase[i]->is_alive())
+            {
+                remainingPlayer++;
+            }
+        }
+        if(characterDatabase.length() <= 1)
+        {
+            temp_function();
+            delete this;
+        }
+    }
+    else
+    {
+        qCritical()<<"YOU ARE TRYING TO DELETE A NON-EXIST CHARACTER IN THE MANAGER";
+    }
 }
 
 void CharacterManager::reset_character_manager()

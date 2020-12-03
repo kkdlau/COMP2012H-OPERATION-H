@@ -33,6 +33,9 @@ void Character::Controller::setState(char key, bool pressed) {
     updateKeyHoldingControl();
 }
 
+void Character::Controller::unControl() {
+    toControl = nullptr;
+}
 void Character::Controller::control(Character *c) {
     toControl = c;
 }
