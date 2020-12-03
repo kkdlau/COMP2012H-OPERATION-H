@@ -58,9 +58,9 @@ public:
     void initialState(QVector<QVector<MapNode>>& state) const;
 
     template<typename F>
-    void forEachNeighbor(const MapNode& node, F process) const;
+    void forEachNeighbor(const MapNode& node, int stepValue, F process) const;
 
-    QList<QPoint> search(QPoint start, QPoint end);
+    QList<QPoint> search(QPoint start, QPoint end, int stepValue = 5);
 };
 
 #endif // PATHING_H

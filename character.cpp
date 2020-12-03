@@ -82,16 +82,18 @@ void Character::moveYPositive(int dy) {
 
 //    qDebug() << "shiftIndex: " << shiftIndex;
 
+    const GridInfo& grid = (*presetMap)[getGridPos()];
+
     const GridInfo& lowerGrid = (*presetMap)[p + QPoint{0, 1}];
     const GridInfo& lowerGrid2 = (*presetMap)[p + QPoint{shiftIndex, 1}];
 
 //    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
 
-    if (lowerGrid2.getHeight() && pos().y() + 16 + dy > (p.y() + 1) * 32) {
+    if (lowerGrid2 - grid > stepValue && pos().y() + 16 + dy > (p.y() + 1) * 32) {
         this->setY((p.y() + 1) * 32 - 16);
         emit blockByObstacle(MOVE_DIRECTION::DOWN);
         animationY->stop();
-    } else if (lowerGrid.getHeight() && pos().y() + 16 + dy > (p.y() + 1) * 32) {
+    } else if (lowerGrid - grid > stepValue && pos().y() + 16 + dy > (p.y() + 1) * 32) {
         this->setY((p.y() + 1) * 32 - 16);
         emit blockByObstacle(MOVE_DIRECTION::DOWN);
         animationY->stop();
@@ -121,15 +123,17 @@ void Character::moveYNegative(int dy) {
 
 //    qDebug() << "shiftIndex: " << shiftIndex;
 
+    const GridInfo& grid = (*presetMap)[getGridPos()];
+
     const GridInfo& lowerGrid = (*presetMap)[p + QPoint{0, -1}];
     const GridInfo& lowerGrid2 = (*presetMap)[p + QPoint{shiftIndex, -1}];
 
 //    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
 
-    if (lowerGrid2.getHeight() && pos().y() - 16 + dy < p.y() * 32) {
+    if (lowerGrid2 - grid > stepValue  && pos().y() - 16 + dy < p.y() * 32) {
         this->setY((p.y()) * 32 + 16);
         emit blockByObstacle(MOVE_DIRECTION::UP);
-    } else if (lowerGrid.getHeight() && pos().y() - 16 + dy < p.y() * 32) {
+    } else if (lowerGrid - grid > stepValue && pos().y() - 16 + dy < p.y() * 32) {
         this->setY((p.y()) * 32 + 16);
         emit blockByObstacle(MOVE_DIRECTION::UP);
     } else this->setY(pos().y() + dy);
@@ -158,16 +162,18 @@ void Character::moveXPositive(int dx) {
 
 //    qDebug() << "shiftIndex: " << shiftIndex;
 
+    const GridInfo& grid = (*presetMap)[getGridPos()];
+
     const GridInfo& lowerGrid = (*presetMap)[p + QPoint{1, 0}];
     const GridInfo& lowerGrid2 = (*presetMap)[p + QPoint{1, shiftIndex}];
 
 //    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
 
-    if (lowerGrid2.getHeight() && pos().x() + 16 + dx > (p.x() + 1) * 32) {
+    if (lowerGrid2 - grid > stepValue && pos().x() + 16 + dx > (p.x() + 1) * 32) {
         this->setX((p.x() + 1) * 32 - 16);
         emit blockByObstacle(MOVE_DIRECTION::RIGHT);
         animationX->stop();
-    } else if (lowerGrid.getHeight() && pos().x() + 16 + dx > (p.x() + 1) * 32) {
+    } else if (lowerGrid - grid > stepValue && pos().x() + 16 + dx > (p.x() + 1) * 32) {
         this->setX((p.x() + 1) * 32 - 16);
         emit blockByObstacle(MOVE_DIRECTION::RIGHT);
         animationX->stop();
@@ -195,16 +201,18 @@ void Character::moveXNegative(int dx) {
 
 //    qDebug() << "shiftIndex: " << shiftIndex;
 
+    const GridInfo& grid = (*presetMap)[getGridPos()];
+
     const GridInfo& lowerGrid = (*presetMap)[p + QPoint{-1, 0}];
     const GridInfo& lowerGrid2 = (*presetMap)[p + QPoint{-1, shiftIndex}];
 
 //    qDebug() << "lowerGrid: " << lowerGrid.toString() << ", lowerGrid2: " << lowerGrid2.toString();
 
-    if (lowerGrid2.getHeight() && pos().x() - 16 + dx < p.x() * 32) {
+    if (lowerGrid2 - grid > stepValue && pos().x() - 16 + dx < p.x() * 32) {
         this->setX(p.x() * 32 + 16);
         emit blockByObstacle(MOVE_DIRECTION::LEFT);
         animationX->stop();
-    } else if (lowerGrid.getHeight() && pos().x() - 16 + dx < p.x() * 32) {
+    } else if (lowerGrid - grid > stepValue && pos().x() - 16 + dx < p.x() * 32) {
         this->setX(p.x() * 32 + 16);
         emit blockByObstacle(MOVE_DIRECTION::LEFT);
         this->animationX->stop();

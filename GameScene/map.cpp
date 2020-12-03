@@ -14,23 +14,14 @@ Map::Map(QString imgPath, QString configFilePath): grid{} {
 
     parseMapConfigFile(configFilePath);
 
-    addObstacle(1, 0);
-    addObstacle(1, 1);
-    addObstacle(1, 2);
-    addObstacle(1, 3);
-
-    addObstacle(2, 1);
-    addObstacle(3, 1);
-    addObstacle(4, 1);
-
     AStar pathing{*this};
 
 
-    drawPath(pathing.search(QPoint{0, 0}, QPoint{3, 0}));
+    drawPath(pathing.search(QPoint{0, 0}, QPoint{18, 18}));
 }
 
 void Map::addObstacle(int posX, int posY) {
-    (*this)[posY][posX].setHeight(5);
+    (*this)[posY][posX].setHeight(20);
     QColor clr = Qt::blue;
     clr.setAlphaF(0.3);
     QBrush tmpBrush{clr};
