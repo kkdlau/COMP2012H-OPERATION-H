@@ -68,7 +68,7 @@ class Map : public QGraphicsItemGroup {
     qreal getHeight(UNIT unitRepresent) const;
 
     void drawPath(QList<QPoint> path);
-
+    QList<QGraphicsItem*> tempVar;
 	~Map();
 };
 

@@ -161,6 +161,14 @@ bool Map::isAccessible(const QPoint &from, const QPoint &to, const int stepValue
 }
 
 void Map::drawPath(QList<QPoint> path) {
+    if(!tempVar.isEmpty())
+    {
+        for(int i = 0; i < tempVar.length(); i++)
+        {
+            removeFromGroup(tempVar[i]);
+            delete tempVar[i];
+        }
+    }
     QList<QPoint>::iterator ptr;
     QList<QPoint>::iterator end = path.end() - 1;
     for (ptr = path.begin(); ptr < end; ++ptr) {
@@ -168,12 +176,16 @@ void Map::drawPath(QList<QPoint> path) {
         QPoint nextP = *(ptr + 1);
         QGraphicsRectItem* rect = new QGraphicsRectItem{p.x() * 32.0f + 10, p.y() * 32.0f + 10, 12, 12};
         rect->setBrush(Qt::black);
-        addToGroup(new QGraphicsLineItem{p.x() * 32.0f + 16, p.y() * 32.0f + 16, nextP.x() * 32.0f + 16, nextP.y() * 32.0f + 16});
+        QGraphicsLineItem *line = new QGraphicsLineItem{p.x() * 32.0f + 16, p.y() * 32.0f + 16, nextP.x() * 32.0f + 16, nextP.y() * 32.0f + 16};
+        addToGroup(line);
         addToGroup(rect);
+        tempVar.append(line);
+        tempVar.append(rect);
     }
 
     QGraphicsRectItem* rect = new QGraphicsRectItem{path.last().x() * 32.0f + 10, path.last().y() * 32.0f + 10, 12, 12};
     addToGroup(rect);
+    tempVar.append(rect);
 }
 
 Map::~Map() {}

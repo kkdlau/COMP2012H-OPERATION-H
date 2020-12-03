@@ -42,7 +42,6 @@ void Character::Controller::updateKeyPressControl() {
 
     if (keyState['k']) {
         toControl->pickWeapon();
-        toControl->DealDamage(2);
     }
 
     if (keyState['m']) {
