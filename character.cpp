@@ -25,7 +25,7 @@ Character::Character(const QStringList data, int stepValue, Map* map): stepValue
 
 }
 
-Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{map}, aimPos{-1, -1} {
+Character::Character(charType charType, int stepValue, Map* map): typeOfCharacter(charType), stepValue{stepValue}, presetMap{map}, aimPos{-1, -1} {
     head = new QGraphicsPixmapItem(QPixmap(":character_test"));
     head->setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
     head->setOffset(QPointF(-Character::WIDTH / 2, -Character::HEIGHT / 2));
@@ -352,9 +352,6 @@ int Character::get_health() const
     return characterHealth;
 }
 
-void Character::set_name(QString name) {
-    characterName = name;
-}
 
 void Character::set_health(int health) {
     characterHealth = health;
@@ -367,8 +364,8 @@ bool Character::is_alive() const {
 void Character::shoot() {
     if(currentWeapon != nullptr)
     {
-        currentWeapon->Attack(this->rotation());
         attackWeaponSignal(currentWeapon->WeaponDataText());
+        currentWeapon->Attack(this->rotation());
     }
 }
 
@@ -394,7 +391,8 @@ void Character::pickWeapon() {
 void Character::equipWeapon(Weapon* weapon) {
     currentWeapon = weapon;
     addToGroup(weapon);
-    weapon->setPos(0, 0);
+    weapon->OffsetWeaponPickUp();
+    weapon->setRotation(rotation());
     emit equipWeaponSignal(currentWeapon);
 }
 
@@ -405,9 +403,11 @@ void Character::dequipWeapon()
     currentPos.rx()--;
     currentPos.ry()--;
     GridInfo& currentGrid = (*presetMap)[currentPos];
+    currentWeapon->setRotation(0);
     removeFromGroup(currentWeapon);
     currentGrid.putWeapon(currentWeapon);
     emit dequipWeaponSignal(currentWeapon);
+    currentWeapon->OffsetWeaponGround();
     currentWeapon = nullptr;
 }
 

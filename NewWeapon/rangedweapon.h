@@ -10,6 +10,8 @@ public:
     void virtual Reload();
     QString virtual WeaponDataText() override;
     void virtual InitializeAttackAnimation() override;
+    void virtual OffsetWeaponGround() override;
+    void virtual OffsetWeaponPickUp() override;
 private:
     void ResetShootState();
     void ResetReloadState();

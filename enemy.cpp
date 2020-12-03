@@ -4,7 +4,7 @@
 #include <QtMath>
 #include "Pathing/astar.h"
 
-Enemy::Enemy(Map* map, int moveSpeed, Character *target) : Character(moveSpeed, map), moveSpeed(moveSpeed), target(target)
+Enemy::Enemy(Map* map, int moveSpeed, Character *target) : Character(charType::ENEMY, moveSpeed, map), moveSpeed(moveSpeed), target(target)
 {
     connect(&timer, &QTimer::timeout, this, &Enemy::action);
     connect(this, &Character::blockByObstacle, this, &Enemy::unblock);

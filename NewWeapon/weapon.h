@@ -26,6 +26,8 @@ public:
     //temp implementation
     QString virtual WeaponDataText() = 0;
     void virtual InitializeAttackAnimation() = 0;
+    void virtual OffsetWeaponGround() = 0;
+    void virtual OffsetWeaponPickUp() = 0;
 
 signals:
     void OnWeaponUpdate(QString);

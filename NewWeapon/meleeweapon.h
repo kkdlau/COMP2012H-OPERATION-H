@@ -11,6 +11,8 @@ public:
     void Charge();
     void Skill();
     QString virtual WeaponDataText() override;
+    void virtual OffsetWeaponGround() override;
+    void virtual OffsetWeaponPickUp() override;
 signals:
     void EndAttackAnimation();
 private:

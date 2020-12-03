@@ -24,9 +24,8 @@ MapViewPage::MapViewPage(QWidget* parent)
 	playerItemFrame->characterSingalSetup(ui->gameCanvas->character);
     playerItemFrame->setPos(250,250);
     Enemy* test = characterManager->generate_random_enemy();
-    //test->setDestination(ui->gameCanvas->character);
     test->equipWeapon(weaponManager->GenerateRandomWeapon());
-    //	test->setPos(100, 100);
+    test->setDestination(ui->gameCanvas->character);
     ui->gameCanvas->scene->mapLayer()->addToGroup(test);
 	ui->gameCanvas->scene->mapLayer()->addToGroup(ui->gameCanvas->character);
 

@@ -43,7 +43,7 @@ Weapon* WeaponManager::GenerateRandomWeapon()
 //    int number = QRandomGenerator::global()->generate()% 2;
     int number = 0;
     Weapon* tempWeapon;
-    if(number == 1)
+    if(number == 0)
     {
         tempWeapon = new MeleeWeapon(20,50,500);
     }

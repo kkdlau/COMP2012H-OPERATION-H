@@ -12,6 +12,11 @@
 #include "NewWeapon/weapon.h"
 #include "UI/healthbar.h"
 
+enum charType
+{
+    PLAYER,ENEMY
+};
+
 class Character : public QObject, public QGraphicsItemGroup
 {
     Q_OBJECT
@@ -19,7 +24,7 @@ class Character : public QObject, public QGraphicsItemGroup
     Q_PROPERTY(qreal moveY READ getPositionY WRITE setPositionY)
 public:
     enum MOVE_DIRECTION { LEFT = 0x0001, RIGHT = 0x0002, UP = 0x0020, DOWN = 0x0040 };
-    Character(int stepValue = 5, Map* map = nullptr);
+    Character(charType charType = charType::PLAYER, int stepValue = 5, Map* map = nullptr);
     Character(QString, int, int stepValue = 5, Map* map = nullptr);
     Character(const QStringList, int stepValue = 5, Map* map = nullptr);
     ~Character();
@@ -30,7 +35,6 @@ public:
     QString get_name() const;
     int get_health() const;
     bool is_alive() const;
-    void set_name(QString name);
     void set_health(int health);
     void shoot();
 
@@ -95,6 +99,7 @@ public:
     bool isPerfectCenterize() const;
 protected:
     Map* presetMap;
+    charType typeOfCharacter;
 private:
     float spd{10};
     QString characterName;

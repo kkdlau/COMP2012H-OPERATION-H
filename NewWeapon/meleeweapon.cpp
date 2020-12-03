@@ -5,7 +5,7 @@
 MeleeWeapon::MeleeWeapon(int attack,  int attackRange, int attackSpeed, QGraphicsItem* parent,QString image) : Weapon(WeaponType::MELEE, attack, parent), attackRange(attackRange), attackSpeed(attackSpeed)
 {
     QPixmap img = QPixmap(image);
-    setOffset(-img.size().width() / 2, -img.size().height() / 2);
+        setOffset(pixmap().size().width() / 2, pixmap().size().height() / 2);
     InitializeAttackAnimation();
     connect(&attackAnimation, &QSequentialAnimationGroup::currentAnimationChanged, this, &MeleeWeapon::OnAttack);
     setPixmap(img);
@@ -100,4 +100,14 @@ void MeleeWeapon::ResetCharge()
 QString MeleeWeapon::WeaponDataText()
 {
     return "-/-";
+}
+
+void MeleeWeapon::OffsetWeaponPickUp()
+{
+    setOffset(pixmap().size().width() / 2, pixmap().size().height() / 2);
+}
+
+void MeleeWeapon::OffsetWeaponGround()
+{
+    setOffset(0,0);
 }

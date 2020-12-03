@@ -77,7 +77,7 @@ Character* CharacterManager::generate_random_character()
 {
     if(map != nullptr)
     {
-        Character* newChar = new Character{5, map};
+        Character* newChar = new Character{charType::PLAYER,5, map};
         add_character(newChar);
         return newChar;
 
@@ -115,7 +115,7 @@ void CharacterManager::dispose_from_map(Character *charData)
 {
     if(is_character_exist(charData))
     {
-        disconnect(charData, &Character::deadSignal, this, &CharacterManager::delete_character);
+        disconnect(charData, &Character::deadSignal, this, &CharacterManager::dispose_from_map);
         charData->dequipWeapon();
         map->removeFromGroup(charData);
         charData->setVisible(false);
