@@ -25,6 +25,7 @@ public:
     ~MapViewPage();
 
 private:
+
     Ui::MapViewPage *ui;
     QGraphicsScene *scene;
     QGraphicsRectItem *rectangle;
@@ -34,6 +35,7 @@ private:
     void comboHandler(const QString&);
 
     //STeven SHIT
+    void initializeManager();
     CharacterManager* characterManager;
     WeaponManager* weaponManager;
 

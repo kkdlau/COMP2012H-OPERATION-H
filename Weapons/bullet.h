@@ -11,6 +11,7 @@ class Bullet : public QObject,public QGraphicsPixmapItem
 
 public:
     Bullet(int damage, int angle, int x, int y, QGraphicsItem* owner);
+    ~Bullet();
     void move();
 private:
     QGraphicsItem * owner;

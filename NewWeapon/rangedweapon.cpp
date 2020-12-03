@@ -12,7 +12,6 @@ void RangedWeapon::Attack(int angle)
     if(!isShooting && currentBullet > 0)
     {
         --currentBullet;
-        qDebug()<<"BULLET REMAINS : "<<currentBullet;
         isShooting = true;
         Bullet *bulletShot = new Bullet(5, angle, this->x(), this->y(), parentItem()); //fix this
         scene()->addItem(bulletShot);

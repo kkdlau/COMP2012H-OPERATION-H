@@ -17,6 +17,7 @@ class Weapon : public QObject, public QGraphicsPixmapItem
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 public:
     Weapon(WeaponType,int, QGraphicsItem*); //some area code may fix in future
+    ~Weapon();
     void virtual Attack(int angle) = 0;
     void Equip(QGraphicsItem*);//havent been properly implemented
     void Unequip();

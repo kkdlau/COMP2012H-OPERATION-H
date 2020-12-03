@@ -10,6 +10,12 @@ Bullet::Bullet(int damage, int angle, int x, int y, QGraphicsItem* owner): damag
     timer.start(50);
 }
 
+Bullet::~Bullet()
+{
+    disconnect(&timer, &QTimer::timeout, this, &Bullet::move);
+    timer.stop();
+}
+
 void Bullet::move()
 {
     int angleSection = angle/ 90;
@@ -20,14 +26,17 @@ void Bullet::move()
     QList<QGraphicsItem*> collision = collidingItems();
     for(int i = 0; i < collision.length(); i++)
     {
-        Character* checking = dynamic_cast<Character*>(collision[i]->parentItem());
-        if(checking && checking != parentItem())//danny gimmie ideasplz
+        Character* target = dynamic_cast<Character*>(collision[i]->parentItem());
+        if(target && target != owner)
         {
-            qDebug()<<"IT FUCKIN WORSKLJHJFSGIOKDCVHJLDSGHADJSFDSLFzs";
+            target->DealDamage(damage);
+            setVisible(false); //ask danny for shit
+            return;
         }
     }
     if(--lifeSpan <= 0)
     {
+        qDebug()<<"I DIED";
         delete this;
     }
 }

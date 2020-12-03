@@ -5,6 +5,8 @@ Weapon::Weapon(WeaponType weaponType, int attack, QGraphicsItem *parent = nullpt
 
 }
 
+Weapon::~Weapon(){}
+
 void Weapon::Unequip()
 {
     QPointF newPos(this->parentItem()->scenePos());
