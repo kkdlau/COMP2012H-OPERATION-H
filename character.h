@@ -26,7 +26,6 @@ public:
 
     static const int WIDTH;
     static const int HEIGHT;
-    static Character createTestCharacter();
 
     QString get_name() const;
     int get_health() const;
@@ -35,6 +34,7 @@ public:
     void set_health(int health);
     void shoot();
 
+    QPoint getGridPos() const;
 
     /*for animation - start*/
 
@@ -94,11 +94,12 @@ public:
 protected:
     Map* presetMap;
 private:
-    float spd{10};
+    float spd{5};
     QString characterName;
     QPropertyAnimation* animationX{nullptr};
     QPropertyAnimation* animationY{nullptr};
     QVector2D moveVector;
+    QPoint aimPos;
 
 
     QGraphicsPixmapItem* head;
