@@ -8,7 +8,8 @@ Enemy::Enemy(Map* map, int moveSpeed, Character *target) : Character(moveSpeed, 
 {
     connect(&timer, &QTimer::timeout, this, &Enemy::action);
     connect(this, &Character::blockByObstacle, this, &Enemy::unblock);
-    timer.start(150);
+    timer.start(200);
+    setPos(QPointF{32* 3 + 16, 32 * 5 + 16});
 }
 
 void Enemy::setDestination(Character* target)
@@ -20,25 +21,49 @@ void Enemy::action()
 {
     if(target != nullptr)
     {
-        AStar pathing{*presetMap};
-        qDebug()<<"POSITIONS ORIGIN: "<<(pos()/32).toPoint()<< "TARGET: "<<(target->pos()/32).toPoint();
+        move();
+//        AStar pathing{*presetMap};
+//        qDebug()<<"POSITIONS ORIGIN: "<<(pos()/32).toPoint()<< "TARGET: "<<(target->pos()/32).toPoint();
 
-        QList<QPoint> pathToTake = pathing.search((pos()/32).toPoint(), (target->pos()/32).toPoint());
-        qDebug()<<"LIST:"<<pathToTake;
-        presetMap->drawPath(pathToTake);
-        QLineF drawLine(this->scenePos(), target->scenePos());
-        setRotation(qRadiansToDegrees(qAtan2(drawLine.dx(), drawLine.dy())) * -1 + 90);
-        move(pathToTake[1]*32);
+//        QList<QPoint> pathToTake = pathing.search((pos()/32).toPoint(), (target->pos()/32).toPoint());
+//        qDebug()<<"LIST:"<<pathToTake;
+//        presetMap->drawPath(pathToTake);
+//        QLineF drawLine(this->scenePos(), target->scenePos());
+//        setRotation(qRadiansToDegrees(qAtan2(drawLine.dx(), drawLine.dy())) * -1 + 90);
+//        move(pathToTake[1]*32);
 //        attack(drawLine);
     }
 
 }
-void Enemy::move(QPoint point)
+void Enemy::move()
 {
     if(target != nullptr)
-    {   QLineF pathLine(this->scenePos(), point);
-        pathLine.setLength(5);
-        moveBy(pathLine.dx(), pathLine.dy());
+    {
+        if(pathingList.isEmpty())
+        {
+            AStar pathing{*presetMap};
+            pathingList = pathing.search((pos()/32).toPoint(), (target->pos()/32).toPoint());
+            qDebug()<<"LIST GENERATED "<< pathingList;
+        }
+        else
+        {
+            moveTo(pathingList[0]);
+            qDebug()<<"CURR POS : "<< getGridPos();
+            qDebug()<<"Target POS : "<< pathingList[0];
+            if(pathingList[0] == getGridPos())
+            {
+                if(!pathingList.isEmpty())
+                {
+                    qDebug()<<"DELETING POS : "<< pathingList[0];
+                    pathingList.removeFirst();
+                }
+                else
+                {
+                    qCritical()<<"EMPTY LIST BYPASSED?";
+                }
+            }
+        }
+
     }
 }
 
@@ -53,15 +78,22 @@ void Enemy::attack(QLineF drawLine)
 void Enemy::unblock(MOVE_DIRECTION direction)
 {
     QLineF drawLine(this->scenePos(), target->scenePos());
-    if(MOVE_DIRECTION::UP == direction || MOVE_DIRECTION::DOWN == direction)
+    if(MOVE_DIRECTION::UP == direction)
     {
-        moveBy(drawLine.dx()*1.5, 0);
+        moveBy(0, 0.5);
+    }
+    else if (MOVE_DIRECTION::DOWN == direction)
+    {
+        moveBy(0,-0.5);
+    }
+    else if (MOVE_DIRECTION::LEFT == direction)
+    {
+         moveBy(0.5,0);
     }
     else
     {
-        moveBy(0,drawLine.dy()*1.5);
+        moveBy(-0.5,0);
     }
-
 }
 
 void Enemy::Harmed() //this class should inherit character for usability

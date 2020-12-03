@@ -32,7 +32,7 @@ Character::Character(int stepValue, Map* map): stepValue{stepValue}, presetMap{m
     gun = new QGraphicsPixmapItem();
     addToGroup(head);
     addToGroup(gun);
-    setPos(QPointF{32* 4 + 16, 32 * 4 + 16});
+    setPos(QPointF{32* 3 + 16, 32 * 8 + 16});
     health = new HealthBar(head, characterHealth, maxHealth);
     setRotation(0);
 
@@ -321,7 +321,7 @@ void Character::moveTo(int x, int y) {
     QPoint aimPosReal = QPoint{x * 32 + 16, y * 32 + 16};
     QPoint diff = getGridPos() - tmp;
 
-    if (qAbs(diff.x()) + qAbs(diff.y()) > 2) {
+    if (qAbs(diff.x()) > 1 || qAbs(diff.y()) > 1) {
         aimPos = {-1, -1};
         return; // do nothing if the given position is not a neighbor grid
     }

@@ -94,7 +94,7 @@ public:
 protected:
     Map* presetMap;
 private:
-    float spd{5};
+    float spd{10};
     QString characterName;
     QPropertyAnimation* animationX{nullptr};
     QPropertyAnimation* animationY{nullptr};

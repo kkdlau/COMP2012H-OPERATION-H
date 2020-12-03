@@ -18,7 +18,7 @@ public:
     void setDestination(Character*);
     void unblock(MOVE_DIRECTION);
     void action();
-    void move(QPoint point);
+    void move();
     void attack(QLineF distance);
     virtual void Harmed();
     ~Enemy();
@@ -29,6 +29,8 @@ private:
     Character* target;
     QTimer timer;
     int health = 10;
+    QList<QPoint> pathingList;
+    int stepIndex = 0;
 };
 
 #endif // ENEMY_H
