@@ -24,6 +24,10 @@ class Map : public QGraphicsItemGroup {
     int width;
     int height;
 
+    /**
+     * @brief parseMapConfigFile Parse Map Configuration File
+     * @param mapConfigFilePath path to the file
+     */
     void parseMapConfigFile(QString mapConfigFilePath);
 
     /**
@@ -48,26 +52,99 @@ class Map : public QGraphicsItemGroup {
 
 	void mouseMoveEvent(QGraphicsSceneMouseEvent* e) override;
 
+    /**
+     * @brief updateCursorPos Update cursor position
+     * @param p scene position
+     */
     void updateCursorPos(QPointF p);
+
+    /**
+     * @brief getCursorPos Get the cursor position
+     * @return Position of cursor
+     */
     const QPointF& getCursorPos() const;
+
+    /**
+     * @brief operator [] access the grid info of the whole row via column index.
+     * @param columnIndex index of y, should be in GRID unit
+     * @return row of grid info
+     */
     QVector<GridInfo>& operator[](const unsigned columnIndex);
+
+    /**
+     * @brief operator [] access the grid info of the whole row via column index.
+     * @param columnIndex index of y, should be in GRID unit
+     * @return row of grid info
+     */
     const QVector<GridInfo>& operator[](const unsigned columnIndex) const;
 
+    /**
+     * @brief operator [] access the grid info via point.
+     * @param p Point to access, should be in GRID unit.
+     * @return grid info to get
+     */
     GridInfo& operator[](const QPoint& p);
+
+    /**
+     * @brief operator [] access the grid info via point.
+     * @param p Point to access, should be in GRID unit.
+     * @return grid info to get
+     */
     const GridInfo& operator[](const QPoint& p) const;
 
+    /**
+     * @brief isOutOfMap Is the given point out of the map. The point should be in GRID.
+     * @param p Point to check
+     * @return Out of map or not
+     */
     bool isOutOfMap(const QPoint& p) const;
+
+    /**
+     * @brief isOutOfMap Is the given point out of the map. The point should be in PIXEL.
+     * @param p Point to check
+     * @param x If out of map, the overshoot / undershoot of x-axis will be assigned to this pointer
+     * @param y If out of map, the overshoot / undershoot of y-axis will be assigned to this pointer
+     * @return Out of map or not
+     */
     bool isOutOfMap(const QPointF& p, qreal* x, qreal* y) const;
+
+    /**
+     * @brief isAccessible Check is the grid accessible. Please note that this is not pahting searching. It only available for neighbor grid.
+     * @param from Starting point
+     * @param to End point. Should be a neighbor of starting point
+     * @param stepValue Step value, how "high" can the target travel
+     * @return accessible or not
+     */
     bool isAccessible(const QPoint& from, const QPoint& to, const int stepValue) const;
 
+    /**
+     * @brief addObstacle Helper function for adding obstacle onto the map
+     * @param posX grid x coordinate
+     * @param posY grid y coordinate
+     */
     void addObstacle(int posX, int posY);
 
 
+    /**
+     * @brief getWidth Get the width of map
+     * @param unitRepresent Representation unit
+     * @return width in the corresponding unit
+     */
     qreal getWidth(UNIT unitRepresent) const;
 
+    /**
+     * @brief getHeight Get the height of map
+     * @param unitRepresent Representation unit
+     * @return height in the corresponding unit
+     */
     qreal getHeight(UNIT unitRepresent) const;
 
+    /**
+     * @brief drawPath helper function for drawing path
+     * @param path Path generated from pathing algorithm
+     */
     void drawPath(QList<QPoint> path);
+
     QList<QGraphicsItem*> tempVar;
 	~Map();
 };
