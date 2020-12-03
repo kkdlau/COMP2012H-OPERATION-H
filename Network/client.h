@@ -24,12 +24,14 @@ public:
 
 
 private slots:
-    void send_game_stat();
+    void start_connection();
     void readFortune();
     void displayError(QAbstractSocket::SocketError socketError);
     void enableGetFortuneButton();
 
 private:
+    void compose_game_stats();
+    void send_game_stat();
     QComboBox *hostCombo = nullptr;
     QLineEdit *portLineEdit = nullptr;
     QLabel *statusLabel = nullptr;
@@ -39,6 +41,8 @@ private:
     QDataStream in;
     QString currentFortune;
     MapViewPage* game_page;
+    QVector<QString> game_stats;
+    QTcpSocket *clientConnection;
 };
 
 #endif
