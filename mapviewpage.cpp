@@ -6,7 +6,6 @@
 #include <QPointF>
 #include <QTimeLine>
 #include <iostream>
-
 #include "UI/itemframe.h"
 #include "enemy.h"
 #include "ui_mapviewpage.h"
@@ -35,51 +34,39 @@ MapViewPage::MapViewPage(QWidget* parent)
 	ui->gameCanvas->cameraController->subscribe(ui->gameCanvas->character,
 												&Character::isMoving);
 
-	connect(this, &MapViewPage::keyPressEvent, &kbManager,
-			&KeyboardManager::pressKey);
-	connect(this, &MapViewPage::keyReleaseEvent, &kbManager,
-			&KeyboardManager::releaseKey);
-	connect(&kbManager, &KeyboardManager::comboPressed, this,
-			&MapViewPage::comboHandler);
-    connect(&kbManager, &KeyboardManager::emitKeyboardPressed, this,
-            &MapViewPage::emitKeyboardPressed);
-
-	this->kbManager.addListeningCombo("A")
-		.addListeningCombo("S")
-		.addListeningCombo("D")
-		.addListeningCombo("W")
-		.addListeningCombo("K")
-		.addListeningCombo("M");
+//	connect(this, &MapViewPage::keyPressEvent, &kbManager,
+//			&KeyboardManager::pressKey);
+//	connect(this, &MapViewPage::keyReleaseEvent, &kbManager,
+//			&KeyboardManager::releaseKey);
+//	connect(&kbManager, &KeyboardManager::comboPressed, this,
+//			&MapViewPage::comboHandler);
+//    connect(&kbManager, &KeyboardManager::emitKeyboardPressed, this,
+//            &MapViewPage::emitKeyboardPressed);
 
 
-	//    weaponManager->setPos(200,200);
-	//    ui->gameCanvas->scene->addItem(weaponManager);
     Map* something = ui->gameCanvas->scene->mapLayer();
 
 	GridInfo& idk = (*something)[0][0];
 	idk.putWeapon(weaponManager->GenerateRandomWeapon());
+
+    controller.control(ui->gameCanvas->character);
+    timer.setInterval(50);
+    timer.start();
+    connect(&timer, &QTimer::timeout, this, [&]() {
+       controller.updateKeyHoldingControl();
+    });
 }
 
-void MapViewPage::comboHandler(const QString& combo) {
-	qDebug() << "combo detect: " << combo;
-	if (combo == "A") {
-		ui->gameCanvas->character->moveBy(-10, 0);
-	} else if (combo == "S") {
-		ui->gameCanvas->character->moveBy(0, 10);
-	} else if (combo == "D") {
-		ui->gameCanvas->character->moveBy(10, 0);
-	} else if (combo == "W") {
-		ui->gameCanvas->character->moveBy(0, -5);
-	} else if (combo == "K") {
-		ui->gameCanvas->character->pickWeapon();
-        ui->gameCanvas->character->DealDamage(2);
-	} else if (combo == "M") {
-		ui->gameCanvas->character->shoot();
-	}
+void MapViewPage::keyPressEvent(QKeyEvent* e) {
+    controller.setState(e->key(), true);
+}
+
+void MapViewPage::keyReleaseEvent(QKeyEvent* e) {
+    controller.setState(e->key(), false);
 }
 
 void MapViewPage::mouseMoveEvent(QMouseEvent* e) {
 	//	qDebug() << e->x() << ", " << e->y() << "\n";
 }
 
-MapViewPage::~MapViewPage() { delete ui; }
+MapViewPage::~MapViewPage() { timer.stop();delete ui; }

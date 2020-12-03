@@ -11,8 +11,8 @@
 class Enemy : public Character
 {
     Q_OBJECT
-    Q_PROPERTY(qreal moveX READ getPositionX WRITE setPositionX)
-    Q_PROPERTY(qreal moveY READ getPositionY WRITE setPositionY)
+    Q_PROPERTY(qreal moveX READ x WRITE setPositionX)
+    Q_PROPERTY(qreal moveY READ y WRITE setPositionY)
 public:
     Enemy(Map* map, int moveSpeed = 100, Character *target = nullptr);
     void setDestination(Character*);

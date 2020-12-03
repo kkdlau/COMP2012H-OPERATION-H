@@ -11,6 +11,7 @@
 #include "KeyBoardManager/keyboardmanager.h"
 #include "NewWeapon/weaponmanager.h"
 #include "charactermanager.h"
+#include <QTimer>
 
 namespace Ui {
 class MapViewPage;
@@ -30,6 +31,8 @@ private:
     QGraphicsRectItem *rectangle;
     QGraphicsPixmapItem *character;
     KeyboardManager kbManager;
+    QTimer timer;
+    Character::Controller controller;
 
     void comboHandler(const QString&);
 
@@ -40,9 +43,9 @@ private:
 public:
     void mouseMoveEvent(QMouseEvent*) override;
     void onMouseEvent(const QString& eName, const QPoint& p);
+    void keyPressEvent(QKeyEvent*) override;
+    void keyReleaseEvent(QKeyEvent*) override;
 signals:
-    void keyPressEvent(QKeyEvent*) ;
-    void keyReleaseEvent(QKeyEvent*) ;
     void emitKeyboardPressed();
 };
 

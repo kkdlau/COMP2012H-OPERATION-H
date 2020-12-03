@@ -48,16 +48,8 @@ Character::~Character()
     delete gun;
 }
 
-QPointF Character::getPosition() const {
-    return pos();
-}
-
 void Character::setMovementVector(QVector2D v) {
     moveVector = v;
-}
-
-void Character::setPosition(QPointF p) {
-    setPos(p);
 }
 
 void Character::moveYPositive(int dy) {
@@ -243,6 +235,22 @@ if (footstep_sound.state() != QMediaPlayer::State::PlayingState) footstep_sound.
 //move_state = (x || y);
 }
 
+
+QVector2D Character::getMovementvector(unsigned direction) {
+    switch (direction) {
+    case MOVE_DIRECTION::LEFT: return QVector2D{-spd, 0};
+    case MOVE_DIRECTION::RIGHT: return QVector2D{spd, 0};
+    case MOVE_DIRECTION::DOWN: return QVector2D{0, spd};
+    case MOVE_DIRECTION::UP: return QVector2D{0, -spd};
+    case (MOVE_DIRECTION::LEFT | MOVE_DIRECTION::UP): return QVector2D{float(-spd / M_SQRT2), float(-spd / M_SQRT2)};
+    case (MOVE_DIRECTION::LEFT | MOVE_DIRECTION::DOWN): return QVector2D{float(-spd / M_SQRT2), float(spd / M_SQRT2)};
+    case (MOVE_DIRECTION::RIGHT | MOVE_DIRECTION::UP): return QVector2D{float(spd / M_SQRT2), float(-spd / M_SQRT2)};
+    case (MOVE_DIRECTION::RIGHT | MOVE_DIRECTION::DOWN): return QVector2D{float(spd / M_SQRT2), float(spd / M_SQRT2)};
+    };
+
+    return QVector2D{};
+}
+
 qreal Character::getPositionX() const {
     return pos().x();
 }
@@ -293,7 +301,7 @@ void Character::set_health(int health) {
     characterHealth = health;
 }
 
-bool Character::is_alive() const{
+bool Character::is_alive() const {
     return characterHealth > 0;
 }
 

@@ -12,6 +12,7 @@ CONFIG += c++11
 INCLUDEPATH += GameScene/
 
 SOURCES += \
+    character_controller.cpp \
     GameScene/overlay.cpp \
     GameScene/camera.cpp \
     GameScene/gridinfo.cpp \

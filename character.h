@@ -4,6 +4,7 @@
 #include <QVector2D>
 #include <QPropertyAnimation>
 #include <QMediaPlayer>
+#include <QHash>
 #include "qstring.h"
 #include "qstringlist.h"
 #include "qgraphicsitem.h"
@@ -17,7 +18,7 @@ class Character : public QObject, public QGraphicsItemGroup
     Q_PROPERTY(qreal moveX READ getPositionX WRITE setPositionX)
     Q_PROPERTY(qreal moveY READ getPositionY WRITE setPositionY)
 public:
-    enum class MOVE_DIRECTION { LEFT, RIGHT, UP, DOWN };
+    enum MOVE_DIRECTION { LEFT = 0x0001, RIGHT = 0x0002, UP = 0x0020, DOWN = 0x0040 };
     Character(int stepValue = 5, Map* map = nullptr);
     Character(QString, int, int stepValue = 5, Map* map = nullptr);
     Character(const QStringList, int stepValue = 5, Map* map = nullptr);
@@ -34,13 +35,6 @@ public:
     void set_health(int health);
     void shoot();
 
-    /**
-     * @brief getPosition get character position
-     * @return position in floating format. You can modify the position but the changes won't reflect on the character.
-     */
-    QPointF getPosition() const;
-
-    void setPosition(QPointF p);
 
     /*for animation - start*/
 
@@ -61,7 +55,22 @@ public:
      */
     void setMovementVector(QVector2D v);
 
+    QVector2D getMovementvector(unsigned direction);
+
     void moveBy(qreal x, qreal y);
+
+    /**
+     * @brief moveTo Move to center of specific grid.
+     * @param x Grid coordinate x
+     * @param y Grid coordinate y
+     */
+    void moveTo(int x, int y);
+
+    /**
+     * @brief moveTo moveTo Move to center of specific grid.
+     * @param p Grid coordinate
+     */
+    void moveTo(QPoint p);
 
     Character operator=(const Character& input);
 
@@ -84,6 +93,7 @@ public:
     void setRotation(qreal degree);
 
 private:
+    float spd{10};
     QString characterName;
     QPropertyAnimation* animationX{nullptr};
     QPropertyAnimation* animationY{nullptr};
@@ -120,6 +130,26 @@ signals:
     void attackWeaponSignal(QString); //change tmrw
 
     void deadSignal(Character*);
+
+
+public:
+    class Controller {
+    private:
+        static QHash<char, MOVE_DIRECTION> KEY2DIRETION;
+        QHash<char, bool> keyState;
+        Character* toControl{nullptr};
+
+        void keyStateInitialize();
+    public:
+        Controller();
+        static const QVector<char> listenKeyList;
+        void setState(char key, bool pressed);
+
+        void control(Character* c);
+
+        void updateKeyPressControl();
+        void updateKeyHoldingControl();
+    };
 };
 
 #endif // CHARACTER_H
