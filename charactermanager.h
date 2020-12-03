@@ -78,6 +78,7 @@ public:
     void dispose_from_map(Character*);
     void temp_function();
     void set_map(Map* map);
+    bool check_endgame();
 private:
     /**
     * @brief static variable to hold character_manager

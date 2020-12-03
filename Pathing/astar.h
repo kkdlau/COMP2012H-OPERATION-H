@@ -14,8 +14,9 @@ private:
     QPoint end;
 
     class MapNode {
+        // cuz this is a private class, so I just make everything public
     public:
-        enum class State {OPEN, CLOSE, NONE};
+        enum class State {OPEN, CLOSE, NONE}; // node state
         int x;
         int y;
         int cost{-1};
@@ -47,19 +48,58 @@ public:
 
     AStar(const AStar& pathingInstance);
 
+    /**
+     * @brief minCostNode Search the node which has the minimum cost in open list
+     * @param list Open list to check
+     * @return index of the node
+     */
     int minCostNode(QList<MapNode*>& list) const;
 
+    /**
+     * @brief evaluateGCost calculate the G cost (Visiting Cost) of node
+     * @param from Starting node / Parent
+     * @param to The node that need to be calcuated G cost
+     * @return G Cost
+     */
     int evaluateGCost(const MapNode& from, const MapNode& to) const;
 
+    /**
+     * @brief evaluateHCost Calculate the H cost (cost from current node to end node) of node
+     * @param current Current node
+     * @return H Cost
+     */
     int evaluateHCost(const MapNode& current) const;
 
-    int evaluateCost(MapNode& from, MapNode& to, QPoint end) const;
+    /**
+     * @brief evaluateCost Calculate the overall cost of node
+     * @param from Starting node / Parent
+     * @param to The node that need to be calcuated cost
+     * @return Overall cost
+     */
+    int evaluateCost(MapNode& from, MapNode& to) const;
 
-    void initialState(QVector<QVector<MapNode>>& state) const;
+    /**
+     * @brief initialState initialize map node visiting state
+     * @param state Map Node list
+     */
+    void initialState(QVector<QVector<MapNode>>& mapNodeList) const;
 
     template<typename F>
+    /**
+     * @brief forEachNeighbor Iterator of available neighbor
+     * @param node Node to get neighbors
+     * @param stepValue How "heigh" can the target travels
+     * @param process Process function for neighbors
+     */
     void forEachNeighbor(const MapNode& node, int stepValue, F process) const;
 
+    /**
+     * @brief search Search the available pathing from start node to end node
+     * @param start Starting Point, in GRID unit
+     * @param end Ending point, in GRID unit
+     * @param stepValue How "high" can the target travels
+     * @return Pathing in QList format
+     */
     QList<QPoint> search(QPoint start, QPoint end, int stepValue = 5);
 };
 

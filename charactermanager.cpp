@@ -150,3 +150,9 @@ void CharacterManager::reset_character_manager()
     }
     characterDatabase.clear();
 }
+
+bool CharacterManager::check_endgame()
+{
+    return this->get_all_characters()[0]->get_health() <= 0;
+}
+

@@ -6,7 +6,7 @@ AStar::AStar(const Map& map): map{map} {
 
 }
 
-AStar::AStar(const AStar& pathingInstance): map{map} {
+AStar::AStar(const AStar& pathingInstance): map{pathingInstance.map} {
     start = pathingInstance.start;
     end = pathingInstance.end;
 }
@@ -56,7 +56,7 @@ QList<QPoint> AStar::search(QPoint start, QPoint end, int stepValue) {
                 node.parent = &n;
                 openList.push_back(&node);
             } else if (node.state == MapNode::State::OPEN) {
-                if (evaluateCost(n, node, end) < node.cost) {
+                if (evaluateCost(n, node) < node.cost) {
                     //                    qDebug() << "change parent:" << node.toQPoint() << " - from:"  << node.parent->toQPoint() << " to " << n.toQPoint();
                     node.gCost = evaluateGCost(n, node);
                     node.hCost = evaluateHCost(node);
@@ -86,15 +86,15 @@ int AStar::evaluateHCost(const MapNode& current) const {
     return qAbs(diff.x()) + qAbs(diff.y()) * 10;
 }
 
-int AStar::evaluateCost(MapNode& from, MapNode& to, QPoint end) const {
+int AStar::evaluateCost(MapNode& from, MapNode& to) const {
     return evaluateGCost(from, to) + evaluateHCost(to);
 }
 
-void AStar::initialState(QVector<QVector<MapNode>> & state) const {
+void AStar::initialState(QVector<QVector<MapNode>> & mapNodeList) const {
     for (int y = 0, sizeY = map.getHeight(Map::UNIT::GRID); y < sizeY; ++y) {
-        state.push_back({});
+        mapNodeList.push_back({});
         for (int x = 0, sizeX = map.getWidth(Map::UNIT::GRID); x < sizeX; ++x) {
-            state.last().push_back(MapNode{x, y});
+            mapNodeList.last().push_back(MapNode{x, y});
         }
     }
 }

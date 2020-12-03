@@ -2,13 +2,14 @@
 #include "ui_mainwindow.h"
 #include "mapviewpage.h"
 #include "networkpage.h"
-#include "Network/udp.h"
+#include <QGraphicsItem>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->label->setPixmap(QPixmap(":assets/game_logo.png").scaled(ui->label->width(),ui->label->height()));
 }
 
 MainWindow::~MainWindow()
@@ -40,19 +41,6 @@ void MainWindow::on_pushButton_GameStart_clicked()
     map_view_page->exec();
 }
 
-
-void MainWindow::on_pushButton_2_clicked()
-{
-    UDP its_a_me;
-    QString raw_message("Hello");
-    its_a_me.say_hello_in_udp(raw_message);
-}
-
-void MainWindow::on_pushButton_3_clicked()
-{
-    UDP its_a_you;
-    its_a_you.read_from_udp();
-}
 
 
 void MainWindow::on_pushButton_4_clicked()

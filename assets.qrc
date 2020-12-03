@@ -16,5 +16,6 @@
         <file>assets/sword.wav</file>
         <file>assets/footsteps_new.wav</file>
         <file>assets/map1.txt</file>
+        <file>assets/game_logo.png</file>
     </qresource>
 </RCC>
