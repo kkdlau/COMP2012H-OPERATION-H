@@ -20,6 +20,8 @@ class Client : public QDialog
 
 public:
     explicit Client(QWidget *parent = nullptr);
+    void set_game_page(MapViewPage*);
+
 
 private slots:
     void send_game_stat();

@@ -7,7 +7,6 @@
 Server::Server(QWidget *parent)
     : QDialog(parent)
     , statusLabel(new QLabel)
-    , game_page(new MapViewPage)
 {
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     statusLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
@@ -19,7 +18,6 @@ Server::Server(QWidget *parent)
 
     connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::send_game_stat);
-    connect(game_page, &MapViewPage::emitKeyboardPressed, this, &Server::send_game_stat);
 
     auto buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch(1);
@@ -89,6 +87,10 @@ void Server::open_game_page() {
     // Opening the actual game page;
     game_page->setModal(true);
     game_page->exec();
+}
+
+void Server::set_game_page(MapViewPage* input_page) {
+    game_page = input_page;
 }
 
 void Server::send_game_stat() {

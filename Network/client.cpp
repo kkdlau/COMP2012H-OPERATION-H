@@ -72,7 +72,6 @@ Client::Client(QWidget *parent)
     connect(tcpSocket, &QIODevice::readyRead, this, &Client::readFortune);
     connect(tcpSocket, &QAbstractSocket::errorOccurred,
             this, &Client::displayError);
-    connect(game_page, &MapViewPage::emitKeyboardPressed, this, &Client::send_game_stat);
 
     QGridLayout *mainLayout = nullptr;
     if (QGuiApplication::styleHints()->showIsFullScreen() || QGuiApplication::styleHints()->showIsMaximized()) {
@@ -159,6 +158,10 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
     }
 
     getFortuneButton->setEnabled(true);
+}
+
+void Client::set_game_page(MapViewPage* input_page) {
+    game_page = input_page;
 }
 //! [13]
 

@@ -19,9 +19,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    MapViewPage map_view_page;
-    map_view_page.setModal(true);
-    map_view_page.exec();
+    map_view_page = new MapViewPage();
+    map_view_page->setModal(true);
+    map_view_page->exec();
 }
 
 
@@ -42,6 +42,7 @@ void MainWindow::on_pushButton_3_clicked()
 void MainWindow::on_pushButton_4_clicked()
 {
     NetworkPage network_page;
+    network_page.set_game_page(map_view_page);
     network_page.setModal(true);
     network_page.exec();
 }

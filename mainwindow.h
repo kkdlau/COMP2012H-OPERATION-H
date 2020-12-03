@@ -28,6 +28,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    MapViewPage* map_view_page;
 
 };
 #endif // MAINWINDOW_H

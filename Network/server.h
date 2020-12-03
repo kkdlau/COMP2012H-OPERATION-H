@@ -17,11 +17,12 @@ class Server : public QDialog
 
 public:
     explicit Server(QWidget *parent = nullptr);
+    void set_game_page(MapViewPage* input_page);
 
 private slots:
     void send_game_stat();
-    void open_game_page();
 
+    void open_game_page();
 private:
     void initServer();
 

@@ -18,6 +18,11 @@ NetworkPage::~NetworkPage()
     delete ui;
 }
 
+void NetworkPage::set_game_page(MapViewPage* input_page) {
+    game_page = input_page;
+}
+
+
 void NetworkPage::on_pushButton_clicked()
 {
     if (!ui->radioButton->isChecked() && !ui->radioButton_2->isChecked()) {
@@ -28,11 +33,13 @@ void NetworkPage::on_pushButton_clicked()
         // Host radio button checked
         if (ui->radioButton->isChecked()) {
             Server server;
+            server.set_game_page(game_page);
             server.exec();
         }
         // Client radio button checked
         else {
             Client client;
+            client.set_game_page(game_page);
             client.exec();
         }
     }
