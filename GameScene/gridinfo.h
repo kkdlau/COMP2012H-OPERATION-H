@@ -3,9 +3,9 @@
 #include <QVector>
 #include <QString>
 #include <QGraphicsRectItem>
-#include "../NewWeapon/weapon.h"
-
 #include "qpoint.h"
+
+class Weapon;
 
 class GridInfo
 {
@@ -86,5 +86,7 @@ public:
      */
     Weapon* popWeapon();
 };
+
+#include "NewWeapon/weapon.h"
 
 #endif // GRIDINFO_H

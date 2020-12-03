@@ -6,6 +6,9 @@
 #include "qtimer.h"
 #include "QRandomGenerator"
 #include "qsequentialanimationgroup.h"
+
+class Character;
+
 enum WeaponType
 {
     MELEE, RANGED
@@ -36,9 +39,12 @@ protected:
     QTimer timer;
     int attack = 0;
     QSequentialAnimationGroup attackAnimation;
+    Character* owner;
 private:
     WeaponType type;
 };
+
+#include "../character.h"
 
 
 #endif // WEAPON_H

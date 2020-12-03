@@ -8,9 +8,10 @@
 #include "qstring.h"
 #include "qstringlist.h"
 #include "qgraphicsitem.h"
-#include "GameScene/map.h"
-#include "NewWeapon/weapon.h"
 #include "UI/healthbar.h"
+
+class Weapon;
+class Map;
 
 enum charType
 {
@@ -160,5 +161,8 @@ public:
         void updateKeyHoldingControl();
     };
 };
+
+#include "NewWeapon/weapon.h"
+#include "GameScene/map.h"
 
 #endif // CHARACTER_H
