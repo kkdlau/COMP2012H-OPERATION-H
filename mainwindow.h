@@ -31,10 +31,15 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     MapViewPage* map_view_page;
     QString selectedMapPath{":map_2.png"};
     QString selectedConfigPath{":map_2.txt"};
+    int numMelee{1};
+    int numRanged{1};
+    int bulletSpeed{1};
 };
 #endif // MAINWINDOW_H

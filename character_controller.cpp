@@ -43,7 +43,7 @@ void Character::Controller::control(Character *c) {
 void Character::Controller::updateKeyPressControl() {
     if (toControl == nullptr) return;
 
-    if (keyState['k']) {
+    if (keyState[' ']) {
         toControl->pickWeapon();
     }
 

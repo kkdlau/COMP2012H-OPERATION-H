@@ -22,13 +22,16 @@ class MapViewPage : public QDialog
     Q_OBJECT
 
 public:
-    explicit MapViewPage(const QString& mapImgPath, const QString& mapConfigPath, QWidget *parent = nullptr);
+    explicit MapViewPage(const QString& mapImgPath, const QString& mapConfigPath, int numMelee, int numRanged, int bulletSpeed, QWidget *parent = nullptr);
     ~MapViewPage();
     void setMapPath(QString inputPath);
 
 private:
 
     Ui::MapViewPage *ui;
+    int numMelee;
+    int numRanged;
+    int bulletSpeed;
 
     QTimer timer;
     Character::Controller controller;

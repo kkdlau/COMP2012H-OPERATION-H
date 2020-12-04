@@ -369,7 +369,7 @@ void Character::equipWeapon(Weapon* weapon) {
     weapon->SetOwner(this);
     weapon->setPos(0, 0); // reset the position: previous position is position of map, it should relative to character now
     weapon->OffsetWeaponPickUp();
-    weapon->setRotation(rotation());
+//    weapon->setRotation(rotation());
     emit equipWeaponSignal(currentWeapon);
 }
 
