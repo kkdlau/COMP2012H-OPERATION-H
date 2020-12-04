@@ -14,7 +14,7 @@
 using namespace std;
 
 MapViewPage::MapViewPage(QWidget* parent)
-	: QDialog(parent), ui(new Ui::MapViewPage), kbManager(this) {
+    : QDialog(parent), ui(new Ui::MapViewPage) {
 	ui->setupUi(this);
 	ui->gameCanvas->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	initializeManager();
@@ -25,7 +25,6 @@ MapViewPage::MapViewPage(QWidget* parent)
     playerItemFrame->setPos(250,250);
     Enemy* test = characterManager->generate_random_enemy();
     test->equipWeapon(weaponManager->GenerateRandomWeapon());
-    test->setDestination(ui->gameCanvas->character);
     ui->gameCanvas->scene->mapLayer()->addToGroup(test);
 	ui->gameCanvas->scene->mapLayer()->addToGroup(ui->gameCanvas->character);
 

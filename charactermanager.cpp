@@ -1,5 +1,4 @@
 #include "charactermanager.h"
-#include "FileParser/fileparser.h"
 #include "qdebug.h"
 
 CharacterManager *CharacterManager::instance = nullptr;
@@ -95,6 +94,13 @@ Enemy* CharacterManager::generate_random_enemy()
     {
         Enemy* newChar = new Enemy{map};
         add_character(newChar);
+        for(int i = 0; i < characterDatabase.length();i++)
+        {
+            if(characterDatabase[i]->getCharacterType() == charType::PLAYER && characterDatabase[i]->is_alive())
+            {
+                newChar->setDestination(characterDatabase[i]);
+            }
+        }
         qDebug()<<"NEW CHAR MADE "<<characterDatabase.length();
         return newChar;
 
@@ -120,15 +126,15 @@ void CharacterManager::dispose_from_map(Character *charData)
         map->removeFromGroup(charData);
         charData->setVisible(false);
         qDebug()<<"CHAR LEFT: "<<characterDatabase.length();
-        int remainingPlayer = 0;
+        int isThereCharacter = false;
         for(int i = 0; i < characterDatabase.length(); i++)
         {
-            if(characterDatabase[i]->is_alive())
+            if(characterDatabase[i]->getCharacterType() == charType::PLAYER && characterDatabase[i]->is_alive())
             {
-                remainingPlayer++;
+                isThereCharacter = true;
             }
         }
-        if(remainingPlayer <= 1)
+        if(!isThereCharacter)
         {
             temp_function();
             //TODO: Insert endgame
