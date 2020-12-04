@@ -357,6 +357,12 @@ void Character::attack() {
     {
         attackWeaponSignal(currentWeapon->WeaponDataText());
         currentWeapon->Attack(this->rotation());
+        if (currentWeapon->GetWeaponType() == WeaponType::MELEE) {
+            sword_sound.play();
+        }
+        if (currentWeapon->GetWeaponType() == WeaponType::RANGED) {
+            gunshot_sound.play();
+        }
     }
 }
 
