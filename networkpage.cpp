@@ -1,7 +1,5 @@
 #include "networkpage.h"
 #include "ui_networkpage.h"
-#include "clientpage.h"
-#include "hostpage.h"
 #include <QMessageBox>
 #include "Network/server.h"
 #include "Network/client.h"
