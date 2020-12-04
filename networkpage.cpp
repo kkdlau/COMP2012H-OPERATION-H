@@ -43,6 +43,10 @@ void NetworkPage::on_pushButton_clicked()
     }
 }
 
+/**
+ * @brief NetworkPage::on_pushButton_2_clicked
+ *
+ */
 void NetworkPage::on_pushButton_2_clicked()
 {
    this->close();

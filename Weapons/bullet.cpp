@@ -29,7 +29,7 @@ void Bullet::move()
         if(target && target != owner)
         {
             target->DealDamage(damage);
-            setVisible(false); //ask danny for shit
+            setVisible(false);
             return;
         }
     }

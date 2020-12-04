@@ -20,17 +20,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_Map1_clicked()
 {
-    qDebug() << "I want to quit U";
+    qDebug() << "Map1 Pressed";
 }
 
 void MainWindow::on_pushButton_Map2_clicked()
 {
-    qDebug() << "I want to jump mushroom";
+    qDebug() << "Map2 Pressed";
 }
 
 void MainWindow::on_pushButton_Map3_clicked()
 {
-    qDebug() << "But before all those I need to revise, fml";
+    qDebug() << "Map3 Pressed";
 }
 
 

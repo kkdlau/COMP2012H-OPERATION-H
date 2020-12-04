@@ -16,60 +16,69 @@ using namespace std;
 MapViewPage::MapViewPage(QWidget* parent)
     : QDialog(parent), ui(new Ui::MapViewPage) {
 	ui->setupUi(this);
-	ui->gameCanvas->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+
+    characterController = new Character::Controller;
+    cameraController = new Camera{ui->gameCanvas};
+
 	initializeManager();
 	characterManager->set_map(ui->gameCanvas->scene->mapLayer());
-	ui->gameCanvas->character = characterManager->generate_random_character();
-	ItemFrame* playerItemFrame = ui->gameCanvas->scene->getItemFrame();
-	playerItemFrame->characterSingalSetup(ui->gameCanvas->character);
-    playerItemFrame->setPos(250,250);
+    Character* mainCharacter = ui->gameCanvas->character = characterManager->generate_random_character();
+
+    initializeItemFrame(mainCharacter);
+
     Enemy* test = characterManager->generate_random_enemy();
     test->equipWeapon(weaponManager->GenerateRandomWeapon());
     ui->gameCanvas->scene->mapLayer()->addToGroup(test);
 	ui->gameCanvas->scene->mapLayer()->addToGroup(ui->gameCanvas->character);
 
-	ui->gameCanvas->cameraController->subscribe(ui->gameCanvas->character,
-												&Character::isMoving);
-	Map* something = ui->gameCanvas->scene->mapLayer();
+    putWeapon(weaponManager->GenerateRandomWeapon(), 8, 2);
 
-    GridInfo& idk = (*something)[8][2];
-	idk.putWeapon(weaponManager->GenerateRandomWeapon());
-
-	controller.control(ui->gameCanvas->character);
+    characterController->control(ui->gameCanvas->character);
 	timer.setInterval(50);
 	timer.start();
 	connect(&timer, &QTimer::timeout, this,
             [&]() {
-                controller.updateKeyHoldingControl();
-//ui->gameCanvas->character->moveTo(3, 3);
+                characterController->updateKeyHoldingControl();
             });
 
     connect(ui->gameCanvas->character, &Character::deadSignal, this, [&]() {
-       controller.unControl();
+        characterController->unControl();
     });
 
 }
 
+void MapViewPage::putWeapon(Weapon* weapon, int x, int y) {
+    Map& currentMap = *(ui->gameCanvas->scene->mapLayer());
+    currentMap[y][x].putWeapon(weapon);
+
+}
+
+void MapViewPage::initializeItemFrame(Character* c) {
+    const QPoint BOTTOM_RIGHT_CORNER{250, 250};
+
+    ItemFrame* itemFrame = ui->gameCanvas->scene->getItemFrame();
+    itemFrame->characterSingalSetup(ui->gameCanvas->character);
+    itemFrame->setPos(BOTTOM_RIGHT_CORNER);
+}
+
 void MapViewPage::keyPressEvent(QKeyEvent* e) {
-    controller.setState(e->key(), Character::Controller::PRESSED);
+    characterController->setState(e->key(), Character::Controller::PRESSED);
 }
 
 void MapViewPage::keyReleaseEvent(QKeyEvent* e) {
-    controller.setState(e->key(), Character::Controller::RELEASED);
+    characterController->setState(e->key(), Character::Controller::RELEASED);
 }
 
 CharacterManager* MapViewPage::get_character_manager() {
     return characterManager;
 }
 
-void MapViewPage::mouseMoveEvent(QMouseEvent* e) {
-	//	qDebug() << e->x() << ", " << e->y() << "\n";
-}
-
 MapViewPage::~MapViewPage() {
 	delete ui;
 	delete characterManager;
 	delete weaponManager;
+    delete characterController;
+    delete cameraController;
 }
 
 void MapViewPage::initializeManager() {
@@ -77,7 +86,12 @@ void MapViewPage::initializeManager() {
 	characterManager = CharacterManager::getInstance();
 }
 
-void MapViewPage::on_buttonBox_clicked(QAbstractButton *button)
+void MapViewPage::on_generateEnemyButton_clicked()
+{
+    Enemy* new_enemy = characterManager->generate_random_enemy();
+}
+
+void MapViewPage::on_closeButton_clicked()
 {
     delete this;
 }

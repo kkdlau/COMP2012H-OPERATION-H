@@ -11,16 +11,14 @@
 class Camera;
 
 class GameMapCanvas : public QGraphicsView {
-   public:
-	GameMapCanvas(QWidget* widget);
-    Camera* cameraController;
+public:
+    GameMapCanvas(QWidget* widget);
 
     Character* character;
     Overlay* scene;
 
-    void scrollContentsBy(int dx, int dy) override;
-
     void mouseMoveEvent(QMouseEvent* k) override;
+    void mousePressEvent(QMouseEvent* k) override;
 
     ~GameMapCanvas();
 };

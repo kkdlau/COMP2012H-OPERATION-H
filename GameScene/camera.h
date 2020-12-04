@@ -61,9 +61,6 @@ public:
      */
     void unsubscribe();
 
-    ~Camera();
-
-private slots:
     /**
      * @brief updateFocus Update camera and corresponding viewport by the given point.
      * @param p Point
@@ -75,6 +72,8 @@ private slots:
      * @param size The viewport size.
      */
     void updateCanvasSize(QSizeF size);
+
+    ~Camera();
 };
 
 #include "gamemapcanvas.h"
