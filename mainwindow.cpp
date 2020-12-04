@@ -1,7 +1,5 @@
-#include "mainwindow.h"
-
 #include <QGraphicsItem>
-
+#include "mainwindow.h"
 #include "mapviewpage.h"
 #include "networkpage.h"
 #include "ui_mainwindow.h"
