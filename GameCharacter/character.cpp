@@ -263,7 +263,7 @@ void Character::setPositionX(qreal p) {
     const qreal diff = p - pos().x();
     if (diff > 0) {
         moveXPositive(diff);
-    } else {
+    } else if (diff < 0){
         moveXNegative(diff);
     }
 
@@ -284,7 +284,7 @@ void Character::setPositionY(qreal p) {
     const qreal diff = p - pos().y();
     if (diff > 0) {
         moveYPositive(diff);
-    } else {
+    } else if (diff < 0){
         moveYNegative(diff);
     }
 
