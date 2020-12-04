@@ -11,11 +11,11 @@
         <file alias="knife">assets/output-onlinepngtools.png</file>
         <file alias="map_2.png">assets/map_2.png</file>
         <file alias="map_2.txt">assets/map_2.txt</file>
-        <file>assets/footsteps.wav</file>
-        <file>assets/gunshot.wav</file>
-        <file>assets/sword.wav</file>
+        <file alias="gunshot.wav">assets/gunshot.wav</file>
+        <file alias="sword.wav">assets/sword.wav</file>
         <file alias="footsteps_new.mav">assets/footsteps_new.wav</file>
-        <file>assets/map1.txt</file>
-        <file>assets/game_logo.png</file>
+        <file alias="map1.txt">assets/map1.txt</file>
+        <file alias="game_logo.png">assets/game_logo.png</file>
+        <file alias="map3.txt">assets/map3.txt</file>
     </qresource>
 </RCC>
