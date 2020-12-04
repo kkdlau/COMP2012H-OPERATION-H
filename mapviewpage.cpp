@@ -103,9 +103,15 @@ Enemy* MapViewPage::generateEnemy() const {
 void MapViewPage::on_generateEnemyButton_clicked()
 {
     Enemy* enemy = generateEnemy();
-
-    ui->gameCanvas->scene->mapLayer()->addToGroup(enemy);
+    enemy->setGridPos(generateRandomMapPos());
 }
+
+
+void MapViewPage::setMapPath(QString inputPath) {
+    mapPath = inputPath;
+}
+
+
 
 QPoint MapViewPage::generateRandomMapPos() const {
     const unsigned width = unsigned(ui->gameCanvas->scene->mapLayer()->getWidth(Map::UNIT::GRID));
@@ -121,6 +127,7 @@ QPoint MapViewPage::generateRandomMapPos() const {
 
     return QPoint{int(x), int(y)};
 }
+
 void MapViewPage::on_closeButton_clicked()
 {
     delete this;

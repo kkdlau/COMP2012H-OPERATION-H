@@ -24,6 +24,7 @@ class MapViewPage : public QDialog
 public:
     explicit MapViewPage(QWidget *parent = nullptr);
     ~MapViewPage();
+    void setMapPath(QString inputPath);
 
 private:
 
@@ -32,6 +33,8 @@ private:
 
 
     QTimer timer;
+    Character::Controller controller;
+    QString mapPath;
 
     Camera* cameraController;
     Character::Controller* characterController;
