@@ -14,24 +14,63 @@ class Enemy : public Character
     Q_PROPERTY(qreal moveX READ x WRITE setPositionX)
     Q_PROPERTY(qreal moveY READ y WRITE setPositionY)
 public:
+    /**
+     * @brief Enemy constructor
+     * @param map
+     * @param moveSpeed
+     * @param target
+     */
     Enemy(Map* map, int moveSpeed = 100, Character *target = nullptr);
+    Enemy(const Enemy &enemy) = delete;
+    Enemy operator=(const Enemy& enemy) = delete;
+    /**
+     * @brief setDestination set the Enemy target to attack
+     */
     void setDestination(Character*);
+    /**
+     * @brief unblock slightly offset the enemy when collided
+     */
     void unblock(MOVE_DIRECTION);
+    /**
+     * @brief The list of action done when the enemy has target
+     */
     void action();
+    /**
+     * @brief move the Enemy to a designated area
+     */
     void move();
+    /**
+     * @brief Enemy attack when it reaches certain distance between character
+     */
     void attack();
+    /**
+     * @brief calculateRotation returns an angle between target
+     * @return angle
+     */
     qreal calculateRotation();
+    /**
+     * @brief Virtual function called after being damaged
+     */
     virtual void Harmed();
     ~Enemy();
 private:
-    int xUnblockOffset = 0;
-    int yUnblockOffset = 0;
+    /**
+     * @brief moveSpeed of the enemy movement
+     */
     int moveSpeed;
+    /**
+     * @brief target of the Character being chased
+     */
     Character* target;
     QTimer timer;
+    /**
+     * @brief healthBar of the enemy
+     */
     int healthBar = 10;
+    /**
+     * @brief pathingList is the list of points an Enemy need to follow
+     */
     QList<QPoint> pathingList;
-    int stepIndex = 0;
 };
 
 #endif // ENEMY_H

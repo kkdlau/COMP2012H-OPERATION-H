@@ -44,9 +44,9 @@ Client::Client(QWidget *parent)
     portLineEdit->setValidator(new QIntValidator(1, 65535, this));
 
     // Adding labels
-    auto hostLabel = new QLabel(tr("&Server name:"));
+    QLabel* hostLabel = new QLabel(tr("&Server name:"));
     hostLabel->setBuddy(hostCombo);
-    auto portLabel = new QLabel(tr("S&erver port:"));
+    QLabel* portLabel = new QLabel(tr("S&erver port:"));
     portLabel->setBuddy(portLineEdit);
 
     // For fun and for debugging what you received
@@ -57,10 +57,10 @@ Client::Client(QWidget *parent)
     connect_button->setEnabled(false);
 
     // Dynamically instantiating a quit button
-    auto quitButton = new QPushButton(tr("Quit"));
+    QPushButton* quitButton = new QPushButton(tr("Quit"));
 
     // Making even more buttons for the users to use
-    auto buttonBox = new QDialogButtonBox;
+    QDialogButtonBox* buttonBox = new QDialogButtonBox;
     buttonBox->addButton(connect_button, QDialogButtonBox::ActionRole);
     buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
 
@@ -83,11 +83,11 @@ Client::Client(QWidget *parent)
     // The actual layout (I copied from the Internet so that I don't have to design it myself cuz I am bad at doing it)
     QGridLayout *mainLayout = nullptr;
     if (QGuiApplication::styleHints()->showIsFullScreen() || QGuiApplication::styleHints()->showIsMaximized()) {
-        auto outerVerticalLayout = new QVBoxLayout(this);
+        QVBoxLayout* outerVerticalLayout = new QVBoxLayout(this);
         outerVerticalLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Ignored, QSizePolicy::MinimumExpanding));
-        auto outerHorizontalLayout = new QHBoxLayout;
+        QHBoxLayout* outerHorizontalLayout = new QHBoxLayout;
         outerHorizontalLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::Ignored));
-        auto groupBox = new QGroupBox(QGuiApplication::applicationDisplayName());
+        QGroupBox* groupBox = new QGroupBox(QGuiApplication::applicationDisplayName());
         mainLayout = new QGridLayout(groupBox);
         outerHorizontalLayout->addWidget(groupBox);
         outerHorizontalLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::Ignored));

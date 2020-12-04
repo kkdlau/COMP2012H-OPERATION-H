@@ -23,15 +23,6 @@ CharacterManager *CharacterManager::getInstance()
     }
     return instance;
 }
-//Character* character_manager::get_character(QString character_name) const
-//{
-//    return database.contains(character_name)? database[character_name] : nullptr;
-//}
-
-//Character* character_manager::operator[](QString character_name) const
-//{
-//    return get_character(character_name);
-//}
 
 const QList<Character*> CharacterManager::get_all_characters() const
 {
@@ -112,7 +103,7 @@ Enemy* CharacterManager::generate_random_enemy()
     }
 }
 
-void CharacterManager::temp_function()
+void CharacterManager::show_end_game()
 {
     QMessageBox::information(nullptr, "Information", "Game Ends");
 }
@@ -136,7 +127,7 @@ void CharacterManager::dispose_from_map(Character *charData)
         }
         if(!isThereCharacter)
         {
-            temp_function();
+            show_end_game();
             //TODO: Insert endgame
 
         }

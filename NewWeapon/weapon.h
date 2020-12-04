@@ -29,8 +29,6 @@ public:
      * @param angle for projectile-based weapon
      */
     void virtual Attack(int angle) = 0;
-//    void Equip(QGraphicsItem*);//havent been properly implemented
-//    void Unequip();
     /**
      * @brief SetOwner provides a function to set the Character class that uses this weapon
      */
@@ -40,8 +38,6 @@ public:
      * @return
      */
     int GetWeaponId();
-//    WeaponType GetWeaponType();
-    //temp implementation
     /**
      * @brief WeaponDataText provide text for UI purposes
      * @return
@@ -66,12 +62,27 @@ signals:
      */
     void OnWeaponUpdate(QString);
 protected:
+    /**
+     * @brief generate random weaponId for identification purposes
+     */
     int weaponId = QRandomGenerator::global()->generate();
     QTimer timer;
+    /**
+     * @brief set the attack damage
+     */
     int attack = 0;
+    /**
+     * @brief attackAnimation for the Weapon when attacking
+     */
     QSequentialAnimationGroup attackAnimation;
+    /**
+     * @brief set the owner of the Character
+     */
     Character* owner;
 private:
+    /**
+     * @brief type of the Weapon
+     */
     WeaponType type;
 };
 

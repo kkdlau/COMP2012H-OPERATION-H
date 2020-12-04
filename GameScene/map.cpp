@@ -104,6 +104,9 @@ const QVector<GridInfo>& Map::operator[](const unsigned columnIndex) const {
 }
 
 GridInfo& Map::operator[](const QPoint& p) {
+    qDebug() << "Returning X pos:" << p.x();
+    qDebug() << "Returning Y pos:" << p.y();
+    qDebug() << "Returning the grid info:" << grid[p.y()][p.x()].getPos();
     return grid[p.y()][p.x()];
 }
 

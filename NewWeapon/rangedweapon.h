@@ -14,6 +14,8 @@ public:
      * @param parent sets the RangedWeapon QGraphicsItem Parent
      */
     RangedWeapon(int attack, int attackSpeed, int reloadSpeed, int maxBullet,  QGraphicsItem*parent = nullptr);
+    RangedWeapon(const RangedWeapon &rangedWeapon) = delete;
+    RangedWeapon operator=(const RangedWeapon& rangedWeapon) = delete;
     /**
      * @brief Attack implementation for the RangedWeapon
      * @param angle for bullet angle travel
