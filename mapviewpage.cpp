@@ -86,7 +86,12 @@ void MapViewPage::initializeManager() {
 	characterManager = CharacterManager::getInstance();
 }
 
-void MapViewPage::on_buttonBox_clicked(QAbstractButton *button)
+void MapViewPage::on_generateEnemyButton_clicked()
+{
+    Enemy* new_enemy = characterManager->generate_random_enemy();
+}
+
+void MapViewPage::on_closeButton_clicked()
 {
     delete this;
 }
