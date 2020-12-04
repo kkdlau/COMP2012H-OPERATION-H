@@ -1,5 +1,4 @@
 #include "charactermanager.h"
-#include "FileParser/fileparser.h"
 #include "qdebug.h"
 
 CharacterManager *CharacterManager::instance = nullptr;

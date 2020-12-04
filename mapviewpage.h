@@ -8,7 +8,6 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QGraphicsPixmapItem>
-#include "KeyBoardManager/keyboardmanager.h"
 #include "NewWeapon/weaponmanager.h"
 #include "charactermanager.h"
 #include <QTimer>
@@ -31,7 +30,6 @@ private:
     QGraphicsScene *scene;
     QGraphicsRectItem *rectangle;
     QGraphicsPixmapItem *character;
-    KeyboardManager kbManager;
     QTimer timer;
     Character::Controller controller;
 

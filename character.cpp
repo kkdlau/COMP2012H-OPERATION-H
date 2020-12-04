@@ -51,6 +51,14 @@ Character::~Character()
         dequipWeapon();
     }
     delete gun;
+    if (animationX) {
+        animationX->stop();
+    }
+    delete animationX;
+    if (animationY) {
+        animationY->stop();
+    }
+    delete animationY;
 }
 
 QPoint Character::getGridPos() const {
@@ -249,6 +257,7 @@ if (footstep_sound.state() != QMediaPlayer::State::PlayingState) footstep_sound.
 //qDebug() << move_state;
 //qDebug() << (x||y);
 //move_state = (x || y);
+
 }
 
 

@@ -10,7 +10,10 @@ Overlay::Overlay(QString imgPath, QString configFilePath) {
 
 Overlay::~Overlay()
 {
+    delete map;
+    map = nullptr;
     delete itemFrame;
+    itemFrame = nullptr;
 }
 
 void Overlay::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) {

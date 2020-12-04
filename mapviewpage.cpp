@@ -14,7 +14,7 @@
 using namespace std;
 
 MapViewPage::MapViewPage(QWidget* parent)
-	: QDialog(parent), ui(new Ui::MapViewPage), kbManager(this) {
+    : QDialog(parent), ui(new Ui::MapViewPage) {
 	ui->setupUi(this);
 	ui->gameCanvas->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	initializeManager();
