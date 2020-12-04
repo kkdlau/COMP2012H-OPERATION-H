@@ -8,6 +8,7 @@ NetworkPage::NetworkPage(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NetworkPage)
 {
+    setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowTitleHint);
     ui->setupUi(this);
 }
 

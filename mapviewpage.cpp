@@ -15,9 +15,11 @@
 
 using namespace std;
 
-MapViewPage::MapViewPage(const QString& mapImgPath,
-						 const QString& mapConfigPath, QWidget* parent)
-	: QDialog(parent), ui(new Ui::MapViewPage) {
+
+MapViewPage::MapViewPage(QWidget* parent)
+    : QDialog(parent), ui(new Ui::MapViewPage) {
+    setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowTitleHint);
+
 	ui->setupUi(this);
 	ui->gameCanvas->createMap(mapImgPath, mapConfigPath);
 
