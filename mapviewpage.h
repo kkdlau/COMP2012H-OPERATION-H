@@ -11,6 +11,7 @@
 #include "NewWeapon/weaponmanager.h"
 #include "charactermanager.h"
 #include <QTimer>
+#include "GameScene/camera.h"
 
 namespace Ui {
 class MapViewPage;
@@ -28,28 +29,43 @@ private:
 
     Ui::MapViewPage *ui;
     QGraphicsScene *scene;
-    QGraphicsRectItem *rectangle;
-    QGraphicsPixmapItem *character;
+
+
     QTimer timer;
-    Character::Controller controller;
 
-    void comboHandler(const QString&);
+    Camera* cameraController;
+    Character::Controller* characterController;
 
-    //STeven SHIT
+    //STeven
     void initializeManager();
     CharacterManager* characterManager;
     WeaponManager* weaponManager;
 
+    /**
+     * @brief initializeItemFrame Intialize the item frame
+     * @param c character to listen
+     */
+    void initializeItemFrame(Character* c);
+
+    /**
+     * @brief putWeapon Put the weapon on the ground
+     * @param weapon weapon to put
+     * @param x Grid X coordinate
+     * @param y Grid Y coordinate
+     */
+    void putWeapon(Weapon* weapon, int x, int y);
+
 public:
     CharacterManager* get_character_manager();
-    void mouseMoveEvent(QMouseEvent*) override;
     void onMouseEvent(const QString& eName, const QPoint& p);
     void keyPressEvent(QKeyEvent*) override;
     void keyReleaseEvent(QKeyEvent*) override;
 signals:
     void emitKeyboardPressed();
+
 private slots:
-    void on_buttonBox_clicked(QAbstractButton *button);
+    void on_generateEnemyButton_clicked();
+    void on_closeButton_clicked();
 };
 
 #endif // MAPVIEWPAGE_H

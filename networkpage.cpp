@@ -1,7 +1,5 @@
 #include "networkpage.h"
 #include "ui_networkpage.h"
-#include "clientpage.h"
-#include "hostpage.h"
 #include <QMessageBox>
 #include "Network/server.h"
 #include "Network/client.h"
@@ -45,6 +43,10 @@ void NetworkPage::on_pushButton_clicked()
     }
 }
 
+/**
+ * @brief NetworkPage::on_pushButton_2_clicked
+ *
+ */
 void NetworkPage::on_pushButton_2_clicked()
 {
    this->close();

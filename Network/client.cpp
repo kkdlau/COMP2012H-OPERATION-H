@@ -1,21 +1,21 @@
 #include <QtWidgets>
 #include <QtNetwork>
-
 #include "client.h"
 #include "mapviewpage.h"
-//! [0]
+
 Client::Client(QWidget *parent)
     : QDialog(parent)
     , hostCombo(new QComboBox)
     , portLineEdit(new QLineEdit)
-    , getFortuneButton(new QPushButton(tr("Connect to Server")))
-    , tcpSocket(new QTcpSocket(this))
+    , connect_button(new QPushButton(tr("Connect to Server")))
+    , tcp_socket(new QTcpSocket(this))
     , game_page(new MapViewPage())
 {
+    // Some setup for the UI
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
-//! [0]
     hostCombo->setEditable(true);
-    // find out name of this machine
+
+    // Find out name of this machine
     QString name = QHostInfo::localHostName();
     if (!name.isEmpty()) {
         hostCombo->addItem(name);
@@ -25,54 +25,63 @@ Client::Client(QWidget *parent)
     }
     if (name != QLatin1String("localhost"))
         hostCombo->addItem(QString("localhost"));
-    // find out IP addresses of this machine
+
+    // Find out IP addresses of this machine
     QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
-    // add non-localhost addresses
+
+    // Add non-localhost addresses
     for (int i = 0; i < ipAddressesList.size(); ++i) {
         if (!ipAddressesList.at(i).isLoopback())
             hostCombo->addItem(ipAddressesList.at(i).toString());
     }
-    // add localhost addresses
+
+    // Add localhost addresses
     for (int i = 0; i < ipAddressesList.size(); ++i) {
         if (ipAddressesList.at(i).isLoopback())
             hostCombo->addItem(ipAddressesList.at(i).toString());
     }
 
+    // Validation for the port
     portLineEdit->setValidator(new QIntValidator(1, 65535, this));
 
+    // Adding labels
     auto hostLabel = new QLabel(tr("&Server name:"));
     hostLabel->setBuddy(hostCombo);
     auto portLabel = new QLabel(tr("S&erver port:"));
     portLabel->setBuddy(portLineEdit);
 
-    statusLabel = new QLabel(tr("Fuck you all "
-                                "Why would you read this"));
+    // For fun and for debugging what you received
+    statusLabel = new QLabel(tr("Why would you read this"));
 
-    getFortuneButton->setDefault(true);
-    getFortuneButton->setEnabled(false);
+    // Making the connect button usable
+    connect_button->setDefault(true);
+    connect_button->setEnabled(false);
 
+    // Dynamically instantiating a quit button
     auto quitButton = new QPushButton(tr("Quit"));
 
+    // Making even more buttons for the users to use
     auto buttonBox = new QDialogButtonBox;
-    buttonBox->addButton(getFortuneButton, QDialogButtonBox::ActionRole);
+    buttonBox->addButton(connect_button, QDialogButtonBox::ActionRole);
     buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
 
-//! [1]
-    in.setDevice(tcpSocket);
+    // Connecting the input datastream with the tcp socket
+    in.setDevice(tcp_socket);
     in.setVersion(QDataStream::Qt_4_0);
-//! [1]
 
+    // Just a bunch of connects so that the buttons can work and the client can read from the server's message
     connect(hostCombo, &QComboBox::editTextChanged,
-            this, &Client::enableGetFortuneButton);
+            this, &Client::enable_connect_button);
     connect(portLineEdit, &QLineEdit::textChanged,
-            this, &Client::enableGetFortuneButton);
-    connect(getFortuneButton, &QAbstractButton::clicked,
+            this, &Client::enable_connect_button);
+    connect(connect_button, &QAbstractButton::clicked,
             this, &Client::send_game_stat);
     connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
-    connect(tcpSocket, &QIODevice::readyRead, this, &Client::readFortune);
-    connect(tcpSocket, &QAbstractSocket::errorOccurred,
+    connect(tcp_socket, &QIODevice::readyRead, this, &Client::read_game_stat);
+    connect(tcp_socket, &QAbstractSocket::errorOccurred,
             this, &Client::displayError);
 
+    // The actual layout (I copied from the Internet so that I don't have to design it myself cuz I am bad at doing it)
     QGridLayout *mainLayout = nullptr;
     if (QGuiApplication::styleHints()->showIsFullScreen() || QGuiApplication::styleHints()->showIsMaximized()) {
         auto outerVerticalLayout = new QVBoxLayout(this);
@@ -88,6 +97,7 @@ Client::Client(QWidget *parent)
     } else {
         mainLayout = new QGridLayout(this);
     }
+    // Adding Widget to the layout so that they can be properly formatted
     mainLayout->addWidget(hostLabel, 0, 0);
     mainLayout->addWidget(hostCombo, 0, 1);
     mainLayout->addWidget(portLabel, 1, 0);
@@ -97,18 +107,17 @@ Client::Client(QWidget *parent)
 
     setWindowTitle(QGuiApplication::applicationDisplayName());
     portLineEdit->setFocus();
-//! [5]
 }
 
 void Client::send_game_stat()
 {
-    getFortuneButton->setEnabled(false);
-    tcpSocket->abort();
-    tcpSocket->connectToHost(hostCombo->currentText(),
+    connect_button->setEnabled(false);
+    tcp_socket->abort();
+    tcp_socket->connectToHost(hostCombo->currentText(),
                              portLineEdit->text().toInt());
 }
 
-void Client::readFortune()
+void Client::read_game_stat()
 {
     in.startTransaction();
 
@@ -118,9 +127,8 @@ void Client::readFortune()
     if (!in.commitTransaction())
         return;
 
-
     statusLabel->setText(current_stat);
-    getFortuneButton->setEnabled(true);
+    connect_button->setEnabled(true);
 
 }
 
@@ -144,20 +152,17 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
     default:
         QMessageBox::information(this, tr("Fortune Client"),
                                  tr("The following error occurred: %1.")
-                                 .arg(tcpSocket->errorString()));
+                                 .arg(tcp_socket->errorString()));
     }
 
-    getFortuneButton->setEnabled(true);
+    connect_button->setEnabled(true);
 }
 
 void Client::set_game_page(MapViewPage* input_page) {
     game_page = input_page;
 }
-//! [13]
 
-void Client::enableGetFortuneButton()
+void Client::enable_connect_button()
 {
-    getFortuneButton->setEnabled(!hostCombo->currentText().isEmpty() &&
-                                 !portLineEdit->text().isEmpty());
-
+    connect_button->setEnabled(!hostCombo->currentText().isEmpty() && !portLineEdit->text().isEmpty());
 }

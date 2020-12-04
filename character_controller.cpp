@@ -23,11 +23,11 @@ void Character::Controller::keyStateInitialize() {
     KEY2DIRETION['d'] = MOVE_DIRECTION::RIGHT;
 }
 
-void Character::Controller::setState(char key, bool pressed) {
+void Character::Controller::setState(char key, Character::Controller::KeyState state) {
     if (isalpha(key)) key = tolower(key);
     bool oldState = keyState[key];
-    keyState[key] = pressed;
-    if (oldState == false && pressed == true)
+    keyState[key] = state;
+    if (oldState == false && state == true)
         updateKeyPressControl();
 //    qDebug() << "set state: " << key << " -> " << pressed;
     updateKeyHoldingControl();
@@ -48,7 +48,7 @@ void Character::Controller::updateKeyPressControl() {
     }
 
     if (keyState['m']) {
-        toControl->shoot();
+        toControl->attack();
     }
 }
 

@@ -36,7 +36,7 @@ void MeleeWeapon::OnAttack()
             Character* checking = dynamic_cast<Character*>(collision[i]->parentItem());
             if(checking)
             {
-                qDebug()<<"FOUND SHIT";
+                qDebug()<<"FOUND IT";
                 checking->DealDamage(attack);
                 return;
             }

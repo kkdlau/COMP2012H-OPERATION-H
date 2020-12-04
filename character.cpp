@@ -37,7 +37,7 @@ Character::Character(charType charType, int stepValue, Map* map): typeOfCharacte
     setRotation(0);
 
 //     fk idk wt im doing
-    footstep_sound.setMedia(QUrl::fromLocalFile("C:/Users/kfche/Documents/GitHub/COMP2012H-OPERATION-H/assets/footsteps_new.wav"));  // uncomment me and change path
+    footstep_sound.setMedia(QUrl::fromLocalFile(":footsteps_new.wav"));  // uncomment me and change path
 //    footstep_sound.setMedia(QUrl::fromLocalFile(":assets/footsteps.wav"));
     footstep_sound.setVolume(50);
 //    connect(this, &Character::startMoving, &footstep_sound, &QMediaPlayer::play);
@@ -228,36 +228,27 @@ void Character::moveXNegative(int dx) {
 }
 
 void Character::moveBy(qreal x, qreal y) {
-//   bool intersect = head->boundingRect().intersects(presetMap->test_obstacle->boundingRect());
+    if (x) {
+        if (animationX) animationX->stop();
+        delete animationX;
+        animationX = new QPropertyAnimation(this, "moveX");
+        animationX->setDuration(70);
+        animationX->setStartValue(this->getPositionX());
+        animationX->setEndValue(this->getPositionX() + x);
+        animationX->start();
+    }
 
-if (x) {
-    if (animationX) animationX->stop();
-    delete animationX;
-    animationX = new QPropertyAnimation(this, "moveX");
-    animationX->setDuration(70);
-    animationX->setStartValue(this->getPositionX());
-    animationX->setEndValue(this->getPositionX() + x);
-    animationX->start();
-}
+    if (y) {
+        if (animationY) animationY->stop();
+        delete animationY;
+        animationY = new QPropertyAnimation(this, "moveY");
+        animationY->setDuration(70);
+        animationY->setStartValue(this->getPositionY());
+        animationY->setEndValue(this->getPositionY() + y);
+        animationY->start();
+    }
 
-if (y) {
-    if (animationY) animationY->stop();
-    delete animationY;
-    animationY = new QPropertyAnimation(this, "moveY");
-    animationY->setDuration(70);
-    animationY->setStartValue(this->getPositionY());
-    animationY->setEndValue(this->getPositionY() + y);
-    animationY->start();
-}
-
-//if (footstep_sound.mediaStatus() == QMediaPlayer::MediaStatus::NoMedia || footstep_sound.mediaStatus() == QMediaPlayer::MediaStatus::EndOfMedia) {
-//    footstep_sound.play();
-//}
-if (footstep_sound.state() != QMediaPlayer::State::PlayingState) footstep_sound.play();
-//qDebug() << move_state;
-//qDebug() << (x||y);
-//move_state = (x || y);
-
+    if (footstep_sound.state() != QMediaPlayer::State::PlayingState) footstep_sound.play();
 }
 
 
@@ -351,11 +342,6 @@ void Character::moveTo(QPoint p) {
     moveTo(p.x(), p.y());
 }
 
-QString Character::get_name() const
-{
-    return characterName;
-}
-
 int Character::get_health() const
 {
     return characterHealth;
@@ -370,7 +356,7 @@ bool Character::is_alive() const {
     return characterHealth > 0;
 }
 
-void Character::shoot() {
+void Character::attack() {
     if(currentWeapon != nullptr)
     {
         attackWeaponSignal(currentWeapon->WeaponDataText());

@@ -20,24 +20,32 @@ class Client : public QDialog
 
 public:
     explicit Client(QWidget *parent = nullptr);
+    /**
+     * @brief Getting the mapviewpage from network page so that only one instance of mapviewpage is instantiated
+     * @param input_page
+     */
     void set_game_page(MapViewPage*);
 
 
 private slots:
     void send_game_stat();
-    void readFortune();
+    void read_game_stat();
+
+    /**
+     * @brief Displaying error to the user to see what is the error and hope they will try fixing it
+     * @param socketError is basically the error the socket receive which can be classified into different types
+     */
     void displayError(QAbstractSocket::SocketError socketError);
-    void enableGetFortuneButton();
+    void enable_connect_button();
 
 private:
     QComboBox *hostCombo = nullptr;
     QLineEdit *portLineEdit = nullptr;
     QLabel *statusLabel = nullptr;
-    QPushButton *getFortuneButton = nullptr;
+    QPushButton *connect_button = nullptr;
 
-    QTcpSocket *tcpSocket = nullptr;
+    QTcpSocket *tcp_socket = nullptr;
     QDataStream in;
-    QString currentFortune;
     MapViewPage* game_page;
 };
 
