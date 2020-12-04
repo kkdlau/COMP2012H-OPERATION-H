@@ -7,18 +7,25 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+	: QMainWindow(parent), ui(new Ui::MainWindow) {
+	ui->setupUi(this);
+	ui->label->setPixmap(QPixmap(":game_logo.png")
+							 .scaled(ui->label->width(), ui->label->height()));
+	selectedMapPath = ":map1.png";
+	selectedConfigPath = ":map1.txt";
+	: QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowTitleHint);
-    ui->setupUi(this);
-    ui->label->setPixmap(QPixmap(":game_logo.png").scaled(ui->label->width(),ui->label->height()));
+		setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint |
+					   Qt::WindowTitleHint);
+		ui->setupUi(this);
+		ui->label->setPixmap(
+			QPixmap(":game_logo.png")
+				.scaled(ui->label->width(), ui->label->height()));
+	}
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
+MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::on_pushButton_Map1_clicked() {
 	qDebug() << "Map1 Pressed";
@@ -28,8 +35,8 @@ void MainWindow::on_pushButton_Map1_clicked() {
 
 void MainWindow::on_pushButton_Map2_clicked() {
 	qDebug() << "Map2 Pressed";
-	selectedMapPath = ":map_2.png";
-	selectedConfigPath = ":map_2.txt";
+	selectedMapPath = ":map2.png";
+	selectedConfigPath = ":map2.txt";
 }
 
 void MainWindow::on_pushButton_Map3_clicked() {
