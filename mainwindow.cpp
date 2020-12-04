@@ -56,11 +56,6 @@ void MainWindow::on_pushButton_GameStart_clicked() {
 	map_view_page->exec();
 }
 
-void MainWindow::on_pushButton_4_clicked() {
-
-
-}
-
 void MainWindow::on_pushButton_clicked()
 {
     QCoreApplication::quit();

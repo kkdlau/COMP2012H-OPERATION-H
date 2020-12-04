@@ -16,8 +16,6 @@ using PIXEL = qreal;
 
 class Map : public QGraphicsItemGroup {
    private:
-    QGraphicsItemGroup* layer;
-	QPixmap* mapImg;
 	QPointF cursorPos;
     QVector<QVector<GridInfo>> grid;
     int width;
