@@ -103,8 +103,7 @@ Enemy* MapViewPage::generateEnemy() const {
 void MapViewPage::on_generateEnemyButton_clicked()
 {
     Enemy* enemy = generateEnemy();
-
-    ui->gameCanvas->scene->mapLayer()->addToGroup(enemy);
+    enemy->setGridPos(generateRandomMapPos());
 }
 
 QPoint MapViewPage::generateRandomMapPos() const {
