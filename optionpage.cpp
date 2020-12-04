@@ -18,6 +18,8 @@ void OptionPage::passFromMain(int* inputMelee, int* inputRanged, int* inputbulle
     this->numMelee = inputMelee;
     this->numRanged = inputRanged;
     this->bulletSpeed = inputbulletSpeed;
+    ui->numMeleeSlider->setSliderPosition(*numMelee);
+    ui->numRangedSlider->setSliderPosition(*numRanged);
 }
 
 
