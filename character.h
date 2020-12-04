@@ -95,13 +95,12 @@ public:
 
     void DealDamage(int damage);
     void virtual Harmed();
-    //SAMPLE WEAPON TEST STEVEN
 
-    //SAMPLE WEAPON TEST STEVEN
+    charType getCharacterType();
+
     Weapon* currentWeapon = nullptr;
     int characterHealth = 10;
     int maxHealth = 10;
-    //SAMPLE WEAPON TEST STEVEN
     void setRotation(qreal degree);
 
     bool isPerfectCenterize() const;

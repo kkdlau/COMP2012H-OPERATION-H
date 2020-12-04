@@ -1,9 +1,8 @@
 #include <QtWidgets>
 #include <QtNetwork>
-
 #include "client.h"
 #include "mapviewpage.h"
-//! [0]
+
 Client::Client(QWidget *parent)
     : QDialog(parent)
     , hostCombo(new QComboBox)
@@ -13,7 +12,6 @@ Client::Client(QWidget *parent)
     , game_page(new MapViewPage())
 {
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
-//! [0]
     hostCombo->setEditable(true);
     // find out name of this machine
     QString name = QHostInfo::localHostName();
@@ -57,10 +55,8 @@ Client::Client(QWidget *parent)
     buttonBox->addButton(getFortuneButton, QDialogButtonBox::ActionRole);
     buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
 
-//! [1]
     in.setDevice(tcpSocket);
     in.setVersion(QDataStream::Qt_4_0);
-//! [1]
 
     connect(hostCombo, &QComboBox::editTextChanged,
             this, &Client::enableGetFortuneButton);
@@ -97,7 +93,6 @@ Client::Client(QWidget *parent)
 
     setWindowTitle(QGuiApplication::applicationDisplayName());
     portLineEdit->setFocus();
-//! [5]
 }
 
 void Client::send_game_stat()
@@ -153,7 +148,6 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
 void Client::set_game_page(MapViewPage* input_page) {
     game_page = input_page;
 }
-//! [13]
 
 void Client::enableGetFortuneButton()
 {
