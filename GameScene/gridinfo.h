@@ -70,18 +70,18 @@ public:
     void putWeapon(Weapon* data);
 
     /**
-     * @brief isWeaponOnGround Check if the grid consist of weapon
+     * @brief isWeaponOnGround Check if the grid contains Weapon
      * @return true if the grid consist of weapon
      */
     bool isWeaponOnGround() const;
 
     /**
-     * @brief removeWeapon Remove the weapon from grid.
+     * @brief removeWeapon Remove the weapon from the grid.
      */
     void removeWeapon();
 
     /**
-     * @brief popWeapon Pop the Weapon from grid. It transform the ownership of owner.
+     * @brief popWeapon Pop the Weapon from the grid. It transform the ownership of owner.
      * @return weapon pointer
      */
     Weapon* popWeapon();

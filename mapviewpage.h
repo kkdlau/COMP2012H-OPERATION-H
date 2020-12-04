@@ -41,7 +41,9 @@ private:
     Camera* cameraController;
     Character::Controller* characterController;
 
-    //STeven
+    /**
+     * @brief initializeManager initialize the managers;
+     */
     void initializeManager();
     CharacterManager* characterManager;
     WeaponManager* weaponManager;
