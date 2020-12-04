@@ -371,9 +371,11 @@ void Character::equipWeapon(Weapon* weapon) {
     currentWeapon = weapon;
     addToGroup(weapon);
     weapon->SetOwner(this);
-    weapon->setPos(0, 0); // reset the position: previous position is position of map, it should relative to character now
+    qDebug()<<"rotation :"<<rotation();
+    weapon->resetTransform();
+    weapon->setPos(0,0);
     weapon->OffsetWeaponPickUp();
-    weapon->setRotation(rotation());
+    qDebug()<<"rotation weapon:"<<weapon->rotation();
     emit equipWeaponSignal(currentWeapon);
 }
 
@@ -384,7 +386,6 @@ void Character::dequipWeapon()
     currentPos.rx()--;
     currentPos.ry()--;
     GridInfo& currentGrid = (*presetMap)[currentPos];
-    currentWeapon->setRotation(0);
     currentWeapon->SetOwner(nullptr);
     removeFromGroup(currentWeapon);
     currentGrid.putWeapon(currentWeapon);

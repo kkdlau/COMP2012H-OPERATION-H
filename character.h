@@ -92,8 +92,6 @@ public:
 
     Character operator=(const Character& input);
 
-    //SAMPLE WEAPON TEST STEVEN
-
     void pickWeapon();
     void equipWeapon(Weapon* weapon);
     void dequipWeapon();
