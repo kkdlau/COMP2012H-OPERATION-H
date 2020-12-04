@@ -163,14 +163,33 @@ private:
     QMediaPlayer footstep_sound;
 
 signals:
+    /**
+     * @brief startMoving signals when Character starts moving
+     */
     void startMoving();
+    /**
+     * @brief stopMoving signals when Character stop moving
+     */
     void stopMoving();
+    /**
+     * @brief isMoving signals when Character is currently moving
+     * @param p
+     */
     void isMoving(QPointF p);
+    /**
+     * @brief blockByObstacle singals if Character is blocked by an Obstacle
+     */
     void blockByObstacle(MOVE_DIRECTION);
 
+    /**
+     * @brief equipWeaponSignal signals when Character is equiping a weapon
+     */
     void equipWeaponSignal(Weapon*);
+    /**
+     * @brief dequipWeaponSignal
+     */
     void dequipWeaponSignal(Weapon*);
-    void attackWeaponSignal(QString); //change tmrw
+    void attackWeaponSignal(QString);
 
     void deadSignal(Character*);
 

@@ -7,7 +7,6 @@
 Enemy::Enemy(Map* map, int moveSpeed, Character *target) : Character(charType::ENEMY, moveSpeed, map), moveSpeed(moveSpeed), target(target)
 {
     connect(&timer, &QTimer::timeout, this, &Enemy::action);
-    connect(this, &Character::blockByObstacle, this, &Enemy::unblock);
     setMoveSpd(5);
     timer.start(50);
 }
@@ -64,27 +63,6 @@ void Enemy::attack()
     }
 }
 
-void Enemy::unblock(MOVE_DIRECTION direction)
-{
-    QLineF drawLine(this->scenePos(), target->scenePos());
-    if(MOVE_DIRECTION::UP == direction)
-    {
-        moveBy(0, 0.5);
-    }
-    else if (MOVE_DIRECTION::DOWN == direction)
-    {
-        moveBy(0,-0.5);
-    }
-    else if (MOVE_DIRECTION::LEFT == direction)
-    {
-         moveBy(0.5,0);
-    }
-    else
-    {
-        moveBy(-0.5,0);
-    }
-}
-
 void Enemy::Harmed() //this class should inherit character for usability
 {
     if(characterHealth <= 0)
@@ -97,7 +75,6 @@ void Enemy::Harmed() //this class should inherit character for usability
 Enemy::~Enemy()
 {
     disconnect(&timer, &QTimer::timeout, this, &Enemy::action);
-    disconnect(this, &Character::blockByObstacle, this, &Enemy::unblock);
     timer.stop();
 }
 

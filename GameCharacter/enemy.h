@@ -28,10 +28,6 @@ public:
      */
     void setDestination(Character*);
     /**
-     * @brief unblock slightly offset the enemy when collided
-     */
-    void unblock(MOVE_DIRECTION);
-    /**
      * @brief The list of action done when the enemy has target
      */
     void action();

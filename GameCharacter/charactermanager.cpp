@@ -141,7 +141,6 @@ void CharacterManager::dispose_from_map(Character *charData)
 
 void CharacterManager::reset_character_manager()
 {
-    deleting = true;
     for(int i = characterDatabase.length() - 1; i >= 0; i--)
     {
         delete_character(characterDatabase[i]);
