@@ -108,7 +108,7 @@ class Map : public QGraphicsItemGroup {
     bool isOutOfMap(const QPointF& p, qreal* x, qreal* y) const;
 
     /**
-     * @brief isAccessible Check is the grid accessible. Please note that this is not pahting searching. It only available for neighbor grid.
+     * @brief isAccessible Check is the grid accessible. Please note that this is not pathing searching. It is only available for neighbor grid.
      * @param from Starting point
      * @param to End point. Should be a neighbor of starting point
      * @param stepValue Step value, how "high" can the target travel

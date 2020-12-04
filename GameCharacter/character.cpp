@@ -411,6 +411,7 @@ void Character::Harmed()
     if(characterHealth <= 0)
     {
         dequipWeapon();
+        stop();
         emit deadSignal(this);
     }
 }
@@ -434,4 +435,17 @@ charType Character::getCharacterType()
 
 void Character::setGridPos(QPoint p) {
     setPos(32 * p.x() + 16, 32 * p.y() + 16);
+}
+
+void Character::stop() {
+    if (animationX) animationX->stop();
+    if (animationY) animationY->stop();
+}
+
+void Character::setMoveSpd(int spd) {
+    this->spd = spd;
+}
+
+int Character::getSpd() const {
+    return spd;
 }

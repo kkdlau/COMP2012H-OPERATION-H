@@ -85,6 +85,11 @@ public:
     void moveTo(QPoint p);
 
     /**
+     * @brief stop Stop the character.
+     */
+    void stop();
+
+    /**
      * @brief setGridPos Set Character position
      * @param p Position in GRID positioning system
      */
@@ -108,6 +113,10 @@ public:
     void setRotation(qreal degree);
 
     bool isPerfectCenterize() const;
+
+    void setMoveSpd(int spd);
+
+    int getSpd() const;
 protected:
     Map* presetMap;
     charType typeOfCharacter;
