@@ -11,8 +11,6 @@
 class Enemy : public Character
 {
     Q_OBJECT
-    Q_PROPERTY(qreal moveX READ x WRITE setPositionX)
-    Q_PROPERTY(qreal moveY READ y WRITE setPositionY)
 public:
     /**
      * @brief Enemy constructor
