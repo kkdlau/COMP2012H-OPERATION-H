@@ -71,7 +71,7 @@ public:
     int evaluateHCost(const MapNode& current) const;
 
     /**
-     * @brief evaluateCost Calculate the overall cost of node
+     * @brief evaluateCost Calculate the overall cost of a node
      * @param from Starting node / Parent
      * @param to The node that need to be calcuated cost
      * @return Overall cost

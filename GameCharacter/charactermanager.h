@@ -111,8 +111,14 @@ private:
     * @brief Hashmap to save the characters.
     */
    QList<Character*> characterDatabase;
+   /**
+    * @brief map The database for the game
+    */
    Map* map;
-   bool deleting = false;
+   /**
+    * @brief isOver state if game is over
+    */
+   bool isOver = false;
 };
 
 #endif // CHARACTERMANAGER_H

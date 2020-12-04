@@ -125,8 +125,9 @@ void CharacterManager::dispose_from_map(Character *charData)
                 isThereCharacter = true;
             }
         }
-        if(!isThereCharacter)
+        if(!isThereCharacter && isOver == false)
         {
+            isOver = true;
             show_end_game();
             //TODO: Insert endgame
 

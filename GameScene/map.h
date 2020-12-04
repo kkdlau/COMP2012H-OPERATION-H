@@ -30,12 +30,12 @@ class Map : public QGraphicsItemGroup {
     void parseMapConfigFile(QString mapConfigFilePath);
 
     /**
-     * @brief gridInfoinitialize helper function for initializing the whole map
+     * @brief gridInfoinitialize helper function to initialize the whole map
      */
     void gridInfoinitialize();
 
     /**
-     * @brief gridInfoinitialize initialize the grid info of map, the range is specified
+     * @brief gridInfoinitialize initialize the grid info of the map, the range is specified
      * @param w width of the map
      * @param h height of the map
      * @param baseHeight the base height, i.e. height of ground
@@ -92,14 +92,14 @@ class Map : public QGraphicsItemGroup {
     const GridInfo& operator[](const QPoint& p) const;
 
     /**
-     * @brief isOutOfMap Is the given point out of the map. The point should be in GRID.
+     * @brief isOutOfMap Check if the grid position is within the map boundary. Returns false if it's out of map boundary.
      * @param p Point to check
      * @return Out of map or not
      */
     bool isOutOfMap(const QPoint& p) const;
 
     /**
-     * @brief isOutOfMap Is the given point out of the map. The point should be in PIXEL.
+     * @brief isOutOfMap Check if the given pixel coordinate is within the map boundary. If not, the offset will be passed through the X and Y parameter.
      * @param p Point to check
      * @param x If out of map, the overshoot / undershoot of x-axis will be assigned to this pointer
      * @param y If out of map, the overshoot / undershoot of y-axis will be assigned to this pointer

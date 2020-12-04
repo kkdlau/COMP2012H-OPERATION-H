@@ -18,13 +18,13 @@ private:
     QMetaObject::Connection canvasSizeChangeConnection;
 
     /**
-     * @brief updateVerticalFocus Update Canvas Viewport according to vertical coordinate
+     * @brief updateVerticalFocus Update Canvas Viewport according to the vertical coordinate
      * @param v vertical coordinate
      */
     void updateVerticalFocus(qreal v);
 
     /**
-     * @brief updateHorizontalFocus Update Canvas Viewport according to horizontal coordinate
+     * @brief updateHorizontalFocus Update Canvas Viewport according to the horizontal coordinate
      * @param h horizontal coordinate
      */
     void updateHorizontalFocus(qreal h);
@@ -39,7 +39,7 @@ public:
     Camera(GameMapCanvas* canvas, Character* c = nullptr);
 
     /**
-     * @brief registerCanvas Register canvas to camera. Camera will take the control of cnavas's viewport.
+     * @brief registerCanvas Register canvas to camera. Camera will take the control of canvas's viewport.
      * @param canvas canvas to register
      */
     void registerCanvas(GameMapCanvas* canvas);
@@ -47,7 +47,7 @@ public:
 
 
     /**
-     * @brief subscribe Make camera subscribes the position changes singal. The canvas's viewport changes based on this singal also.
+     * @brief subscribe Make the camera subscribe to the Character position singal. When singaled, this will tell the Camera to readjust to Character's current position.
      * Please notes that the singal should **emit QPointF singal**.
      *
      * @param owner Signal owner
