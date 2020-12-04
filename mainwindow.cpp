@@ -2,9 +2,9 @@
 #include <QGraphicsItem>
 #include "mainwindow.h"
 #include "mapviewpage.h"
-#include "networkpage.h"
 #include "ui_mainwindow.h"
 #include "optionpage.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -52,10 +52,8 @@ void MainWindow::on_pushButton_GameStart_clicked() {
 }
 
 void MainWindow::on_pushButton_4_clicked() {
-	NetworkPage network_page;
-	network_page.set_game_page(map_view_page);
-	network_page.setModal(true);
-	network_page.exec();
+
+
 }
 
 void MainWindow::on_pushButton_clicked()
