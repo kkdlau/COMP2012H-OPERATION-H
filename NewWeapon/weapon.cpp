@@ -7,19 +7,6 @@ Weapon::Weapon(WeaponType weaponType, int attack, QGraphicsItem *parent = nullpt
 
 Weapon::~Weapon(){}
 
-//void Weapon::Unequip()
-//{
-//    QPointF newPos(this->parentItem()->scenePos());
-//    this->setParentItem(nullptr);
-//    this->setPos(newPos);
-
-//}
-//void Weapon::Equip(QGraphicsItem *image)
-//{
-//    this->setParentItem(image);
-//    this->setPos(0,0);
-//}
-
 
 void Weapon::SetOwner(Character* owner)
 {
@@ -31,7 +18,7 @@ int Weapon::GetWeaponId()
     return weaponId;
 }
 
-//WeaponType Weapon::GetWeaponType()
-//{
-//    return type;
-//}
+WeaponType Weapon::GetWeaponType()
+{
+    return type;
+}
