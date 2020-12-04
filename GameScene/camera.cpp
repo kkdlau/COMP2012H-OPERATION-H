@@ -48,28 +48,28 @@ void Camera::updateFocus(QPointF p) {
 
 void Camera::updateVerticalFocus(qreal v) {
     const int heightHalf = windowHeight / 2;
-    const int mapHeight = canvas->scene->mapLayer()->getHeight(Map::UNIT::PIXEL);
+    const int mapHeight = canvas->gameLayers()->mapLayer()->getHeight(Map::UNIT::PIXEL);
 
 
     if (v <= heightHalf) {
-        canvas->scene->mapLayer()->setY(0);
+        canvas->gameLayers()->mapLayer()->setY(0);
     } else if (v >= mapHeight - heightHalf) {
-        canvas->scene->mapLayer()->setY(-(mapHeight - windowHeight));
+        canvas->gameLayers()->mapLayer()->setY(-(mapHeight - windowHeight));
     } else {
-        canvas->scene->mapLayer()->setY(-(v - heightHalf));
+        canvas->gameLayers()->mapLayer()->setY(-(v - heightHalf));
     }
 }
 
 void Camera::updateHorizontalFocus(qreal h) {
     const int widthHalf = windowWidth / 2;
-    const int mapWidth = canvas->scene->mapLayer()->getWidth(Map::UNIT::PIXEL);
+    const int mapWidth = canvas->gameLayers()->mapLayer()->getWidth(Map::UNIT::PIXEL);
 
     if (h <= widthHalf) {
-        canvas->scene->mapLayer()->setX(0);
+        canvas->gameLayers()->mapLayer()->setX(0);
     } else if (h >= mapWidth - widthHalf) {
-        canvas->scene->mapLayer()->setX(-(mapWidth - windowHeight));
+        canvas->gameLayers()->mapLayer()->setX(-(mapWidth - windowHeight));
     } else {
-        canvas->scene->mapLayer()->setX(-(h - widthHalf));
+        canvas->gameLayers()->mapLayer()->setX(-(h - widthHalf));
     }
 }
 

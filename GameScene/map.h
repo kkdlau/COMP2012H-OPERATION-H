@@ -16,7 +16,6 @@ using PIXEL = qreal;
 
 class Map : public QGraphicsItemGroup {
    private:
-	QString mapName;
     QGraphicsItemGroup* layer;
 	QPixmap* mapImg;
 	QPointF cursorPos;
@@ -48,7 +47,7 @@ class Map : public QGraphicsItemGroup {
     static const int GRID_SIZE_W;
     static const int GRID_SIZE_H;
 
-    Map(QString imgPath, QString configFilePath);
+    Map(const QString& imgPath, const QString& configFilePath);
 
 	void mouseMoveEvent(QGraphicsSceneMouseEvent* e) override;
 
