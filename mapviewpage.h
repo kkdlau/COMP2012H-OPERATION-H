@@ -50,6 +50,8 @@ signals:
     void emitKeyboardPressed();
 private slots:
     void on_buttonBox_clicked(QAbstractButton *button);
+    void on_generateEnemyButton_clicked();
+    void on_closeButton_clicked();
 };
 
 #endif // MAPVIEWPAGE_H
