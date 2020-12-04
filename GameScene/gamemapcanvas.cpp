@@ -11,14 +11,6 @@ GameMapCanvas::GameMapCanvas(QWidget* w) : QGraphicsView(w) {
     scene = new Overlay{":map_2.png", ":map_2.txt"};
     setScene(scene);
     setSceneRect(QRectF(0, 0, Map::GRID_SIZE_W * 10, Map::GRID_SIZE_H * 10));
-
-    cameraController = new Camera;
-
-    cameraController->registerCanvas(this);
-}
-
-void GameMapCanvas::scrollContentsBy(int dx, int dy) {
-    QGraphicsView::scrollContentsBy(dx, dy);
 }
 
 void GameMapCanvas::mouseMoveEvent(QMouseEvent* e) {
@@ -33,6 +25,5 @@ void GameMapCanvas::mouseMoveEvent(QMouseEvent* e) {
 }
 
 GameMapCanvas::~GameMapCanvas() {
-    delete cameraController;
     delete scene;
 }
