@@ -30,13 +30,10 @@ SOURCES += \
     GameScene/map.cpp \
     character.cpp \
     charactermanager.cpp \
-    clientpage.cpp \
     enemy.cpp \
-    hostpage.cpp \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
-    Network/udp.cpp \
     networkpage.cpp
 
 HEADERS += \
@@ -57,17 +54,12 @@ HEADERS += \
     GameScene/map.h \
     character.h \
     charactermanager.h \
-    clientpage.h \
     enemy.h \
-    hostpage.h \
     mainwindow.h \
     mapviewpage.h \
-    Network/udp.h \
     networkpage.h
 
 FORMS += \
-    clientpage.ui \
-    hostpage.ui \
     mainwindow.ui \
     mapviewpage.ui \
     networkpage.ui
