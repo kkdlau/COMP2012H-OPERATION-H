@@ -17,10 +17,7 @@ public:
      * list) on the game
      */
 
-    /**
-     * Constructor for character_manager()
-     */
-    CharacterManager();
+
     /**
       *Destructor for chracter_manager(), deleting
       * any *character in the database
@@ -73,13 +70,36 @@ public:
      * @return *character_manager
      */
     static CharacterManager *getInstance();
+    /**
+     * @brief generate_random_character create and return a Character*
+     * @return Character*
+     */
     Character* generate_random_character();
+    /**
+     * @brief generate_random_enemy create and return an Enemy*
+     * @return Enemy*
+     */
     Enemy* generate_random_enemy();
+    /**
+     * @brief dispose_from_map remove a character from the map (not deleting the Character*)
+     */
     void dispose_from_map(Character*);
     void temp_function();
+    /**
+     * @brief set_map set the Map* for the character manager
+     * @param map
+     */
     void set_map(Map* map);
+    /**
+     * @brief check_endgame checks if all of the Character* dies
+     * @return bool
+     */
     bool check_endgame();
 private:
+    /**
+     * Constructor for character_manager()
+     */
+    CharacterManager();
     /**
     * @brief static variable to hold character_manager
     */

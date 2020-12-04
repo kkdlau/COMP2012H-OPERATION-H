@@ -8,17 +8,16 @@ class WeaponManager : public QObject
 {
     Q_OBJECT
 public:
-    WeaponManager();
+
     ~WeaponManager();
     void AddWeapon(Weapon*);
     void DeleteWeapon(Weapon*);
     Weapon* GenerateRandomWeapon();
-    //TEST
     const QList<Weapon*> GetWeaponDatabase() const;
     Weapon* GetWeapon(int weaponId);
     static WeaponManager* getInstance();
-    //insert preventive later
 private:
+        WeaponManager();
     static WeaponManager* Instance;
     QList<Weapon*> weaponDatabase;
 

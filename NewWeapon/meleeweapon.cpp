@@ -25,27 +25,6 @@ void MeleeWeapon::Attack(int angle)
     }
 }
 
-void MeleeWeapon::Charge()
-{
-    if (!isCharged)
-    {
-        isCharged = true;
-    }
-    else {
-        qDebug() << "ALREADY CHARGED!";
-    }
-}
-
-void MeleeWeapon::Skill()
-{
-    if (isCharged) {
-        // do things like 2x attack, 2x speed
-        timer.singleShot(skillTime, this, &MeleeWeapon::ResetCharge);
-    }
-    else {
-        qDebug() << "NOT CHARGED. CANNOT USE SKILL!";
-    }
-}
 
 void MeleeWeapon::OnAttack()
 {
@@ -91,11 +70,6 @@ void MeleeWeapon::ResetAttack()
     isAttack = false;
 }
 
-
-void MeleeWeapon::ResetCharge()
-{
-    isCharged = false;
-}
 
 QString MeleeWeapon::WeaponDataText()
 {
