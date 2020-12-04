@@ -14,12 +14,10 @@ Server::Server(QWidget *parent)
 
     initServer();
 
-
     auto quitButton = new QPushButton(tr("Quit"));
     quitButton->setAutoDefault(false);
 
     connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
-//    connect(tcpServer, &QTcpServer::newConnection, this, &Server::send_game_stat);
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::exec_game_page);
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::send_connected_signal);
 
@@ -124,19 +122,17 @@ void Server::send_connected_signal() {
 
 
 void Server::send_game_stat() {
-    // Some previous settings
+    // Setting up the reading streams and arrays
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_10);
 
-    // TODO: Send the list of game stats
+    // TODO: Send the list of game stats [OK I didn't actually do it in the end cuz I don't know why
+    // the server can't even receive stuff and emit signal]
     out << game_stats[0];
 
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
-//    connect(clientConnection, &QAbstractSocket::disconnected,
-//            clientConnection, &QObject::deleteLater);
 
     clientConnection->write(block);
-//    clientConnection->disconnectFromHost();
     game_stats.clear();
 }

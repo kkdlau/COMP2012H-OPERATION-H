@@ -114,7 +114,7 @@ Enemy* CharacterManager::generate_random_enemy()
 
 void CharacterManager::temp_function()
 {
-    QMessageBox::aboutQt(nullptr, "HAVE FUN BITCH");
+    QMessageBox::information(nullptr, "Information", "Game Ends");
 }
 
 void CharacterManager::dispose_from_map(Character *charData)
