@@ -16,7 +16,6 @@ SOURCES += \
     GameScene/overlay.cpp \
     GameScene/camera.cpp \
     GameScene/gridinfo.cpp \
-    FileParser/fileparser.cpp \
     KeyBoardManager/combo.cpp \
     KeyBoardManager/keyboardmanager.cpp \
     Network/client.cpp \
@@ -46,7 +45,6 @@ HEADERS += \
     GameScene/overlay.h \
     GameScene/camera.h \
     GameScene/gridinfo.h \
-    FileParser/fileparser.h \
     KeyBoardManager/combo.h \
     KeyBoardManager/keyboardmanager.h \
     KeyBoardManager/KeyState.h \
