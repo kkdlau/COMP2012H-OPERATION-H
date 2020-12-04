@@ -440,3 +440,9 @@ void Character::setRotation(qreal angle) {
 bool Character::isPerfectCenterize() const {
     return int(pos().x()) % 32 == 16 &&  int(pos().y()) % 32 == 16;
 }
+
+
+charType Character::getCharacterType()
+{
+    return typeOfCharacter;
+}

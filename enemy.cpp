@@ -9,7 +9,7 @@ Enemy::Enemy(Map* map, int moveSpeed, Character *target) : Character(charType::E
     connect(&timer, &QTimer::timeout, this, &Enemy::action);
     connect(this, &Character::blockByObstacle, this, &Enemy::unblock);
     timer.start(50);
-    setPos(QPointF{32* 3 + 16, 32 * 5 + 16});
+    setPos(QPointF{32* 3 + 16, 32 * 10 + 16});
 }
 
 void Enemy::setDestination(Character* target)
@@ -108,6 +108,6 @@ qreal Enemy::calculateRotation()
         QLineF distance(pos(), target->pos());
         float rad = qAtan2(distance.dy(), distance.dx());
         return qRadiansToDegrees(rad);
-
     }
+    else return 0;
 }

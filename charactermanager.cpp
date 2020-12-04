@@ -95,6 +95,13 @@ Enemy* CharacterManager::generate_random_enemy()
     {
         Enemy* newChar = new Enemy{map};
         add_character(newChar);
+        for(int i = 0; i < characterDatabase.length();i++)
+        {
+            if(characterDatabase[i]->getCharacterType() == charType::PLAYER && characterDatabase[i]->is_alive())
+            {
+                newChar->setDestination(characterDatabase[i]);
+            }
+        }
         qDebug()<<"NEW CHAR MADE "<<characterDatabase.length();
         return newChar;
 
