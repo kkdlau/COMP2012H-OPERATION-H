@@ -33,6 +33,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     MapViewPage* map_view_page;
@@ -44,5 +46,8 @@ private:
      * @brief selectedConfigPath set the map config path, default map config is map_2.txt
      */
     QString selectedConfigPath{":map_2.txt"};
+    int numMelee{1};
+    int numRanged{1};
+    int bulletSpeed{1};
 };
 #endif // MAINWINDOW_H

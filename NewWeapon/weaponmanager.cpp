@@ -38,16 +38,14 @@ void WeaponManager::DeleteWeapon(Weapon* weaponData)
     }
 }
 
-Weapon* WeaponManager::GenerateRandomWeapon()
+Weapon* WeaponManager::GenerateRandomWeapon(QString weaponType)
 {
-//    int number = QRandomGenerator::global()->generate()% 2;
-    int number = 1;
     Weapon* tempWeapon;
-    if(number == 0)
+    if(weaponType == "Melee")
     {
         tempWeapon = new MeleeWeapon(20,50,500);
     }
-    else
+    else if (weaponType == "Ranged")
     {
         tempWeapon =  new RangedWeapon(20,500,500,10);
     }

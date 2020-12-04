@@ -25,7 +25,7 @@ public:
      * @param weapon is the target Weapon* to be removed
      * @return Weapon*
      */
-    Weapon* GenerateRandomWeapon();
+    Weapon* GenerateRandomWeapon(QString weaponType);
     /**
      * @brief GetWeaponDatabase return the weaponDatabase
      * @return QList<Weapon*>
