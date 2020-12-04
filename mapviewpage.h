@@ -9,7 +9,7 @@
 #include <QKeyEvent>
 #include <QGraphicsPixmapItem>
 #include "NewWeapon/weaponmanager.h"
-#include "charactermanager.h"
+#include "GameCharacter/charactermanager.h"
 #include <QTimer>
 #include "GameScene/camera.h"
 

@@ -1,6 +1,6 @@
 #ifndef CAMERA_H
 #define CAMERA_H
-#include "../character.h"
+#include "GameCharacter/character.h"
 #include <QSize>
 #include <QMetaObject>
 #include <QGraphicsView>

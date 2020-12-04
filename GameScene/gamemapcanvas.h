@@ -5,7 +5,7 @@
 #include <QGraphicsView>
 #include <QMouseEvent>
 #include <QString>
-#include "../character.h"
+#include "GameCharacter/character.h"
 #include "GameScene/overlay.h"
 
 class Camera;

@@ -4,7 +4,7 @@
 #include <QObject>
 #include "QGraphicsPixmapItem"
 #include "qtimer.h"
-#include "character.h"
+#include "GameCharacter/character.h"
 #include "qdebug.h"
 class Bullet : public QObject,public QGraphicsPixmapItem
 {

@@ -4,7 +4,7 @@
 #include <QGraphicsProxyWidget>
 #include <QLabel>
 #include "NewWeapon/weapon.h"
-#include "character.h"
+#include "GameCharacter/character.h"
 
 class ItemFrame : public QObject, public QGraphicsItemGroup
 {

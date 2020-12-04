@@ -12,7 +12,11 @@ CONFIG += c++11
 INCLUDEPATH += GameScene/
 
 SOURCES += \
-    character_controller.cpp \
+    GameCharacter/character.cpp \
+    GameCharacter/character_controller.cpp \
+    GameCharacter/charactermanager.cpp \
+    GameCharacter/enemy.cpp \
+    NewWeapon/bullet.cpp \
     GameScene/overlay.cpp \
     GameScene/camera.cpp \
     GameScene/gridinfo.cpp \
@@ -25,23 +29,23 @@ SOURCES += \
     UI/healthbar.cpp \
     Pathing/astar.cpp \
     UI/itemframe.cpp \
-    Weapons/bullet.cpp \
     GameScene/gamemapcanvas.cpp \
     GameScene/map.cpp \
-    character.cpp \
-    charactermanager.cpp \
-    enemy.cpp \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
     networkpage.cpp
 
 HEADERS += \
+    GameCharacter/character.h \
+    GameCharacter/charactermanager.h \
+    GameCharacter/enemy.h \
     GameScene/overlay.h \
     GameScene/camera.h \
     GameScene/gridinfo.h \
     Network/client.h \
     Network/server.h \
+    NewWeapon/bullet.h \
     NewWeapon/meleeweapon.h \
     NewWeapon/rangedweapon.h \
     NewWeapon/weapon.h \
@@ -49,12 +53,8 @@ HEADERS += \
     UI/healthbar.h \
     Pathing/astar.h \
     UI/itemframe.h \
-    Weapons/bullet.h \
     GameScene/gamemapcanvas.h \
     GameScene/map.h \
-    character.h \
-    charactermanager.h \
-    enemy.h \
     mainwindow.h \
     mapviewpage.h \
     networkpage.h
