@@ -19,7 +19,7 @@ Character::Character(charType charType, int stepValue, Map* map): typeOfCharacte
     healthBar = new HealthBar(head, characterHealth, maxHealth);
     setRotation(0);
 
-    footstep_sound.setMedia(QUrl::fromLocalFile(":assets/footsteps_new.wav"));
+    footstep_sound.setMedia(QUrl::fromLocalFile(":footsteps_new.wav"));
     footstep_sound.setVolume(50);
 }
 
