@@ -21,25 +21,28 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_Map1_clicked()
 {
     qDebug() << "Map1 Pressed";
-    selectedMapPath = ":test_map.png";
+    selectedMapPath = ":map1.png";
+    selectedConfigPath = ":map1.txt";
 }
 
 void MainWindow::on_pushButton_Map2_clicked()
 {
     qDebug() << "Map2 Pressed";
     selectedMapPath = ":map_2.png";
+    selectedConfigPath = ":map_2.txt";
 }
 
 void MainWindow::on_pushButton_Map3_clicked()
 {
     qDebug() << "Map3 Pressed";
-    selectedMapPath = ":map3.jpeg";
+    selectedMapPath = ":map3.png";
+    selectedConfigPath = ":map3.txt";
 }
 
 
 void MainWindow::on_pushButton_GameStart_clicked()
 {
-    map_view_page = new MapViewPage();
+    map_view_page = new MapViewPage(selectedMapPath, selectedConfigPath);
     map_view_page->setMapPath(selectedMapPath);
     map_view_page->setModal(true);
     qDebug() << "Current Map Path: " << selectedMapPath;

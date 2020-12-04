@@ -9,7 +9,7 @@
 const int Map::GRID_SIZE_W = 32;
 const int Map::GRID_SIZE_H = 32;
 
-Map::Map(QString imgPath, QString configFilePath): grid{} {
+Map::Map(const QString& imgPath, const QString& configFilePath): grid{} {
     addToGroup(new QGraphicsPixmapItem{QPixmap(imgPath)});
 
     parseMapConfigFile(configFilePath);

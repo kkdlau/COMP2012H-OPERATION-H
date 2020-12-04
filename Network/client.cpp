@@ -9,7 +9,6 @@ Client::Client(QWidget *parent)
     , portLineEdit(new QLineEdit)
     , connect_button(new QPushButton(tr("Connect to Server")))
     , tcp_socket(new QTcpSocket(this))
-    , game_page(new MapViewPage())
 {
     // Some setup for the UI
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);

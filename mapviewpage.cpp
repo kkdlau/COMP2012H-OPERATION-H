@@ -13,16 +13,18 @@
 
 using namespace std;
 
-MapViewPage::MapViewPage(QWidget* parent)
+MapViewPage::MapViewPage(const QString& mapImgPath, const QString& mapConfigPath, QWidget* parent)
     : QDialog(parent), ui(new Ui::MapViewPage) {
 	ui->setupUi(this);
+    ui->gameCanvas->createMap(mapImgPath, mapConfigPath);
 
     characterController = new Character::Controller;
     cameraController = new Camera{ui->gameCanvas};
 
-	initializeManager();
-	characterManager->set_map(ui->gameCanvas->scene->mapLayer());
-    Character* mainCharacter = ui->gameCanvas->character = characterManager->generate_random_character();
+    initializeManager();
+    characterManager->set_map(ui->gameCanvas->gameLayers()->mapLayer());
+    Character* mainCharacter = characterManager->generate_random_character();
+    ui->gameCanvas->setMainCharacter(mainCharacter);
     mainCharacter->setGridPos(generateRandomMapPos());
 
     initializeItemFrame(mainCharacter);
@@ -30,15 +32,13 @@ MapViewPage::MapViewPage(QWidget* parent)
     Enemy* test = generateEnemy();
     test->setGridPos(generateRandomMapPos());
 
-	ui->gameCanvas->scene->mapLayer()->addToGroup(ui->gameCanvas->character);
-
     putWeapon(weaponManager->GenerateRandomWeapon(), 8, 2);
 
     cameraController->subscribe(mainCharacter, &Character::isMoving);
 
     cameraController->updateFocus(mainCharacter->pos());
 
-    characterController->control(ui->gameCanvas->character);
+    characterController->control(mainCharacter);
 
 	timer.setInterval(50);
 	timer.start();
@@ -47,7 +47,7 @@ MapViewPage::MapViewPage(QWidget* parent)
                 characterController->updateKeyHoldingControl();
             });
 
-    connect(ui->gameCanvas->character, &Character::deadSignal, this, [&]() {
+    connect(mainCharacter, &Character::deadSignal, this, [&]() {
         characterController->unControl();
         cameraController->unsubscribe();
     });
@@ -55,7 +55,7 @@ MapViewPage::MapViewPage(QWidget* parent)
 }
 
 void MapViewPage::putWeapon(Weapon* weapon, int x, int y) {
-    Map& currentMap = *(ui->gameCanvas->scene->mapLayer());
+    Map& currentMap = *(ui->gameCanvas->gameLayers()->mapLayer());
     currentMap[y][x].putWeapon(weapon);
 
 }
@@ -63,7 +63,7 @@ void MapViewPage::putWeapon(Weapon* weapon, int x, int y) {
 void MapViewPage::initializeItemFrame(Character* c) {
     const QPoint BOTTOM_RIGHT_CORNER{250, 250};
 
-    ItemFrame* itemFrame = ui->gameCanvas->scene->getItemFrame();
+    ItemFrame* itemFrame = ui->gameCanvas->gameLayers()->getItemFrame();
     itemFrame->characterSingalSetup(c);
     itemFrame->setPos(BOTTOM_RIGHT_CORNER);
 }
@@ -114,12 +114,12 @@ void MapViewPage::setMapPath(QString inputPath) {
 
 
 QPoint MapViewPage::generateRandomMapPos() const {
-    const unsigned width = unsigned(ui->gameCanvas->scene->mapLayer()->getWidth(Map::UNIT::GRID));
-    const unsigned height = unsigned(ui->gameCanvas->scene->mapLayer()->getHeight(Map::UNIT::GRID));
+    const unsigned width = unsigned(ui->gameCanvas->gameLayers()->mapLayer()->getWidth(Map::UNIT::GRID));
+    const unsigned height = unsigned(ui->gameCanvas->gameLayers()->mapLayer()->getHeight(Map::UNIT::GRID));
     unsigned int x = QRandomGenerator::global()->bounded(0u, width);
     unsigned int y = QRandomGenerator::global()->bounded(0u, height);
 
-    const Map& map = *(ui->gameCanvas->scene->mapLayer());
+    const Map& map = *(ui->gameCanvas->gameLayers()->mapLayer());
     while (map[y][x].getHeight() != 0) {
         x = QRandomGenerator::global()->bounded(0u, width);
         y = QRandomGenerator::global()->bounded(0u, height);
