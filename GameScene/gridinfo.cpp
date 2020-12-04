@@ -30,8 +30,9 @@ int GridInfo::heightDiff(const GridInfo &grid) const {
 
 void GridInfo::putWeapon(Weapon *data) {
     weapon = data;
-    weapon->setPos(x * 32 + 16, y * 32 + 16);
+    qDebug()<<"WEAPON POS SET" <<QPoint(x * 32 + 16, y * 32 + 16);
     renderlayer->addToGroup(weapon);
+    weapon->setPos(x * 32 + 16, y * 32 + 16);
 }
 
 bool GridInfo::isWeaponOnGround() const {

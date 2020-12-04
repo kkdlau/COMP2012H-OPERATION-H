@@ -27,8 +27,8 @@ MapViewPage::MapViewPage(QWidget* parent)
 
     initializeItemFrame(mainCharacter);
 
-    Enemy* test = generateEnemy();
-    test->setGridPos(generateRandomMapPos());
+//    Enemy* test = generateEnemy();
+//    test->setGridPos(generateRandomMapPos());
 
 	ui->gameCanvas->scene->mapLayer()->addToGroup(ui->gameCanvas->character);
 
