@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowTitleHint);
     ui->setupUi(this);
     ui->label->setPixmap(QPixmap(":game_logo.png").scaled(ui->label->width(),ui->label->height()));
 }
