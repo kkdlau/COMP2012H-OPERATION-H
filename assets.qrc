@@ -17,5 +17,6 @@
         <file alias="footsteps_new.mav">assets/footsteps_new.wav</file>
         <file>assets/map1.txt</file>
         <file>assets/game_logo.png</file>
+        <file>assets/map3.txt</file>
     </qresource>
 </RCC>
