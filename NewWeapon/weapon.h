@@ -55,7 +55,11 @@ public:
      * @brief OffsetWeaponPickUp provides the weapon offset when equipped by the character
      */
     void virtual OffsetWeaponPickUp() = 0;
-
+    /**
+     * @brief GetWeaponType return the weapon type
+     * @return WeaponType
+     */
+    WeaponType GetWeaponType();
 signals:
     /**
      * @brief OnWeaponUpdate provides signal to update the UI text(ItemMap)
