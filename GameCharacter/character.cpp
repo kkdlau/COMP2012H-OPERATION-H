@@ -368,6 +368,10 @@ void Character::pickWeapon() {
 }
 
 void Character::equipWeapon(Weapon* weapon) {
+    if(currentWeapon!= nullptr)
+    {
+        dequipWeapon();
+    }
     currentWeapon = weapon;
     addToGroup(weapon);
     weapon->SetOwner(this);

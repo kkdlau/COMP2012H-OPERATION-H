@@ -13,7 +13,7 @@ void RangedWeapon::Attack(int angle)
     {
         --currentBullet;
         isShooting = true;
-        Bullet *bulletShot = new Bullet(5, angle, this->scenePos().x(), this->scenePos().y(), owner);
+        Bullet *bulletShot = new Bullet(5, angle, owner);
         bulletShot->setParentItem(owner->parentItem());
         bulletShot->setPos(owner->pos());//fix this
         qDebug()<<"POS CHECK "<<owner->pos();
