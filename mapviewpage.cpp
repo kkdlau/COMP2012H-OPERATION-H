@@ -15,6 +15,7 @@ using namespace std;
 
 MapViewPage::MapViewPage(QWidget* parent)
     : QDialog(parent), ui(new Ui::MapViewPage) {
+    setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowTitleHint);
 	ui->setupUi(this);
 
     characterController = new Character::Controller;
