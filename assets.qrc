@@ -13,7 +13,7 @@
         <file alias="map2.txt">assets/map2.txt</file>
         <file alias="gunshot.wav">assets/gunshot.wav</file>
         <file alias="sword.wav">assets/sword.wav</file>
-        <file alias="footsteps_new.mav">assets/footsteps_new.wav</file>
+        <file alias="footsteps_new.wav">assets/footsteps_new.wav</file>
         <file alias="map1.txt">assets/map1.txt</file>
         <file alias="game_logo.png">assets/game_logo.png</file>
         <file alias="map3.txt">assets/map3.txt</file>
