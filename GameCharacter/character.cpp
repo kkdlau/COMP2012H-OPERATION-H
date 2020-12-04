@@ -19,8 +19,10 @@ Character::Character(charType charType, int stepValue, Map* map): typeOfCharacte
     healthBar = new HealthBar(head, characterHealth, maxHealth);
     setRotation(0);
 
-    footstep_sound.setMedia(QUrl::fromLocalFile(":footsteps_new.wav"));
-    footstep_sound.setVolume(50);
+    if (typeOfCharacter == PLAYER) {
+        footstep_sound.setMedia(QUrl("qrc:/footsteps_new.wav"));
+        footstep_sound.setVolume(30);
+    }
 }
 
 Character::~Character()
@@ -228,7 +230,9 @@ void Character::moveBy(qreal x, qreal y) {
         animationY->start();
     }
 
-    if (footstep_sound.state() != QMediaPlayer::State::PlayingState) footstep_sound.play();
+    if ((footstep_sound.state() != QMediaPlayer::State::PlayingState) && (typeOfCharacter == PLAYER)) {
+        footstep_sound.play();
+    }
 }
 
 

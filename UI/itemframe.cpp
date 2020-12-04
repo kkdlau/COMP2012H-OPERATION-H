@@ -42,7 +42,7 @@ void ItemFrame::ChangeWeaponPicture(QPixmap picture)
     weaponImage->setPixmap(picture);
 }
 
-void ItemFrame::SetTargetWeapon(Weapon *weaponData)
+void ItemFrame::SetTargetWeapon(Weapon* weaponData)
 {
     currentFocusedWeapon = weaponData;
     ChangeWeaponPicture(currentFocusedWeapon->pixmap());
@@ -61,7 +61,7 @@ void ItemFrame::unfocusedWeapon(Weapon* weaponData)
 
 }
 
-void ItemFrame::characterSingalSetup(Character *target)
+void ItemFrame::characterSingalSetup(Character* target)
 {
     connect(target, &Character::equipWeaponSignal, this, &ItemFrame::SetTargetWeapon);
     connect(target, &Character::dequipWeaponSignal, this, &ItemFrame::unfocusedWeapon);
