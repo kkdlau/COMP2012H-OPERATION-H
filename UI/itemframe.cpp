@@ -28,6 +28,7 @@ ItemFrame::~ItemFrame()
     }
     delete weaponImage;
     delete labelProxy;
+//    delete weaponStat;
 }
 
 void ItemFrame::ChangeText(QString data)
