@@ -24,6 +24,10 @@ void GameMapCanvas::mouseMoveEvent(QMouseEvent* e) {
     character->setRotation(qRadiansToDegrees(rad));
 }
 
+void GameMapCanvas::mousePressEvent(QMouseEvent* e) {
+    if (character) character->attack();
+}
+
 GameMapCanvas::~GameMapCanvas() {
     delete scene;
 }

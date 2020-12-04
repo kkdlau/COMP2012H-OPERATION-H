@@ -18,6 +18,7 @@ public:
     Overlay* scene;
 
     void mouseMoveEvent(QMouseEvent* k) override;
+    void mousePressEvent(QMouseEvent* k) override;
 
     ~GameMapCanvas();
 };
