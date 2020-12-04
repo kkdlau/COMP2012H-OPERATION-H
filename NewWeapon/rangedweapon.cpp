@@ -13,23 +13,19 @@ void RangedWeapon::Attack(int angle)
     {
         --currentBullet;
         isShooting = true;
-        Bullet *bulletShot = new Bullet(5, angle, this->scenePos().x(), this->scenePos().y(), parentItem()->parentItem());
-        QGraphicsItemGroup *test = dynamic_cast<QGraphicsItemGroup*>(parentItem()->parentItem());
-        if(test)
-        {
-            test->addToGroup(bulletShot);
-            bulletShot->setPos(this->scenePos());//fix this
-            qDebug()<<this->scenePos()<<"BULLEEETT CORRDS";
-            attackAnimation.start();
-            timer.singleShot(attackSpeed/maxBullet, this, &RangedWeapon::ResetShootState);
-            emit OnWeaponUpdate(WeaponDataText());
-        }
+        Bullet *bulletShot = new Bullet(5, angle, this->scenePos().x(), this->scenePos().y(), owner);
+        bulletShot->setParentItem(owner->parentItem());
+        bulletShot->setPos(owner->pos());//fix this
+        qDebug()<<"POS CHECK "<<owner->pos();
+        attackAnimation.start();
+        timer.singleShot(attackSpeed/maxBullet, this, &RangedWeapon::ResetShootState);
+        emit OnWeaponUpdate(WeaponDataText());
+
 
     }
     else if (currentBullet <= 0)
     {
         Reload();
-        qDebug()<<"RELOADING U BITCCHHHHHH";
     }
 }
 

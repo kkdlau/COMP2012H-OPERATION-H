@@ -34,4 +34,5 @@ void GameMapCanvas::mouseMoveEvent(QMouseEvent* e) {
 
 GameMapCanvas::~GameMapCanvas() {
     delete cameraController;
+    delete scene;
 }

@@ -21,6 +21,11 @@ void Weapon::Equip(QGraphicsItem *image)
 }
 
 
+void Weapon::SetOwner(Character* owner)
+{
+    this->owner = owner;
+}
+
 int Weapon::GetWeaponId()
 {
     return weaponId;

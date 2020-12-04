@@ -24,6 +24,7 @@ public:
     void virtual Attack(int angle) = 0;
     void Equip(QGraphicsItem*);//havent been properly implemented
     void Unequip();
+    void SetOwner(Character*);
     int GetWeaponId();
     WeaponType GetWeaponType();
     //temp implementation

@@ -21,6 +21,7 @@ void Enemy::action()
 {
     if(target != nullptr && target->is_alive())
     {
+        setRotation(calculateRotation());
         move();
         attack();
     }
@@ -57,7 +58,7 @@ void Enemy::move()
 void Enemy::attack()
 {
     QLineF distance(getGridPos(), target->getGridPos());
-    if(currentWeapon != nullptr && distance.length() < 2)
+    if(currentWeapon != nullptr && distance.length() < 16)
     {
         shoot();
     }
@@ -98,4 +99,15 @@ Enemy::~Enemy()
     disconnect(&timer, &QTimer::timeout, this, &Enemy::action);
     disconnect(this, &Character::blockByObstacle, this, &Enemy::unblock);
     timer.stop();
+}
+
+qreal Enemy::calculateRotation()
+{
+    if(target != nullptr)
+    {
+        QLineF distance(pos(), target->pos());
+        float rad = qAtan2(distance.dy(), distance.dx());
+        return qRadiansToDegrees(rad);
+
+    }
 }
