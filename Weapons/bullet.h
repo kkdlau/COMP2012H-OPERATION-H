@@ -42,7 +42,7 @@ private:
     /**
      * @brief bulletSpeed set how fast the bullet being shot
      */
-    const int bulletSpeed = 3;
+    const int bulletSpeed = 30;
     /**
      * @brief lifeSpan set the bullet lifespan before destroying itself
      */

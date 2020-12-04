@@ -74,10 +74,10 @@ void RangedWeapon::InitializeAttackAnimation()
 
 void RangedWeapon::OffsetWeaponPickUp()
 {
-    setPos(20, -10);
+    setOffset(20, -10);
 }
 
 void RangedWeapon::OffsetWeaponGround()
 {
-    setPos(0,0);
+    setOffset(0,0);
 }
