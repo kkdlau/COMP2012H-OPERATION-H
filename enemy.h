@@ -20,6 +20,7 @@ public:
     void action();
     void move();
     void attack();
+    qreal calculateRotation();
     virtual void Harmed();
     ~Enemy();
 private:
