@@ -7,8 +7,8 @@ Client::Client(QWidget *parent)
     : QDialog(parent)
     , hostCombo(new QComboBox)
     , portLineEdit(new QLineEdit)
-    , getFortuneButton(new QPushButton(tr("Connect to Server")))
-    , tcpSocket(new QTcpSocket(this))
+    , connect_button(new QPushButton(tr("Connect to Server")))
+    , tcp_socket(new QTcpSocket(this))
     , game_page(new MapViewPage())
 {
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -43,30 +43,29 @@ Client::Client(QWidget *parent)
     auto portLabel = new QLabel(tr("S&erver port:"));
     portLabel->setBuddy(portLineEdit);
 
-    statusLabel = new QLabel(tr("Fuck you all "
-                                "Why would you read this"));
+    statusLabel = new QLabel(tr("Why would you read this"));
 
-    getFortuneButton->setDefault(true);
-    getFortuneButton->setEnabled(false);
+    connect_button->setDefault(true);
+    connect_button->setEnabled(false);
 
     auto quitButton = new QPushButton(tr("Quit"));
 
     auto buttonBox = new QDialogButtonBox;
-    buttonBox->addButton(getFortuneButton, QDialogButtonBox::ActionRole);
+    buttonBox->addButton(connect_button, QDialogButtonBox::ActionRole);
     buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
 
-    in.setDevice(tcpSocket);
+    in.setDevice(tcp_socket);
     in.setVersion(QDataStream::Qt_4_0);
 
     connect(hostCombo, &QComboBox::editTextChanged,
-            this, &Client::enableGetFortuneButton);
+            this, &Client::enable_connect_button);
     connect(portLineEdit, &QLineEdit::textChanged,
-            this, &Client::enableGetFortuneButton);
-    connect(getFortuneButton, &QAbstractButton::clicked,
+            this, &Client::enable_connect_button);
+    connect(connect_button, &QAbstractButton::clicked,
             this, &Client::send_game_stat);
     connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
-    connect(tcpSocket, &QIODevice::readyRead, this, &Client::readFortune);
-    connect(tcpSocket, &QAbstractSocket::errorOccurred,
+    connect(tcp_socket, &QIODevice::readyRead, this, &Client::read_game_stat);
+    connect(tcp_socket, &QAbstractSocket::errorOccurred,
             this, &Client::displayError);
 
     QGridLayout *mainLayout = nullptr;
@@ -97,13 +96,13 @@ Client::Client(QWidget *parent)
 
 void Client::send_game_stat()
 {
-    getFortuneButton->setEnabled(false);
-    tcpSocket->abort();
-    tcpSocket->connectToHost(hostCombo->currentText(),
+    connect_button->setEnabled(false);
+    tcp_socket->abort();
+    tcp_socket->connectToHost(hostCombo->currentText(),
                              portLineEdit->text().toInt());
 }
 
-void Client::readFortune()
+void Client::read_game_stat()
 {
     in.startTransaction();
 
@@ -115,7 +114,7 @@ void Client::readFortune()
 
 
     statusLabel->setText(current_stat);
-    getFortuneButton->setEnabled(true);
+    connect_button->setEnabled(true);
 
 }
 
@@ -139,19 +138,18 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
     default:
         QMessageBox::information(this, tr("Fortune Client"),
                                  tr("The following error occurred: %1.")
-                                 .arg(tcpSocket->errorString()));
+                                 .arg(tcp_socket->errorString()));
     }
 
-    getFortuneButton->setEnabled(true);
+    connect_button->setEnabled(true);
 }
 
 void Client::set_game_page(MapViewPage* input_page) {
     game_page = input_page;
 }
 
-void Client::enableGetFortuneButton()
+void Client::enable_connect_button()
 {
-    getFortuneButton->setEnabled(!hostCombo->currentText().isEmpty() &&
+    connect_button->setEnabled(!hostCombo->currentText().isEmpty() &&
                                  !portLineEdit->text().isEmpty());
-
 }
