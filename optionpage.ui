@@ -87,7 +87,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Number of Melee Weapons</string>
+    <string>No. Melee Weapons</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -100,7 +100,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Number of Ranged Weapons</string>
+    <string>No. Ranged Weapons</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
