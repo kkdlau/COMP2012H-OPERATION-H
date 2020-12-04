@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-
+#include <QCoreApplication>
 #include <QGraphicsItem>
 
 #include "mapviewpage.h"
@@ -57,6 +57,5 @@ void MainWindow::on_pushButton_4_clicked() {
 
 void MainWindow::on_pushButton_clicked()
 {
-    delete this;
-    exit(0);
+    QCoreApplication::quit();
 }
