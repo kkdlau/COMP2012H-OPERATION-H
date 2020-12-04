@@ -58,6 +58,10 @@ private:
      */
     void putWeapon(Weapon* weapon, int x, int y);
 
+    Enemy* generateEnemy() const;
+
+    QPoint generateRandomMapPos() const;
+
 public:
     CharacterManager* get_character_manager();
     void onMouseEvent(const QString& eName, const QPoint& p);

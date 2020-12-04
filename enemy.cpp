@@ -9,7 +9,6 @@ Enemy::Enemy(Map* map, int moveSpeed, Character *target) : Character(charType::E
     connect(&timer, &QTimer::timeout, this, &Enemy::action);
     connect(this, &Character::blockByObstacle, this, &Enemy::unblock);
     timer.start(50);
-    setPos(QPointF{32* 3 + 16, 32 * 10 + 16});
 }
 
 void Enemy::setDestination(Character* target)

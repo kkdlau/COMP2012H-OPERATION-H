@@ -441,3 +441,7 @@ charType Character::getCharacterType()
 {
     return typeOfCharacter;
 }
+
+void Character::setGridPos(QPoint p) {
+    setPos(32 * p.x() + 16, 32 * p.y() + 16);
+}

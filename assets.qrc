@@ -17,5 +17,7 @@
         <file alias="map1.txt">assets/map1.txt</file>
         <file alias="game_logo.png">assets/game_logo.png</file>
         <file alias="map3.txt">assets/map3.txt</file>
+        <file alias="map1.png">assets/map1.png</file>
+        <file alias="map3.png">assets/map3.png</file>
     </qresource>
 </RCC>
