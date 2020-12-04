@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
                 .scaled(ui->label->width(), ui->label->height()));
         selectedMapPath = ":map1.png";
         selectedConfigPath = ":map1.txt";
+        ui->selectedMap->setText("Selected Map: Map 1");
+        ui->selectedMap->setAlignment(Qt::AlignVCenter);
 	}
 }
 
@@ -26,18 +28,21 @@ void MainWindow::on_pushButton_Map1_clicked() {
 	qDebug() << "Map1 Pressed";
 	selectedMapPath = ":map1.png";
 	selectedConfigPath = ":map1.txt";
+    ui->selectedMap->setText("Selected Map: Map 1");
 }
 
 void MainWindow::on_pushButton_Map2_clicked() {
 	qDebug() << "Map2 Pressed";
 	selectedMapPath = ":map2.png";
 	selectedConfigPath = ":map2.txt";
+    ui->selectedMap->setText("Selected Map: Map 2");
 }
 
 void MainWindow::on_pushButton_Map3_clicked() {
 	qDebug() << "Map3 Pressed";
 	selectedMapPath = ":map3.png";
 	selectedConfigPath = ":map3.txt";
+    ui->selectedMap->setText("Selected Map: Map 3");
 }
 
 void MainWindow::on_pushButton_GameStart_clicked() {

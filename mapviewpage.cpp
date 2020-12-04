@@ -37,9 +37,6 @@ MapViewPage::MapViewPage(const QString& mapImgPath,
 
 	initializeItemFrame(mainCharacter);
 
-	Enemy* test = generateEnemy();
-	test->setGridPos(generateRandomMapPos());
-
     qDebug() << "Random Debuggin sentence";
     qDebug() << "Debuggin number of melee" << this->numMelee;
     qDebug() << "Debugging number of ranged" << this->numRanged;
@@ -80,6 +77,7 @@ MapViewPage::MapViewPage(const QString& mapImgPath,
 	connect(mainCharacter, &Character::deadSignal, this, [&]() {
 		characterController->unControl();
 		cameraController->unsubscribe();
+        ui->generateEnemyButton->setDisabled(true);
 	});
 }
 
