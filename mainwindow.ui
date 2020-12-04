@@ -17,8 +17,8 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>200</y>
+      <x>180</x>
+      <y>180</y>
       <width>173</width>
       <height>80</height>
      </rect>
@@ -45,19 +45,6 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>200</y>
-      <width>191</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Network Game</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_Map1">
     <property name="geometry">
      <rect>
@@ -74,7 +61,7 @@
    <widget class="QPushButton" name="pushButton_Map2">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>220</x>
       <y>130</y>
       <width>93</width>
       <height>28</height>
@@ -100,10 +87,10 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>20</y>
-      <width>161</width>
-      <height>101</height>
+      <x>199</x>
+      <y>40</y>
+      <width>131</width>
+      <height>80</height>
      </rect>
     </property>
     <property name="text">
@@ -126,8 +113,8 @@
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>219</x>
-      <y>220</y>
+      <x>220</x>
+      <y>270</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -139,10 +126,10 @@
    <widget class="QLabel" name="selectedMap">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>220</x>
       <y>0</y>
       <width>171</width>
-      <height>16</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -156,7 +143,7 @@
      <x>0</x>
      <y>0</y>
      <width>583</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
