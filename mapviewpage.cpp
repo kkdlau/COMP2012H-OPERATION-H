@@ -52,11 +52,11 @@ MapViewPage::MapViewPage(QWidget* parent)
 }
 
 void MapViewPage::keyPressEvent(QKeyEvent* e) {
-	controller.setState(e->key(), true);
+    controller.setState(e->key(), Character::Controller::PRESSED);
 }
 
 void MapViewPage::keyReleaseEvent(QKeyEvent* e) {
-	controller.setState(e->key(), false);
+    controller.setState(e->key(), Character::Controller::RELEASED);
 }
 
 CharacterManager* MapViewPage::get_character_manager() {

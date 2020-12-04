@@ -14,7 +14,7 @@
         <file>assets/footsteps.wav</file>
         <file>assets/gunshot.wav</file>
         <file>assets/sword.wav</file>
-        <file>assets/footsteps_new.wav</file>
+        <file alias="footsteps_new.mav">assets/footsteps_new.wav</file>
         <file>assets/map1.txt</file>
         <file>assets/game_logo.png</file>
     </qresource>

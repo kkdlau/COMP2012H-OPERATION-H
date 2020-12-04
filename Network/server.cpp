@@ -100,7 +100,6 @@ void Server::compose_game_stats() {
     game_stats << tr("START");
     for (int i = 0; i < list_of_characters.size(); i++) {
         game_stats << tr(QString(QString("Character")+ i).toStdString().c_str())
-                   << tr(list_of_characters.at(i)->get_name().toStdString().c_str())
                    << tr(QString::number(list_of_characters.at(i)->getPositionX()).toStdString().c_str())
                    << tr(QString::number(list_of_characters.at(i)->getPositionY()).toStdString().c_str())
                    << tr(QString::number(list_of_characters.at(i)->rotation()).toStdString().c_str())

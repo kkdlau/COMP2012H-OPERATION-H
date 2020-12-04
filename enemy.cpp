@@ -60,7 +60,7 @@ void Enemy::attack()
     QLineF distance(getGridPos(), target->getGridPos());
     if(currentWeapon != nullptr && distance.length() < 16)
     {
-        shoot();
+        Character::attack();
     }
 }
 
