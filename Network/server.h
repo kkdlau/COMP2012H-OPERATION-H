@@ -68,12 +68,12 @@ private:
     QTcpServer *tcpServer = nullptr;
 
     /**
-     * @brief A vector of q string that is basically storing all the game stats that is going to be sent to the client side
+     * @brief A vector of q string that stores  game stats to be sent to the client side
      */
     QVector<QString> game_stats;
 
     /**
-     * @brief The main game page that is for showing the current screen for the game
+     * @brief game_page shows the current screen for the game
      */
     MapViewPage* game_page;
 };

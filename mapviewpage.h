@@ -56,6 +56,9 @@ private:
      */
     void putWeapon(Weapon* weapon, int x, int y);
 
+    /**
+     * @brief generateEnemy generate the enemy which chases the character
+     */
     Enemy* generateEnemy() const;
 
     QPoint generateRandomMapPos() const;

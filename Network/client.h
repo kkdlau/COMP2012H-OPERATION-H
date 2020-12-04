@@ -33,7 +33,7 @@ private slots:
 
     /**
      * @brief Displaying error to the user to see what is the error and hope they will try fixing it
-     * @param socketError is basically the error the socket receive which can be classified into different types
+     * @param socketError error received by the socket which can be classified into different types
      */
     void displayError(QAbstractSocket::SocketError socketError);
     void enable_connect_button();
