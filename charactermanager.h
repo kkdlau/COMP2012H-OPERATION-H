@@ -19,10 +19,12 @@ public:
 
 
     /**
-      *Destructor for chracter_manager(), deleting
+      *Destructor for chracter_manager(), deletingR
       * any *character in the database
       */
     ~CharacterManager();
+    CharacterManager(const CharacterManager &characterManager) = delete;
+    CharacterManager operator=(const CharacterManager& characterManager) = delete;
     /**
      * @brief get specified character in database, return null if character doesnt exist;
      * @param character_name
@@ -84,7 +86,8 @@ public:
      * @brief dispose_from_map remove a character from the map (not deleting the Character*)
      */
     void dispose_from_map(Character*);
-    void temp_function();
+
+    void show_end_game();
     /**
      * @brief set_map set the Map* for the character manager
      * @param map

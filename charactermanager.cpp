@@ -103,7 +103,7 @@ Enemy* CharacterManager::generate_random_enemy()
     }
 }
 
-void CharacterManager::temp_function()
+void CharacterManager::show_end_game()
 {
     QMessageBox::information(nullptr, "Information", "Game Ends");
 }
@@ -127,7 +127,7 @@ void CharacterManager::dispose_from_map(Character *charData)
         }
         if(!isThereCharacter)
         {
-            temp_function();
+            show_end_game();
             //TODO: Insert endgame
 
         }

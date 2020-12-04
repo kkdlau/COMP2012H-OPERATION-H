@@ -21,6 +21,8 @@ public:
      * @param target
      */
     Enemy(Map* map, int moveSpeed = 100, Character *target = nullptr);
+    Enemy(const Enemy &enemy) = delete;
+    Enemy operator=(const Enemy& enemy) = delete;
     /**
      * @brief setDestination set the Enemy target to attack
      */

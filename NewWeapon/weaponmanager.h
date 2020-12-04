@@ -9,6 +9,8 @@ class WeaponManager : public QObject
     Q_OBJECT
 public:
     ~WeaponManager();
+    WeaponManager(const MeleeWeapon &weaponManager) = delete;
+    WeaponManager operator=(const WeaponManager& weaponManager) = delete;
     /**
      * @brief AddWeapon add Weapon* to the weaponDatabase
      */
