@@ -161,6 +161,8 @@ private:
     void moveXNegative(int dx);
 
     QMediaPlayer footstep_sound;
+    QMediaPlayer sword_sound;
+    QMediaPlayer gunshot_sound;
 
 signals:
     /**

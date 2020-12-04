@@ -22,6 +22,10 @@ Character::Character(charType charType, int stepValue, Map* map): typeOfCharacte
     if (typeOfCharacter == PLAYER) {
         footstep_sound.setMedia(QUrl("qrc:/footsteps_new.wav"));
         footstep_sound.setVolume(30);
+        sword_sound.setMedia(QUrl("qrc:/sword.wav"));
+        sword_sound.setVolume(30);
+        gunshot_sound.setMedia(QUrl("qrc:/gunshot.wav"));
+        gunshot_sound.setVolume(30);
     }
 }
 
