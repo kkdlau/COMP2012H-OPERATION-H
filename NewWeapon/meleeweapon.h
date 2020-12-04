@@ -19,6 +19,8 @@ public:
      * @brief Attack implementation for MeleeWeapon
      * @param angle - not used
      */
+    MeleeWeapon(const MeleeWeapon &meleeWeapon) = delete;
+    MeleeWeapon operator=(const MeleeWeapon& meleeWeapon) = delete;
     void virtual Attack(int angle) override;
 //    void Charge();
 //    void Skill();
