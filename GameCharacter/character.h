@@ -32,30 +32,62 @@ public:
      * Example: LEFT + UP = LEFT | UP
      */
     enum MOVE_DIRECTION { LEFT = 0x0001, RIGHT = 0x0002, UP = 0x0020, DOWN = 0x0040 };
-
+    /**
+     * @brief Character constructor
+     * @param charType defines the kind of Character
+     * @param stepValue Defines the height of the bounding area it can access
+     * @param map Map data
+     */
     Character(charType charType = charType::PLAYER, int stepValue = 5, Map* map = nullptr);
-    Character(QString, int, int stepValue = 5, Map* map = nullptr);
-    Character(const QStringList, int stepValue = 5, Map* map = nullptr);
     ~Character();
 
     static const int WIDTH;
     static const int HEIGHT;
-
+    /**
+     * @brief get_health Returns the health value
+     * @return int
+     */
     int get_health() const;
+    /**
+     * @brief is_alive Returns if enemy is still alive
+     * @return bool state
+     */
     bool is_alive() const;
+    /**
+     * @brief set_health Set the health of the Character
+     * @param health The amount of health
+     */
     void set_health(int health);
+    /**
+     * @brief attack The attack action of the Character
+     */
     void attack();
-
+    /**
+     * @brief getGridPos Get the Grid position of the Character
+     * @return QPoint
+     */
     QPoint getGridPos() const;
 
     /*for animation - start*/
-
+    /**
+     * @brief getPositionX Get the X position of the Character
+     * @return int
+     */
     qreal getPositionX() const;
-
+    /**
+     * @brief getPositionY Get the X position of the Character
+     * @return int
+     */
     qreal getPositionY() const;
-
+    /**
+     * @brief setPositionX Set the X position of the Character
+     * @param p The x value
+     */
     void setPositionX(qreal p);
-
+    /**
+     * @brief setPositionX Set the X position of the Character
+     * @param p The y value
+     */
     void setPositionY(qreal p);
 
     /*for animation - end*/
@@ -66,9 +98,17 @@ public:
      * @param v movement vector
      */
     void setMovementVector(QVector2D v);
-
+    /**
+     * @brief getMovementvector Return the direction vector
+     * @param direction The binary value of the direction
+     * @return QVector2D
+     */
     QVector2D getMovementvector(unsigned direction);
-
+    /**
+     * @brief moveBy Move the Character by the parameter X and Y
+     * @param x
+     * @param y
+     */
     void moveBy(qreal x, qreal y);
 
     /**
@@ -95,27 +135,54 @@ public:
      */
     void setGridPos(QPoint p);
 
-    Character operator=(const Character& input);
-
+    Character operator=(const Character& input) = delete;
+    /**
+     * @brief pickWeapon Pick up the weapon on the Grid. Ignore if there is no Weapon on the grid
+     */
     void pickWeapon();
+    /**
+     * @brief equipWeapon Equip the weapon to the Character
+     * @param weapon the target Weapon
+     */
     void equipWeapon(Weapon* weapon);
+    /**
+     * @brief dequipWeapon Unequip the weapon to the Character
+     */
     void dequipWeapon();
-
-
+    /**
+     * @brief DealDamage Reduces the health of the Character
+     * @param damage The amount of health reduced
+     */
     void DealDamage(int damage);
+    /**
+     * @brief Harmed Action after the Character is damaged
+     */
     void virtual Harmed();
-
+    /**
+     * @brief getCharacterType Return the Character type
+     * @return charType enum
+     */
     charType getCharacterType();
 
     Weapon* currentWeapon = nullptr;
     int characterHealth = 10;
     int maxHealth = 10;
     void setRotation(qreal degree);
-
+    /**
+     * @brief isPerfectCenterize Check if Character is on the center of the Grid
+     * @return bool
+     */
     bool isPerfectCenterize() const;
-
+    /**
+     * @brief setMoveSpd Set Character moving speed. It affects the getMovementvector also.
+     * @param spd Speed to set.
+     */
     void setMoveSpd(int spd);
 
+    /**
+     * @brief getSpd Get Character speed.
+     * @return Speed
+     */
     int getSpd() const;
 protected:
     Map* presetMap;
@@ -188,11 +255,16 @@ signals:
      */
     void equipWeaponSignal(Weapon*);
     /**
-     * @brief dequipWeaponSignal
+     * @brief dequipWeaponSignal Signals when Character unequipped a Weapon
      */
     void dequipWeaponSignal(Weapon*);
+    /**
+     * @brief attackWeaponSignal Singals when Character is attacking
+     */
     void attackWeaponSignal(QString);
-
+    /**
+     * @brief deadSignal Signals when Character dies
+     */
     void deadSignal(Character*);
 
 
