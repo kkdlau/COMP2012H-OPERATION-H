@@ -52,3 +52,9 @@ void MainWindow::on_pushButton_4_clicked() {
 	network_page.setModal(true);
 	network_page.exec();
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    delete this;
+    exit(0);
+}
