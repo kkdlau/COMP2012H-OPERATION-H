@@ -20,8 +20,6 @@ SOURCES += \
     GameScene/overlay.cpp \
     GameScene/camera.cpp \
     GameScene/gridinfo.cpp \
-    Network/client.cpp \
-    Network/server.cpp \
     NewWeapon/meleeweapon.cpp \
     NewWeapon/rangedweapon.cpp \
     NewWeapon/weapon.cpp \
@@ -34,7 +32,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
-    networkpage.cpp \
     optionpage.cpp
 
 HEADERS += \
@@ -44,8 +41,6 @@ HEADERS += \
     GameScene/overlay.h \
     GameScene/camera.h \
     GameScene/gridinfo.h \
-    Network/client.h \
-    Network/server.h \
     NewWeapon/bullet.h \
     NewWeapon/meleeweapon.h \
     NewWeapon/rangedweapon.h \
@@ -58,13 +53,11 @@ HEADERS += \
     GameScene/map.h \
     mainwindow.h \
     mapviewpage.h \
-    networkpage.h \
     optionpage.h
 
 FORMS += \
     mainwindow.ui \
     mapviewpage.ui \
-    networkpage.ui \
     optionpage.ui
 
 # Default rules for deployment.
