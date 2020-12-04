@@ -9,8 +9,8 @@
         <file alias="test_gun.png">assets/test_gun.png</file>
         <file alias="bullet">assets/bullet.png</file>
         <file alias="knife">assets/output-onlinepngtools.png</file>
-        <file alias="map_2.png">assets/map_2.png</file>
-        <file alias="map_2.txt">assets/map_2.txt</file>
+        <file alias="map2.png">assets/map2.png</file>
+        <file alias="map2.txt">assets/map2.txt</file>
         <file alias="gunshot.wav">assets/gunshot.wav</file>
         <file alias="sword.wav">assets/sword.wav</file>
         <file alias="footsteps_new.mav">assets/footsteps_new.wav</file>

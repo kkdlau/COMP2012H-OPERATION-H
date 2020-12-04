@@ -14,25 +14,25 @@ Server::Server(QWidget *parent)
 
     initServer();
 
-    auto quitButton = new QPushButton(tr("Quit"));
+    QPushButton* quitButton = new QPushButton(tr("Quit"));
     quitButton->setAutoDefault(false);
 
     connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::exec_game_page);
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::send_connected_signal);
 
-    auto buttonLayout = new QHBoxLayout;
+    QHBoxLayout* buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch(1);
     buttonLayout->addWidget(quitButton);
     buttonLayout->addStretch(1);
 
     QVBoxLayout *mainLayout = nullptr;
     if (QGuiApplication::styleHints()->showIsFullScreen() || QGuiApplication::styleHints()->showIsMaximized()) {
-        auto outerVerticalLayout = new QVBoxLayout(this);
+        QVBoxLayout* outerVerticalLayout = new QVBoxLayout(this);
         outerVerticalLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Ignored, QSizePolicy::MinimumExpanding));
-        auto outerHorizontalLayout = new QHBoxLayout;
+        QHBoxLayout* outerHorizontalLayout = new QHBoxLayout;
         outerHorizontalLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::Ignored));
-        auto groupBox = new QGroupBox(QGuiApplication::applicationDisplayName());
+        QGroupBox* groupBox = new QGroupBox(QGuiApplication::applicationDisplayName());
         mainLayout = new QVBoxLayout(groupBox);
         outerHorizontalLayout->addWidget(groupBox);
         outerHorizontalLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::Ignored));
