@@ -4,6 +4,7 @@
 #include "mapviewpage.h"
 #include "networkpage.h"
 #include "ui_mainwindow.h"
+#include "optionpage.h"
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -40,10 +41,13 @@ void MainWindow::on_pushButton_Map3_clicked() {
 }
 
 void MainWindow::on_pushButton_GameStart_clicked() {
-	map_view_page = new MapViewPage(selectedMapPath, selectedConfigPath);
-	map_view_page->setMapPath(selectedMapPath);
+    map_view_page = new MapViewPage(selectedMapPath, selectedConfigPath, numMelee, numRanged, bulletSpeed);
+    map_view_page->setMapPath(selectedMapPath);
 	map_view_page->setModal(true);
 	qDebug() << "Current Map Path: " << selectedMapPath;
+    qDebug() << "Current Number of Melee" << numMelee;
+    qDebug() << "Current Number of Ranged" << numRanged;
+    qDebug() << "Current Bullet Speed" << bulletSpeed;
 	map_view_page->exec();
 }
 
@@ -57,4 +61,12 @@ void MainWindow::on_pushButton_4_clicked() {
 void MainWindow::on_pushButton_clicked()
 {
     QCoreApplication::quit();
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    OptionPage option_page;
+    option_page.setModal(true);
+    option_page.passFromMain(&numMelee, &numRanged, &bulletSpeed);
+    option_page.exec();
 }

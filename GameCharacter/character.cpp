@@ -368,6 +368,10 @@ void Character::pickWeapon() {
 }
 
 void Character::equipWeapon(Weapon* weapon) {
+    if(currentWeapon!= nullptr)
+    {
+        dequipWeapon();
+    }
     currentWeapon = weapon;
     addToGroup(weapon);
     weapon->SetOwner(this);
@@ -375,6 +379,7 @@ void Character::equipWeapon(Weapon* weapon) {
     weapon->resetTransform();
     weapon->setPos(0,0);
     weapon->OffsetWeaponPickUp();
+//    weapon->setRotation(rotation());
     qDebug()<<"rotation weapon:"<<weapon->rotation();
     emit equipWeaponSignal(currentWeapon);
 }

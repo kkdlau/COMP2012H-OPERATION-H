@@ -18,7 +18,7 @@ public:
      * @param y set the Y position in the map
      * @param owner sets the pointer of the RangedWeapon owner to prevent self collsiion
      */
-    Bullet(int damage, int angle, int x, int y, QGraphicsItem* owner);
+    Bullet(int damage, int angle, QGraphicsItem* owner);
     Bullet(const Bullet &bullet) = delete;
     Bullet operator=(const Bullet& bullet) = delete;
     ~Bullet();
@@ -42,7 +42,7 @@ private:
     /**
      * @brief bulletSpeed set how fast the bullet being shot
      */
-    const int bulletSpeed = 30;
+    const int bulletSpeed = 8;
     /**
      * @brief lifeSpan set the bullet lifespan before destroying itself
      */

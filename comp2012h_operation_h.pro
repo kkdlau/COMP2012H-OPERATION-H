@@ -34,7 +34,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mapviewpage.cpp \
-    networkpage.cpp
+    networkpage.cpp \
+    optionpage.cpp
 
 HEADERS += \
     GameCharacter/character.h \
@@ -57,12 +58,14 @@ HEADERS += \
     GameScene/map.h \
     mainwindow.h \
     mapviewpage.h \
-    networkpage.h
+    networkpage.h \
+    optionpage.h
 
 FORMS += \
     mainwindow.ui \
     mapviewpage.ui \
-    networkpage.ui
+    networkpage.ui \
+    optionpage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

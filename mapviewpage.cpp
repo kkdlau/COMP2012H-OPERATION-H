@@ -16,9 +16,12 @@
 using namespace std;
 
 MapViewPage::MapViewPage(const QString& mapImgPath,
-						 const QString& mapConfigPath, QWidget* parent)
+                         const QString& mapConfigPath, int numMelee, int numRanged, int bulletSpeed, QWidget* parent)
 	: QDialog(parent), ui(new Ui::MapViewPage) {
-	setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowTitleHint);
+    this->numMelee = numMelee;
+    this->numRanged = numRanged;
+    this->bulletSpeed = bulletSpeed;
+    setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowTitleHint);
 
 	ui->setupUi(this);
 	ui->gameCanvas->createMap(mapImgPath, mapConfigPath);
@@ -37,7 +40,23 @@ MapViewPage::MapViewPage(const QString& mapImgPath,
 	Enemy* test = generateEnemy();
 	test->setGridPos(generateRandomMapPos());
 
-	putWeapon(weaponManager->GenerateRandomWeapon(), 8, 2);
+    qDebug() << "Random Debuggin sentence";
+    qDebug() << "Debuggin number of melee" << this->numMelee;
+    qDebug() << "Debugging number of ranged" << this->numRanged;
+    QPoint random_pos;
+    // Putting melee weapons on the map : )
+    for (int i =0; i < numMelee; i++) {
+        random_pos = generateRandomMapPos();
+        putWeapon(weaponManager->GenerateRandomWeapon(QString("Melee")), random_pos.y(), random_pos.x());
+    }
+
+    // Putting ranged weapons on the map : )
+    for (int i =0; i < numRanged; i++) {
+        random_pos = generateRandomMapPos();
+        putWeapon(weaponManager->GenerateRandomWeapon(QString("Ranged")), random_pos.y(), random_pos.x());
+    }
+
+    // TODO: Set the bullet speed :(
 
 	cameraController->subscribe(mainCharacter, &Character::isMoving);
 
@@ -96,7 +115,7 @@ void MapViewPage::initializeManager() {
 
 Enemy* MapViewPage::generateEnemy() const {
 	Enemy* new_enemy = characterManager->generate_random_enemy();
-	new_enemy->equipWeapon(weaponManager->GenerateRandomWeapon());
+    new_enemy->equipWeapon(weaponManager->GenerateRandomWeapon(QString("Ranged")));
 
 	return new_enemy;
 }
@@ -130,3 +149,4 @@ QPoint MapViewPage::generateRandomMapPos() const {
 }
 
 void MapViewPage::on_closeButton_clicked() { delete this; }
+
