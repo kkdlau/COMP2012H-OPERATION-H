@@ -43,6 +43,8 @@ void Character::Controller::control(Character *c) {
 void Character::Controller::updateKeyPressControl() {
     if (toControl == nullptr) return;
 
+    if (!toControl->is_alive()) return;
+
     if (keyState['k']) {
         toControl->pickWeapon();
     }
@@ -54,6 +56,7 @@ void Character::Controller::updateKeyPressControl() {
 
 void Character::Controller::updateKeyHoldingControl() {
     if (toControl == nullptr) return;
+    if (!toControl->is_alive()) return;
     unsigned controlVector = 0;
     QVector<char>::const_iterator ptr;
     for (ptr = listenKeyList.begin(); ptr < listenKeyList.end(); ++ptr) {

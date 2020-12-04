@@ -85,6 +85,11 @@ public:
     void moveTo(QPoint p);
 
     /**
+     * @brief stop Stop the character.
+     */
+    void stop();
+
+    /**
      * @brief setGridPos Set Character position
      * @param p Position in GRID positioning system
      */
