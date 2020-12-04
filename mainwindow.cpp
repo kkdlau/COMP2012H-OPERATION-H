@@ -21,7 +21,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_Map1_clicked()
 {
     qDebug() << "Map1 Pressed";
-    selectedMapPath = ":test_map.png";
+    selectedMapPath = ":map1.png";
 }
 
 void MainWindow::on_pushButton_Map2_clicked()
@@ -33,7 +33,7 @@ void MainWindow::on_pushButton_Map2_clicked()
 void MainWindow::on_pushButton_Map3_clicked()
 {
     qDebug() << "Map3 Pressed";
-    selectedMapPath = ":map3.jpeg";
+    selectedMapPath = ":map3.png";
 }
 
 

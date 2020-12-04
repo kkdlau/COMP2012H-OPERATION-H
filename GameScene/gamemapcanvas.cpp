@@ -8,7 +8,7 @@ GameMapCanvas::GameMapCanvas(QWidget* w) : QGraphicsView(w) {
     setAlignment(Qt::AlignTop | Qt::AlignLeft);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    scene = new Overlay{":map_2.png", ":map_2.txt"};
+    scene = new Overlay{":map2.png", ":map2.txt"};
     setScene(scene);
     setSceneRect(QRectF(0, 0, Map::GRID_SIZE_W * 10, Map::GRID_SIZE_H * 10));
 }

@@ -23,15 +23,6 @@ CharacterManager *CharacterManager::getInstance()
     }
     return instance;
 }
-//Character* character_manager::get_character(QString character_name) const
-//{
-//    return database.contains(character_name)? database[character_name] : nullptr;
-//}
-
-//Character* character_manager::operator[](QString character_name) const
-//{
-//    return get_character(character_name);
-//}
 
 const QList<Character*> CharacterManager::get_all_characters() const
 {
