@@ -35,7 +35,7 @@ private:
 
     void comboHandler(const QString&);
 
-    //STeven SHIT
+    //STeven
     void initializeManager();
     CharacterManager* characterManager;
     WeaponManager* weaponManager;

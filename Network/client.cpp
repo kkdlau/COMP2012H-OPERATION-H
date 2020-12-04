@@ -11,9 +11,11 @@ Client::Client(QWidget *parent)
     , tcp_socket(new QTcpSocket(this))
     , game_page(new MapViewPage())
 {
+    // Some setup for the UI
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     hostCombo->setEditable(true);
-    // find out name of this machine
+
+    // Find out name of this machine
     QString name = QHostInfo::localHostName();
     if (!name.isEmpty()) {
         hostCombo->addItem(name);
@@ -23,40 +25,51 @@ Client::Client(QWidget *parent)
     }
     if (name != QLatin1String("localhost"))
         hostCombo->addItem(QString("localhost"));
-    // find out IP addresses of this machine
+
+    // Find out IP addresses of this machine
     QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
-    // add non-localhost addresses
+
+    // Add non-localhost addresses
     for (int i = 0; i < ipAddressesList.size(); ++i) {
         if (!ipAddressesList.at(i).isLoopback())
             hostCombo->addItem(ipAddressesList.at(i).toString());
     }
-    // add localhost addresses
+
+    // Add localhost addresses
     for (int i = 0; i < ipAddressesList.size(); ++i) {
         if (ipAddressesList.at(i).isLoopback())
             hostCombo->addItem(ipAddressesList.at(i).toString());
     }
 
+    // Validation for the port
     portLineEdit->setValidator(new QIntValidator(1, 65535, this));
 
+    // Adding labels
     auto hostLabel = new QLabel(tr("&Server name:"));
     hostLabel->setBuddy(hostCombo);
     auto portLabel = new QLabel(tr("S&erver port:"));
     portLabel->setBuddy(portLineEdit);
 
+    // For fun and for debugging what you received
     statusLabel = new QLabel(tr("Why would you read this"));
 
+    // Making the connect button usable
     connect_button->setDefault(true);
     connect_button->setEnabled(false);
 
+    // Dynamically instantiating a quit button
     auto quitButton = new QPushButton(tr("Quit"));
 
+    // Making even more buttons for the users to use
     auto buttonBox = new QDialogButtonBox;
     buttonBox->addButton(connect_button, QDialogButtonBox::ActionRole);
     buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
 
+    // Connecting the input datastream with the tcp socket
     in.setDevice(tcp_socket);
     in.setVersion(QDataStream::Qt_4_0);
 
+    // Just a bunch of connects so that the buttons can work and the client can read from the server's message
     connect(hostCombo, &QComboBox::editTextChanged,
             this, &Client::enable_connect_button);
     connect(portLineEdit, &QLineEdit::textChanged,
@@ -68,6 +81,7 @@ Client::Client(QWidget *parent)
     connect(tcp_socket, &QAbstractSocket::errorOccurred,
             this, &Client::displayError);
 
+    // The actual layout (I copied from the Internet so that I don't have to design it myself cuz I am bad at doing it)
     QGridLayout *mainLayout = nullptr;
     if (QGuiApplication::styleHints()->showIsFullScreen() || QGuiApplication::styleHints()->showIsMaximized()) {
         auto outerVerticalLayout = new QVBoxLayout(this);
@@ -83,6 +97,7 @@ Client::Client(QWidget *parent)
     } else {
         mainLayout = new QGridLayout(this);
     }
+    // Adding Widget to the layout so that they can be properly formatted
     mainLayout->addWidget(hostLabel, 0, 0);
     mainLayout->addWidget(hostCombo, 0, 1);
     mainLayout->addWidget(portLabel, 1, 0);
@@ -111,7 +126,6 @@ void Client::read_game_stat()
 
     if (!in.commitTransaction())
         return;
-
 
     statusLabel->setText(current_stat);
     connect_button->setEnabled(true);
@@ -150,6 +164,5 @@ void Client::set_game_page(MapViewPage* input_page) {
 
 void Client::enable_connect_button()
 {
-    connect_button->setEnabled(!hostCombo->currentText().isEmpty() &&
-                                 !portLineEdit->text().isEmpty());
+    connect_button->setEnabled(!hostCombo->currentText().isEmpty() && !portLineEdit->text().isEmpty());
 }

@@ -20,6 +20,10 @@ class Client : public QDialog
 
 public:
     explicit Client(QWidget *parent = nullptr);
+    /**
+     * @brief Getting the mapviewpage from network page so that only one instance of mapviewpage is instantiated
+     * @param input_page
+     */
     void set_game_page(MapViewPage*);
 
 
@@ -42,7 +46,6 @@ private:
 
     QTcpSocket *tcp_socket = nullptr;
     QDataStream in;
-    QString currentFortune;
     MapViewPage* game_page;
 };
 
