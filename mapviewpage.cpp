@@ -1,5 +1,5 @@
 #include "mapviewpage.h"
-
+#include <QRandomGenerator>
 #include <QDebug>
 #include <QGraphicsItemAnimation>
 #include <QPoint>
@@ -23,17 +23,23 @@ MapViewPage::MapViewPage(QWidget* parent)
 	initializeManager();
 	characterManager->set_map(ui->gameCanvas->scene->mapLayer());
     Character* mainCharacter = ui->gameCanvas->character = characterManager->generate_random_character();
+    mainCharacter->setGridPos(generateRandomMapPos());
 
     initializeItemFrame(mainCharacter);
 
-    Enemy* test = characterManager->generate_random_enemy();
-    test->equipWeapon(weaponManager->GenerateRandomWeapon());
-    ui->gameCanvas->scene->mapLayer()->addToGroup(test);
+    Enemy* test = generateEnemy();
+    test->setGridPos(generateRandomMapPos());
+
 	ui->gameCanvas->scene->mapLayer()->addToGroup(ui->gameCanvas->character);
 
     putWeapon(weaponManager->GenerateRandomWeapon(), 8, 2);
 
+    cameraController->subscribe(mainCharacter, &Character::isMoving);
+
+    cameraController->updateFocus(mainCharacter->pos());
+
     characterController->control(ui->gameCanvas->character);
+
 	timer.setInterval(50);
 	timer.start();
 	connect(&timer, &QTimer::timeout, this,
@@ -43,6 +49,7 @@ MapViewPage::MapViewPage(QWidget* parent)
 
     connect(ui->gameCanvas->character, &Character::deadSignal, this, [&]() {
         characterController->unControl();
+        cameraController->unsubscribe();
     });
 
 }
@@ -57,7 +64,7 @@ void MapViewPage::initializeItemFrame(Character* c) {
     const QPoint BOTTOM_RIGHT_CORNER{250, 250};
 
     ItemFrame* itemFrame = ui->gameCanvas->scene->getItemFrame();
-    itemFrame->characterSingalSetup(ui->gameCanvas->character);
+    itemFrame->characterSingalSetup(c);
     itemFrame->setPos(BOTTOM_RIGHT_CORNER);
 }
 
@@ -86,11 +93,34 @@ void MapViewPage::initializeManager() {
 	characterManager = CharacterManager::getInstance();
 }
 
-void MapViewPage::on_generateEnemyButton_clicked()
-{
+Enemy* MapViewPage::generateEnemy() const {
     Enemy* new_enemy = characterManager->generate_random_enemy();
+    new_enemy->equipWeapon(weaponManager->GenerateRandomWeapon());
+
+    return new_enemy;
 }
 
+void MapViewPage::on_generateEnemyButton_clicked()
+{
+    Enemy* enemy = generateEnemy();
+
+    ui->gameCanvas->scene->mapLayer()->addToGroup(enemy);
+}
+
+QPoint MapViewPage::generateRandomMapPos() const {
+    const unsigned width = unsigned(ui->gameCanvas->scene->mapLayer()->getWidth(Map::UNIT::GRID));
+    const unsigned height = unsigned(ui->gameCanvas->scene->mapLayer()->getHeight(Map::UNIT::GRID));
+    unsigned int x = QRandomGenerator::global()->bounded(0u, width);
+    unsigned int y = QRandomGenerator::global()->bounded(0u, height);
+
+    const Map& map = *(ui->gameCanvas->scene->mapLayer());
+    while (map[y][x].getHeight() != 0) {
+        x = QRandomGenerator::global()->bounded(0u, width);
+        y = QRandomGenerator::global()->bounded(0u, height);
+    }
+
+    return QPoint{int(x), int(y)};
+}
 void MapViewPage::on_closeButton_clicked()
 {
     delete this;

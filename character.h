@@ -84,6 +84,12 @@ public:
      */
     void moveTo(QPoint p);
 
+    /**
+     * @brief setGridPos Set Character position
+     * @param p Position in GRID positioning system
+     */
+    void setGridPos(QPoint p);
+
     Character operator=(const Character& input);
 
     //SAMPLE WEAPON TEST STEVEN
