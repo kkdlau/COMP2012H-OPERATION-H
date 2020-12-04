@@ -8,7 +8,7 @@ Enemy::Enemy(Map* map, int moveSpeed, Character *target) : Character(charType::E
 {
     connect(&timer, &QTimer::timeout, this, &Enemy::action);
     setMoveSpd(5);
-    timer.start(50);
+    timer.start(300);
 }
 
 void Enemy::setDestination(Character* target)
@@ -18,6 +18,7 @@ void Enemy::setDestination(Character* target)
 
 void Enemy::action()
 {
+    if (!is_alive()) return;
     if(target != nullptr && target->is_alive())
     {
         setRotation(calculateRotation());

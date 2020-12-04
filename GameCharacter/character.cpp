@@ -71,7 +71,7 @@ void Character::moveYPositive(int dy) {
     int shiftIndex = shift ==  16? 0 : shift > 16? 1 : -1;
 
 //    qDebug() << "shiftIndex: " << shiftIndex;
-
+if (presetMap->isOutOfMap(getGridPos())) return;
     const GridInfo& grid = (*presetMap)[getGridPos()];
 
     const GridInfo& lowerGrid = (*presetMap)[p + QPoint{0, 1}];
@@ -112,7 +112,7 @@ void Character::moveYNegative(int dy) {
     int shiftIndex = shift ==  16? 0 : shift > 16? 1 : -1;
 
 //    qDebug() << "shiftIndex: " << shiftIndex;
-
+if (presetMap->isOutOfMap(getGridPos())) return;
     const GridInfo& grid = (*presetMap)[getGridPos()];
 
     const GridInfo& lowerGrid = (*presetMap)[p + QPoint{0, -1}];
@@ -152,6 +152,7 @@ void Character::moveXPositive(int dx) {
 
 //    qDebug() << "shiftIndex: " << shiftIndex;
 
+    if (presetMap->isOutOfMap(getGridPos())) return;
     const GridInfo& grid = (*presetMap)[getGridPos()];
 
     const GridInfo& lowerGrid = (*presetMap)[p + QPoint{1, 0}];
@@ -190,7 +191,7 @@ void Character::moveXNegative(int dx) {
     int shiftIndex = shift ==  16? 0 : shift > 16? 1 : -1;
 
 //    qDebug() << "shiftIndex: " << shiftIndex;
-
+if (presetMap->isOutOfMap(getGridPos())) return;
     const GridInfo& grid = (*presetMap)[getGridPos()];
 
     const GridInfo& lowerGrid = (*presetMap)[p + QPoint{-1, 0}];
@@ -210,6 +211,7 @@ void Character::moveXNegative(int dx) {
 }
 
 void Character::moveBy(qreal x, qreal y) {
+    if (!is_alive()) return;
     if (x) {
         if (animationX) animationX->stop();
         delete animationX;
@@ -301,7 +303,12 @@ void Character::setPositionY(qreal p) {
 }
 
 void Character::moveTo(int x, int y) {
+    if (!is_alive()) return;
     QPoint tmp = QPoint{x, y};
+    if (presetMap->isOutOfMap(tmp)) {
+        stop();
+        return;
+    }
     QPoint aimPosReal = QPoint{x * 32 + 16, y * 32 + 16};
     QPoint diff = getGridPos() - tmp;
 
@@ -323,6 +330,7 @@ void Character::moveTo(int x, int y) {
 }
 
 void Character::moveTo(QPoint p) {
+    if (!is_alive()) return;
     moveTo(p.x(), p.y());
 }
 

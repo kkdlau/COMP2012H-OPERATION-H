@@ -138,18 +138,18 @@ QPoint MapViewPage::generateRandomMapPos() const {
 	const unsigned width =
 		unsigned(ui->gameCanvas->gameLayers()->mapLayer()->getWidth(
 			Map::UNIT::GRID)) -
-		1;
+        2;
 	const unsigned height =
 		unsigned(ui->gameCanvas->gameLayers()->mapLayer()->getHeight(
 			Map::UNIT::GRID)) -
-		1;
-	unsigned int x = QRandomGenerator::global()->bounded(0u, width);
-	unsigned int y = QRandomGenerator::global()->bounded(0u, height);
+        2;
+    unsigned int x = QRandomGenerator::global()->bounded(2u, width);
+    unsigned int y = QRandomGenerator::global()->bounded(2u, height);
 
 	const Map& map = *(ui->gameCanvas->gameLayers()->mapLayer());
 	while (map[y][x].getHeight() != 0) {
-		x = QRandomGenerator::global()->bounded(0u, width);
-		y = QRandomGenerator::global()->bounded(0u, height);
+        x = QRandomGenerator::global()->bounded(2u, width);
+        y = QRandomGenerator::global()->bounded(2u, height);
 	}
 
 	return QPoint{int(x), int(y)};
