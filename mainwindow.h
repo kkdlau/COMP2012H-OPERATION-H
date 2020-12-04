@@ -32,6 +32,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     MapViewPage* map_view_page;
-
+    QString selectedMapPath{":map2.png"};
 };
 #endif // MAINWINDOW_H

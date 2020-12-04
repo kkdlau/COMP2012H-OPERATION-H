@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->label->setPixmap(QPixmap(":assets/game_logo.png").scaled(ui->label->width(),ui->label->height()));
+    ui->label->setPixmap(QPixmap(":game_logo.png").scaled(ui->label->width(),ui->label->height()));
 }
 
 MainWindow::~MainWindow()
@@ -21,23 +21,28 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_Map1_clicked()
 {
     qDebug() << "Map1 Pressed";
+    selectedMapPath = ":test_map.png";
 }
 
 void MainWindow::on_pushButton_Map2_clicked()
 {
     qDebug() << "Map2 Pressed";
+    selectedMapPath = ":map_2.png";
 }
 
 void MainWindow::on_pushButton_Map3_clicked()
 {
     qDebug() << "Map3 Pressed";
+    selectedMapPath = ":map3.jpeg";
 }
 
 
 void MainWindow::on_pushButton_GameStart_clicked()
 {
     map_view_page = new MapViewPage();
+    map_view_page->setMapPath(selectedMapPath);
     map_view_page->setModal(true);
+    qDebug() << "Current Map Path: " << selectedMapPath;
     map_view_page->exec();
 }
 
