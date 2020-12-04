@@ -16,7 +16,7 @@
 using namespace std;
 
 
-MapViewPage::MapViewPage(QWidget* parent)
+MapViewPage::MapViewPage(const QString& mapImgPath, const QString& mapConfigPath, QWidget* parent)
     : QDialog(parent), ui(new Ui::MapViewPage) {
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowTitleHint);
 

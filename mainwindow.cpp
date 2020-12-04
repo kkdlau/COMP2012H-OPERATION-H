@@ -8,24 +8,17 @@
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent), ui(new Ui::MainWindow) {
-	ui->setupUi(this);
-	ui->label->setPixmap(QPixmap(":game_logo.png")
-							 .scaled(ui->label->width(), ui->label->height()));
-	selectedMapPath = ":map1.png";
-	selectedConfigPath = ":map1.txt";
-	: QMainWindow(parent)
-    , ui(new Ui::MainWindow)
 {
 		setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint |
 					   Qt::WindowTitleHint);
 		ui->setupUi(this);
 		ui->label->setPixmap(
 			QPixmap(":game_logo.png")
-				.scaled(ui->label->width(), ui->label->height()));
+                .scaled(ui->label->width(), ui->label->height()));
+        selectedMapPath = ":map1.png";
+        selectedConfigPath = ":map1.txt";
 	}
 }
-
-MainWindow::~MainWindow() { delete ui; }
 
 MainWindow::~MainWindow() { delete ui; }
 
