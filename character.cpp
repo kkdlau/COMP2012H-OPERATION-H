@@ -4,19 +4,9 @@
 #include <QVector2D>
 
 /*static Character member definition*/
+
 const int Character::WIDTH = Map::GRID_SIZE_W;
 const int Character::HEIGHT = Map::GRID_SIZE_H;
-
-Character::Character(QString name, int health, int stepValue, Map* map) : characterName(name), characterHealth(health), stepValue{stepValue}, presetMap{map}
-{
-    footstep_sound.setMedia(QUrl::fromLocalFile(":assets/footsteps_new.wav"));
-    footstep_sound.setVolume(50);
-}
-
-Character::Character(const QStringList data, int stepValue, Map* map): stepValue{stepValue}, presetMap{map}, aimPos{-1, -1}
-{
-
-}
 
 Character::Character(charType charType, int stepValue, Map* map): typeOfCharacter(charType), stepValue{stepValue}, presetMap{map}, aimPos{-1, -1} {
     head = new QGraphicsPixmapItem(QPixmap(":character_test"));
@@ -29,7 +19,7 @@ Character::Character(charType charType, int stepValue, Map* map): typeOfCharacte
     healthBar = new HealthBar(head, characterHealth, maxHealth);
     setRotation(0);
 
-    footstep_sound.setMedia(QUrl::fromLocalFile(":assets/footsteps.wav"));
+    footstep_sound.setMedia(QUrl::fromLocalFile(":assets/footsteps_new.wav"));
     footstep_sound.setVolume(50);
 }
 
