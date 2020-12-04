@@ -71,7 +71,6 @@ private:
      * @brief pathingList is the list of points an Enemy need to follow
      */
     QList<QPoint> pathingList;
-
 };
 
 #endif // ENEMY_H
