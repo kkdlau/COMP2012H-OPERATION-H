@@ -86,7 +86,7 @@ private:
     WeaponType type;
 };
 
-#include "../character.h"
+#include "GameCharacter/character.h"
 
 
 #endif // WEAPON_H

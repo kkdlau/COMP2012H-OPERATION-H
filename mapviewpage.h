@@ -9,7 +9,7 @@
 #include <QKeyEvent>
 #include <QGraphicsPixmapItem>
 #include "NewWeapon/weaponmanager.h"
-#include "charactermanager.h"
+#include "GameCharacter/charactermanager.h"
 #include <QTimer>
 #include "GameScene/camera.h"
 
@@ -59,6 +59,9 @@ private:
      */
     void putWeapon(Weapon* weapon, int x, int y);
 
+    /**
+     * @brief generateEnemy generate the enemy which chases the character
+     */
     Enemy* generateEnemy() const;
 
     QPoint generateRandomMapPos() const;

@@ -1,4 +1,4 @@
-#include "character.h"
+#include "GameCharacter/character.h"
 #include <cctype>
 const QVector<char> Character::Controller::listenKeyList = {
     'a', 's', 'd', 'w', ' ', 'k', 'm'

@@ -1,6 +1,6 @@
 #include "rangedweapon.h"
-#include "Weapons/bullet.h"
-#include "character.h"
+#include "NewWeapon/bullet.h"
+#include "GameCharacter/character.h"
 RangedWeapon::RangedWeapon(int attack, int attackSpeed, int reloadSpeed,int maxBullet, QGraphicsItem *parent): Weapon(WeaponType::RANGED, attack,parent), attackSpeed(attackSpeed), reloadSpeed(reloadSpeed), maxBullet(maxBullet), currentBullet(maxBullet)
 {
     setPixmap(QPixmap(":gun.png"));
@@ -74,7 +74,7 @@ void RangedWeapon::InitializeAttackAnimation()
 
 void RangedWeapon::OffsetWeaponPickUp()
 {
-    setOffset(20, -10);
+    setOffset(10,0);
 }
 
 void RangedWeapon::OffsetWeaponGround()

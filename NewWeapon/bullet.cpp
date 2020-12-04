@@ -17,10 +17,9 @@ Bullet::~Bullet()
 
 void Bullet::move()
 {
-    int angleSection = angle/ 90;
     float radian = qDegreesToRadians((float)angle);
-    float yOffset = angleSection % 2 == 0? bulletSpeed * qSin(radian) : bulletSpeed * qCos(radian);
-    float xOffset = angleSection % 2 == 0? bulletSpeed * qCos(radian) : bulletSpeed * qSin(radian);
+    float yOffset = bulletSpeed * qSin(radian);
+    float xOffset =  bulletSpeed * qCos(radian);
     setPos(x()+xOffset, y()+yOffset);
     QList<QGraphicsItem*> collision = collidingItems();
     for(int i = 0; i < collision.length(); i++)

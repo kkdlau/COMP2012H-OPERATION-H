@@ -10,7 +10,7 @@
 #include <iostream>
 
 #include "UI/itemframe.h"
-#include "enemy.h"
+#include "GameCharacter/enemy.h"
 #include "ui_mapviewpage.h"
 
 using namespace std;

@@ -1,6 +1,6 @@
 #include "meleeweapon.h"
 #include "qdebug.h"
-#include "character.h"
+#include "GameCharacter/character.h"
 
 MeleeWeapon::MeleeWeapon(int attack,  int attackRange, int attackSpeed, QGraphicsItem* parent,QString image) : Weapon(WeaponType::MELEE, attack, parent), attackRange(attackRange), attackSpeed(attackSpeed)
 {
