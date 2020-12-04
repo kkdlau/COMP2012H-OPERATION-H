@@ -91,6 +91,11 @@ void MapViewPage::on_generateEnemyButton_clicked()
     Enemy* new_enemy = characterManager->generate_random_enemy();
 }
 
+void MapViewPage::setMapPath(QString inputPath) {
+    mapPath = inputPath;
+}
+
+
 void MapViewPage::on_closeButton_clicked()
 {
     delete this;
