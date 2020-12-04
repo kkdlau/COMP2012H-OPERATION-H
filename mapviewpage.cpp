@@ -31,7 +31,7 @@ MapViewPage::MapViewPage(const QString& mapImgPath,
 
 	initializeManager();
 	characterManager->set_map(ui->gameCanvas->gameLayers()->mapLayer());
-	Character* mainCharacter = characterManager->generate_random_character();
+    mainCharacter = characterManager->generate_random_character();
 	ui->gameCanvas->setMainCharacter(mainCharacter);
 	mainCharacter->setGridPos(generateRandomMapPos());
 
@@ -43,16 +43,24 @@ MapViewPage::MapViewPage(const QString& mapImgPath,
     qDebug() << "Random Debuggin sentence";
     qDebug() << "Debuggin number of melee" << this->numMelee;
     qDebug() << "Debugging number of ranged" << this->numRanged;
+
+    Map& map = *(ui->gameCanvas->gameLayers()->mapLayer());
     QPoint random_pos;
     // Putting melee weapons on the map : )
     for (int i =0; i < numMelee; i++) {
         random_pos = generateRandomMapPos();
+        while(map[random_pos].isWeaponOnGround()) {
+            random_pos = generateRandomMapPos();
+        }
         putWeapon(weaponManager->GenerateRandomWeapon(QString("Melee")), random_pos.y(), random_pos.x());
     }
 
     // Putting ranged weapons on the map : )
     for (int i =0; i < numRanged; i++) {
         random_pos = generateRandomMapPos();
+        while(map[random_pos].isWeaponOnGround()) {
+            random_pos = generateRandomMapPos();
+        }
         putWeapon(weaponManager->GenerateRandomWeapon(QString("Ranged")), random_pos.y(), random_pos.x());
     }
 
@@ -121,6 +129,7 @@ Enemy* MapViewPage::generateEnemy() const {
 }
 
 void MapViewPage::on_generateEnemyButton_clicked() {
+    if (!mainCharacter->is_alive()) return;
 	Enemy* enemy = generateEnemy();
 	enemy->setGridPos(generateRandomMapPos());
 }

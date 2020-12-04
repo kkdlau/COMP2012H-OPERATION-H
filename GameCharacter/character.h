@@ -113,6 +113,10 @@ public:
     void setRotation(qreal degree);
 
     bool isPerfectCenterize() const;
+
+    void setMoveSpd(int spd);
+
+    int getSpd() const;
 protected:
     Map* presetMap;
     charType typeOfCharacter;

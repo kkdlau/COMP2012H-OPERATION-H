@@ -441,3 +441,11 @@ void Character::stop() {
     if (animationX) animationX->stop();
     if (animationY) animationY->stop();
 }
+
+void Character::setMoveSpd(int spd) {
+    this->spd = spd;
+}
+
+int Character::getSpd() const {
+    return spd;
+}

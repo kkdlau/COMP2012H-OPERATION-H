@@ -8,6 +8,7 @@ Enemy::Enemy(Map* map, int moveSpeed, Character *target) : Character(charType::E
 {
     connect(&timer, &QTimer::timeout, this, &Enemy::action);
     connect(this, &Character::blockByObstacle, this, &Enemy::unblock);
+    setMoveSpd(5);
     timer.start(50);
 }
 

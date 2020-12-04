@@ -37,6 +37,7 @@ private:
     Character::Controller controller;
     QString mapPath;
 
+    Character* mainCharacter;
     Camera* cameraController;
     Character::Controller* characterController;
 
