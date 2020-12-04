@@ -16,7 +16,7 @@
 using namespace std;
 
 
-MapViewPage::MapViewPage(QWidget* parent)
+MapViewPage::MapViewPage(const QString& mapImgPath, const QString& mapConfigPath, QWidget *parent)
     : QDialog(parent), ui(new Ui::MapViewPage) {
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowTitleHint);
 
@@ -110,12 +110,9 @@ void MapViewPage::setMapPath(QString inputPath) { mapPath = inputPath; }
 
 QPoint MapViewPage::generateRandomMapPos() const {
 	const unsigned width =
-		unsigned(ui->gameCanvas->scene->mapLayer()->getWidth(Map::UNIT::GRID)) -
-		1;
+        unsigned(ui->gameCanvas->gameLayers()->mapLayer()->getWidth(Map::UNIT::GRID)) -1;
 	const unsigned height =
-		unsigned(
-			ui->gameCanvas->scene->mapLayer()->getHeight(Map::UNIT::GRID)) -
-		1;
+        unsigned(ui->gameCanvas->gameLayers()->mapLayer()->getHeight(Map::UNIT::GRID)) - 1;
 	unsigned int x = QRandomGenerator::global()->bounded(0u, width);
 	unsigned int y = QRandomGenerator::global()->bounded(0u, height);
 

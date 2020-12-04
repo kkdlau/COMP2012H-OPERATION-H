@@ -20,8 +20,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-MainWindow::~MainWindow() { delete ui; }
-
 void MainWindow::on_pushButton_Map1_clicked() {
 	qDebug() << "Map1 Pressed";
 	selectedMapPath = ":map1.png";
