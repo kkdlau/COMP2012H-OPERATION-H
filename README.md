@@ -7,7 +7,6 @@ But I still decide to make it as public so that you can know what we did for the
 I hope you can get some insight of the project, and good luck for the project!
 
 ## Score
-
 <table border="1" cellpadding="4"><tbody><tr valign="top">
 <td>Specifications (15%)</td>
 <td>Correctness (15%)</td>
@@ -31,3 +30,5 @@ I hope you can get some insight of the project, and good luck for the project!
 </tbody></table>
 
 ~Well I think most of the people got 9x something~
+
+Update: Ah yes, the mean is 91.8
